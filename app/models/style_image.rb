@@ -1,0 +1,2 @@
+class StyleImage < ApplicationRecord
+end

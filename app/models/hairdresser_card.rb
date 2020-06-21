@@ -1,0 +1,2 @@
+class HairdresserCard < ApplicationRecord
+end

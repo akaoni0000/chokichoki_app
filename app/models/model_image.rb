@@ -1,0 +1,2 @@
+class ModelImage < ApplicationRecord
+end
