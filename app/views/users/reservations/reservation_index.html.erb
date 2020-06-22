@@ -1,0 +1,16 @@
+<h1>カレンダー</h1>
+<%= month_calendar events: @reservations do |date, reservations| %>
+    <%= date.day %>
+    <% if reservations.present? %>
+    <% else %>
+        <p>予約できません</p>
+    <% end %>
+    <% reservations.each do |reservation| %>
+        <% if reservation.user_id == nil %>
+            <div>
+                <span><%= reservation.start_time.hour %>時<%= reservation.start_time.min %>分</span>
+            </div>
+            <span><%= link_to "予約する",  ""%>
+        <% end %>
+    <% end %>
+<% end %>

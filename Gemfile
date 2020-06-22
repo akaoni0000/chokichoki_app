@@ -87,3 +87,6 @@ gem 'payjp'
 
 #エラー文日本語化
 gem 'rails-i18n' 
+
+#住所自動入力
+gem "jp_prefecture"

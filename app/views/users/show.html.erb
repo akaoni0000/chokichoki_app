@@ -1,0 +1,7 @@
+<div class="container">
+<h1>ようこそ<%= @user.name %>さん</h1>
+<% @hairdressers.each do |hairdresser| %>
+   <h2><%= hairdresser.name %></h2>
+   <%= link_to "指名する", menu_choice_path(hairdresser_id: hairdresser.id) %>
+<% end %>
+</div>

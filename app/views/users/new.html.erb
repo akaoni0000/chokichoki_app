@@ -1,0 +1,26 @@
+<div class="container">
+<h1>New User</h1>
+<%= form_with(url: users_path, method: :post, local: true) do |f|%>
+    <p>ユーザー名</p>
+    <%= f.text_field :name %>
+    <p>メールアドレス</p>
+    <%= f.email_field :email %>
+    <p>電話番号</p>
+    <%= f.text_field :phone_number %>
+    <p>パスワード</p>
+    <%= f.password_field :password %>
+    <p>パスワード確認</p>
+    <%= f.password_field :password_confirmation %>
+    <p>性別</p>
+    <span>男性</span>
+    <%= f.radio_button :sex, :男性 %>
+    <span>女性</span>
+    <%= f.radio_button :sex, :女性 %>
+    <%= f.submit "登録" %>
+<% end %>
+<% if @error_message %>
+    <div class="form-error">
+        <%= @error_message %>
+    </div>
+<% end %>
+</div>

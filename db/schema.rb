@@ -10,7 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_21_113329) do
+ActiveRecord::Schema.define(version: 2020_06_22_094540) do
+
+  create_table "admins", force: :cascade do |t|
+    t.string "email"
+    t.string "password_digest"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "comments", force: :cascade do |t|
     t.integer "user_id"
@@ -38,27 +45,37 @@ ActiveRecord::Schema.define(version: 2020_06_21_113329) do
     t.string "confirm_image_id"
     t.integer "status", default: 0
     t.string "hairdresser_image_id"
-    t.integer "point"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "password_digest"
+    t.integer "point", default: 0
+    t.integer "post_number"
   end
 
   create_table "menus", force: :cascade do |t|
     t.integer "hairdresser_id"
-    t.integer "user_id"
     t.string "name"
-    t.datetime "start_time"
     t.integer "time"
-    t.text "user_repuest"
     t.integer "sex_status", default: 0
     t.integer "status", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "explanation"
+    t.string "menu_image_id"
   end
 
   create_table "model_images", force: :cascade do |t|
     t.integer "hairdresser_id"
     t.string "model_image_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "reservations", force: :cascade do |t|
+    t.integer "menu_id"
+    t.integer "user_id"
+    t.datetime "start_time"
+    t.text "user_request"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -85,9 +102,9 @@ ActiveRecord::Schema.define(version: 2020_06_21_113329) do
     t.string "sex"
     t.string "password_digest"
     t.integer "model_status", default: 0
-    t.integer "point"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "point", default: 0
   end
 
 end

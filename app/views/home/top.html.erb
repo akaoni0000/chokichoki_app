@@ -1,0 +1,58 @@
+<div class="container">
+    <%= link_to "adminへ", admins_hairdresser_judge_index_path %>
+    <h1>ここはtopページ</h1>
+    
+    <div class="pull_down">
+        <h3 class="cursor login">ログイン</h3>
+        <div class="answer">
+            <div class="cursor user_open_modal">会員ログイン</div>
+            <div class="cursor hairdresser_open_modal">美容師ログイン</div>
+        </div>
+    </div>
+
+    <div class="pull_down">
+        <h3 class="cursor sign_up">新規会員登録</h3>
+        <div class="answer2">
+            <div><%= link_to "会員登録",  new_user_path, class: "btn btn-success" %></div>
+            <div><%= link_to "美容師登録", new_hairdresser_path, class: "btn btn-success" %></div>
+        </div>
+    </div>
+
+
+</div>
+
+<div id="user_login_modal">
+        <div class="login_page">
+            <div id="user_close_modal">
+                <span class="glyphicon glyphicon-remove cursor" aria-hidden="true"></span>
+            </div>
+            <h2 class="aaa">会員ログイン</h2>
+            <div>
+                <%= form_with(url: user_login_path, method: :post) do |f| %>
+                    <p>メールアドレス</p>
+                    <%= f.text_field :email %>
+                    <p>パスワード</p>
+                    <%= f.password_field :password %>
+                    <%= f.submit "ログイン" %>
+                <% end %>
+            </div>
+        </div>
+</div>
+
+<div id="hairdresser_login_modal">
+        <div class="login_page">
+            <div id="hairdresser_close_modal">
+                <span class="glyphicon glyphicon-remove cursor" aria-hidden="true"></span>
+            </div>
+            <h2 class="bbb">美容師ログイン</h2>
+            <div>
+                <%= form_with(url: hairdresser_login_path, method: :post) do |f| %>
+                    <p>メールアドレス</p>
+                     <%= f.text_field :email %>
+                    <p>パスワード</p>
+                    <%= f.password_field :password %>
+                    <%= f.submit "ログイン" %>
+                <% end %>
+            </div>
+        </div>
+</div>

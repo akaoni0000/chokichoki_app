@@ -1,0 +1,29 @@
+<h1>美容師登録</h1>
+    <%= attachment_image_tag @item, :image, :limit, 300, 300, fallback: "no_image.jpg", size: "300x300", id: "prev_img" %>
+	<%= form_for(@hairdresser) do |f|%>
+            <p>ユーザー名</p>
+            <%= f.text_field :name %>
+            <p>メールアドレス</p>
+            <%= f.email_field :email %>
+            <p>店舗郵便番号</p>
+            <%= f.text_field :post_number, size: "30"  %>
+            <p>店舗住所</p>
+            <%= f.text_field :address, size: "40" %>
+            <p>自己紹介文</p>
+            <%= f.text_area :introduction %>
+            <p>美容師免許証</p>
+            <label for="post_img" class= "btn btn-primary btn-block label-img" style="width: 80%; margin: 20px 0">
+            <%= f.attachment_field :confirm_image, id: "post_img", class: "hidden"  %>
+            画像選択
+            </label>
+            <p>パスワード</p>
+            <%= f.password_field :password %>
+            <p>パスワード確認</p>
+            <%= f.password_field :password_confirmation %>
+            <%= f.submit "登録" %>
+    <% end %>
+<% if @error_message %>
+    <div class="form-error">
+        <%= @error_message %>
+    </div>
+<% end %>

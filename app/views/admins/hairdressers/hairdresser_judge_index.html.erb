@@ -1,0 +1,6 @@
+<div class="container">
+<% @hairdressers.each do |hairdresser| %>
+    <%= hairdresser.name %>
+    <%= link_to "詳細へ", admins_hairdresser_path(hairdresser.id) %>
+<% end %>
+</div>

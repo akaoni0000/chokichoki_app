@@ -11,6 +11,9 @@
   </head>
 
   <body>
+    <% if @current_user %>
+        <%= link_to "userログアウト", user_logout_path, method: :post %>
+    <% end %>
     <%= yield %>
   </body>
 </html>

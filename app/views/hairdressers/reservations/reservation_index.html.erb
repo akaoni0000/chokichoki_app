@@ -1,0 +1,13 @@
+<%= month_calendar events: @reservations do |date, reservations| %>
+    <%= date.day %>
+    <%= link_to "予約作成", new_hairdressers_reservation_path(year: date.year, month: date.month, day: date.day, hour: 06, min: 00, menu_id: @menu_id) %>
+    <% if reservations.present? %>
+        <p>予約設定済み</p>
+    <% end %>
+    <% reservations.each do |reservation| %>
+        <div>
+            <span><%= reservation.start_time.hour %>時<%= reservation.start_time.min %>分</span>
+        </div>
+    <% end %>
+<% end %>
+<%= link_to "メニュー一覧に戻る", menus_path %>

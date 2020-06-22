@@ -1,0 +1,2 @@
+class StyleImagesController < ApplicationController
+end

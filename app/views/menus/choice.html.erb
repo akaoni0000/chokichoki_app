@@ -1,0 +1,20 @@
+<h1>メニュー選択</h1>
+<% @menus.each do |menu| %>
+<div class="container">
+<div class="menu_card">
+        <h1 class="title"><%= menu.name %></h1>
+        <div class="main">
+            <div class= "container">
+                <div class="col-xs-3">
+                    <%= attachment_image_tag menu, :menu_image, fallback: "no_image.jpg", size: "150x150", id: "prev_img" %>
+                </div>
+                <div class="col-xs-6">
+                    <h2 class="explanation"><%= menu.explanation %></h2>
+                </div>
+                <div class="col-xs-3">
+                    <%= link_to "予約する", users_reservation_index_path(menu.id) %>
+                </div>
+            </div>
+        </div>
+</div>
+<% end %>

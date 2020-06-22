@@ -1,0 +1,2 @@
+module ModelImagesHelper
+end

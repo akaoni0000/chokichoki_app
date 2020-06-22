@@ -1,0 +1,2 @@
+class HairdresserCardsController < ApplicationController
+end

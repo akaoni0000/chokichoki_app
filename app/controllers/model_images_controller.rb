@@ -1,0 +1,2 @@
+class ModelImagesController < ApplicationController
+end

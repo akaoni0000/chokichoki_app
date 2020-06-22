@@ -16,3 +16,86 @@
  */
  @import "bootstrap-sprockets";  /*ここを追加*/
  @import "bootstrap";           /*ここを追加*/
+
+ .cursor {
+    cursor: pointer;
+}
+
+#user_login_modal {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 100;
+    display: none;
+} 
+
+#hairdresser_login_modal {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 100;
+    display: none;
+} 
+  
+.login_page {
+    position: absolute;
+    top: 20%;
+    left: 37%;
+    background-color:red;
+    border-radius: 10px;
+    width: 450px;
+    text-align: center;
+}
+
+.aaa {
+    color: #5f5d60;
+    margin-bottom: 40px;
+}
+  
+.answer {
+    display: none;
+}
+
+.answer2 {
+    display: none;
+}
+  
+.red {
+    color:blue;
+}
+  
+.menu_card {
+    background-color: red;
+    word-wrap: break-word;
+}
+
+.main{
+    margin-top: 20px;
+}
+
+.image {
+   
+}
+
+.explain {
+   
+}
+
+.save_card {
+    display: none;
+}
+
+.arrive {
+    display: block;
+}
+
+#prev_img {
+    padding-bottom: 20px;
+    padding-left: 20px;
+}
