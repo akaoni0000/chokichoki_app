@@ -7,11 +7,9 @@
         <% user_id = reservation.user_id %>
         <% user = @user_model.find(user_id) %>
         <%= user.name %>さん
-        <% if reservation.cancel_status == 1 %>
-             
-        <% end %>
     <% end %>
 <% end %>
 <%= link_to "メニューを作る", new_menu_path %>
 <%= link_to "メニュー一覧へ", menus_path %>
+<%= link_to "すべての予約をみる", hairdressers_reservations_path %>
 </div>

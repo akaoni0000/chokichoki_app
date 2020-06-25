@@ -3,11 +3,6 @@ Rails.application.routes.draw do
   root "home#top"
   #resources :admins
 
-  resources :hairdressers
-  post "hairdresser/login" => "hairdressers#login", as: "hairdresser_login"
-  post "hairdresser/logout" => "hairdressers#logout", as: "hairdresser_logout"
-  get "hairdresser/wait" => "hairdressers#wait", as: "hairdresser_wait"
-
   namespace :admins do
     resources :hairdressers
     get "hairdresser_judge_index" => "hairdressers#hairdresser_judge_index"
@@ -20,7 +15,7 @@ Rails.application.routes.draw do
 
   namespace :hairdressers do
     get "hairdresser_reservation/:menu_id" => "reservations#reservation_index", as: "reservation_index"
-    resources :reservations, only: [:new, :create, :destroy]
+    resources :reservations, only: [:new, :index, :create, :destroy]
   end
 
   namespace :users do
@@ -34,6 +29,12 @@ Rails.application.routes.draw do
   resources :users
   post "user/login" => "users#login", as: "user_login"
   post "user/logout" => "users#logout", as: "user_logout"
+
+
+  resources :hairdressers
+  post "hairdresser/login" => "hairdressers#login", as: "hairdresser_login"
+  post "hairdresser/logout" => "hairdressers#logout", as: "hairdresser_logout"
+  get "hairdresser/wait" => "hairdressers#wait", as: "hairdresser_wait"
 
   resources :user_cards
 

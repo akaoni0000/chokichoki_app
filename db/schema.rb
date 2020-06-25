@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_24_060108) do
+ActiveRecord::Schema.define(version: 2020_06_25_042041) do
 
   create_table "admins", force: :cascade do |t|
     t.string "email"
@@ -65,10 +65,10 @@ ActiveRecord::Schema.define(version: 2020_06_24_060108) do
   end
 
   create_table "model_images", force: :cascade do |t|
-    t.integer "hairdresser_id"
     t.string "model_image_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "user_id"
   end
 
   create_table "reservations", force: :cascade do |t|

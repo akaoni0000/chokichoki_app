@@ -5,6 +5,9 @@ class Hairdressers::ReservationsController < ApplicationController
         @menu_id = params[:menu_id]
     end
 
+    def index 
+    end
+
     def new
         @reservation = Reservation.new
         @year = params[:year]
