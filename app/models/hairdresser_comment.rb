@@ -1,0 +1,2 @@
+class HairdresserComment < ApplicationRecord
+end

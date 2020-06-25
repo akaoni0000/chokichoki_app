@@ -6,6 +6,8 @@ class Hairdressers::ReservationsController < ApplicationController
     end
 
     def index 
+        @reservations = Reservation.all
+        @user_model = User
     end
 
     def new

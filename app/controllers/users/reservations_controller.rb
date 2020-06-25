@@ -55,16 +55,15 @@ class Users::ReservationsController < ApplicationController
                 @time_max = @reservation.start_time + @reservation.menu.time*60 -1
                 @reservations = Reservation.where(start_time: @time_min..@time_max)
                 @reservations.update_all(:status => 1 )
-
+                
                 respond_to do |format|
                     format.js { render ajax_redirect_to(users_complete_path) }
                 end
             else
                 @error = "registered_card_error"
             end
-        elsif params[:card] == "0" && params[:point] == "0" && params[:registered_card] == "0"
+        else 
             @error = "check_error"
-        else
         end
     end
 
@@ -104,6 +103,7 @@ class Users::ReservationsController < ApplicationController
         @reservations = Reservation.where(start_time: @time_min..@time_max)
         @reservations.update_all(:status => 0 )
 
+        #予約をキャンセルした情報を保存
         @user_cancel = UserCancel.new(menu_id: params[:menu_id], user_id: @current_user.id, start_time: params[:start_time])
         @user_cancel.save
         redirect_to user_path(@current_user.id)

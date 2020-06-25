@@ -1,0 +1,9 @@
+<% @reservations.each do |reservation| %>
+    <% if reservation.menu.hairdresser_id == @current_hairdresser.id && reservation.user_id.present? %>
+        <%= reservation.start_time.year %>年<%= reservation.start_time.month %>月<%= reservation.start_time.hour %>時<%= reservation.start_time.min %>分
+        <%= reservation.id %>
+        <%= reservation.menu.name %>
+        <% user =  @user_model.find(reservation.user_id) %>
+        <%= user.name %>さん
+    <% end %>
+<% end %>
