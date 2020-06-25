@@ -21,6 +21,14 @@
     cursor: pointer;
 }
 
+.display_none {
+    display: none;
+}
+
+.display_block {
+    display: block;
+}
+
 #user_login_modal {
     position: fixed;
     top: 0;
@@ -98,4 +106,25 @@
 #prev_img {
     padding-bottom: 20px;
     padding-left: 20px;
+}
+
+.card_modal {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 100;
+    display: none;
+}
+
+.card_form {
+    position: absolute;
+    top: 20%;
+    left: 37%;
+    background-color:red;
+    border-radius: 10px;
+    width: 450px;
+    text-align: center;
 }

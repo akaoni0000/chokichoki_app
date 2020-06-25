@@ -1,3 +1,4 @@
 class Reservation < ApplicationRecord
-    validates :start_time, uniqueness: true
+    
+    belongs_to :menu
 end

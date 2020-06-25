@@ -1,0 +1,40 @@
+<div class="container">
+<h1>まだ予約は完了しておりません。　[予約を確定する]　ボタンを押してください。</h1>
+    <h2>施術予想時間<%= @reservation.menu.time %>分</h2>
+    <%= form_with(url: users_reservation_path(@reservation.id), method: :patch, class: "display_block reservation_form") do |f| %>
+        <%= f.text_area :user_request, class: "request" %>
+        <h2>ポイントで払う</h2>
+        <%= f.check_box :point, {class: "point_check checkbox"}, 1, 0 %>
+        <h2>クレジットカードで払う</h2>
+        <%= f.check_box :card, {class: "card_check checkbox"}, 1, 0 %>
+        <h2>登録済みのクレジットカードで払う</h2>
+        <%= f.check_box :registered_card, {class: "registered_card_check checkbox"}, 1, 0 %>
+        <%= f.submit "予約を確定する", class: "reservation_btn" %>
+    <%end%>
+    <h2>料金は500円です</h2>
+    <h2>ご利用可能ポイント<%= @current_user.point %></h2>
+    <h3 class="error"></h3>
+    </div>
+
+
+<div class="card_modal">
+    <div class="card_form">
+        <div>
+            <span class="glyphicon glyphicon-remove cursor form_close_modal" aria-hidden="true"></span>
+        </div>
+        <%= form_with(url: users_card_resevation_pay_path(reservation_id: @reservation.id ), method: :post, local: true, id: 'charge-form') do |f| %>
+            <%= label_tag "カード番号" %>
+            <%= f.text_field "card_number", class: "number", value: 4242424242424242 ,maxlength: "16", type: "text", id: "card_number"%>
+            <br>
+            <%= label_tag "有効期限" %>
+            <%= f.select 'exp_month', options_for_select({"--": "", "01": 1, "02": 2, "03": 3, "04": 4, "05": 5, "06": 6, "07": 7, "08": 8, "09": 9, "10": 10, "11": 11, "12": 12}, "")%>
+            <span>月/</span>
+            <%= f.select 'exp_year', options_for_select({"--": "", "19": 2019, "20": 2020, "21": 2021, "22": 2022, "23": 2023, "24": 2024, "25": 2025, "26": 2026, "27": 2027, "28": 2028, "29": 2029}, "")%>
+            <span>年</span>
+            <br>
+            <label>セキュリティコード</label>
+            <%= f.text_field "cvc", class: "cvc", placeholder: "カード背面3~4桁の番号", maxlength: "4", id: "cvc" %>
+            <%= f.submit "追加する", id: "token_submit" %>
+        <%end%>
+    </div>
+</div>

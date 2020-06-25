@@ -1,0 +1,6 @@
+<div class="container">
+    <div class="number_hidden">
+        <h2>**** **** ****<%=@default_card_information.last4%></h2>
+    </div>
+    <%= link_to "削除", user_card_path(@current_user.id), method: :delete, data: {confirm: "本当に削除しますか?"} %>
+</div>

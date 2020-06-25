@@ -2,10 +2,6 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root "home#top"
   #resources :admins
-  resources :users
-  post "user/login" => "users#login", as: "user_login"
-  post "user/logout" => "users#logout", as: "user_logout"
-
 
   resources :hairdressers
   post "hairdresser/login" => "hairdressers#login", as: "hairdresser_login"
@@ -29,11 +25,19 @@ Rails.application.routes.draw do
 
   namespace :users do
     get "user_reservation/:menu_id" => "reservations#reservation_index", as: "reservation_index"
-    resources :reservations, only: [:new, :create, :destroy]
+    post "user_reservation/cancel/:menu_id/:start_time" => "reservations#cancel", as: "reservation_cancel"
+    post "user_reservation/card_pay" => "reservations#pay", as: "card_resevation_pay"
+    get "complete" => "reservations#complete", as: "complete"
+    resources :reservations, only: [:edit, :update]
   end
 
+  resources :users
+  post "user/login" => "users#login", as: "user_login"
+  post "user/logout" => "users#logout", as: "user_logout"
 
+  resources :user_cards
 
- 
+  
+  
 
 end

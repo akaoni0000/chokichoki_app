@@ -10,7 +10,6 @@ class HairdressersController < ApplicationController
         if params[:hairdresser][:password] == params[:hairdresser][:password_confirmation]
             @hairdresser = Hairdresser.new(hairdresser_params)
             @hairdresser.save
-            session[:hairdresser_id] = @hairdresser.id
             redirect_to hairdresser_wait_path
         else
             @hairdresser = Hairdresser.new
@@ -51,6 +50,15 @@ class HairdressersController < ApplicationController
 
     def show
         @hairdresser = Hairdresser.find(params[:id])
+        @menu_id = Menu.where(hairdresser_id: @current_hairdresser.id)
+        @reservations = Reservation.where(menu_id: @menu_id)
+        @user_model = User
+    end
+
+    def logout
+        session[:hairdresser_id] = nil
+        flash[:notice] = "ログアウトしました"
+        redirect_to root_path
     end
 
     private

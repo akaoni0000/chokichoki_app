@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_22_094540) do
+ActiveRecord::Schema.define(version: 2020_06_24_060108) do
 
   create_table "admins", force: :cascade do |t|
     t.string "email"
@@ -48,8 +48,8 @@ ActiveRecord::Schema.define(version: 2020_06_22_094540) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "password_digest"
-    t.integer "point", default: 0
     t.integer "post_number"
+    t.integer "point", default: 500
   end
 
   create_table "menus", force: :cascade do |t|
@@ -78,11 +78,21 @@ ActiveRecord::Schema.define(version: 2020_06_22_094540) do
     t.text "user_request"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "status", default: 0
+    t.integer "cancel_status", default: 0
   end
 
   create_table "style_images", force: :cascade do |t|
     t.integer "hairdresser_id"
     t.string "style_image_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "user_cancels", force: :cascade do |t|
+    t.integer "menu_id"
+    t.integer "user_id"
+    t.datetime "start_time"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -104,7 +114,7 @@ ActiveRecord::Schema.define(version: 2020_06_22_094540) do
     t.integer "model_status", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "point", default: 0
+    t.integer "point", default: 500
   end
 
 end

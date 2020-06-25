@@ -1,0 +1,16 @@
+<div class="container">
+    <%= form_with(url: user_cards_path, method: :post, id: "charge-form") do |f|  %>
+        <%= f.label "カード番号" %>
+        <%= f.text_field "card_number", class: "number", value: 4242424242424242  ,maxlength: "16", type: "text", id: "card_number"%>
+        <br>
+        <%= f.label "有効期限" %>
+        <%= f.select 'exp_month', options_for_select({"--": "", "01": 1, "02": 2, "03": 3, "04": 4, "05": 5, "06": 6, "07": 7, "08": 8, "09": 9, "10": 10, "11": 11, "12": 12}, "")%>
+        <span>月/</span>
+        <%= f.select 'exp_year', options_for_select({"--": "", "19": 2019, "20": 2020, "21": 2021, "22": 2022, "23": 2023, "24": 2024, "25": 2025, "26": 2026, "27": 2027, "28": 2028, "29": 2029}, "")%>
+        <span>年</span>
+        <br>
+        <%= f.label "セキュリティコード" %>
+        <%= f.text_field "cvc", class: "cvc", placeholder: "カード背面3~4桁の番号", maxlength: "4", id: "cvc" %>
+        <%= f.submit "追加する", id: "token_submit" %>
+    <%end%>
+</div>

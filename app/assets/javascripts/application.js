@@ -55,55 +55,56 @@ $(function() {
         $(".answer2").slideDown();  //answerのdisplayをblockにする 
       }
     });
+
+
   
 });
   
 
+//userの予約確定するかどうかページ
 $(function() {
-    　　　$(".checkbox").click(function(){
-        if ($(this).hasClass("check")) {
-          $(this).removeClass("check");
-          $(this).prop('checked', false);
-          $("#time").html(""); 
-        } else {
-          $('.checkbox').prop('checked', false);  
-          $('.checkbox').removeClass('check'); 
-          $(this).addClass("check");
-          $(this).prop('checked', true); 
-          $("#time").html(gon.cut_time); 
-        }
-      });
-    
-      $(".checkbox").click(function(){
-        if ($(this).hasClass("check")) {
-          $(this).removeClass("check");
-          $(this).prop('checked', false);
-          $("#time").html("");
-        } else {
-          $('.checkbox').prop('checked', false);  
-          $('.checkbox').removeClass('check'); 
-          $(this).addClass("check");
-          $(this).prop('checked', true);  
-          $("#time").html(gon.color_time);
-        }
-      });
-    
-      $(".checkbox").click(function(){
-        if ($(this).hasClass("check")) {
-          $(this).removeClass("check");
-          $(this).prop('checked', false);
-          $("#time").html("");
-        } else {
-          $('.checkbox').prop('checked', false);  
-          $('.checkbox').removeClass('check'); 
-          $(this).addClass("check");
-          $(this).prop('checked', true);  
-          $("#time").html(gon.special_time);
-        }
-      });
+  $(".point_check").click(function(){
+    if ($(this).hasClass("check")) {
+      $(this).removeClass("check");
+      $(this).prop('checked', false); 
+    } else {
+      $('.checkbox').prop('checked', false);  
+      $('.checkbox').removeClass('check'); 
+      $(this).addClass("check");
+      $(this).prop('checked', true); 
+    }
+  });
+
+  $(".card_check").click(function(){
+    if ($(this).hasClass("check")) {
+      $(this).removeClass("check");
+      $(this).prop('checked', false);
+    } else {
+      $('.checkbox').prop('checked', false);  
+      $('.checkbox').removeClass('check'); 
+      $(this).addClass("check");
+      $(this).prop('checked', true);  
+    }
+  });
+
+  $(".registered_card_check").click(function(){
+    if ($(this).hasClass("check")) {
+      $(this).removeClass("check");
+      $(this).prop('checked', false);
+    } else {
+      $('.checkbox').prop('checked', false);  
+      $('.checkbox').removeClass('check'); 
+      $(this).addClass("check");
+      $(this).prop('checked', true);  
+    }
+  });
 });
 
-//メニュー作成ページ
+
+
+
+
+//美容師のメニュー作成ページ
 $(function() {
 
   $('.make').click(function() {
@@ -121,7 +122,7 @@ $(function() {
 
 });
 
-//美容師の登録画面
+//美容師の登録ページ 美容師のメニュー作成ページ
 $(function () {
     // 画像を呼び出すためのコールバック関数
     function readURL(input) {
@@ -144,5 +145,53 @@ $(function () {
       readURL(this);
     });
 });
-  
+
+//userのマイページ
+$(function() {
+  $('.cancel_fail').click(function() { 
+     alert("予約日から24時間以内なのでこのサイトからキャンセルできません。直接、担当美容師にお問い合わせください");
+  });
+});
+
+$(function() {
+  $('.form_close_modal').click(function() { 
+    $('.card_modal').fadeOut();     
+  });
+});
+
+
+//pay.jp  
+$(function() {
+  Payjp.setPublicKey(gon.key);
+
+  $("#token_submit").on("click", function(e) {
+    $(this).prop('disabled',true);//ボタンを無効化する
+    e.preventDefault();
+    var card = {
+        number: $("#card_number").val(),
+        exp_month: $("#exp_month").val(),
+        exp_year: $("#exp_year").val(),
+        cvc: $("#cvc").val()
+    };
+    number = $("#card_number").val();
+    if(number != 4242424242424242) {
+      alert("カード番号は4242424242424242と入力してください。このサイトではこのテストコードでしか決済できません。")
+    }
+   //createToken でトークンを申込を発行してpayjp側に送る => payjp側でトークンが作成されresponseでpayjp側で作成されたトークンが帰ってくる　作成されない可能性もある　トークンが作成されるだけで保存はされていない statusはトークンが作成されたかどうか200は成功
+   Payjp.createToken(card, function(status, response) {
+      if (status === 200) {                    
+        $("#card_number").removeAttr("name");  //card_numberの値はコントローラーに送らなくていい  Payjp.createToken(card...  のcardでpayjp側にデータが送られている
+        $("#exp_month").removeAttr("name");
+        $("#exp_year").removeAttr("name");
+        $("#cvc").removeAttr("name");
+        var token = response.id;               //tokenにはトークン(number exp_month exp_yearのデータが入っている)
+        $("#charge-form").append(`<input type="hidden" name="payjp-token" value=${token}></input>`)
+        $("#charge-form").submit();
+      } else {
+        alert("有効期限またはセキリュティコードを入力してください");
+        $("#token_submit").prop('disabled', false);
+      }
+    });
+  });
+});
 

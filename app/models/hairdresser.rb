@@ -1,6 +1,9 @@
 class Hairdresser < ApplicationRecord
-    
-    has_secure_password
+
     attachment :confirm_image 
+    has_secure_password
+
+   
+
 
 end

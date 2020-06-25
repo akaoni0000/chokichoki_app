@@ -90,3 +90,6 @@ gem 'rails-i18n'
 
 #住所自動入力
 gem "jp_prefecture"
+
+#環境変数設定
+gem 'dotenv-rails'

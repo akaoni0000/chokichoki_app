@@ -1,0 +1,13 @@
+<% if @card == "pay_success" %> 
+    $('.card_modal').fadeIn();       
+<% end %>
+<% if @error == "point_error" %> 
+    console.log("faf");
+<% end %>
+<% if @error == "registered_card_error" %> 
+    $(".error").text("登録済みのクレジットカードがありません。");
+<% end %>
+<% if @error == "check_error" %> 
+    $(".error").text("支払い方法にチェックがありません。");
+<% end %>
+

@@ -14,6 +14,9 @@
     <% if @current_user %>
         <%= link_to "userログアウト", user_logout_path, method: :post %>
     <% end %>
+    <% if @current_hairdresser %>
+        <%= link_to "hairdresserログアウト", hairdresser_logout_path, method: :post %>
+    <% end %>
     <%= yield %>
   </body>
 </html>
