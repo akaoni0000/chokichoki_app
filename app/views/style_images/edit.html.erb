@@ -1,0 +1,31 @@
+<div class="container">
+<%= @current_hairdresser.name %>
+<%= form_with(model: @style_image, class: "image_form") do |f| %>
+    <label class= "image_label" >
+        <%= f.hidden_field :hairdresser_id, :value => @current_hairdresser.id %>
+        <!--画像アップロード用-->
+        <% if @style_image.hair_images.size == 0 %>
+            <div class="container">
+            <%= f.file_field :hair_images, multiple: true, class: "hidden input5"%>
+            <%= attachment_image_tag @image, :image, fallback: "no_image.png", class: "cursor image_size_100" %>
+            </div>
+        <% elsif @style_image.hair_images.size == 1 %>
+            <%= f.file_field :hair_images, multiple: true, class: "hidden input4"%>
+            <%= attachment_image_tag @image, :image, fallback: "no_image.png", class: "cursor image_size_80" %>
+        <% elsif @style_image.hair_images.size == 2 %>
+            <%= f.file_field :hair_images, multiple: true, class: "hidden input3"%>
+            <%= attachment_image_tag @image, :image, fallback: "no_image.png", class: "cursor image_size_60" %>
+        <% elsif @style_image.hair_images.size == 3 %>
+            <%= f.file_field :hair_images, multiple: true, class: "hidden input2"%>
+            <%= attachment_image_tag @image, :image, fallback: "no_image.png", class: "cursor image_size_40" %>
+        <% elsif @style_image.hair_images.size == 4 %>
+            <%= f.file_field :hair_images, multiple: true, class: "hidden input1"%>
+            <%= attachment_image_tag @image, :image, fallback: "no_image.png", class: "cursor image_size_20" %>
+        <% elsif @style_image.hair_images.size == 5 %>
+        <% end %>
+    </label>
+<% end %>
+    <div id="style_images">
+        <%= render "style_images/style_images", style_image: @style_image%>
+    </div>
+</div>

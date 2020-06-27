@@ -13,5 +13,18 @@ class ApplicationController < ActionController::Base
     def set_key
       gon.key = ENV['KEY']
     end
+
+    def force_comment
+      @hairdresser_comment = HairdresserComment.find_by(user_id: @current_user.id, rate: nil)
+      if @hairdresser_comment.present?
+        @start_time = @hairdresser_comment.start_time
+        @menu_time = Menu.find(@hairdresser_comment.menu_id).time*60
+        @finish_time = @start_time + @menu_time
+        if @finish_time < Time.now
+          session[:user_id] = nil
+          redirect_to edit_hairdresser_comment_path(id: @hairdresser_comment.id, hairdresser_id: @hairdresser_comment.hairdresser_id)
+        end
+      end
+    end
     
 end

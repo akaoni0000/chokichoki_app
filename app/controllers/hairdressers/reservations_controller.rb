@@ -8,6 +8,7 @@ class Hairdressers::ReservationsController < ApplicationController
     def index 
         @reservations = Reservation.all
         @user_model = User
+        @comment_model = HairdresserComment
     end
 
     def new

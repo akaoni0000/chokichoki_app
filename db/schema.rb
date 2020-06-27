@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_25_090039) do
+ActiveRecord::Schema.define(version: 2020_06_27_043734) do
 
   create_table "admins", force: :cascade do |t|
     t.string "email"
@@ -28,14 +28,6 @@ ActiveRecord::Schema.define(version: 2020_06_25_090039) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "hairdresser_cards", force: :cascade do |t|
-    t.integer "hairdresser_id"
-    t.string "customer_id"
-    t.string "card_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "hairdresser_comments", force: :cascade do |t|
     t.integer "hairdresser_id"
     t.integer "user_id"
@@ -44,7 +36,7 @@ ActiveRecord::Schema.define(version: 2020_06_25_090039) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "menu_id"
-    t.datetime "start_tiem"
+    t.datetime "start_time"
   end
 
   create_table "hairdressers", force: :cascade do |t|
@@ -75,13 +67,6 @@ ActiveRecord::Schema.define(version: 2020_06_25_090039) do
     t.string "menu_image_id"
   end
 
-  create_table "model_images", force: :cascade do |t|
-    t.string "model_image_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "user_id"
-  end
-
   create_table "reservations", force: :cascade do |t|
     t.integer "menu_id"
     t.integer "user_id"
@@ -95,9 +80,9 @@ ActiveRecord::Schema.define(version: 2020_06_25_090039) do
 
   create_table "style_images", force: :cascade do |t|
     t.integer "hairdresser_id"
-    t.string "style_image_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "hair_images"
   end
 
   create_table "user_cancels", force: :cascade do |t|

@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root "home#top"
   #resources :admins
+  resources :style_images, only: [:edit, :update, :destroy]
 
   namespace :admins do
     resources :hairdressers
@@ -24,6 +25,7 @@ Rails.application.routes.draw do
     post "user_reservation/card_pay" => "reservations#pay", as: "card_resevation_pay"
     get "complete" => "reservations#complete", as: "complete"
     resources :reservations, only: [:edit, :update]
+    resources :hairdressers, only: [:show]
   end
 
   resources :users
@@ -38,7 +40,7 @@ Rails.application.routes.draw do
 
   resources :user_cards
 
-  
-  
+  resources :hairdresser_comments, only: [:edit, :show, :update, :destroy]
+
 
 end

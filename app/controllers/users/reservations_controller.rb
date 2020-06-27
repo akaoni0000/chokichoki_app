@@ -2,6 +2,8 @@ class Users::ReservationsController < ApplicationController
 
     include AjaxHelper 
 
+    before_action :force_comment, only: [:reservation_index, :edit]
+
     def reservation_index
         @reservations = Reservation.where(menu_id: params[:menu_id])
     end
@@ -11,6 +13,7 @@ class Users::ReservationsController < ApplicationController
     end
 
     def update
+       
         if params[:card] == "1"
             @card = "pay_success"
         elsif params[:point] == "1"
@@ -29,11 +32,18 @@ class Users::ReservationsController < ApplicationController
                 @reservations = Reservation.where(start_time: @time_min..@time_max)
                 @reservations.update_all(:status => 1 )
 
+                #後で客に評価させるためにコメントのレコードをつくる
+                @hairdresser_id = @reservation.menu.hairdresser_id
+                @menu_id = @reservation.menu.id
+                @start_time = @reservation.start_time
+                @hairdresser_comment = HairdresserComment.new(user_id: @current_user.id, hairdresser_id: @hairdresser_id, menu_id: @menu_id, start_time: @start_time)
+                @hairdresser_comment.save
+ 
                 respond_to do |format|
                     format.js { render ajax_redirect_to(users_complete_path) }
                 end
             else
-                @error == "point_error"
+                @error = "point_error"
             end
         elsif params[:registered_card] == "1"
             card = UserCard.find_by(user_id: @current_user.id)
@@ -56,6 +66,13 @@ class Users::ReservationsController < ApplicationController
                 @reservations = Reservation.where(start_time: @time_min..@time_max)
                 @reservations.update_all(:status => 1 )
                 
+                #後で客に評価させるためにコメントのレコードをつくる
+                @hairdresser_id = @reservation.menu.hairdresser_id
+                @menu_id = @reservation.menu.id
+                @start_time = @reservation.start_time
+                @hairdresser_comment = HairdresserComment.new(user_id: @current_user.id, hairdresser_id: @hairdresser_id, menu_id: @menu_id, start_time: @start_time)
+                @hairdresser_comment.save
+
                 respond_to do |format|
                     format.js { render ajax_redirect_to(users_complete_path) }
                 end
@@ -85,6 +102,13 @@ class Users::ReservationsController < ApplicationController
         @time_max = @reservation.start_time + @reservation.menu.time*60 -1
         @reservations = Reservation.where(start_time: @time_min..@time_max)
         @reservations.update_all(:status => 1 )
+
+         #後で客に評価させるためにコメントのレコードをつくる
+         @hairdresser_id = @reservation.menu.hairdresser_id
+         @menu_id = @reservation.menu.id
+         @start_time = @reservation.start_time
+         @hairdresser_comment = HairdresserComment.new(user_id: @current_user.id, hairdresser_id: @hairdresser_id, menu_id: @menu_id, start_time: @start_time)
+         @hairdresser_comment.save
         
         redirect_to users_complete_path
     end
@@ -94,7 +118,6 @@ class Users::ReservationsController < ApplicationController
         #予約した時間のreservationsテーブルのレコードのuser_id(カラム)とuser_request(カラム)をupdateする。
         @reservation = Reservation.find_by(menu_id: params[:menu_id], user_id: @current_user.id, start_time: params[:start_time])
         @reservation.user_id = nil
-        @reservation.status = 0
         @reservation.save
         
         #予約した時間から施術が終わる時間までの間の時間に、start_time(カラム)が存在するreservationsテーブルのレコードのstatus(カラム)をupdateする。そうすることで予約した時間から施術が終わる時間までの時間は予約を入れることができるようにする
@@ -103,6 +126,17 @@ class Users::ReservationsController < ApplicationController
         @reservations = Reservation.where(start_time: @time_min..@time_max)
         @reservations.update_all(:status => 0 )
 
+        #支払った金額をポイントで返す
+        @current_user.point += 500
+        @current_user.save
+
+        #updateで作成したコメントのレコードを削除
+        @hairdresser_id = @reservation.menu.hairdresser_id
+        @menu_id = @reservation.menu.id
+        @start_time = @reservation.start_time
+        @hairdresser_comment = HairdresserComment.new(user_id: @current_user.id, hairdresser_id: @hairdresser_id, menu_id: @menu_id, start_time: @start_time)
+        @hairdresser_comment.destroy
+        
         #予約をキャンセルした情報を保存
         @user_cancel = UserCancel.new(menu_id: params[:menu_id], user_id: @current_user.id, start_time: params[:start_time])
         @user_cancel.save

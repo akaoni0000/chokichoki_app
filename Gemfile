@@ -93,3 +93,6 @@ gem "jp_prefecture"
 
 #環境変数設定
 gem 'dotenv-rails'
+
+#複数画像登録
+gem 'carrierwave'

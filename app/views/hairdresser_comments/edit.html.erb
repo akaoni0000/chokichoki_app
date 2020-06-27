@@ -1,0 +1,19 @@
+<div class="container">
+<%= @hairdresser.name %>
+<%= form_with(model: @hairdresser_comment, local: true) do |f| %>
+    <div id='star'></div>
+    <script>
+        $('#star').raty({
+        size     : 36,
+        starOff:  '<%= asset_path('star-off.png') %>',
+        starOn : '<%= asset_path('star-on.png') %>',
+        starHalf: '<%= asset_path('star-half.png') %>',
+        scoreName: 'hairdresser_comment[rate]',
+        half: true,
+    });
+    </script>
+    <%= f.hidden_field :hairdresser_id, :value => @hairdresser.id %>
+    <%= f.text_area :comment, class: "form-control", rows: "8", placeholder:'口コミ内容がなくても、タイトルと評価のみで投稿できます。再投稿すれば、前の投稿に上書きされますよ！' %>
+    <%= f.submit '投稿する', class:"btn btn-success" %>
+<% end %>
+</div>

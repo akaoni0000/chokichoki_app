@@ -15,6 +15,7 @@
 //= require jquery.jposta
 //= require bootstrap-sprockets
 //= require activestorage
+//= require jquery.raty
 //= require_tree .
 
 //topページ
@@ -122,6 +123,8 @@ $(function() {
 
 });
 
+
+
 //美容師の登録ページ 美容師のメニュー作成ページ
 $(function () {
     // 画像を呼び出すためのコールバック関数
@@ -144,6 +147,69 @@ $(function () {
     $("#post_img").change(function () {
       readURL(this);
     });
+});
+
+$(function () {
+  // 画像を呼び出すためのコールバック関数
+  function readURL(input) {
+    // データが存在していることを確認
+    if (input.files && input.files[0]) {
+      // 非同期で読み込むためにFileReader()を呼び出す
+      var reader = new FileReader();
+      // onload はファイルの読み込みが完了したタイミングで発火する
+      reader.onload = function (e) {
+        // avatar_img_prevのimg srcの部分を画像のパラメータとして設定
+        $('.output').attr('src', e.target.result);
+      }
+      // ファイルを読み込む
+      reader.readAsDataURL(input.files[0]);
+    }
+  }
+
+  // post_imgが変更されたタイミングに発火
+  // $(".input").change(function () {
+  //   readURL(this);
+  //   $(".display_none").addClass("display_block")
+  // });
+});
+
+$(function () {
+  $(".input5").change(function () {
+   number = $(this).get(0).files.length
+   if (number > 5) {
+     alert("登録できるのは登録できる写真は5枚までです。")
+   } else {
+    $(".image_form").submit();
+  }
+  });
+
+  $(".input4").change(function () {
+    number = $(this).get(0).files.length
+    if (number > 4) {
+      alert("登録できるのは登録できる写真は5枚までです。")
+    }
+  });
+
+  $(".input3").change(function () {
+    number = $(this).get(0).files.length
+    if (number > 3) {
+      alert("登録できるのは登録できる写真は5枚までです。")
+    }
+  });
+
+  $(".input2").change(function () {
+    number = $(this).get(0).files.length
+    if (number > 2) {
+      alert("登録できるのは登録できる写真は5枚までです。")
+    }
+  });
+
+  $(".input1").change(function () {
+    number = $(this).get(0).files.length
+    if (number > 1) {
+      alert("登録できるのは登録できる写真は5枚までです。")
+    }
+  });
 });
 
 //userのマイページ
@@ -194,4 +260,10 @@ $(function() {
     });
   });
 });
+
+
+
+
+
+
 

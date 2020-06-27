@@ -1,20 +1,21 @@
+<div class="container">
 <h1>美容師登録</h1>
-    <%= attachment_image_tag @item, :image, :limit, 300, 300, fallback: "no_image.jpg", size: "300x300", id: "prev_img" %>
 	<%= form_for(@hairdresser) do |f|%>
             <p>ユーザー名</p>
-            <%= f.text_field :name %>
+            <%= f.text_field :name, class: "form-control"%>
             <p>メールアドレス</p>
             <%= f.email_field :email %>
             <p>店舗郵便番号</p>
-            <%= f.text_field :post_number, size: "30"  %>
+            <%= f.text_field :post_number, size: "30", class: "form-control"  %>
             <p>店舗住所</p>
             <%= f.text_field :address, size: "40" %>
             <p>自己紹介文</p>
-            <%= f.text_area :introduction %>
+            <%= f.text_area :introduction, class: "form-control" %>
             <p>美容師免許証</p>
-            <label for="post_img" class= "btn btn-primary btn-block label-img" style="width: 80%; margin: 20px 0">
+            <p>クリックして写真を追加してください</p>
+            <label class= "" style="width: 150px; height: 150px;">
             <%= f.attachment_field :confirm_image, id: "post_img", class: "hidden"  %>
-            画像選択
+            <%= attachment_image_tag @item, :image, fallback: "no_image.png", size: "300x300", id: "prev_img", class: "cursor" %>
             </label>
             <p>パスワード</p>
             <%= f.password_field :password %>
@@ -27,3 +28,4 @@
         <%= @error_message %>
     </div>
 <% end %>
+</div>

@@ -5,5 +5,21 @@
         <%= reservation.menu.name %>
         <% user =  @user_model.find(reservation.user_id) %>
         <%= user.name %>さん
+        <% @hairdresser_comment =  @comment_model.find_by(start_time: reservation.start_time) %>
+        <div id="star-rate-<%= @hairdresser_comment.id %>"></div>
+            <script>
+            $('#star-rate-<%= @hairdresser_comment.id %>').raty({
+              size: 36,
+              starOff:  '<%= asset_path('star-off.png') %>',
+              starOn : '<%= asset_path('star-on.png') %>',
+              starHalf: '<%= asset_path('star-half.png') %>',
+              half: true,
+              readOnly: true,
+              score: <%= @hairdresser_comment.rate %>,
+            });
+            </script>
+        <% if @hairdresser_comment.comment != "" || @hairdresser_comment.comment == nil%>
+            <%= link_to "コメント",  hairdresser_comment_path(@hairdresser_comment.id) %>
+        <% end %>
     <% end %>
 <% end %>

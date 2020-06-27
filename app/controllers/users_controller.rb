@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
 
+    before_action :force_comment, only: [:show]
+
     include AjaxHelper 
 
     def new
@@ -46,6 +48,7 @@ class UsersController < ApplicationController
         @hairdresser_model = Hairdresser
         @reservations = Reservation.where(user_id: @user.id) 
     end
+
 
     private
 	def user_params

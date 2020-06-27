@@ -5,7 +5,7 @@
         <p>予約できません</p>
     <% end %>
     <% reservations.each do |reservation| %>
-        <% if reservation.start_time > Time.now %>
+       
             <% @time_min = reservation.start_time %>
             <% @time_max = reservation.start_time  + reservation.menu.time*60 - 1 %>
             <% @reservations_after = Reservation.where(start_time: @time_min..@time_max, status: 1) %>
@@ -17,9 +17,9 @@
             <% else %>
                 <p>予約できません</p>
             <% end %>
-        <% else %>
+       
             <p>予約できません</p>
-        <% end %>
+        
     <% end %>
 <% end %>
 <%= link_to "マイページへ", user_path(@current_user.id) %>
