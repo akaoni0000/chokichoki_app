@@ -29,6 +29,12 @@
     display: block;
 }
 
+header {
+    width: 100%;
+    background-color: rgba(0, 225, 255, 0.616);
+    height: 100px;
+}
+
 #user_login_modal {
     position: fixed;
     top: 0;

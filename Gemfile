@@ -96,3 +96,8 @@ gem 'dotenv-rails'
 
 #複数画像登録
 gem 'carrierwave'
+
+#デプロイ
+group :production do
+  gem 'mysql2'
+end
