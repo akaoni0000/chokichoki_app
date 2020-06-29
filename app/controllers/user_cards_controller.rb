@@ -32,7 +32,7 @@ class UserCardsController < ApplicationController
     end
   end
 
-  def destroy #PayjpとCardデータベースを削除します
+  def destroy #PayjpとCardデータベースを削除する
     card = UserCard.find_by(user_id: @current_user.id)
     Payjp.api_key = ENV['SECRET_KEY']   #秘密鍵
     customer = Payjp::Customer.retrieve(card.customer_id)  #payjpサイトの顧客情報を取得

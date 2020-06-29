@@ -86,12 +86,13 @@ class Users::ReservationsController < ApplicationController
 
     def pay
         Payjp.api_key = ENV['SECRET_KEY']
+        #Charge.createなので顧客情報は保存されない
         Payjp::Charge.create(
             :amount => 500, #支払金額を入力
             :card => params['payjp-token'],
             :currency => 'jpy', #日本円
         )
-
+   
         #予約した時間のreservationsテーブルのレコードのuser_id(カラム)とuser_request(カラム)をupdateする。
         @reservation = Reservation.find(params[:reservation_id])
         @reservation.user_id = @current_user.id

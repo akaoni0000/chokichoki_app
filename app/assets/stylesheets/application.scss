@@ -29,11 +29,61 @@
     display: block;
 }
 
+.sign_in_block {
+    position: absolute;
+    right: 300px;
+    top: 20px
+}
+
+.sign_up_block {
+    position: absolute;
+    right: 100px;
+    top: 20px;
+}
+
+.login {
+    font-size: 25px;
+    color: #DEB887;
+}
+
+.sign_up {
+    font-size: 25px;
+    color: #DEB887;
+}
+
+.top_image {
+    height: 700px;
+    width: 100%;
+}
+
+.font {
+    font-family: sans-serif;
+}
+
+.main {
+    background-image: url("/assets/ju.jpg");
+    background-size: cover;
+    height: 1009px;
+}
+
+.main_content {
+   margin-top: 70px;
+
+}
+
+.log {
+    height: 150px;
+}
+
 header {
     width: 100%;
-    background-color: rgba(0, 225, 255, 0.616);
-    height: 100px;
 }
+
+
+
+
+
+
 
 #user_login_modal {
     position: fixed;
@@ -61,7 +111,7 @@ header {
     position: absolute;
     top: 20%;
     left: 37%;
-    background-color:red;
+    background-color:gold;
     border-radius: 10px;
     width: 450px;
     text-align: center;
@@ -74,10 +124,12 @@ header {
   
 .answer {
     display: none;
+    background-color: white;
 }
 
 .answer2 {
     display: none;
+    background-color: white;
 }
   
 .red {
@@ -89,17 +141,10 @@ header {
     word-wrap: break-word;
 }
 
-.main{
+.main_{
     margin-top: 20px;
 }
 
-.image {
-   
-}
-
-.explain {
-   
-}
 
 .save_card {
     display: none;

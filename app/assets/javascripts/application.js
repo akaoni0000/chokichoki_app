@@ -48,11 +48,11 @@ $(function() {
     });
     
     $('.sign_up').click(function() {
-      if($(".answer2").hasClass('open')) { 
-        $(".answer2").removeClass('open');
+      if($(".answer2").hasClass('open2')) { 
+        $(".answer2").removeClass('open2');
         $(".answer2").slideUp();  //answerのdisplayをnoneにする     
       } else {
-        $(".answer2").addClass('open'); 
+        $(".answer2").addClass('open2'); 
         $(".answer2").slideDown();  //answerのdisplayをblockにする 
       }
     });
