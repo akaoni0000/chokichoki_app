@@ -98,7 +98,7 @@ gem 'dotenv-rails'
 gem 'carrierwave'
 
 #デプロイ
-group :production do
+group :production, :staging do
   gem 'mysql2'
 end
 
