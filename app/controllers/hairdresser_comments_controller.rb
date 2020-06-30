@@ -11,7 +11,6 @@ class HairdresserCommentsController < ApplicationController
         else
             @hairdresser_comment = HairdresserComment.find(params[:id])
             @hairdresser_comment.update(hairdresser_comment_params)
-            binding.pry
             session[:user_id] = @hairdresser_comment.user_id
             redirect_to user_path(@hairdresser_comment.user_id)
         end
