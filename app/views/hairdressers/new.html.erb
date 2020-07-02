@@ -14,7 +14,7 @@
             <p>美容師免許証</p>
             <p>クリックして写真を追加してください</p>
             <label class= "" style="width: 150px; height: 150px;">
-            <%= f.attachment_field :confirm_image, id: "post_img", class: "hidden"  %>
+            <%= f.attachment_field :confirm_image, id: "post_img", class: "hidden", multiple: true  %>
             <%= attachment_image_tag @item, :image, fallback: "no_image.png", size: "300x300", id: "prev_img", class: "cursor" %>
             </label>
             <p>パスワード</p>
@@ -28,4 +28,6 @@
         <%= @error_message %>
     </div>
 <% end %>
+<p class="delete">削除</p>
 </div>
+<div class="fa"></div>

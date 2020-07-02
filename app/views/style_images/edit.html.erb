@@ -25,7 +25,11 @@
         <% end %>
     </label>
 <% end %>
-    <div id="style_images">
-        <%= render "style_images/style_images", style_image: @style_image%>
-    </div>
+    <% i = 0 %>
+    <% @style_image.hair_images.each do |style_image| %>
+            <%= image_tag style_image.to_s, size: "300x300", class: "output" %>
+            <%= link_to "削除", style_image_path(id: @style_image.id, number: i), method: :delete %>
+            <% i += 1 %>
+    <% end %>
+    <%= @style_image.hair_images.size %>
 </div>

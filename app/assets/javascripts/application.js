@@ -20,7 +20,6 @@
 
 //topページ
 $(function() {
-
     $('.user_open_modal').click(function() {
       $('#user_login_modal').fadeIn();      //login_modalのdisplayをnoneをブロックにする    
     });
@@ -56,9 +55,6 @@ $(function() {
         $(".answer2").slideDown();  //answerのdisplayをblockにする 
       }
     });
-
-
-  
 });
   
 
@@ -127,51 +123,37 @@ $(function() {
 
 //美容師の登録ページ 美容師のメニュー作成ページ
 $(function () {
-    // 画像を呼び出すためのコールバック関数
-    function readURL(input) {
-      // データが存在していることを確認
-      if (input.files && input.files[0]) {
+    // 画像を呼び出すためのコールバック関数 関数を定義している
+    function readURL(input) {　
+      // データが存在していることを確認 type="file"
+      if (input.files) {
         // 非同期で読み込むためにFileReader()を呼び出す
         var reader = new FileReader();
-        // onload はファイルの読み込みが完了したタイミングで発火する
-        reader.onload = function (e) {
-          // avatar_img_prevのimg srcの部分を画像のパラメータとして設定
-          $('#prev_img').attr('src', e.target.result);
-        }
-        // ファイルを読み込む
         reader.readAsDataURL(input.files[0]);
+        // onload はファイルの読み込みが完了したタイミングで発火する
+        // reader.onload = function (e) {
+        //   // avatar_img_prevのimg srcの部分を画像のパラメータとして設定
+        //   $('#prev_img').attr('src', e.target.result);
+
+        // }
+        reader.onload = function(){
+          var src = reader.result
+          var html= `<img src="${src}" width="114" height="80">`
+          //image_box__container要素の前にhtmlを差し込む
+          $('.fa').before(html);
+        }
+
       }
     }
-  
-    // post_imgが変更されたタイミングに発火
+
     $("#post_img").change(function () {
       readURL(this);
-    });
-});
+      console.log("fhaf");
+      });
+    
 
-$(function () {
-  // 画像を呼び出すためのコールバック関数
-  function readURL(input) {
-    // データが存在していることを確認
-    if (input.files && input.files[0]) {
-      // 非同期で読み込むためにFileReader()を呼び出す
-      var reader = new FileReader();
-      // onload はファイルの読み込みが完了したタイミングで発火する
-      reader.onload = function (e) {
-        // avatar_img_prevのimg srcの部分を画像のパラメータとして設定
-        $('.output').attr('src', e.target.result);
-      }
-      // ファイルを読み込む
-      reader.readAsDataURL(input.files[0]);
-    }
-  }
-
-  // post_imgが変更されたタイミングに発火
-  // $(".input").change(function () {
-  //   readURL(this);
-  //   $(".display_none").addClass("display_block")
-  // });
 });
+  //for (i = 0; i < inputf.files.length; i++){}
 
 $(function () {
   $(".input5").change(function () {
@@ -228,6 +210,7 @@ $(function() {
 
 //pay.jp  
 $(function() {
+  //gon.keyはpay.jpの公開鍵 環境変数はjsでは使えなかった
   Payjp.setPublicKey(gon.key);
 
   $("#token_submit").on("click", function(e) {
