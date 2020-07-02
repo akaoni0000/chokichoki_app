@@ -1,35 +1,21 @@
 <div class="container">
-<%= @current_hairdresser.name %>
-<%= form_with(model: @style_image, class: "image_form") do |f| %>
-    <label class= "image_label" >
-        <%= f.hidden_field :hairdresser_id, :value => @current_hairdresser.id %>
-        <!--画像アップロード用-->
-        <% if @style_image.hair_images.size == 0 %>
-            <div class="container">
-            <%= f.file_field :hair_images, multiple: true, class: "hidden input5"%>
-            <%= attachment_image_tag @image, :image, fallback: "no_image.png", class: "cursor image_size_100" %>
-            </div>
-        <% elsif @style_image.hair_images.size == 1 %>
-            <%= f.file_field :hair_images, multiple: true, class: "hidden input4"%>
-            <%= attachment_image_tag @image, :image, fallback: "no_image.png", class: "cursor image_size_80" %>
-        <% elsif @style_image.hair_images.size == 2 %>
-            <%= f.file_field :hair_images, multiple: true, class: "hidden input3"%>
-            <%= attachment_image_tag @image, :image, fallback: "no_image.png", class: "cursor image_size_60" %>
-        <% elsif @style_image.hair_images.size == 3 %>
-            <%= f.file_field :hair_images, multiple: true, class: "hidden input2"%>
-            <%= attachment_image_tag @image, :image, fallback: "no_image.png", class: "cursor image_size_40" %>
-        <% elsif @style_image.hair_images.size == 4 %>
-            <%= f.file_field :hair_images, multiple: true, class: "hidden input1"%>
-            <%= attachment_image_tag @image, :image, fallback: "no_image.png", class: "cursor image_size_20" %>
-        <% elsif @style_image.hair_images.size == 5 %>
-        <% end %>
-    </label>
-<% end %>
-    <% i = 0 %>
+    <%= @current_hairdresser.name %>
+    <h3>画像投稿</h3>
+    <%= form_with(model: @style_image, class: "image_form") do |f| %>
+        <label class= "image_label width_100" >
+            <!--画像アップロード用-->
+            <%= f.file_field :hair_images, multiple: true, class: "hidden image_input"%>
+            <h1 class="sentence"><span class="glyphicon glyphicon-camera" aria-hidden="true"></span></h1>
+        </label>
+    <% end %>
+</div>
+
+
+
+ <!--<% i = 0 %>
     <% @style_image.hair_images.each do |style_image| %>
             <%= image_tag style_image.to_s, size: "300x300", class: "output" %>
             <%= link_to "削除", style_image_path(id: @style_image.id, number: i), method: :delete %>
             <% i += 1 %>
     <% end %>
-    <%= @style_image.hair_images.size %>
-</div>
+    <%= @style_image.hair_images.size %>-->

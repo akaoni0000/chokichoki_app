@@ -1,5 +1,6 @@
 class StyleImagesController < ApplicationController
-
+    
+    #ログイン時にstyle_imageのレコードが作成した。
     def edit
         @style_image =  StyleImage.find(params[:id])
     end
