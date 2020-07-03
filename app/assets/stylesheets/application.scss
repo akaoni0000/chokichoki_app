@@ -181,18 +181,29 @@ header {
    
 }
 
+
+.image_ {
+    width: 30px;
+    height: 30px;
+    background-color: greenyellow;
+}
+
+
+
 .image_form {
     display: inline-block;
     width: 100%;
     height: 350px;
-    background-color:grey;
-    text-align: center;
+    //子要素のinline-blockの隙間をなくす
+    font-size: 0;
 }
 
 .image_label {
-    width: 100%;
     height: 350px;
+    background-color:grey;
     padding-top: 125px;
+    display: inline-block;
+    text-align: center;
 }
 
 .hair_box {
@@ -202,6 +213,7 @@ header {
     display: inline-block;
     text-align: center;
     padding-top: 10px;
+    font-size: 2;
     //下にずれるのを防ぐ
     vertical-align: top;
 }

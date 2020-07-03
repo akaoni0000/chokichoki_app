@@ -3,7 +3,7 @@
     <h3>画像投稿</h3>
     
     <%= form_with(model: @style_image, class: "image_form width_100") do |f| %>
-        <label class= "image_label" >
+        <label class= "image_label width_100" >
             <!--画像アップロード用-->
             <%= f.file_field :hair_images, multiple: true, class: "hidden image_input"%>
             <h1 class="sentence"><span class="glyphicon glyphicon-camera" aria-hidden="true"></span></h1>

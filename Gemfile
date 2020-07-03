@@ -102,7 +102,7 @@ group :production, :staging do
   gem 'mysql2'
 end
 
-#デプロイ
+#デプロイに仮想環境の変更を反映する
 gem 'capistrano'
 gem 'capistrano-rails'
 gem 'capistrano3-puma'

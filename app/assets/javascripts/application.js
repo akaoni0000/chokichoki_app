@@ -131,16 +131,9 @@ $(function () {
         var reader = new FileReader();
         reader.readAsDataURL(input.files[0]);
         // onload はファイルの読み込みが完了したタイミングで発火する
-        // reader.onload = function (e) {
+        reader.onload = function (e) {
         //   // avatar_img_prevのimg srcの部分を画像のパラメータとして設定
-        //   $('#prev_img').attr('src', e.target.result);
-
-        // }
-        reader.onload = function(){
-          var src = reader.result
-          var html = `<img src="${src}" width="100%" height="80">`
-          //image_box__container要素の前にhtmlを差し込む
-          $('.fa').before(html);
+        $('#prev_img').attr('src', e.target.result);
         }
 
       }
@@ -166,88 +159,98 @@ $(function () {
         //この後input.files.length(選択した画像の数)だけ繰り返す i=input.files.lengthとなる
         reader.onload = function(e){
           var src = e.target.result
-          var html = `<div class="hair_box"><img src="${src}" class="box_" width="80%" height="300"></div>`
-          $('.image_form').before(html);
+          var html = `
+          <div class="hair_box">
+            <img src="${src}" class="box_" width="80%" height="250">
+            <div>
+              <label class="image_">
+                <input multiple="multiple" class="hidden image_input2" type="file" name="style_image[hair_images][]" id="style_image_hair_images">
+              </label>
+              <span style="font-size: 20px;">編集</span> <span style="font-size: 20px;">削除</span>
+            </div>
+          </div>
+          `
+          $('.image_label').before(html);
           //stop_数字 は周回(input.files.lengthだけ繰り返す)のための対策
-          if ($(".image_form").hasClass(`stop_4`)) {
-            $(".image_form").removeClass(`stop_4`)
-            $(".image_form").addClass(`stop_3`)
+          if ($(".image_label").hasClass(`stop_4`)) {
+            $(".image_label").removeClass(`stop_4`)
+            $(".image_label").addClass(`stop_3`)
           }
-          else if ($(".image_form").hasClass(`stop_3`)) {
-            $(".image_form").removeClass(`stop_3`)
-            $(".image_form").addClass(`stop_2`)
+          else if ($(".image_label").hasClass(`stop_3`)) {
+            $(".image_label").removeClass(`stop_3`)
+            $(".image_label").addClass(`stop_2`)
           }
-          else if ($(".image_form").hasClass(`stop_2`)) {
-            $(".image_form").removeClass(`stop_2`)
-            $(".image_form").addClass(`stop_1`)
+          else if ($(".image_label").hasClass(`stop_2`)) {
+            $(".image_label").removeClass(`stop_2`)
+            $(".image_label").addClass(`stop_1`)
           }
-          else if ($(".image_form").hasClass(`stop_1`)) {
-            $(".image_form").removeClass(`stop_1`)
+          else if ($(".image_label").hasClass(`stop_1`)) {
+            $(".image_label").removeClass(`stop_1`)
             $(".image_input").val("");  //.val("")により画像選択で同じ画像を連続で選べるようにする
           }
-          else if ($(".image_form").hasClass(`width_100`)) {
-            $(".image_form").removeClass("width_100");
+          else if ($(".image_label").hasClass(`width_100`)) {
+            $(".image_label").removeClass("width_100");
             var file_number = input.files.length;
             var number = 100-file_number*20;
             var stop_number = input.files.length-1;
             console.log(100);
             if (stop_number == 0) {
-              $('.image_form').addClass(`width_${number}`);
+              $('.image_label').addClass(`width_${number}`);
               $(".image_input").val(""); //.val("")により画像選択で同じ画像を連続で選べるようにする
             } else {
-              $('.image_form').addClass(`width_${number} stop_${stop_number}`);
+              $('.image_label').addClass(`width_${number} stop_${stop_number}`);  //例えばwidth_80だと横幅が80%になる
             }
           } 
-          else if ($(".image_form").hasClass("width_80")) {
-            $(".image_form").removeClass("width_80");
+          else if ($(".image_label").hasClass("width_80")) {
+            $(".image_label").removeClass("width_80");
             var file_number = input.files.length;
             var number = 80-file_number*20;
             var stop_number = input.files.length-1;
             console.log(80);
             if (stop_number == 0) {
-              $('.image_form').addClass(`width_${number}`);
+              $('.image_label').addClass(`width_${number}`);
               $(".image_input").val(""); //.val("")により画像選択で同じ画像を連続で選べるようにする
             } else {
-              $('.image_form').addClass(`width_${number} stop_${stop_number}`);
+              $('.image_label').addClass(`width_${number} stop_${stop_number}`);
             }
           } 
-          else if ($(".image_form").hasClass("width_60")) {
-            $(".image_form").removeClass("width_60");
+          else if ($(".image_label").hasClass("width_60")) {
+            $(".image_label").removeClass("width_60");
             var file_number = input.files.length;
             var number = 60-file_number*20;
             var stop_number = input.files.length-1;
             console.log(60);
             if (stop_number == 0) {
-              $('.image_form').addClass(`width_${number}`);
+              $('.image_label').addClass(`width_${number}`);
               $(".image_input").val("");     //.val("")により画像選択で同じ画像を連続で選べるようにする
             } else {
-              $('.image_form').addClass(`width_${number} stop_${stop_number}`);
+              $('.image_label').addClass(`width_${number} stop_${stop_number}`);
             }
           } 
-          else if ($(".image_form").hasClass("width_40")) {
-            $(".image_form").removeClass("width_40");
+          else if ($(".image_label").hasClass("width_40")) {
+            $(".image_label").removeClass("width_40");
             var file_number = input.files.length;
             var number = 40-file_number*20;
             var stop_number = input.files.length-1;
             console.log(40);
             if (stop_number == 0) {
-              $('.image_form').addClass(`width_${number}`);
+              $('.image_label').addClass(`width_${number}`);
               $(".image_input").val("");   //.val("")により画像選択で同じ画像を連続で選べるようにする
             } else {
-              $('.image_form').addClass(`width_${number} stop_${stop_number}`);
+              $('.image_label').addClass(`width_${number} stop_${stop_number}`);
             }
           } 
-          else if ($(".image_form").hasClass("width_20")) {
-            $(".image_form").removeClass("width_20");
+          else if ($(".image_label").hasClass("width_20")) {
+            $(".image_label").removeClass("width_20");
             var file_number = input.files.length;
             var number = 20-file_number*20;
             var stop_number = input.files.length-1;
             console.log(20);
             if (stop_number == 0) {
-              $('.image_form').addClass(`width_${number}`);
+              $('.image_label').addClass(`width_${number}`);
               $(".image_input").val("");    //.val("")により画像選択で同じ画像を連続で選べるようにする
             } else {
-              $('.image_form').addClass(`width_${number} stop_${stop_number}`);
+              $('.image_label').addClass(`width_${number} stop_${stop_number}`);
             }
           } 
         }
@@ -257,9 +260,21 @@ $(function () {
       $(".image_input").change(function () {
         readURLs(this);
       });
-      
-    });
 
+
+      //生成されたhtml要素にはこの形じゃないとイベントが発生しない
+      $(document).on("change", ".image_input2", function(){
+        var reader = new FileReader();
+        reader.readAsDataURL(this.files[0]);
+        reader.onload = function (e) {
+          $(".box_").attr('src', e.target.result);
+        } 
+        $(".image_input2").val("");
+    });
+  
+  });
+
+ 
 
 
 
@@ -349,6 +364,10 @@ $(function() {
 });
 
 
+
+
+
+
 //pay.jp  クレジットカード登録 決済
 $(function() {
   //gon.keyはpay.jpの公開鍵 環境変数はjsでは使えなかった
@@ -379,7 +398,7 @@ $(function() {
         $("#charge-form").submit();
       } else {
         alert("有効期限またはセキリュティコードを入力してください");
-        $("#token_submit").prop('disabled', false);
+        $("#token_submit").prop('disabled', false);　//ボタンを有効化する
       }
     });
   });
