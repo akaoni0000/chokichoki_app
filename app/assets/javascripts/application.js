@@ -155,7 +155,9 @@ $(function () {
 });
   //varはグローバル変数といいどこでもその変数が使える 関数を定義した中で使うとローカル変数になる
 
+  //美容師のヘアスタイル画像投稿ページで使う
   $(function () {
+    //readURLsという関数を定義
     function readURLs(input) {
       for (i = 0; i < input.files.length; i+=1) {
         var reader = new FileReader();
@@ -163,101 +165,100 @@ $(function () {
         //ここで折り返す
         //この後input.files.length(選択した画像の数)だけ繰り返す i=input.files.lengthとなる
         reader.onload = function(e){
-          console.log(i);
           var src = e.target.result
-          var html= `<img src="${src}" class="box_start${i}" width="20%" height="350">`
-          $('.image_form').after(html);
-          i -= 1
-          if ($(".image_label").hasClass(`stop_4`)) {
-            $(".image_label").removeClass(`stop_4`)
-            $(".image_label").addClass(`stop_3`)
+          var html = `<div class="hair_box"><img src="${src}" class="box_" width="80%" height="300"></div>`
+          $('.image_form').before(html);
+          //stop_数字 は周回(input.files.lengthだけ繰り返す)のための対策
+          if ($(".image_form").hasClass(`stop_4`)) {
+            $(".image_form").removeClass(`stop_4`)
+            $(".image_form").addClass(`stop_3`)
           }
-          else if ($(".image_label").hasClass(`stop_3`)) {
-            $(".image_label").removeClass(`stop_3`)
-            $(".image_label").addClass(`stop_2`)
+          else if ($(".image_form").hasClass(`stop_3`)) {
+            $(".image_form").removeClass(`stop_3`)
+            $(".image_form").addClass(`stop_2`)
           }
-          else if ($(".image_label").hasClass(`stop_2`)) {
-            $(".image_label").removeClass(`stop_2`)
-            $(".image_label").addClass(`stop_1`)
+          else if ($(".image_form").hasClass(`stop_2`)) {
+            $(".image_form").removeClass(`stop_2`)
+            $(".image_form").addClass(`stop_1`)
           }
-          else if ($(".image_label").hasClass(`stop_1`)) {
-            $(".image_label").removeClass(`stop_1`)
-
-            $(".image_input").val("");
+          else if ($(".image_form").hasClass(`stop_1`)) {
+            $(".image_form").removeClass(`stop_1`)
+            $(".image_input").val("");  //.val("")により画像選択で同じ画像を連続で選べるようにする
           }
-          else if ($(".image_label").hasClass(`width_100`)) {
-            $(".image_label").removeClass("width_100");
+          else if ($(".image_form").hasClass(`width_100`)) {
+            $(".image_form").removeClass("width_100");
             var file_number = input.files.length;
             var number = 100-file_number*20;
             var stop_number = input.files.length-1;
             console.log(100);
             if (stop_number == 0) {
-              $('.image_label').addClass(`width_${number}`);
-              $(".image_input").val("");
+              $('.image_form').addClass(`width_${number}`);
+              $(".image_input").val(""); //.val("")により画像選択で同じ画像を連続で選べるようにする
             } else {
-              $('.image_label').addClass(`width_${number} stop_${stop_number}`);
+              $('.image_form').addClass(`width_${number} stop_${stop_number}`);
             }
           } 
-          else if ($(".image_label").hasClass("width_80")) {
-            $(".image_label").removeClass("width_80");
+          else if ($(".image_form").hasClass("width_80")) {
+            $(".image_form").removeClass("width_80");
             var file_number = input.files.length;
             var number = 80-file_number*20;
             var stop_number = input.files.length-1;
             console.log(80);
             if (stop_number == 0) {
-              $('.image_label').addClass(`width_${number}`);
-              $(".image_input").val("");
+              $('.image_form').addClass(`width_${number}`);
+              $(".image_input").val(""); //.val("")により画像選択で同じ画像を連続で選べるようにする
             } else {
-              $('.image_label').addClass(`width_${number} stop_${stop_number}`);
+              $('.image_form').addClass(`width_${number} stop_${stop_number}`);
             }
           } 
-          else if ($(".image_label").hasClass("width_60")) {
-            $(".image_label").removeClass("width_60");
+          else if ($(".image_form").hasClass("width_60")) {
+            $(".image_form").removeClass("width_60");
             var file_number = input.files.length;
             var number = 60-file_number*20;
             var stop_number = input.files.length-1;
             console.log(60);
             if (stop_number == 0) {
-              $('.image_label').addClass(`width_${number}`);
-              $(".image_input").val("");
+              $('.image_form').addClass(`width_${number}`);
+              $(".image_input").val("");     //.val("")により画像選択で同じ画像を連続で選べるようにする
             } else {
-              $('.image_label').addClass(`width_${number} stop_${stop_number}`);
+              $('.image_form').addClass(`width_${number} stop_${stop_number}`);
             }
           } 
-          else if ($(".image_label").hasClass("width_40")) {
-            $(".image_label").removeClass("width_40");
+          else if ($(".image_form").hasClass("width_40")) {
+            $(".image_form").removeClass("width_40");
             var file_number = input.files.length;
             var number = 40-file_number*20;
             var stop_number = input.files.length-1;
             console.log(40);
             if (stop_number == 0) {
-              $('.image_label').addClass(`width_${number}`);
-              $(".image_input").val("");
+              $('.image_form').addClass(`width_${number}`);
+              $(".image_input").val("");   //.val("")により画像選択で同じ画像を連続で選べるようにする
             } else {
-              $('.image_label').addClass(`width_${number} stop_${stop_number}`);
+              $('.image_form').addClass(`width_${number} stop_${stop_number}`);
             }
           } 
-          else if ($(".image_label").hasClass("width_20")) {
-            $(".image_label").removeClass("width_20");
+          else if ($(".image_form").hasClass("width_20")) {
+            $(".image_form").removeClass("width_20");
             var file_number = input.files.length;
             var number = 20-file_number*20;
             var stop_number = input.files.length-1;
             console.log(20);
             if (stop_number == 0) {
-              $('.image_label').addClass(`width_${number}`);
-              $(".image_input").val("");
+              $('.image_form').addClass(`width_${number}`);
+              $(".image_input").val("");    //.val("")により画像選択で同じ画像を連続で選べるようにする
             } else {
-              $('.image_label').addClass(`width_${number} stop_${stop_number}`);
+              $('.image_form').addClass(`width_${number} stop_${stop_number}`);
             }
           } 
         }
       }
     }
 
-    $(".image_input").change(function () {
-      readURLs(this);
+      $(".image_input").change(function () {
+        readURLs(this);
+      });
+      
     });
-  });
 
 
 
@@ -348,7 +349,7 @@ $(function() {
 });
 
 
-//pay.jp  
+//pay.jp  クレジットカード登録 決済
 $(function() {
   //gon.keyはpay.jpの公開鍵 環境変数はjsでは使えなかった
   Payjp.setPublicKey(gon.key);
