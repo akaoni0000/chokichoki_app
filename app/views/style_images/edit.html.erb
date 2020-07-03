@@ -2,12 +2,14 @@
     <%= @current_hairdresser.name %>
     <h3>画像投稿</h3>
     
-    <%= form_with(model: @style_image, class: "image_form width_100") do |f| %>
+    <%= form_with(model: @style_image, class: "image_form width_100", local: true) do |f| %>
         <label class= "image_label width_100" >
             <!--画像アップロード用-->
-            <%= f.file_field :hair_images, multiple: true, class: "hidden image_input"%>
+            <%= f.file_field :hair_images, class: "hiden image_input", multiple: true%>
             <h1 class="sentence"><span class="glyphicon glyphicon-camera" aria-hidden="true"></span></h1>
+           
         </label>
+        <%= f.submit "登録" %>
     <% end %>
    
 </div>

@@ -8,7 +8,8 @@ class StyleImagesController < ApplicationController
     def update
         @style_image = StyleImage.find(params[:id])
         @style_image.update(style_images_params)
-        redirect_to edit_style_image_path(@style_image.id)
+        binding.pry
+        redirect_to root_path
     end
 
     def destroy

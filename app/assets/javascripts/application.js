@@ -149,130 +149,103 @@ $(function () {
   //varはグローバル変数といいどこでもその変数が使える 関数を定義した中で使うとローカル変数になる
 
   //美容師のヘアスタイル画像投稿ページで使う
+  
   $(function () {
-    //readURLsという関数を定義
-    function readURLs(input) {
-      for (i = 0; i < input.files.length; i+=1) {
-        var reader = new FileReader();
-        reader.readAsDataURL(input.files[i]);
-        //ここで折り返す
-        //この後input.files.length(選択した画像の数)だけ繰り返す i=input.files.lengthとなる
-        reader.onload = function(e){
+    $(document).on("change", ".image_input", function () { 
+      var image_input =  $(this)
+      var reader = new FileReader();
+      reader.readAsDataURL(this.files[0]);
+      reader.onload = function(e){
+        if ($(".image_label").hasClass(`width_100`)) {
+          $(".image_label").removeClass("width_100");
+          console.log(100);
+          $('.image_label').addClass(`width_80`);
           var src = e.target.result
-          var html = `
-          <div class="hair_box">
-            <img src="${src}" class="box_" width="80%" height="250">
+          var html = 
+            `
+            <div class="hair_box hair1">
+              <img src="${src}" class="image_box" width="80%" height="250">
             <div>
-              <label class="image_">
-                <input multiple="multiple" class="hidden image_input2" type="file" name="style_image[hair_images][]" id="style_image_hair_images">
-              </label>
-              <span style="font-size: 20px;">編集</span> <span style="font-size: 20px;">削除</span>
-            </div>
-          </div>
-          `
+           `
           $('.image_label').before(html);
-          //stop_数字 は周回(input.files.lengthだけ繰り返す)のための対策
-          if ($(".image_label").hasClass(`stop_4`)) {
-            $(".image_label").removeClass(`stop_4`)
-            $(".image_label").addClass(`stop_3`)
-          }
-          else if ($(".image_label").hasClass(`stop_3`)) {
-            $(".image_label").removeClass(`stop_3`)
-            $(".image_label").addClass(`stop_2`)
-          }
-          else if ($(".image_label").hasClass(`stop_2`)) {
-            $(".image_label").removeClass(`stop_2`)
-            $(".image_label").addClass(`stop_1`)
-          }
-          else if ($(".image_label").hasClass(`stop_1`)) {
-            $(".image_label").removeClass(`stop_1`)
-            $(".image_input").val("");  //.val("")により画像選択で同じ画像を連続で選べるようにする
-          }
-          else if ($(".image_label").hasClass(`width_100`)) {
-            $(".image_label").removeClass("width_100");
-            var file_number = input.files.length;
-            var number = 100-file_number*20;
-            var stop_number = input.files.length-1;
-            console.log(100);
-            if (stop_number == 0) {
-              $('.image_label').addClass(`width_${number}`);
-              $(".image_input").val(""); //.val("")により画像選択で同じ画像を連続で選べるようにする
-            } else {
-              $('.image_label').addClass(`width_${number} stop_${stop_number}`);  //例えばwidth_80だと横幅が80%になる
-            }
-          } 
-          else if ($(".image_label").hasClass("width_80")) {
-            $(".image_label").removeClass("width_80");
-            var file_number = input.files.length;
-            var number = 80-file_number*20;
-            var stop_number = input.files.length-1;
-            console.log(80);
-            if (stop_number == 0) {
-              $('.image_label').addClass(`width_${number}`);
-              $(".image_input").val(""); //.val("")により画像選択で同じ画像を連続で選べるようにする
-            } else {
-              $('.image_label').addClass(`width_${number} stop_${stop_number}`);
-            }
-          } 
-          else if ($(".image_label").hasClass("width_60")) {
-            $(".image_label").removeClass("width_60");
-            var file_number = input.files.length;
-            var number = 60-file_number*20;
-            var stop_number = input.files.length-1;
-            console.log(60);
-            if (stop_number == 0) {
-              $('.image_label').addClass(`width_${number}`);
-              $(".image_input").val("");     //.val("")により画像選択で同じ画像を連続で選べるようにする
-            } else {
-              $('.image_label').addClass(`width_${number} stop_${stop_number}`);
-            }
-          } 
-          else if ($(".image_label").hasClass("width_40")) {
-            $(".image_label").removeClass("width_40");
-            var file_number = input.files.length;
-            var number = 40-file_number*20;
-            var stop_number = input.files.length-1;
-            console.log(40);
-            if (stop_number == 0) {
-              $('.image_label').addClass(`width_${number}`);
-              $(".image_input").val("");   //.val("")により画像選択で同じ画像を連続で選べるようにする
-            } else {
-              $('.image_label').addClass(`width_${number} stop_${stop_number}`);
-            }
-          } 
-          else if ($(".image_label").hasClass("width_20")) {
-            $(".image_label").removeClass("width_20");
-            var file_number = input.files.length;
-            var number = 20-file_number*20;
-            var stop_number = input.files.length-1;
-            console.log(20);
-            if (stop_number == 0) {
-              $('.image_label').addClass(`width_${number}`);
-              $(".image_input").val("");    //.val("")により画像選択で同じ画像を連続で選べるようにする
-            } else {
-              $('.image_label').addClass(`width_${number} stop_${stop_number}`);
-            }
-          } 
-        }
-      }
-    }
-
-      $(".image_input").change(function () {
-        readURLs(this);
-      });
-
-
-      //生成されたhtml要素にはこの形じゃないとイベントが発生しない
-      $(document).on("change", ".image_input2", function(){
-        var reader = new FileReader();
-        reader.readAsDataURL(this.files[0]);
-        reader.onload = function (e) {
-          $(".box_").attr('src', e.target.result);
+          image_input.appendTo(".hair1");
+          $(".image_label").append('<input class="hiden image_input" multiple="multiple" type="file" name="style_image[hair_images][]" id="style_image_hair_images">');
         } 
-        $(".image_input2").val("");
+        else if ($(".image_label").hasClass("width_80")) {
+          $(".image_label").removeClass("width_80");
+          console.log(80);
+          $('.image_label').addClass(`width_60`);
+          var src = e.target.result
+          var html = 
+            `
+            <div class="hair_box hair2">
+              <img src="${src}" class="image_box" width="80%" height="250">
+            <div>
+           `
+          $('.image_label').before(html);
+          image_input.appendTo('.hair2');
+          $(".image_label").append('<input class="image_input" type="file" name="style_image[hair_images]">');
+        } 
+        else if ($(".image_label").hasClass("width_60")) {
+          $(".image_label").removeClass("width_60");
+          console.log(60);
+          $('.image_label').addClass(`width_40`);
+          var src = e.target.result
+          var html = 
+            `
+            <div class="hair_box hair3">
+              <img src="${src}" class="image_box" width="80%" height="250">
+            <div>
+           `
+          $('.image_label').before(html);
+          image_input.appendTo('.hair3');
+          $(".image_label").append('<input class="image_input" type="file" name="style_image[hair_images]">');
+        } 
+        else if ($(".image_label").hasClass("width_40")) {
+          $(".image_label").removeClass("width_40");
+          console.log(40);
+          $('.image_label').addClass(`width_20`);
+          var src = e.target.result
+          var html = 
+            `
+            <div class="hair_box hair4">
+              <img src="${src}" class="image_box" width="80%" height="250">
+            <div>
+           `
+          $('.image_label').before(html);
+          image_input.appendTo('.hair4');
+          $(".image_label").append('<input class="image_input" type="file" name="style_image[hair_images]">');
+        } 
+        else if ($(".image_label").hasClass("width_20")) {
+          $(".image_label").removeClass("width_20");
+          console.log(20);
+          $('.image_label').addClass(`width_0`);
+          var src = e.target.result
+          var html = 
+            `
+            <div class="hair_box hair5">
+              <img src="${src}" class="image_box" width="80%" height="250">
+            <div>
+           `
+          $('.image_label').before(html);
+          image_input.appendTo('.hair5');
+          $(".image_label").append('<input class="image_input" type="file" name="style_image[hair_images]">');
+        } 
+      }
+    });
+  
+    //生成されたhtml要素にはこの形じゃないとイベントが発生しない
+    $(document).on("change", ".image_input2", function(){
+      var event = $(this);
+      var reader = new FileReader();
+      reader.readAsDataURL(this.files[0]);
+      reader.onload = function (e) {
+        event.parents(".hair_box").find(".image_box").attr('src', e.target.result);
+      } 
     });
   
   });
+  
 
  
 
