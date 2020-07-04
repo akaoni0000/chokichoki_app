@@ -149,7 +149,6 @@ $(function () {
   //varはグローバル変数といいどこでもその変数が使える 関数を定義した中で使うとローカル変数になる
 
   //美容師のヘアスタイル画像投稿ページで使う
-  
   $(function () {
     $(document).on("change", ".image_input", function () { 
       var image_input =  $(this)
@@ -165,11 +164,12 @@ $(function () {
             `
             <div class="hair_box hair1">
               <img src="${src}" class="image_box" width="80%" height="250">
+              <div class="delete cursor" style="font-size: 20px;">削除</div>
             <div>
            `
           $('.image_label').before(html);
           image_input.appendTo(".hair1");
-          $(".image_label").append('<input class="hiden image_input" multiple="multiple" type="file" name="style_image[hair_images][]" id="style_image_hair_images">');
+          $(".image_label").append('<input class="hidden image_input" type="file" name="style_image[hair_images][]">');
         } 
         else if ($(".image_label").hasClass("width_80")) {
           $(".image_label").removeClass("width_80");
@@ -180,11 +180,12 @@ $(function () {
             `
             <div class="hair_box hair2">
               <img src="${src}" class="image_box" width="80%" height="250">
+              <div class="delete cursor" style="font-size: 20px;">削除</div>
             <div>
            `
           $('.image_label').before(html);
           image_input.appendTo('.hair2');
-          $(".image_label").append('<input class="image_input" type="file" name="style_image[hair_images]">');
+          $(".image_label").append('<input class="hidden image_input" type="file" name="style_image[hair_images][]">');
         } 
         else if ($(".image_label").hasClass("width_60")) {
           $(".image_label").removeClass("width_60");
@@ -195,11 +196,12 @@ $(function () {
             `
             <div class="hair_box hair3">
               <img src="${src}" class="image_box" width="80%" height="250">
+              <div class="delete cursor" style="font-size: 20px;">削除</div>
             <div>
            `
           $('.image_label').before(html);
           image_input.appendTo('.hair3');
-          $(".image_label").append('<input class="image_input" type="file" name="style_image[hair_images]">');
+          $(".image_label").append('<input class="hidden image_input" type="file" name="style_image[hair_images][]">');
         } 
         else if ($(".image_label").hasClass("width_40")) {
           $(".image_label").removeClass("width_40");
@@ -210,11 +212,12 @@ $(function () {
             `
             <div class="hair_box hair4">
               <img src="${src}" class="image_box" width="80%" height="250">
+              <div class="delete cursor" style="font-size: 20px;">削除</div>
             <div>
            `
           $('.image_label').before(html);
           image_input.appendTo('.hair4');
-          $(".image_label").append('<input class="image_input" type="file" name="style_image[hair_images]">');
+          $(".image_label").append('<input class="hidden image_input" type="file" name="style_image[hair_images][]">');
         } 
         else if ($(".image_label").hasClass("width_20")) {
           $(".image_label").removeClass("width_20");
@@ -225,23 +228,35 @@ $(function () {
             `
             <div class="hair_box hair5">
               <img src="${src}" class="image_box" width="80%" height="250">
+              <div class="delete cursor" style="font-size: 20px;">削除</div>
             <div>
            `
           $('.image_label').before(html);
           image_input.appendTo('.hair5');
-          $(".image_label").append('<input class="image_input" type="file" name="style_image[hair_images]">');
+          $(".image_label").append('<input class="hidden image_input" type="file" name="style_image[hair_images][]">');
         } 
       }
     });
   
     //生成されたhtml要素にはこの形じゃないとイベントが発生しない
-    $(document).on("change", ".image_input2", function(){
-      var event = $(this);
-      var reader = new FileReader();
-      reader.readAsDataURL(this.files[0]);
-      reader.onload = function (e) {
-        event.parents(".hair_box").find(".image_box").attr('src', e.target.result);
+    $(document).on("click", ".delete", function(){
+      $(this).parent().remove();
+      if ($(".image_label").hasClass("width_80")) {
+        $(".image_label").removeClass("width_80");
+        $(".image_label").addClass("width_100");
       } 
+      else if ($(".image_label").hasClass("width_60")) {
+        $(".image_label").removeClass("width_60");
+        $(".image_label").addClass("width_80");
+      }
+      else if ($(".image_label").hasClass("width_40")) {
+        $(".image_label").removeClass("width_40");
+        $(".image_label").addClass("width_60");
+      }
+      else if ($(".image_label").hasClass("width_20")) {
+        $(".image_label").removeClass("width_20");
+        $(".image_label").addClass("width_40");
+      }
     });
   
   });
