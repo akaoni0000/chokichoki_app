@@ -1,0 +1,27 @@
+if ($(".image_label").hasClass("width_80")) {
+      $(".image_label").removeClass("width_80");
+      $(".image_label").addClass("width_100");
+    } 
+    else if ($(".image_label").hasClass("width_60")) {
+      $(".image_label").removeClass("width_60");
+      $(".image_label").addClass("width_80");
+    }
+    else if ($(".image_label").hasClass("width_40")) {
+      $(".image_label").removeClass("width_40");
+      $(".image_label").addClass("width_60");
+    }
+    else if ($(".image_label").hasClass("width_20")) {
+      $(".image_label").removeClass("width_20");
+      $(".image_label").addClass("width_40");
+    }
+    else if ($(".image_label").hasClass("width_0")) {
+      $(".image_label").removeClass("width_0");
+      $(".image_label").addClass("width_20");
+    }
+    else if ($(".image_label").hasClass("width_100")) {
+      $(".image_label").removeClass("width_100");
+      $(".image_label").removeClass("display_none");
+      $(".image_label").addClass("width_20");
+    }
+$(".hair<%=@class_number%>").remove();
+console.log("fsaf");

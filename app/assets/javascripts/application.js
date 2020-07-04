@@ -16,6 +16,7 @@
 //= require bootstrap-sprockets
 //= require activestorage
 //= require jquery.raty
+// require turbolinks
 //= require_tree .
 
 //topページ
@@ -336,8 +337,12 @@ $(function () {
       $(".image_label").addClass("width_20");
     }
   });
+
+
+
 });
-  
+
+
 window.onload = function () {
   if (gon.image_number == 0) {
     $(".image_label").addClass("width_100");
