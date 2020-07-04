@@ -6,12 +6,13 @@
         <span class="image_boxes">
             <%= render "style_images/style_image_save", style_image: @style_image  %>
         </span>
-        <label class= "image_label" >
+        <label class= "image_label">
             <!--<%= f.file_field :hair_images, class: "hidden image_input", multiple: true%> これだと複数枚選べることになるし、multipleを外すとupdateできない-->
-            <input class="hidden image_input" type="file" name="style_image[hair_images][]">
+            <input class="hidden image_input" type="file" name="style_image[hair_images][]" >
             <h1 class="sentence"><span class="glyphicon glyphicon-camera" aria-hidden="true"></span></h1>
         </label>
-        <h1><%= f.submit "保存", class: "save" %></h1>
+        <%= f.hidden_field :hairdresser_id, :value => @current_hairdresser.id %>
+        <h1><%= f.submit "保存", class: "btn" %></h1>
     <% end %>
 </div>
 
