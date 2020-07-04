@@ -149,117 +149,126 @@ $(function () {
   //varはグローバル変数といいどこでもその変数が使える 関数を定義した中で使うとローカル変数になる
 
   //美容師のヘアスタイル画像投稿ページで使う
-  $(function () {
-    $(document).on("change", ".image_input", function () { 
-      var image_input =  $(this)
-      var reader = new FileReader();
-      reader.readAsDataURL(this.files[0]);
-      reader.onload = function(e){
-        if ($(".image_label").hasClass(`width_100`)) {
-          $(".image_label").removeClass("width_100");
-          console.log(100);
-          $('.image_label').addClass(`width_80`);
-          var src = e.target.result
-          var html = 
-            `
+$(function () {
+  //生成されたhtml要素にはこの形じゃないとイベントが発生しない  既存の要素でも反応する
+  $(document).on("change", ".image_input", function () { 
+    var image_input =  $(this)
+    var reader = new FileReader();
+    reader.readAsDataURL(this.files[0]);
+    reader.onload = function(e){
+      if ($(".image_label").hasClass(`width_100`)) {
+        $(".image_label").removeClass("width_100");
+        console.log(100);
+        $('.image_label').addClass(`width_80`);
+        var src = e.target.result
+        var html = 
+          `
             <div class="hair_box hair1">
               <img src="${src}" class="image_box" width="80%" height="250">
               <div class="delete cursor" style="font-size: 20px;">削除</div>
-            <div>
-           `
-          $('.image_label').before(html);
-          image_input.appendTo(".hair1");
-          $(".image_label").append('<input class="hidden image_input" type="file" name="style_image[hair_images][]">');
-        } 
-        else if ($(".image_label").hasClass("width_80")) {
-          $(".image_label").removeClass("width_80");
-          console.log(80);
-          $('.image_label').addClass(`width_60`);
-          var src = e.target.result
-          var html = 
-            `
+            </div>
+          `
+        $('.image_label').before(html);
+        image_input.appendTo(".hair1");
+        $(".image_label").append('<input class="hidden image_input" type="file" name="style_image[hair_images][]">');
+      } 
+      else if ($(".image_label").hasClass("width_80")) {
+        $(".image_label").removeClass("width_80");
+        console.log(80);
+        $('.image_label').addClass(`width_60`);
+        var src = e.target.result
+        var html = 
+          `
             <div class="hair_box hair2">
               <img src="${src}" class="image_box" width="80%" height="250">
               <div class="delete cursor" style="font-size: 20px;">削除</div>
-            <div>
-           `
-          $('.image_label').before(html);
-          image_input.appendTo('.hair2');
-          $(".image_label").append('<input class="hidden image_input" type="file" name="style_image[hair_images][]">');
-        } 
-        else if ($(".image_label").hasClass("width_60")) {
-          $(".image_label").removeClass("width_60");
-          console.log(60);
-          $('.image_label').addClass(`width_40`);
-          var src = e.target.result
-          var html = 
-            `
-            <div class="hair_box hair3">
-              <img src="${src}" class="image_box" width="80%" height="250">
-              <div class="delete cursor" style="font-size: 20px;">削除</div>
-            <div>
-           `
-          $('.image_label').before(html);
-          image_input.appendTo('.hair3');
-          $(".image_label").append('<input class="hidden image_input" type="file" name="style_image[hair_images][]">');
-        } 
-        else if ($(".image_label").hasClass("width_40")) {
-          $(".image_label").removeClass("width_40");
-          console.log(40);
-          $('.image_label').addClass(`width_20`);
-          var src = e.target.result
-          var html = 
-            `
-            <div class="hair_box hair4">
-              <img src="${src}" class="image_box" width="80%" height="250">
-              <div class="delete cursor" style="font-size: 20px;">削除</div>
-            <div>
-           `
-          $('.image_label').before(html);
-          image_input.appendTo('.hair4');
-          $(".image_label").append('<input class="hidden image_input" type="file" name="style_image[hair_images][]">');
-        } 
-        else if ($(".image_label").hasClass("width_20")) {
-          $(".image_label").removeClass("width_20");
-          console.log(20);
-          $('.image_label').addClass(`width_0`);
-          var src = e.target.result
-          var html = 
-            `
-            <div class="hair_box hair5">
-              <img src="${src}" class="image_box" width="80%" height="250">
-              <div class="delete cursor" style="font-size: 20px;">削除</div>
-            <div>
-           `
-          $('.image_label').before(html);
-          image_input.appendTo('.hair5');
-          $(".image_label").append('<input class="hidden image_input" type="file" name="style_image[hair_images][]">');
-        } 
-      }
-    });
-  
-    //生成されたhtml要素にはこの形じゃないとイベントが発生しない
-    $(document).on("click", ".delete", function(){
-      $(this).parent().remove();
-      if ($(".image_label").hasClass("width_80")) {
-        $(".image_label").removeClass("width_80");
-        $(".image_label").addClass("width_100");
+            </div>
+          `
+        $('.image_label').before(html);
+        image_input.appendTo('.hair2');
+        $(".image_label").append('<input class="hidden image_input" type="file" name="style_image[hair_images][]">');
       } 
       else if ($(".image_label").hasClass("width_60")) {
         $(".image_label").removeClass("width_60");
-        $(".image_label").addClass("width_80");
-      }
+        console.log(60);
+        $('.image_label').addClass(`width_40`);
+        var src = e.target.result
+        var html = 
+          `
+            <div class="hair_box hair3">
+              <img src="${src}" class="image_box" width="80%" height="250">
+              <div class="delete cursor" style="font-size: 20px;">削除</div>
+            </div>
+          `
+        $('.image_label').before(html);
+        image_input.appendTo('.hair3');
+        $(".image_label").append('<input class="hidden image_input" type="file" name="style_image[hair_images][]">');
+      } 
       else if ($(".image_label").hasClass("width_40")) {
         $(".image_label").removeClass("width_40");
-        $(".image_label").addClass("width_60");
-      }
+        console.log(40);
+        $('.image_label').addClass(`width_20`);
+        var src = e.target.result
+        var html = 
+          `
+            <div class="hair_box hair4">
+              <img src="${src}" class="image_box" width="80%" height="250">
+              <div class="delete cursor" style="font-size: 20px;">削除</div>
+            </div>
+          `
+        $('.image_label').before(html);
+        image_input.appendTo('.hair4');
+        $(".image_label").append('<input class="hidden image_input" type="file" name="style_image[hair_images][]">');
+      } 
       else if ($(".image_label").hasClass("width_20")) {
         $(".image_label").removeClass("width_20");
-        $(".image_label").addClass("width_40");
-      }
-    });
-  
+        console.log(20);
+        $('.image_label').addClass(`width_100`);
+        var src = e.target.result
+        var html = 
+          `
+            <div class="hair_box hair5">
+              <img src="${src}" class="image_box" width="80%" height="250">
+              <div class="delete cursor" style="font-size: 20px;">削除</div>
+            </div>
+           `
+        $('.image_label').before(html);
+        image_input.appendTo('.hair5');
+        $(".image_label").append('<input class="hidden image_input" type="file" name="style_image[hair_images][]">');
+      } 
+      
+    }
   });
+  
+  //生成されたhtml要素にはこの形じゃないとイベントが発生しない
+  $(document).on("click", ".delete", function(){
+    $(this).parent().remove();
+    if ($(".image_label").hasClass("width_80")) {
+      $(".image_label").removeClass("width_80");
+      $(".image_label").addClass("width_100");
+    } 
+    else if ($(".image_label").hasClass("width_60")) {
+      $(".image_label").removeClass("width_60");
+      $(".image_label").addClass("width_80");
+    }
+    else if ($(".image_label").hasClass("width_40")) {
+      $(".image_label").removeClass("width_40");
+      $(".image_label").addClass("width_60");
+    }
+    else if ($(".image_label").hasClass("width_20")) {
+      $(".image_label").removeClass("width_20");
+      $(".image_label").addClass("width_40");
+    }
+    else if ($(".image_label").hasClass("width_0")) {
+      $(".image_label").removeClass("width_0");
+      $(".image_label").addClass("width_20");
+    }
+    else if ($(".image_label").hasClass("width_100")) {
+      $(".image_label").removeClass("width_100");
+      $(".image_label").addClass("width_20");
+    }
+  });
+});
   
 
  

@@ -4,12 +4,11 @@
     
     <%= form_with(model: @style_image, class: "image_form width_100", local: true) do |f| %>
         <label class= "image_label width_100" >
-            <!--画像アップロード用-->
-            <%= f.file_field :hair_images, class: "hidden image_input", multiple: true%>
+            <!--<%= f.file_field :hair_images, class: "hidden image_input", multiple: true%> これだと複数枚選べることになるし、multipleを外すとupdateできない-->
+            <input class="hidden image_input" type="file" name="style_image[hair_images][]">
             <h1 class="sentence"><span class="glyphicon glyphicon-camera" aria-hidden="true"></span></h1>
-           
         </label>
-        <%= f.submit "登録" %>
+        <%= f.submit "登録", class: "aaa" %>
     <% end %>
    
 </div>
