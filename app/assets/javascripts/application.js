@@ -149,6 +149,9 @@ $(function () {
 });
   //varはグローバル変数といいどこでもその変数が使える 関数を定義した中で使うとローカル変数になる
 
+
+
+
   //美容師のヘアスタイル画像投稿ページで使う
 $(function () {
   //生成されたhtml要素にはこの形じゃないとイベントが発生しない  既存の要素でも反応する
@@ -174,6 +177,7 @@ $(function () {
             `
           $('.image_label').before(html);
           image_input.appendTo(".hair1");
+          $(".hair_box").removeClass("hair1");
         }
         else if ( size == 5) { 
           var html = 
@@ -185,6 +189,7 @@ $(function () {
             `
           $('.image_label').before(html);
           image_input.appendTo(".hair6");
+          $(".hair_box").removeClass("hair6");
         }
         $(".image_label").append('<input class="hidden image_input" type="file" name="style_image[hair_images][]">');
       } 
@@ -203,6 +208,7 @@ $(function () {
             `
           $('.image_label').before(html);
           image_input.appendTo(".hair2");
+          $(".hair_box").removeClass("hair2");
         }
         else if ( size == 6) { 
           var html = 
@@ -214,6 +220,7 @@ $(function () {
             `
           $('.image_label').before(html);
           image_input.appendTo(".hair7");
+          $(".hair_box").removeClass("hair7");
         }
         $(".image_label").append('<input class="hidden image_input" type="file" name="style_image[hair_images][]">');
       } 
@@ -232,6 +239,7 @@ $(function () {
             `
           $('.image_label').before(html);
           image_input.appendTo(".hair3");
+          $(".hair_box").removeClass("hair3");
         }
         else if ( size == 7) { 
           var html = 
@@ -243,6 +251,7 @@ $(function () {
             `
           $('.image_label').before(html);
           image_input.appendTo(".hair8");
+          $(".hair_box").removeClass("hair8");
         }
         $(".image_label").append('<input class="hidden image_input" type="file" name="style_image[hair_images][]">');
       } 
@@ -261,6 +270,7 @@ $(function () {
             `
           $('.image_label').before(html);
           image_input.appendTo(".hair4");
+          $(".hair_box").removeClass("hair4");
         }
         else if ( size == 8) { 
           var html = 
@@ -272,6 +282,7 @@ $(function () {
             `
           $('.image_label').before(html);
           image_input.appendTo(".hair9");
+          $(".hair_box").removeClass("hair9");
         }
         $(".image_label").append('<input class="hidden image_input" type="file" name="style_image[hair_images][]">');
       } 
@@ -290,6 +301,7 @@ $(function () {
             `
           $('.image_label').before(html);
           image_input.appendTo(".hair5");
+          $(".hair_box").removeClass("hair5");
         }
         else if ( size == 9) { 
           var html = 
@@ -301,6 +313,7 @@ $(function () {
             `
           $('.image_label').before(html);
           image_input.appendTo(".hair10");
+          $(".hair_box").removeClass("hair10");
           $('.image_label').addClass(`display_none`);
         }
         $(".image_label").append('<input class="hidden image_input" type="file" name="style_image[hair_images][]">');
@@ -310,7 +323,9 @@ $(function () {
   
   //生成されたhtml要素にはこの形じゃないとイベントが発生しない
   $(document).on("click", ".delete", function(){
+    size = $('img').length;
     $(this).parent().remove();
+    $(".hair_box").removeClass(".hair1");
     if ($(".image_label").hasClass("width_80")) {
       $(".image_label").removeClass("width_80");
       $(".image_label").addClass("width_100");
@@ -337,11 +352,7 @@ $(function () {
       $(".image_label").addClass("width_20");
     }
   });
-
-
-
 });
-
 
 window.onload = function () {
   if (gon.image_number == 0) {

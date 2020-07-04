@@ -23,5 +23,5 @@ if ($(".image_label").hasClass("width_80")) {
       $(".image_label").removeClass("display_none");
       $(".image_label").addClass("width_20");
     }
-$(".hair<%=@class_number%>").remove();
-console.log("fsaf");
+$(".box_number<%=@class_number%>").remove();
+$(".image_boxes").html("<%= j(render "style_images/style_image_save", style_image: @style_image) %>");

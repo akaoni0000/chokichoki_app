@@ -1,0 +1,8 @@
+<% i = 0 %>
+<% style_image.hair_images.each do |style_image| %>
+    <div class="hair_box box_number<%= i + 1 %> arry<%= i%>">
+        <%= image_tag style_image.to_s, class: "output" %>
+        <h4><%= link_to "削除", style_image_path(id: i), method: :delete, class: ".destroy", remote: true %></h4>
+    </div>
+    <% i += 1 %>
+<% end %>
