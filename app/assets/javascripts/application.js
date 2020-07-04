@@ -338,7 +338,42 @@ $(function () {
   });
 });
   
-
+window.onload = function () {
+  if (gon.image_number == 0) {
+    $(".image_label").addClass("width_100");
+  }
+  else if (gon.image_number == 1) {
+    $(".image_label").addClass("width_80");
+  }
+  else if (gon.image_number == 2) {
+    $(".image_label").addClass("width_60");
+  }
+  else if (gon.image_number == 3) {
+    $(".image_label").addClass("width_40");
+  }
+  else if (gon.image_number == 4) {
+    $(".image_label").addClass("width_20");
+  }
+  else if (gon.image_number == 5) {
+    $(".image_label").addClass("width_100");
+  }
+  else if (gon.image_number == 6) {
+    $(".image_label").addClass("width_80");
+  }
+  else if (gon.image_number == 7) {
+    $(".image_label").addClass("width_60");
+  }
+  else if (gon.image_number == 8) {
+    $(".image_label").addClass("width_40");
+  }
+  else if (gon.image_number == 9) {
+    $(".image_label").addClass("width_20");
+  }
+  else if (gon.image_number == 10) {
+    $(".image_label").addClass("width_100");
+    $('.image_label').addClass(`display_none`);
+  }
+};
  
 
 

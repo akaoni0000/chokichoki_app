@@ -3,7 +3,15 @@
     <h3>画像投稿</h3>
     
     <%= form_with(model: @style_image, class: "image_form width_100", local: true) do |f| %>
-        <label class= "image_label width_100" >
+        <% @style_image.hair_images.each do |style_image| %>
+            <% i = 1 %>
+            <div class="hair_box hair<%= i %>">
+                <%= image_tag style_image.to_s, class: "output" %>
+                <%= link_to "削除", style_image_path(id: @style_image.id, number: i), method: :delete %>
+            </div>
+            <% i += 1 %>
+        <% end %>-->
+        <label class= "image_label" >
             <!--<%= f.file_field :hair_images, class: "hidden image_input", multiple: true%> これだと複数枚選べることになるし、multipleを外すとupdateできない-->
             <input class="hidden image_input" type="file" name="style_image[hair_images][]">
             <h1 class="sentence"><span class="glyphicon glyphicon-camera" aria-hidden="true"></span></h1>
@@ -15,10 +23,4 @@
 
 
 
- <!--<% i = 0 %>
-    <% @style_image.hair_images.each do |style_image| %>
-            <%= image_tag style_image.to_s, size: "300x300", class: "output" %>
-            <%= link_to "削除", style_image_path(id: @style_image.id, number: i), method: :delete %>
-            <% i += 1 %>
-    <% end %>
-    <%= @style_image.hair_images.size %>-->
+ 
