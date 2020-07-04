@@ -21,10 +21,6 @@
     cursor: pointer;
 }
 
-.display_none {
-    display: none;
-}
-
 .display_block {
     display: block;
 }
@@ -182,12 +178,6 @@ header {
 }
 
 
-.image_ {
-    width: 30px;
-    height: 30px;
-    background-color: greenyellow;
-}
-
 
 
 .image_form {
@@ -242,3 +232,6 @@ header {
     width: 0%;
 }
    
+.display_none {
+    display: none;
+}
