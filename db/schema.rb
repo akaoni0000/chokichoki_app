@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_27_043734) do
+ActiveRecord::Schema.define(version: 2020_07_05_140901) do
 
   create_table "admins", force: :cascade do |t|
     t.string "email"
@@ -52,7 +52,7 @@ ActiveRecord::Schema.define(version: 2020_06_27_043734) do
     t.datetime "updated_at", null: false
     t.string "password_digest"
     t.integer "post_number"
-    t.integer "point", default: 500
+    t.string "sex"
   end
 
   create_table "menus", force: :cascade do |t|

@@ -350,17 +350,20 @@ $(function() {
     password_size = $("#password").val().length;
     element_man = document.getElementById("sex_man");      //中はid
     element_woman = document.getElementById("sex_woman");
-    gon.user_data.push($("#name").val())
-    console.log(gon.user_data);
+    gon.user_name_data.push($("#name").val())
+    gon.user_email_data
+    
     function FindSameValue(a){
       var s = new Set(a);         //同じ要素を一つにする
       return s.size != a.length;  //元の配列と変化した後の配列の要素の数が違うかどうか　
     }                             //falseは重複なし trueは重複あり
-    var duplication = FindSameValue(gon.user_data);
+    var duplication_name = FindSameValue(gon.user_name_data);
+    var duplication_email = FindSameValue(gon.user_email_data);
     var phone = /^[0-9]{9}$/;              //電話番号
     var address = /^[0-9]{3}-[0-9]{4}$/;　　　//郵便番号
     var email_check = /^[A-Za-z0-9]{1}[A-Za-z0-9_.-]*@{1}[A-Za-z0-9_.-]{1,}\.[A-Za-z0-9]{1,}$/;　　//メールアドレス
-    if (duplication == true) {
+
+    if (duplication_name == true) {
       $(".name_error").html("その名前は既に登録されています");
       $(".name").css({
         'border-color':'red',
@@ -381,7 +384,7 @@ $(function() {
       });
       i += 1
     } else {
-      if (duplication == true) {
+      if (duplication_name == true) {
         $(".name_error2").html("");
       } else {
         $(".name_error2").html("");
@@ -390,6 +393,7 @@ $(function() {
         });
       }
     }
+
     if (email_check.test(email)){
       $(".email_error").html("");
       $(".email").css({
@@ -403,6 +407,23 @@ $(function() {
       });
       i += 1
     } 
+    if (duplication_email == true){
+      $(".email_error2").html("そのメールアドレスは既に登録されています");
+      $(".email").css({
+        'border-color':'red',
+        "border-width":"2px"
+      });
+      i += 1
+    } else {
+      if (email_check.test(email)) {
+        $(".email_error2").html("");
+      }
+      $(".email_error").html("");
+      $(".email").css({
+        "border-width":"0px"
+      });
+    } 
+
     if (phone.test(phone_number)) {
       $(".phone_error").html("");
       $(".phone_number").css({
@@ -416,6 +437,7 @@ $(function() {
       });
       i += 1
     }
+
     if (password != password_confirmation) {
       $(".password_error").html("パスワードが一致しません");
       $(".password").css({
@@ -446,18 +468,22 @@ $(function() {
         });
       }
     }
+
     if (element_man.checked == false && element_woman.checked == false) {
       $(".sex_error").html("どちらかにチェックしてください");
       i += 1
     } else {
       $(".sex_error").html("");
     }
+
     if (i != 0) {
       $(".total_error").html(`<h2>${i}件のエラーがあります</h2>`); 
     } else if (i == 0) {
       $(".user_form").submit();
     }
-    gon.user_data.pop();　//配列の一番最後の要素を削除
+
+    gon.user_name_data.pop();　//配列の一番最後の要素を削除
+    gon.user_email_data.pop();　//配列の一番最後の要素を削除
  })
 });
 

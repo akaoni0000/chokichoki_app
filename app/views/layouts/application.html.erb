@@ -1,29 +1,83 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Chokichoki</title>
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
-    <script src='https://js.pay.jp/' type='text/javascript'></script>
-    <%= Gon::Base.render_data %>
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-  </head>
-
-  <body>
-    <header>
-      <% if @current_user %>
-      <% end %>
-      <h3 class="new_user cursor">新規登録</h3>
-      <%= link_to "サロンの方はこちら", hairdresser_top_path %>
-    </header>
+    <head>
+        <title>Chokichoki</title>
+        <%= csrf_meta_tags %>
+        <%= csp_meta_tag %>
+        <script src='https://js.pay.jp/' type='text/javascript'></script>
+        <%= Gon::Base.render_data %>
+        <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+        <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    </head>
+    <body>
+        <header>
+            <%= link_to root_path do %>
+                <img src="<%= asset_path "logo.png" %>" alt="" class="log">
+            <% end %>
+            <%= link_to "サロンの方はこちら", hairdresser_top_path %>
+            <% if @current_user %>
+                <%= link_to "美容師一覧をみる", "#" %>
+                <%= link_to "クレジットカード", "#" %>
+                <%= link_to "予約一覧", "#" %>
+                <%= link_to "userログアウト", user_logout_path, method: :post %>
+            <% elsif @current_hairdresser %>
+                <%= link_to "hairdresserログアウト", hairdresser_logout_path, method: :post %>
+            <% else %>
+                <div class="container">
+                    <div class="sign_in_block">
+                        <h2 class="cursor login">ログイン</h2>
+                        <div class="answer">
+                            <p class="cursor user_open_modal btn-succes">会員ログイン</p>
+                            <p class="cursor hairdresser_open_modal btn-succes">美容師ログイン</p>
+                        </div>
+                    </div>
+                    <div class="sign_up_block">
+                        <h2 class="cursor sign_up">新規会員登録</h2>
+                        <div class="answer2">
+                            <p class="new_user cursor">会員登録</p>
+                            <p><%= link_to "美容師登録", new_hairdresser_path, class: " btn-succes" %></p>
+                        </div>
+                    </div>
+                </div>
+            <% end %>
+        </header>
+        <!-- ここからはモーダル アクションを起こさない限りdisplayはnone -->
+        <div id="user_sign_up">
+            <div class="user_register">
+                <span class="glyphicon glyphicon-remove cursor" aria-hidden="true"></span>
+                <h1>会員登録</h1>
+                <div class="total_error error">
+                </div>
+                <%= form_with(url: users_path, method: :post, remote: true, class: "user_form") do |f|%>
+                    <p>ユーザー名</p>
+                    <p class="name_error error"></p>
+                    <p class="name_error2 error"></p>
+                    <%= f.text_field :name, class: "form-control name" %>
+                    <p>メールアドレス</p>
+                    <p class="email_error error"></p>
+                    <p class="email_error2 error"></p>
+                    <%= f.email_field :email, class: "form-control email" %>
+                    <p>電話番号</p>
+                    <p class="phone_error error"></p>
+                    <%= f.text_field :phone_number, class: "form-control phone_number" %>
+                    <p>パスワード</p>
+                    <p class="password_error error"></p>
+                    <p class="password_error2 error"></p>
+                    <%= f.password_field :password, class: "form-control password" %>
+                    <p>パスワード確認</p>
+                    <%= f.password_field :password_confirmation, class: "form-control password" %>
+                    <p>性別</p>
+                    <p class="sex_error error"></p>
+                    <span>男性</span>
+                    <%= f.radio_button :sex, :男性, id: "sex_man"%>
+                    <span>女性</span>
+                    <%= f.radio_button :sex, :女性, id: "sex_woman"%>
+                    <div>
+                    <%= f.submit "登録", class: "login_btn" %>
+                    </div>
+                <% end %>
+            </div>
+        </div>
     <%= yield%>
-  </body>
+    </body>
 </html>
-<!--<% if @current_user %>
-            <%= link_to "userログアウト", user_logout_path, method: :post %>
-        <% end %>
-        <% if @current_hairdresser %>
-            <%= link_to "hairdresserログアウト", hairdresser_logout_path, method: :post %>
-        <% end %>
-        <%= link_to "adminへ", admins_hairdresser_judge_index_path %>-->
