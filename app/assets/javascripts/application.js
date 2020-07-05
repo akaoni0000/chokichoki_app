@@ -28,7 +28,15 @@ $(function() {
     $('.hairdresser_open_modal').click(function() {
       $('#hairdresser_login_modal').fadeIn();      //login_modalのdisplayをnoneをブロックにする     
     });
-  
+
+    $('.new_user').click(function() {
+      $('#user_sign_up').fadeIn();      //login_modalのdisplayをnoneをブロックにする     
+    });
+
+    $('.glyphicon').click(function() {
+      $('#user_sign_up').fadeOut();         //login_modalのdisplayをnoneにする     
+    });
+
     $('#user_close_modal').click(function() {
       $('#user_login_modal').fadeOut();         //login_modalのdisplayをnoneにする     
     });
@@ -36,6 +44,8 @@ $(function() {
     $('#hairdresser_close_modal').click(function() {
       $('#hairdresser_login_modal').fadeOut();      //login_modalのdisplayをnoneにする     
     });
+
+
     
     $('.login').click(function() {
       if($(".answer").hasClass('open')) { 
@@ -58,6 +68,50 @@ $(function() {
     });
 });
   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 //userの予約確定するかどうかページ
 $(function() {
@@ -162,162 +216,47 @@ $(function () {
     var reader = new FileReader();
     reader.readAsDataURL(this.files[0]);
     reader.onload = function(e){
+      var src = e.target.result
+      var html = 
+            `
+              <div class="hair_box hair">
+                <img src="${src}" class="image_box" width="80%" height="250">
+                <div class="delete cursor" style="font-size: 20px;">削除</div>
+              </div>
+            `
       if ($(".image_label").hasClass(`width_100`)) {
         $(".image_label").removeClass("width_100");
         console.log(100);
         $('.image_label').addClass(`width_80`);
-        var src = e.target.result
-        if ( size == 0) { 
-          var html = 
-            `
-              <div class="hair_box hair1">
-                <img src="${src}" class="image_box" width="80%" height="250">
-                <div class="delete cursor" style="font-size: 20px;">削除</div>
-              </div>
-            `
-          $('.image_label').before(html);
-          image_input.appendTo(".hair1");
-          $(".hair_box").removeClass("hair1");
-        }
-        else if ( size == 5) { 
-          var html = 
-            `
-              <div class="hair_box hair6">
-                <img src="${src}" class="image_box" width="80%" height="250">
-                <div class="delete cursor" style="font-size: 20px;">削除</div>
-              </div>
-            `
-          $('.image_label').before(html);
-          image_input.appendTo(".hair6");
-          $(".hair_box").removeClass("hair6");
-        }
-        $(".image_label").append('<input class="hidden image_input" type="file" name="style_image[hair_images][]">');
-      } 
+      }
       else if ($(".image_label").hasClass("width_80")) {
         $(".image_label").removeClass("width_80");
         console.log(80);
         $('.image_label').addClass(`width_60`);
-        var src = e.target.result
-        if ( size == 1) { 
-          var html = 
-            `
-              <div class="hair_box hair2">
-                <img src="${src}" class="image_box" width="80%" height="250">
-                <div class="delete cursor" style="font-size: 20px;">削除</div>
-              </div>
-            `
-          $('.image_label').before(html);
-          image_input.appendTo(".hair2");
-          $(".hair_box").removeClass("hair2");
-        }
-        else if ( size == 6) { 
-          var html = 
-            `
-              <div class="hair_box hair7">
-                <img src="${src}" class="image_box" width="80%" height="250">
-                <div class="delete cursor" style="font-size: 20px;">削除</div>
-              </div>
-            `
-          $('.image_label').before(html);
-          image_input.appendTo(".hair7");
-          $(".hair_box").removeClass("hair7");
-        }
-        $(".image_label").append('<input class="hidden image_input" type="file" name="style_image[hair_images][]">');
-      } 
+      }
       else if ($(".image_label").hasClass("width_60")) {
         $(".image_label").removeClass("width_60");
         console.log(60);
         $('.image_label').addClass(`width_40`);
-        var src = e.target.result
-        if ( size == 2) { 
-          var html = 
-            `
-              <div class="hair_box hair3">
-                <img src="${src}" class="image_box" width="80%" height="250">
-                <div class="delete cursor" style="font-size: 20px;">削除</div>
-              </div>
-            `
-          $('.image_label').before(html);
-          image_input.appendTo(".hair3");
-          $(".hair_box").removeClass("hair3");
-        }
-        else if ( size == 7) { 
-          var html = 
-            `
-              <div class="hair_box hair8">
-                <img src="${src}" class="image_box" width="80%" height="250">
-                <div class="delete cursor" style="font-size: 20px;">削除</div>
-              </div>
-            `
-          $('.image_label').before(html);
-          image_input.appendTo(".hair8");
-          $(".hair_box").removeClass("hair8");
-        }
-        $(".image_label").append('<input class="hidden image_input" type="file" name="style_image[hair_images][]">');
-      } 
+      }
       else if ($(".image_label").hasClass("width_40")) {
         $(".image_label").removeClass("width_40");
         console.log(40);
         $('.image_label').addClass(`width_20`);
-        var src = e.target.result
-        if ( size == 3) { 
-          var html = 
-            `
-              <div class="hair_box hair4">
-                <img src="${src}" class="image_box" width="80%" height="250">
-                <div class="delete cursor" style="font-size: 20px;">削除</div>
-              </div>
-            `
-          $('.image_label').before(html);
-          image_input.appendTo(".hair4");
-          $(".hair_box").removeClass("hair4");
-        }
-        else if ( size == 8) { 
-          var html = 
-            `
-              <div class="hair_box hair9">
-                <img src="${src}" class="image_box" width="80%" height="250">
-                <div class="delete cursor" style="font-size: 20px;">削除</div>
-              </div>
-            `
-          $('.image_label').before(html);
-          image_input.appendTo(".hair9");
-          $(".hair_box").removeClass("hair9");
-        }
-        $(".image_label").append('<input class="hidden image_input" type="file" name="style_image[hair_images][]">');
-      } 
+      }
       else if ($(".image_label").hasClass("width_20")) {
         $(".image_label").removeClass("width_20");
         console.log(20);
         $('.image_label').addClass(`width_100`);
         var src = e.target.result
-        if ( size == 4) { 
-          var html = 
-            `
-              <div class="hair_box hair5">
-                <img src="${src}" class="image_box" width="80%" height="250">
-                <div class="delete cursor" style="font-size: 20px;">削除</div>
-              </div>
-            `
-          $('.image_label').before(html);
-          image_input.appendTo(".hair5");
-          $(".hair_box").removeClass("hair5");
-        }
-        else if ( size == 9) { 
-          var html = 
-            `
-              <div class="hair_box hair10">
-                <img src="${src}" class="image_box" width="80%" height="250">
-                <div class="delete cursor" style="font-size: 20px;">削除</div>
-              </div>
-            `
-          $('.image_label').before(html);
-          image_input.appendTo(".hair10");
-          $(".hair_box").removeClass("hair10");
+        if ( size == 9) { 
           $('.image_label').addClass(`display_none`);
         }
-        $(".image_label").append('<input class="hidden image_input" type="file" name="style_image[hair_images][]">');
       } 
+      $('.image_label').before(html);
+      image_input.appendTo(".hair");
+      $(".hair_box").removeClass("hair");
+      $(".image_label").append('<input class="hidden image_input" type="file" name="style_image[hair_images][]">');
     }
   });
   
@@ -325,7 +264,6 @@ $(function () {
   $(document).on("click", ".delete", function(){
     size = $('img').length;
     $(this).parent().remove();
-    $(".hair_box").removeClass(".hair1");
     if ($(".image_label").hasClass("width_80")) {
       $(".image_label").removeClass("width_80");
       $(".image_label").addClass("width_100");
@@ -352,6 +290,7 @@ $(function () {
       $(".image_label").addClass("width_20");
     }
   });
+
 });
 
 window.onload = function () {
@@ -393,6 +332,134 @@ window.onload = function () {
  
 
 
+
+
+
+
+
+//バリデーション
+$(function() {
+  $(".login_btn").on("click", function(e) {
+    e.preventDefault();
+    i = 0
+    size = $("#name").val().length;
+    email = $("#email").val();
+    phone_number =  $("#phone_number").val();
+    password = $("#password").val();
+    password_confirmation = $("#password_confirmation").val()
+    password_size = $("#password").val().length;
+    element_man = document.getElementById("sex_man");      //中はid
+    element_woman = document.getElementById("sex_woman");
+    gon.user_data.push($("#name").val())
+    console.log(gon.user_data);
+    function FindSameValue(a){
+      var s = new Set(a);         //同じ要素を一つにする
+      return s.size != a.length;  //元の配列と変化した後の配列の要素の数が違うかどうか　
+    }                             //falseは重複なし trueは重複あり
+    var duplication = FindSameValue(gon.user_data);
+    var phone = /^[0-9]{9}$/;              //電話番号
+    var address = /^[0-9]{3}-[0-9]{4}$/;　　　//郵便番号
+    var email_check = /^[A-Za-z0-9]{1}[A-Za-z0-9_.-]*@{1}[A-Za-z0-9_.-]{1,}\.[A-Za-z0-9]{1,}$/;　　//メールアドレス
+    if (duplication == true) {
+      $(".name_error").html("その名前は既に登録されています");
+      $(".name").css({
+        'border-color':'red',
+        "border-width":"2px"
+      });
+      i += 1
+    } else {
+      $(".name_error").html("");
+      $(".name").css({
+        "border-width":"0px"
+      });
+    }
+    if (size < 1 || 7 < size) {
+      $(".name_error2").html("1文字以上7文字以内で入力してください");
+      $(".name").css({
+        'border-color':'red',
+        "border-width":"2px"
+      });
+      i += 1
+    } else {
+      if (duplication == true) {
+        $(".name_error2").html("");
+      } else {
+        $(".name_error2").html("");
+        $(".name").css({
+          "border-width":"0px"
+        });
+      }
+    }
+    if (email_check.test(email)){
+      $(".email_error").html("");
+      $(".email").css({
+        "border-width":"0px"
+      });
+    } else {
+      $(".email_error").html("正しいメールアドレスを入力してください");
+      $(".email").css({
+        'border-color':'red',
+        "border-width":"2px"
+      });
+      i += 1
+    } 
+    if (phone.test(phone_number)) {
+      $(".phone_error").html("");
+      $(".phone_number").css({
+        "border-width":"0px"
+      });
+    } else {
+      $(".phone_error").html("ハイフンなし半角で9桁の数字を入力してください");
+      $(".phone_number").css({
+        'border-color':'red',
+        "border-width":"2px"
+      });
+      i += 1
+    }
+    if (password != password_confirmation) {
+      $(".password_error").html("パスワードが一致しません");
+      $(".password").css({
+        'border-color':'red',
+        "border-width":"2px"
+      });
+      i += 1
+    } else {
+      $(".password_error").html("");
+      $(".password").css({
+        "border-width":"0px"
+      });
+    }
+    if (password_size < 6 || 15 < password_size ) {
+      $(".password_error2").html("パスワードは6文字以上15文字以下で入力してください");
+      $(".password").css({
+        'border-color':'red',
+        "border-width":"2px"
+      });
+      i += 1
+    } else {
+      if (password != password_confirmation) {
+        $(".password_error2").html("");
+      } else {
+        $(".password_error2").html("");
+        $(".password").css({
+          "border-width":"0px"
+        });
+      }
+    }
+    if (element_man.checked == false && element_woman.checked == false) {
+      $(".sex_error").html("どちらかにチェックしてください");
+      i += 1
+    } else {
+      $(".sex_error").html("");
+    }
+    if (i != 0) {
+      $(".total_error").html(`<h2>${i}件のエラーがあります</h2>`); 
+    } else if (i == 0) {
+      $(".user_form").submit();
+    }
+    gon.user_data.pop();　//配列の一番最後の要素を削除
+ })
+});
 
 
 

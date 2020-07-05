@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-  root "home#top"
+  root "home#user_top"
+  get "hairdresser_top" => "home#hairdresser_top", as: "hairdresser_top"
   #resources :admins
   resources :style_images, only: [:edit, :update, :destroy]
 

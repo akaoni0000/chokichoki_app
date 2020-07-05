@@ -9,15 +9,9 @@ class UsersController < ApplicationController
     end
 
     def create 
-        if  params[:password] == params[:password_confirmation]
-            @user = User.new(user_params)
-            @user.save
-            session[:user_id] = @user.id
-            redirect_to user_path(@user.id)
-        else
-            @error_message = "パスワードが一致しません"
-            render "users/new"
-        end
+        @user = User.new(user_params)
+        @user.save
+        redirect_to user_path(@user.id)
     end
 
     def login
@@ -52,7 +46,7 @@ class UsersController < ApplicationController
 
     private
 	def user_params
-		params.permit(:name, :email, :password, :password_confirmation, :phone_number, :sex)
+		params.permit(:name, :email, :password, :phone_number, :sex)
 	end
 
 end

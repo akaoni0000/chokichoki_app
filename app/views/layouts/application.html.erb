@@ -11,6 +11,12 @@
   </head>
 
   <body>
+    <header>
+      <% if @current_user %>
+      <% end %>
+      <h3 class="new_user cursor">新規登録</h3>
+      <%= link_to "サロンの方はこちら", hairdresser_top_path %>
+    </header>
     <%= yield%>
   </body>
 </html>
