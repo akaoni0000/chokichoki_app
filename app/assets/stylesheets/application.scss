@@ -17,9 +17,109 @@
  @import "bootstrap-sprockets";  /*ここを追加*/
  @import "bootstrap";           /*ここを追加*/
 
- .cursor {
+.cursor {
     cursor: pointer;
 }
+
+.display_inline {
+    display: inline-block;
+    width: 200px;
+    margin-right: 50px;
+    margin-left: 50px;
+}
+
+.display_inline2 {
+    display: inline-block;
+    width: 300px;
+    margin-right: 50px;
+    margin-left: 50px;
+}
+
+#user_sign_up {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: none;
+}
+
+#hairdresser_sign_up {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: none;
+}
+
+#user_register {
+    position: absolute;
+    top: 3%;
+    left: 35%;
+    background-color: #CCFFFF;
+    border-radius: 10px;
+    width: 500px;
+    text-align: center;
+}
+
+#hairdresser_register {
+    position: absolute;
+    top: 1%;
+    left: 20%;
+    background-color: #CCFFFF;
+    border-radius: 10px;
+    width: 1000px;
+    text-align: center;
+}
+
+.for_user {
+    width: 200px;
+    margin-left: 150px;
+    margin-bottom: 40px;
+}
+
+.for_hairdresser {
+    width: 200px;
+    margin-bottom: 20px;
+}
+
+.error {
+    color: red;
+    margin-bottom: 0px;
+}
+
+#user_btn {
+    width: 50%;
+    height: 30px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+#hairdresser_btn {
+    width: 25%;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.must {
+    background-color: red;
+    color: white;
+    margin-left: 5px;
+    border-radius: 3px;
+}
+
+
+
+
+
+
+
+
+
+
 
 .display_block {
     display: block;
@@ -71,11 +171,16 @@
 
 header {
     width: 100%;
+    background-color: red;
 }
 
 .new_user {
 
 }
+
+
+
+
 
 #user_sign_up {
     position: fixed;
@@ -87,7 +192,9 @@ header {
     display: none;
 }
 
-.user_register {
+
+
+#user_register {
     position: absolute;
     top: 3%;
     left: 35%;
@@ -97,10 +204,24 @@ header {
     text-align: center;
 }
 
-.form-control {
+#hairdresser_register {
+    position: absolute;
+    top: 1%;
+    left: 20%;
+    background-color: #CCFFFF;
+    border-radius: 10px;
+    width: 1000px;
+    text-align: center;
+}
+
+.for_user {
     width: 200px;
     margin-left: 150px;
     margin-bottom: 40px;
+}
+
+.for_hairdresser {
+    width: 200px;
 }
 
 .error {
@@ -108,22 +229,15 @@ header {
     margin-bottom: 0px;
 }
 
+
+
+
 p {
     margin-bottom: 0px;
 }
 
-.login_btn {
-    width: 50%;
-    height: 30px;
-    margin-top: 30px;
-    margin-bottom: 30px;
-}
 
-.glyphicon-remove {
-    margin-left: 410px;
-    font-size: 25px;
-    margin-top: 10px;
-}
+
 
 
 
@@ -196,10 +310,7 @@ p {
     display: block;
 }
 
-#prev_img {
-    padding-bottom: 20px;
-    padding-left: 20px;
-}
+
 
 .card_modal {
     position: fixed;

@@ -21,21 +21,32 @@
 
 //topページ
 $(function() {
-    $('.user_open_modal').click(function() {
-      $('#user_login_modal').fadeIn();      //login_modalのdisplayをnoneをブロックにする    
-    });
+
+  //userの新規会員登録
+  $('#new_user').click(function() {
+    $('#user_sign_up').fadeIn();      //login_modalのdisplayをnoneをブロックにする     
+  });
+
+  //美容師の新規登録　
+  $('#new_hairdresser').click(function() {
+    $('#hairdresser_sign_up').fadeIn();      //login_modalのdisplayをnoneをブロックにする     
+  });
+
+  $('.glyphicon').click(function() {
+    $('#user_sign_up').fadeOut(); 
+    $('#hairdresser_sign_up').fadeOut();              
+  });
+
+  $('.user_open_modal').click(function() {
+    $('#user_login_modal').fadeIn();      //login_modalのdisplayをnoneをブロックにする    
+  });
   
     $('.hairdresser_open_modal').click(function() {
       $('#hairdresser_login_modal').fadeIn();      //login_modalのdisplayをnoneをブロックにする     
     });
+    
 
-    $('.new_user').click(function() {
-      $('#user_sign_up').fadeIn();      //login_modalのdisplayをnoneをブロックにする     
-    });
 
-    $('.glyphicon').click(function() {
-      $('#user_sign_up').fadeOut();         //login_modalのdisplayをnoneにする     
-    });
 
     $('#user_close_modal').click(function() {
       $('#user_login_modal').fadeOut();         //login_modalのdisplayをnoneにする     
@@ -337,29 +348,32 @@ window.onload = function () {
 
 
 
-//バリデーション
+//user登録のバリデーション
 $(function() {
-  $(".login_btn").on("click", function(e) {
+  $("#user_btn").on("click", function(e) {
     e.preventDefault();
+
+    //入力された値を取得　iはエラーの数を表す
     i = 0
-    size = $("#name").val().length;
-    email = $("#email").val();
-    phone_number =  $("#phone_number").val();
-    password = $("#password").val();
-    password_confirmation = $("#password_confirmation").val()
-    password_size = $("#password").val().length;
+    size = $("#user_name").val().length;
+    email = $("#user_email").val();
+    phone_number =  $("#user_phone_number").val();
+    password = $("#user_password").val();
+    password_confirmation = $("#user_password_confirmation").val()
+    password_size = $("#user_password").val().length;
     element_man = document.getElementById("sex_man");      //中はid
     element_woman = document.getElementById("sex_woman");
-    gon.user_name_data.push($("#name").val())
-    gon.user_email_data
+    gon.user_name_data.push($("#user_name").val())
+    gon.user_email_data.push($("#user_email").val())
     
-    function FindSameValue(a){
+    //入力された値が正しいかチェックするための関数と正規表現を定義
+    function FindSameValue(a){    
       var s = new Set(a);         //同じ要素を一つにする
       return s.size != a.length;  //元の配列と変化した後の配列の要素の数が違うかどうか　
     }                             //falseは重複なし trueは重複あり
-    var duplication_name = FindSameValue(gon.user_name_data);
-    var duplication_email = FindSameValue(gon.user_email_data);
-    var phone = /^[0-9]{9}$/;              //電話番号
+    var duplication_name = FindSameValue(gon.user_name_data);　　//nameに同じ要素があるかチェック
+    var duplication_email = FindSameValue(gon.user_email_data);　//emailに同じ要素があるかチェック
+    var phone = /^[0-9]{9}$/;                //電話番号 0から9までの数字で9個選ぶ
     var address = /^[0-9]{3}-[0-9]{4}$/;　　　//郵便番号
     var email_check = /^[A-Za-z0-9]{1}[A-Za-z0-9_.-]*@{1}[A-Za-z0-9_.-]{1,}\.[A-Za-z0-9]{1,}$/;　　//メールアドレス
 
@@ -417,11 +431,11 @@ $(function() {
     } else {
       if (email_check.test(email)) {
         $(".email_error2").html("");
+        $(".email").css({
+          "border-width":"0px"
+        });
       }
-      $(".email_error").html("");
-      $(".email").css({
-        "border-width":"0px"
-      });
+      $(".email_error2").html("");
     } 
 
     if (phone.test(phone_number)) {
@@ -484,7 +498,7 @@ $(function() {
 
     gon.user_name_data.pop();　//配列の一番最後の要素を削除
     gon.user_email_data.pop();　//配列の一番最後の要素を削除
- })
+  })
 });
 
 

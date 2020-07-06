@@ -34,38 +34,39 @@
                     <div class="sign_up_block">
                         <h2 class="cursor sign_up">新規会員登録</h2>
                         <div class="answer2">
-                            <p class="new_user cursor">会員登録</p>
-                            <p><%= link_to "美容師登録", new_hairdresser_path, class: " btn-succes" %></p>
+                            <p id="new_user" class="cursor">会員登録</p>
+                            <p id="new_hairdresser" class="cursor">美容師登録</p>
                         </div>
                     </div>
                 </div>
             <% end %>
         </header>
+
         <!-- ここからはモーダル アクションを起こさない限りdisplayはnone -->
         <div id="user_sign_up">
-            <div class="user_register">
-                <span class="glyphicon glyphicon-remove cursor" aria-hidden="true"></span>
-                <h1>会員登録</h1>
+            <div id="user_register">
+                <span class="glyphicon glyphicon-remove cursor" style="margin-left: 440px; font-size: 25px; margin-top: 10px;"></span>
+                <h1 style="margin-top: -20px;">会員登録</h1>
                 <div class="total_error error">
                 </div>
-                <%= form_with(url: users_path, method: :post, remote: true, class: "user_form") do |f|%>
+                <%= form_with(model: @user, url: users_path, method: :post, remote: true, class: "user_form") do |f|%>
                     <p>ユーザー名</p>
                     <p class="name_error error"></p>
                     <p class="name_error2 error"></p>
-                    <%= f.text_field :name, class: "form-control name" %>
+                    <%= f.text_field :name, class: "form-control name for_user" %>
                     <p>メールアドレス</p>
                     <p class="email_error error"></p>
                     <p class="email_error2 error"></p>
-                    <%= f.email_field :email, class: "form-control email" %>
+                    <%= f.email_field :email, class: "form-control email for_user" %>
                     <p>電話番号</p>
                     <p class="phone_error error"></p>
-                    <%= f.text_field :phone_number, class: "form-control phone_number" %>
+                    <%= f.text_field :phone_number, class: "form-control phone_number for_user" %>
                     <p>パスワード</p>
                     <p class="password_error error"></p>
                     <p class="password_error2 error"></p>
-                    <%= f.password_field :password, class: "form-control password" %>
+                    <%= f.password_field :password, class: "form-control password for_user" %>
                     <p>パスワード確認</p>
-                    <%= f.password_field :password_confirmation, class: "form-control password" %>
+                    <%= f.password_field :password_confirmation, class: "form-control password for_user" %>
                     <p>性別</p>
                     <p class="sex_error error"></p>
                     <span>男性</span>
@@ -73,11 +74,72 @@
                     <span>女性</span>
                     <%= f.radio_button :sex, :女性, id: "sex_woman"%>
                     <div>
-                    <%= f.submit "登録", class: "login_btn" %>
+                    <%= f.submit "登録", id: "user_btn" %>
                     </div>
                 <% end %>
             </div>
         </div>
+        
+        <div id="hairdresser_sign_up">
+            <div id="hairdresser_register">
+                <span class="glyphicon glyphicon-remove cursor" style="margin-left: 950px; font-size: 25px; margin-top: 10px;"></span>
+                <h1 style="margin-top: -20px;">美容師登録</h1>
+                <%= form_with(model: @hairdresser, method: :post, remote: true, class: "hairdresser_form", style: "margin: 0 auto; width: 800px;") do |f|%>
+                    <div style="width: 700px; margin: 0 auto;">
+                        <div class="display_inline">
+                            <p>ユーザー名<span class="must">必須</span></p>
+                            <%= f.text_field :name, class: "form-control for_hairdresser"%>
+                        </div>
+                        <div class="display_inline">
+                            <p>メールアドレス<span class="must">必須</span></p>
+                            <%= f.email_field :email, class: "form-control for_hairdresser" %>
+                        </div>
+                        <div class="display_inline">
+                            <p>店舗郵便番号<span class="must">必須</span></p>
+                            <%= f.text_field :post_number, size: "30", class: "form-control for_hairdresser"  %>
+                        </div>
+                        <div class="display_inline">
+                            <p>店舗住所<span class="must">必須</span></p>
+                            <%= f.text_field :address, size: "40", class: "form-control for_hairdresser" %>
+                        </div>
+                        <div class="display_inline">
+                            <p>パスワード<span class="must">必須</span></p>
+                            <%= f.password_field :password, class: "form-control for_hairdresser" %>
+                        </div>
+                        <div class="display_inline">
+                            <p>パスワード確認<span class="must">必須</span></p>
+                            <%= f.password_field :password_confirmation, class: "form-control for_hairdresser" %>
+                        </div>
+                        <div>
+                            <p>自己紹介文</p>
+                            <%= f.text_area :introduction, class: "form-control", style: "width: 80%; height: 150px; margin: 0 auto;"%>
+                        </div>
+                    </div>
+                    <div style="width: 900px; margin: 0 auto;">
+                        <div class="display_inline2">
+                            <p>宣材写真</p>
+                            <p>クリックして写真を追加してください</p>
+                            <label class= "" style="width: 150px; height: 150px;">
+                                <%= f.attachment_field :hairdresser_image, id: "post_img", class: "hidden" %>
+                                <%= attachment_image_tag @item, :image, fallback: "no_image.png", size: "150x150", id: "prev_img", class: "cursor", style: "border-radius: 10px;" %>
+                            </label>
+                        </div>
+                        <div class="display_inline2">
+                            <p>美容師免許証<span class="must">必須</span></p>
+                            <p>クリックして写真を追加してください</p>
+                            <label class= "" style="width: 150px; height: 150px;">
+                                <%= f.attachment_field :confirm_image, id: "post_img", class: "hidden" %>
+                                <%= attachment_image_tag @item, :image, fallback: "no_image.png", size: "150x150", id: "prev_img", class: "cursor", style: "border-radius: 10px;" %>
+                            </label>
+                        </div>
+                    </div>
+                    <div>
+                    <%= f.submit "登録", id: "hairdresser_btn"%>
+                    </div>
+                <% end %>
+            </div>
+        </div>
+
     <%= yield%>
     </body>
 </html>
