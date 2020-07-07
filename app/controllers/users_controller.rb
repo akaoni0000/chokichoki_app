@@ -4,10 +4,6 @@ class UsersController < ApplicationController
 
     include AjaxHelper 
 
-    def new
-        @user = User.new
-    end
-
     def create 
         @user = User.new(user_params)
         @user.save
@@ -17,17 +13,15 @@ class UsersController < ApplicationController
 
     def login
         if @user = User.find_by(email: params[:email])
-            if @user.authenticate(params[:password]) #このメソッドは、引数に渡された文字列 (パスワード) をハッシュ化した値と、データベース内にあるpassword_digestカラムの値を比較します。
+            if @user.authenticate(params[:password]) #authenticateは、引数に渡された文字列 (パスワード) をハッシュ化した値と、データベース内にあるpassword_digestカラムの値を比較します。
                 session[:user_id] = @user.id
                 flash[:notice] = "ログインしました"
                 respond_to do |format|
                     format.js { render ajax_redirect_to(user_path(@user.id)) }
                 end
             else
-                @authenticate_error = "password_fail"
             end
         else
-            @authenticate_error = "email_fail"
         end
     end
       

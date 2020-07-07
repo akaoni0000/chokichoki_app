@@ -15,6 +15,8 @@ class ApplicationController < ActionController::Base
       gon.key = ENV['KEY']
       gon.user_name_data = User.pluck(:name)  #nameだけを配列で取得
       gon.user_email_data = User.pluck(:email)  #emailだけを配列で取得
+      gon.hairdresser_name_data = Hairdresser.pluck(:name)  #nameだけを配列で取得
+      gon.hairdresser_email_data = Hairdresser.pluck(:email)  #emailだけを配列で取得
     end
 
     def set_new

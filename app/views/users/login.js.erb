@@ -1,7 +1,2 @@
 // 非同期通信でコントローラーに値を送った後はjs.erbファイルを探す　js.erbファイルでは.erbとあるようにrubyが使える .jsとあるようにjavascriptが使える
-<% if @authenticate_error == "password_fail" %>
-    $('.aaa').addClass('red'); $('.aaa').addClass('yellow');
-<% end %>
-<% if @authenticate_error == "email_fail" %>
-    $('.aaa').addClass('red');
-<% end %>
+$('.user_login_error').html("メールアドレスまたはパスワードが違います");

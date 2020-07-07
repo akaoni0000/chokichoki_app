@@ -1,11 +1,11 @@
-<div class="main">
+<main id="user_main">
         <div class="container main_content">
-            <h3>500円で美容院に行ける!!</h3>
+            <h3 class="aaa">500円で美容院に行ける!!</h3>
             <h3>カットもカラーもすべて500円!!</h3>
             <h3>登録無料!!</h3>
             <h3>今なら500ポイントプレゼント!!(1回利用無料)</h3>
         </div>
-</div>
+</main>
 
 
 <%= link_to "adminへ", admins_hairdresser_judge_index_path %>
@@ -18,38 +18,3 @@
 
 
 
-<div id="user_login_modal">
-        <div class="login_page">
-            <div id="user_close_modal">
-                <span class="glyphicon glyphicon-remove cursor" aria-hidden="true"></span>
-            </div>
-            <h2 class="aaa">会員ログイン</h2>
-            <div>
-                <%= form_with(url: user_login_path, method: :post) do |f| %>
-                    <p>メールアドレス</p>
-                    <%= f.text_field :email %>
-                    <p>パスワード</p>
-                    <%= f.password_field :password %>
-                    <%= f.submit "ログイン" %>
-                <% end %>
-            </div>
-        </div>
-</div>
-
-<div id="hairdresser_login_modal">
-        <div class="login_page">
-            <div id="hairdresser_close_modal">
-                <span class="glyphicon glyphicon-remove cursor" aria-hidden="true"></span>
-            </div>
-            <h2 class="bbb">美容師ログイン</h2>
-            <div>
-                <%= form_with(url: hairdresser_login_path, method: :post) do |f| %>
-                    <p>メールアドレス</p>
-                     <%= f.text_field :email %>
-                    <p>パスワード</p>
-                    <%= f.password_field :password %>
-                    <%= f.submit "ログイン" %>
-                <% end %>
-            </div>
-        </div>
-</div>

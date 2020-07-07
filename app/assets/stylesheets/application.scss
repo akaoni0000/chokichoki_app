@@ -21,40 +21,62 @@
     cursor: pointer;
 }
 
-.display_inline {
-    display: inline-block;
-    width: 200px;
-    margin-right: 50px;
-    margin-left: 50px;
+p {
+    margin-bottom: 0px;
 }
 
-.display_inline2 {
-    display: inline-block;
+header {
+    width: 100%;
+    background-color:white;
+    height: 130px;
+}
+
+.error {
+    color: red;
+    margin-bottom: 0px;
+}
+
+.must {
+    background-color: red;
+    color: white;
+    margin-left: 5px;
+    border-radius: 3px;
+}
+
+.sign_up_in {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: none;
+}
+
+
+.login_page {
+    position: absolute;
+    top: 20%;
+    left: 37%;
+    background-color: #CCFFFF;
+    border-radius: 10px;
+    width: 450px;
+    text-align: center;
+}
+
+.login_form {
     width: 300px;
-    margin-right: 50px;
-    margin-left: 50px;
+    margin-left: 75px;
+    margin-bottom: 20px;
 }
 
-#user_sign_up {
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    background-color: rgba(0, 0, 0, 0.6);
-    display: none;
+.login_btn {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 200px;
 }
 
-#hairdresser_sign_up {
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    background-color: rgba(0, 0, 0, 0.6);
-    display: none;
-}
-
+//会員登録
 #user_register {
     position: absolute;
     top: 3%;
@@ -65,30 +87,10 @@
     text-align: center;
 }
 
-#hairdresser_register {
-    position: absolute;
-    top: 1%;
-    left: 20%;
-    background-color: #CCFFFF;
-    border-radius: 10px;
-    width: 1000px;
-    text-align: center;
-}
-
 .for_user {
     width: 200px;
     margin-left: 150px;
     margin-bottom: 40px;
-}
-
-.for_hairdresser {
-    width: 200px;
-    margin-bottom: 20px;
-}
-
-.error {
-    color: red;
-    margin-bottom: 0px;
 }
 
 #user_btn {
@@ -98,18 +100,80 @@
     margin-bottom: 30px;
 }
 
+//美容師登録
+#hairdresser_register {
+    position: absolute;
+    top: 3%;
+    left: 20%;
+    background-color: #CCFFFF;
+    border-radius: 10px;
+    width: 1000px;
+    text-align: center;
+}
+
+.for_hairdresser {
+    width: 200px;
+    margin-bottom: 10px;
+}
+
 #hairdresser_btn {
-    width: 25%;
-    margin-top: 20px;
+    width: 100px;
+    margin-top: 10px;
     margin-bottom: 20px;
 }
 
-.must {
-    background-color: red;
-    color: white;
-    margin-left: 5px;
-    border-radius: 3px;
+.display_inline {
+    display: inline-block;
+    width: 270px;
+    margin-left: 50px;
 }
+
+.display_inline2 {
+    display: inline-block;
+    width: 270px;
+    margin-right: 280px;
+}
+
+.display_inline3 {
+    display: inline-block;
+    width: 300px;
+    margin-right: 50px;
+    margin-left: 50px;
+    vertical-align: top;
+}
+
+
+//会員top画面
+
+#user_main {
+    background-image: image-url("ca.jpg");
+    height: 1050px;
+    background-size: cover;
+    background-position: 10% 90%;  
+    margin-top: -200px;
+    z-index: 90;
+}
+
+.slide {
+    display: none;
+    background-color: transparent;
+}
+
+.main_content {
+    margin-top: 70px;
+}
+
+.aaa {
+    margin-top: 300px;
+}
+
+
+
+
+
+
+
+
 
 
 
@@ -124,6 +188,11 @@
 .display_block {
     display: block;
 }
+
+.display_none {
+    display: none;
+}
+
 
 .sign_in_block {
     position: absolute;
@@ -156,150 +225,35 @@
     font-family: sans-serif;
 }
 
-.main {
-    height: 1009px;
-}
-
-.main_content {
-   margin-top: 70px;
-
-}
 
 .log {
     height: 150px;
 }
 
-header {
-    width: 100%;
-    background-color: red;
-}
-
-.new_user {
-
-}
-
-
-
-
-
-#user_sign_up {
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    background-color: rgba(0, 0, 0, 0.6);
-    display: none;
-}
-
-
-
-#user_register {
-    position: absolute;
-    top: 3%;
-    left: 35%;
-    background-color: #CCFFFF;
-    border-radius: 10px;
-    width: 500px;
-    text-align: center;
-}
-
-#hairdresser_register {
-    position: absolute;
-    top: 1%;
-    left: 20%;
-    background-color: #CCFFFF;
-    border-radius: 10px;
-    width: 1000px;
-    text-align: center;
-}
-
-.for_user {
-    width: 200px;
-    margin-left: 150px;
-    margin-bottom: 40px;
-}
-
-.for_hairdresser {
-    width: 200px;
-}
-
-.error {
-    color: red;
-    margin-bottom: 0px;
-}
-
-
-
-
-p {
-    margin-bottom: 0px;
-}
 
 
 
 
 
 
-#user_login_modal {
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    background-color: rgba(0, 0, 0, 0.6);
-    z-index: 100;
-    display: none;
-} 
 
-#hairdresser_login_modal {
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    background-color: rgba(0, 0, 0, 0.6);
-    z-index: 100;
-    display: none;
-} 
+
+
+
   
-.login_page {
-    position: absolute;
-    top: 20%;
-    left: 37%;
-    background-color:gold;
-    border-radius: 10px;
-    width: 450px;
-    text-align: center;
-}
 
-.aaa {
-    color: #5f5d60;
-    margin-bottom: 40px;
-}
-  
-.answer {
-    display: none;
-    background-color: white;
-}
 
-.answer2 {
-    display: none;
-    background-color: white;
-}
-  
-.red {
-    color:blue;
-}
+
+
+
+
   
 .menu_card {
     background-color: red;
     word-wrap: break-word;
 }
 
-.main_{
-    margin-top: 20px;
-}
+
 
 
 .save_card {
