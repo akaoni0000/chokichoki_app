@@ -5,18 +5,18 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-users = User.create([{name: "hanako"}, {name: "misa"}])
-#admins = Admin.create([{email: "hanako"}])
-(1..2).each do |n|
-    Hairdresser.create!(
-      email: "email#{n}@example.com",
-      name: "#{n}名前",
-      profile_photo: open("#{Rails.root}/db/fixtures/test.JPG"),
-      profile:"#{n}test",
-      password_digest:"#{n}test",
-      industry:"#{n}test",
-      occupation:"#{n}test",
-      corporation_name:"#{n}test"
-    )
-end
+# users = User.create([{name: "hanako"}, {name: "misa"}])
+# #admins = Admin.create([{email: "hanako"}])
+# (1..2).each do |n|
+#     Hairdresser.create!(
+#       email: "email#{n}@example.com",
+#       name: "#{n}名前",
+#       profile_photo: open("#{Rails.root}/db/fixtures/test.JPG"),
+#       profile:"#{n}test",
+#       password_digest:"#{n}test",
+#       industry:"#{n}test",
+#       occupation:"#{n}test",
+#       corporation_name:"#{n}test"
+#     )
+# end
   

@@ -18,7 +18,6 @@ class Hairdressers::ReservationsController < ApplicationController
         @day = params[:day]
         @hour = params[:hour]
         @min = params[:min]
-        @hairdresser = session[:hairdresser_id]
         @menu_id = params[:menu_id]
         @reservations = Reservation.where(menu_id: @menu_id)
     end

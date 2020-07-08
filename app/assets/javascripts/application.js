@@ -45,7 +45,13 @@ $(function() {
   
   //バツアイコンでモーダルを閉じる
   $('.glyphicon-remove').click(function() {
-    $('.sign_up_in').fadeOut();           
+    $('.sign_up_in').fadeOut();
+    setTimeout(function(){
+      $('.error').html(""); 
+      $("input").css({
+        "border-width":"0px"
+      });
+    },1000);  
   });
   
 
@@ -77,17 +83,56 @@ $(function() {
       }
     });
     
-    $('.sign_up').click(function() {
-      if($(".answer2").hasClass('open2')) { 
-        $(".answer2").removeClass('open2');
-        $(".answer2").slideUp();  //answerのdisplayをnoneにする     
-      } else {
-        $(".answer2").addClass('open2'); 
-        $(".answer2").slideDown();  //answerのdisplayをblockにする
-      }
-    });
+  $('.sign_up').click(function() {
+    if($(".answer2").hasClass('open2')) { 
+      $(".answer2").removeClass('open2');
+      $(".answer2").slideUp();  //answerのdisplayをnoneにする     
+    } else {
+      $(".answer2").addClass('open2'); 
+      $(".answer2").slideDown();  //answerのdisplayをblockにする
+    }
+  });
+
+  //FAQ
+  $('.question').click(function() {
+    if($(this).next().hasClass('open')) { 
+      $(this).next().removeClass("open");
+      $(this).next().slideUp(); 
+    } else {
+      $(this).next().addClass('open'); 
+      $(this).next().slideDown(); 
+    }
+  });
+
+  //ナビゲーション
+  $('.scroll-btn').click(function(){
+    var id = $(this).attr('href');      //id属性には#が入っている     
+    var position = $(id).offset().top;  //topからの距離を取得
+    $('html').animate({
+      'scrollTop': position - 300
+    }, 1000);
+  });
+
 });
-  
+
+//スクロールでアニメーション
+$(function(){
+  $(window).scroll(function (){
+      $('.fadein').each(function(){            //fadeinクラスすべて順番に
+          var position = $(this).offset().top; //上からfadeinクラスまでの距離
+          var scroll = $(window).scrollTop();     //スクロールした距離
+          var windowHeight = $(window).height();  //画面の高さ
+          if (scroll > position - windowHeight + 190){  //図を書くと理解できる
+            $(this).addClass('active');
+          }
+      });
+  });
+});
+
+window.onload = function () {
+
+};
+
 //user登録のバリデーション
 $(function() {
   $("#user_btn").on("click", function(e) {
@@ -589,7 +634,7 @@ $(function () {
 
 
 
-  //美容師のヘアスタイル画像投稿ページで使う
+//美容師のヘアスタイル画像投稿ページで使う
 $(function () {
   //生成されたhtml要素にはこの形じゃないとイベントが発生しない  既存の要素でも反応する
   $(document).on("change", ".image_input", function () { 

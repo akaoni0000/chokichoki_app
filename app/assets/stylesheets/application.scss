@@ -19,16 +19,37 @@
 
 .cursor {
     cursor: pointer;
+    transition: all 0.6s ease;
 }
 
+.cursor:hover {
+    color: #CC9933;
+    transition: all 0.6s ease;
+}
+
+.font {
+    font-family: serif;
+}
+
+.center {
+    text-align: center;
+}
 p {
     margin-bottom: 0px;
+    font-family: serif;
 }
+
+h1, h2, h3 {
+    font-family: serif;
+}
+
 
 header {
     width: 100%;
-    background-color:white;
+    background-color: transparent;
     height: 130px;
+    position: fixed;
+    z-index: 80;
 }
 
 .error {
@@ -51,6 +72,7 @@ header {
     left: 0;
     background-color: rgba(0, 0, 0, 0.6);
     display: none;
+    z-index: 90;
 }
 
 
@@ -75,6 +97,75 @@ header {
     margin-bottom: 20px;
     width: 200px;
 }
+
+//header
+.log {
+    height: 150px;
+}
+
+.top_hairdresser_btn {
+    position: absolute;
+    right: 720px;
+    top: 20px;
+    font-size: 25px;
+    color: #DEB887;
+}
+
+.faq_btn {
+    position: absolute;
+    right: 620px;
+    top: 20px;
+    font-size: 25px;
+    color: #DEB887;
+}
+
+.index_hairdresser_btn {
+    position: absolute;
+    right: 450px;
+    top: 20px;
+    font-size: 25px;
+    color: #DEB887;
+}
+
+
+
+
+
+.sign_in_block {        //スライドダウンさせると意図してない要素が動く現象があったので、absoluteにするしかなかった
+    position: absolute;
+    right: 300px;
+    top: 20px
+}
+
+.sign_up_block {
+    position: absolute;
+    right: 100px;
+    top: 20px;
+}
+
+.login {
+    font-size: 25px;
+    color: #DEB887;
+}
+
+.sign_up {
+    font-size: 25px;
+    color: #DEB887;
+}
+
+
+//footer
+
+footer {
+    text-align: center;
+    margin-top: 300px;
+    padding-top: 70px;
+    width: 100%;
+    height: 200px;
+    background-color:#DEB887;
+    z-index: 99;
+}
+
 
 //会員登録
 #user_register {
@@ -138,7 +229,7 @@ header {
     display: inline-block;
     width: 300px;
     margin-right: 50px;
-    margin-left: 50px;
+    margin-left: 30px;
     vertical-align: top;
 }
 
@@ -147,14 +238,14 @@ header {
 
 #user_main {
     background-image: image-url("ca.jpg");
-    height: 1050px;
+    height: 1020px;
     background-size: cover;
     background-position: 10% 90%;  
-    margin-top: -200px;
+    margin-top: -70px;
     z-index: 90;
 }
 
-.slide {
+.slide_down {
     display: none;
     background-color: transparent;
 }
@@ -163,8 +254,79 @@ header {
     margin-top: 70px;
 }
 
-.aaa {
-    margin-top: 300px;
+#top_hairdresser_slider {
+    height: 500px;
+}
+
+.fadein {
+    opacity : 0;                      //透明度 0~1         
+    transform : translate(0, 150px);  //右へ0px 下に100px下げる
+}
+
+   
+.fadein.active {
+    opacity : 1;
+    transform : translate(0, 0);
+    transition : all 2s ease; //allはopacityとtransformを指定 hoverやjsでタイミングを定義しないと発動しない
+}
+
+.carousel-control {
+    margin-top: 200px;
+}
+
+.glyphicon-chevron-left, .glyphicon-chevron-right {
+    color: #C0C0C0;
+}
+
+.faq {
+    width: 1000px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.left_static {
+    text-align-last: left;
+    display: none;
+}
+
+
+.answers {
+    width: 750px;
+    margin: 0 auto;
+}
+
+.question {
+    cursor: pointer;
+}
+
+
+//美容師のtop画面
+#hairdresser_main {
+    background-image: image-url("hair4.jpg");
+    height: 1020px;
+    background-size: cover;
+    background-position: 10% 60%;  
+    margin-top: -70px;
+    z-index: 90;
+}
+
+.blue {
+    color: #DEB887;
+}
+
+.human {
+    width: 230px;
+    height: 250px;
+}
+
+.hairdresser_use_image {
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.hairdresser_use_explain {
+    width: 400px;
+    margin: 0 auto;
 }
 
 
@@ -193,42 +355,13 @@ header {
     display: none;
 }
 
-
-.sign_in_block {
-    position: absolute;
-    right: 300px;
-    top: 20px
-}
-
-.sign_up_block {
-    position: absolute;
-    right: 100px;
-    top: 20px;
-}
-
-.login {
-    font-size: 25px;
-    color: #DEB887;
-}
-
-.sign_up {
-    font-size: 25px;
-    color: #DEB887;
-}
-
-.top_image {
-    height: 700px;
-    width: 100%;
-}
-
-.font {
-    font-family: sans-serif;
+.display_inline_block {
+    display: inline-block;
 }
 
 
-.log {
-    height: 150px;
-}
+
+
 
 
 

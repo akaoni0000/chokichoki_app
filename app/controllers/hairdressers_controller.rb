@@ -38,7 +38,6 @@ class HairdressersController < ApplicationController
     end
       
     def show
-        binding.pry
         @hairdresser = Hairdresser.find(params[:id])
         @menu_id = Menu.where(hairdresser_id: @current_hairdresser.id)
         @reservations = Reservation.where(menu_id: @menu_id)

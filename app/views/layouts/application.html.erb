@@ -4,6 +4,7 @@
         <title>Chokichoki</title>
         <%= csrf_meta_tags %>
         <%= csp_meta_tag %>
+        
         <script src='https://js.pay.jp/' type='text/javascript'></script>
         <%= Gon::Base.render_data %>
         <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
@@ -12,7 +13,7 @@
     <body>
         <header>
             <%= link_to root_path do %>
-                <img src="<%= asset_path "cho.png" %>" alt="" class="log">
+                <img src="<%= asset_path "cho.png" %>" class="log">
             <% end %>
             <%= link_to "サロンの方はこちら", hairdresser_top_path %>
             <% if @current_user %>
@@ -23,22 +24,31 @@
             <% elsif @current_hairdresser %>
                 <%= link_to "hairdresserログアウト", hairdresser_logout_path, method: :post %>
             <% else %>
-                <div class="container">
-                    <div class="sign_in_block">
+                <!-- ログインしてない時 -->
+                <% if @user_page == "user" %>
+                    <h2 class="top_hairdresser_btn cursor scroll-btn" href="#top_hairdresser_slider">人気美容師</h2>
+                    <h2 class="faq_btn cursor scroll-btn" href="#FAQ">FAQ</h2>
+                <% elsif  @hairdresser_page = "hairdresser" %>
+                    <h2 class="top_hairdresser_btn cursor scroll-btn" href="#top_hairdresser_slider">ご利用者さまの声</h2>
+                    <h2 class="faq_btn cursor scroll-btn" href="#FAQ">FAQ</h2>
+                <% else %>
+                    
+                <% end %>
+                <h2 class="index_hairdresser_btn cursor">美容師一覧</h2>
+                <div class="sign_in_block">
                         <h2 class="cursor login">ログイン</h2>
-                        <div class="answer slide">
+                        <div class="answer slide_down">
                             <p id="login_user" class="cursor">会員ログイン</p>
-                            <p id="login_hairdresser" class="cursor">美容師ログイン</p>
+                            <p id="login_hairdresser" class="cursor ">美容師ログイン</p>
                         </div>
                     </div>
                     <div class="sign_up_block">
                         <h2 class="cursor sign_up">新規会員登録</h2>
-                        <div class="answer2 slide">
-                            <p id="new_user" class="cursor">会員登録</p>
-                            <p id="new_hairdresser" class="cursor">美容師登録</p>
+                        <div class="answer2 slide_down">
+                            <p id="new_user" class="cursor ">会員登録</p>
+                            <p id="new_hairdresser" class="cursor ">美容師登録</p>
                         </div>
                     </div>
-                </div>
             <% end %>
         </header>
 
@@ -46,8 +56,8 @@
         <!-- 会員登録画面モーダル -->
         <div id="user_sign_up" class="sign_up_in">
             <div id="user_register">
-                <span class="glyphicon glyphicon-remove cursor" style="margin-left: 440px; font-size: 25px; margin-top: 10px;"></span>
-                <h1 style="margin-top: -20px;">会員登録</h1>
+                <span class="glyphicon glyphicon-remove cursor" style="margin-left: 440px; -size: 25px; margin-top: 10px;"></span>
+                <h1  style="margin-top: -20px;">会員登録</h1>
                 <div class="total_error error">
                 </div>
                 <%= form_with(model: @user, url: users_path, method: :post, remote: true, class: "user_form") do |f|%>
@@ -84,7 +94,7 @@
         <!-- 美容師登録画面モーダル -->
         <div id="hairdresser_sign_up" class="sign_up_in">
             <div id="hairdresser_register">
-                <span class="glyphicon glyphicon-remove cursor" style="margin-left: 950px; font-size: 25px; margin-top: 10px;"></span>
+                <span class="glyphicon glyphicon-remove cursor" style="margin-left: 950px; -size: 25px; margin-top: 10px;"></span>
                 <h1 style="margin-top: -20px;">美容師登録</h1>
                 <div class="total_hairdresser_error error">
                 </div>
@@ -142,7 +152,7 @@
                             <p>クリックして写真を追加してください</p>
                             <label class= "hairdresser_label" style="width: 150px; height: 150px;">
                                 <%= f.attachment_field :hairdresser_image, id: "hairdresser_img", class: "hidden" %>
-                                <img src="<%= asset_path "no_image.png" %>" alt="" id="prev_img" style= "width: 150px; height: 150px; border-radius: 20px;">
+                                <img src="<%= asset_path "no_image.png" %>" id="prev_img" style= "width: 150px; height: 150px; border-radius: 20px;">
                             </label>
                             <p class="img_delete cursor">削除</p>
                             <div class="img_save" style="display: none;"></div>
@@ -153,7 +163,7 @@
                             <p class="img_error error"></p> 
                             <label class= "confirm_label" style="width: 150px; height: 150px;">
                                 <%= f.attachment_field :confirm_image, id: "confirm_img", class: "hidden" %>
-                                <img src="<%= asset_path "no_image.png" %>" alt="" id="prev_img2" style= "width: 150px; height: 150px; border-radius: 20px;">
+                                <img src="<%= asset_path "no_image.png" %>" id="prev_img2" style= "width: 150px; height: 150px; border-radius: 20px;">
                             </label>
                             <p class="img_delete2 cursor">削除</p>
                             <div class="img_save2" style="display: none;"></div>
@@ -210,5 +220,9 @@
 
 
     <%= yield%>
+    <footer class="">
+        <h3>ruby on rails で作成しました</h3>
+    </footer>
+
     </body>
 </html>

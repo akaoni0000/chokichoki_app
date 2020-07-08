@@ -23,7 +23,8 @@ class ApplicationController < ActionController::Base
       @user = User.new
       @hairdresser = Hairdresser.new
     end
-
+    
+    #美容室で施術が終わった時間以降にログインするとコメント画面へ移行する
     def force_comment
       if @current_user
         @hairdresser_comment = HairdresserComment.find_by(user_id: @current_user.id, rate: nil)
