@@ -1,11 +1,7 @@
 <div class="container">
 <h1>ようこそ<%= @user.name %>さん</h1>
 <h1><%= @user.name %>さんのポイントは<%= @user.point %>ポイント</h1>
-<% @hairdressers.each do |hairdresser| %>
-    <h2><%= hairdresser.name %></h2>
-    <%= link_to hairdresser.name, users_hairdresser_path(hairdresser.id) %>
-    <%= link_to "指名する", menu_choice_path(hairdresser_id: hairdresser.id) %>
-<% end %>
+
 <%= link_to "クレジットカード登録へ", new_user_card_path %>
 <h2>予約した美容師</h2>
 <% @reservations.each do |reservation| %>

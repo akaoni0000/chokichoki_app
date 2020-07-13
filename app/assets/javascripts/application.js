@@ -53,7 +53,10 @@ $(function() {
       });
     },1000);  
   });
-  
+
+  $(document).on("click", ".glyphicon-remove", function () { 
+    $('.sign_up_in').fadeOut();
+  });
 
   
     $('.hairdresser_open_modal').click(function() {
@@ -113,7 +116,10 @@ $(function() {
     }, 1000);
   });
 
+
 });
+
+
 
 //スクロールでアニメーション
 $(function(){
@@ -129,9 +135,7 @@ $(function(){
   });
 });
 
-window.onload = function () {
 
-};
 
 //user登録のバリデーション
 $(function() {
@@ -290,6 +294,9 @@ $(function() {
     gon.user_email_data.pop();　//配列の一番最後の要素を削除
   })
 });
+
+
+
 
 //hairdresser登録のバリデーション
 $(function() {
@@ -535,15 +542,6 @@ $(function () {
 });
 
 
-
-
-
-
-
-
-
-
-
 //userの予約確定するかどうかページ
 $(function() {
   $(".point_check").click(function(){
@@ -607,28 +605,150 @@ $(function() {
 
 
 
-//美容師の登録ページ 美容師のメニュー作成ページ
-$(function () {
-    // 画像を呼び出すためのコールバック関数 関数を定義している
-    function readURL(input) {　
-        // 非同期で読み込むためにFileReader()を呼び出す
-        var reader = new FileReader();
-        reader.readAsDataURL(input.files[0]);
-        // onload はファイルの読み込みが完了したタイミングで発火する
-        reader.onload = function (e) {
-        //   // avatar_img_prevのimg srcの部分を画像のパラメータとして設定
-        $('#prev_img').attr('src', e.target.result);
 
-      }
+//menu投稿画面
+$(function(){
+  $(document).on("change", "#menu_img", function () { 
+    var input = $(this)
+    var reader = new FileReader();   //filereaderを起動
+    reader.readAsDataURL(this.files[0]);  //最初の写真を読み込む
+    reader.onload = function (e) {        //読み込み終わったら発火
+      $('#prev_menu_img').attr('src', e.target.result);
+      $(".menu_img_save").empty();
+      input.appendTo(".menu_img_save");
+      $(".label_menu_img").append('<input id="menu_img" class="hidden" type="file" name="menu[menu_image]">');
     }
+  });
 
-    $("#post_img").change(function () {
-      readURL(this);
-      console.log("fhaf");
-      });
+  //メニュー名
+  $(document).on("change", "#menu_name", function () { 
+    var name = $(this).val();
+    if (name.length>12) {
+      $(".name_error").html("12文字以内で入力してください");
+    } else {
+      $(".title").html(name);
+      $(".name_error").html("");
+    }
+  });
+  
+  //メニュー説明
+  $("#menu_explanation").change(function(){
+    var explanation = $(this).val();
+    if (explanation.length>160) {
+      $(".explain_error").html("160文字以内で入力してください");
+    } else {
+      $(".explain").html(explanation);
+      $(".explain_error").html("");
+    }
+  });
+
+  //menu施術時間
+  $("#menu_time").change(function(){
+    var time = $(this).val();
+    $(".menu_time").html(time+"分");
+  });
+
+  //メニューカテゴリー
+  $(".category1").click(function(){
+    if ($(this).hasClass("check")) {
+      $(this).removeClass("check");
+      $(this).addClass("not_category");
+      $(".cut_category").html("");
+    } else {
+      $(this).addClass("check");
+      $(this).removeClass("not_category");
+      $(".cut_category").html("カット");
+    }
+  });
+
+  $(".category2").click(function(){
+    if ($(this).hasClass("check")) {
+      $(this).removeClass("check");
+      $(this).addClass("not_category");
+      $(".color_category").html("");
+    } else {
+      $(this).addClass("check");
+      $(this).removeClass("not_category");
+      $(".color_category").html("カラー");
+    }
+  });
+
+  $(".category3").click(function(){
+    if ($(this).hasClass("check")) {
+      $(this).removeClass("check");
+      $(this).addClass("not_category");
+      $(".curly_category").html("");
+    } else {
+      $(this).addClass("check");
+      $(this).removeClass("not_category");
+      $(".curly_category").html("縮毛矯正");
+    }
+  });
+
+  $(".category4").click(function(){
+    if ($(this).hasClass("check")) {
+      $(this).removeClass("check");
+      $(this).addClass("not_category");
+      $(".perm_category").html("");
+    } else {
+      $(this).addClass("check");
+      $(this).removeClass("not_category");
+      $(".perm_category").html("パーマ");
+    }
+  });
+
+  $(".save_card").on("click", function(e) {
     
-
+    var name = $("#menu_name").val();
+    var explanation = $("#menu_explanation").val();
+    var time = $("#menu_time").val();
+    console.log(name.length)
+    if (3<=name.length && name.length<=12) {
+      $(".name_error").html("");
+    } else {
+      $(".name_error").html("3文字以上12文字以内で入力してください");
+    }
+    if (5<=explanation.length && explanation.length<=160) {
+      $(".explain_error").html("");
+    } else {
+      $(".explain_error").html("5文字以上160文字以内で入力してください");
+    }
+    if (time == "") {
+      $(".time_error").html("時間を設定してください");
+    } else {
+      $(".time_error").html("");
+    }
+    if ($(".category1").hasClass("not_category") && $(".category2").hasClass("not_category") && $(".category3").hasClass("not_category") && $(".category4").hasClass("not_category")) {
+      $(".category_error").html("最低一つチェックしてください");
+    } else {
+      $(".category_error").html("");
+    }
+  });
+  
 });
+
+//menuの予定表
+$(function(){
+  $(".day").click(function(){
+    var year = $(this).find(".calendar_year").text();
+    var month = $(this).find(".calendar_month").text();
+    var day = $(this).text();
+    $.ajax({              //ajaxを使うにはapplication controllerにprotect_from_forgery with: :null_sessionを書く必要があった
+      type:'POST', 
+      url: '/hairdressers/ajax_time_form', 
+      data: {date_year: year, date_month: month, date_day: day}, // コントローラへフォームの値を送信します
+      dataType: 'jsonp' // データの型はjsonpでjsになる jsonでjson
+    })
+  });
+
+
+
+})
+
+
+
+
+
   //varはグローバル変数といいどこでもその変数が使える 関数を定義した中で使うとローカル変数になる
 
 
@@ -755,6 +875,14 @@ window.onload = function () {
   else if (gon.image_number == 10) {
     $(".image_label").addClass("width_100");
     $('.image_label').addClass(`display_none`);
+  }
+  if (gon.body == "white"){
+    $("body").css({
+      "background-color":"white"
+    });
+  }
+  if (gon.fix == "header") {
+    $("header").addClass("fix");
   }
 };
  
@@ -890,6 +1018,11 @@ $(function() {
     });
   });
 });
+
+
+
+
+
 
 
 

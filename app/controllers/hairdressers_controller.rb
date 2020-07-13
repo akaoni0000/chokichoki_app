@@ -5,12 +5,20 @@ class HairdressersController < ApplicationController
     def create 
         @hairdresser = Hairdresser.new(hairdresser_params)
         @hairdresser.save
+
+        #美容師のヘアスタイルの写真のレコードを作成 hairdressersテーブルとstyle_imagesテーブルは1対1の関係であり、同じテーブルにした方がいいと思ったが、style_imagesコントローラを作りたかったので独立させた。
         @style = StyleImage.new(hairdresser_id: @hairdresser.id)
         @style.save
         redirect_to hairdresser_wait_path
     end
 
     def wait
+    end
+
+    def index
+        @hairdressers = Hairdresser.all
+        @hairdresser_comment_model = HairdresserComment
+        gon.fix = "header"
     end
 
     def login
@@ -38,7 +46,7 @@ class HairdressersController < ApplicationController
     end
       
     def show
-        @hairdresser = Hairdresser.find(params[:id])
+        @comments = HairdresserComment.where(hairdresser_id: @current_hairdresser.id).count
         @menu_id = Menu.where(hairdresser_id: @current_hairdresser.id)
         @reservations = Reservation.where(menu_id: @menu_id)
         @user_model = User

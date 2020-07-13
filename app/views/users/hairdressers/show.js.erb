@@ -1,0 +1,62 @@
+var html = 
+            `
+            <div id="hairdresser_show_modal" class="container">
+                <div class="box_left">
+                    <span class="glyphicon glyphicon-remove cursor show_remove"></span>
+                    <div class="hairdresser_show_box1">
+                        <%= attachment_image_tag @hairdresser, :hairdresser_image, size: "320x320", fallback: "no_image.png", class: "hairdresser_show_img"%>
+                        <div class="name_etc">
+                            <h2 style="margin: 0;"><%= @hairdresser.name %><h2>
+                            <h2>お気に入り登録</h2>
+                        </div>
+                    </div>
+                    <div class="hairdresser_appoint_box">
+                        <%= link_to menu_choice_path(hairdresser_id: @hairdresser.id) do %>
+                            <p style="font-size: 25px; cursor: pointer; color: black;">指名する</p>
+                        <% end %>
+                    </div>
+                </div>
+                <div class="box_right">
+                    <div class="hairdresser_show_box2" >
+                        <h2>自己紹介文</h2>
+                        <%= @hairdresser.introduction%>
+                    </div>
+                    <div class="hairdresser_show_box2" >
+                        <h2>メニュー</h2>
+                        <% @menus.each do |menu| %>
+                            <%= menu.name %>
+                        <% end %>
+                    </div>
+                    <div class="hairdresser_show_box2" >
+                        <h2>口コミ</h2>
+                         <%  @hairdresser_comments.each do |hairdresser_comment| %>
+                            <div id="star-rate-<%= hairdresser_comment.id %>"></div>
+                                <script>
+                                    $('#star-rate-<%= hairdresser_comment.id %>').raty({
+                                    size: 36,
+                                    starOff:  '<%= asset_path('star-off.png') %>',
+                                    starOn : '<%= asset_path('star-on.png') %>',
+                                    starHalf: '<%= asset_path('star-half.png') %>',
+                                    half: true,
+                                    readOnly: true,
+                                    score: <%= hairdresser_comment.rate %>,
+                                    });
+                                </script>
+                            <div>
+                                <% @menu = @menu_model.find(hairdresser_comment.menu_id) %>
+                                <%= @menu.name %>
+                            </div>
+                            <div>
+                                <% @user = @user_model.find(hairdresser_comment.user_id) %>
+                                <%= @user.name %>
+                            </div>
+                            <div>
+                                <%= hairdresser_comment.start_time.year %>年<%= hairdresser_comment.start_time.month %>月<%= hairdresser_comment.start_time.day %>日
+                            </div>
+                        <% end %>
+                    </div>
+                </div>
+            </div>
+            `
+$('#hairdresser_show').html(html);
+$('#hairdresser_show').fadeIn();     

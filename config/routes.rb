@@ -16,7 +16,8 @@ Rails.application.routes.draw do
 
 
   namespace :hairdressers do
-    get "hairdresser_reservation/:menu_id" => "reservations#reservation_index", as: "reservation_index"
+    get "hairdresser_reservation" => "reservations#reservation_index", as: "reservation_index"
+    post "ajax_time_form" => "reservations#ajax_time_form"
     resources :reservations, only: [:new, :index, :create, :destroy]
   end
 
@@ -26,7 +27,7 @@ Rails.application.routes.draw do
     post "user_reservation/card_pay" => "reservations#pay", as: "card_resevation_pay"
     get "complete" => "reservations#complete", as: "complete"
     resources :reservations, only: [:edit, :update]
-    resources :hairdressers, only: [:show]
+    resources :hairdressers, only: [:show, :index]
   end
 
   resources :users

@@ -15,43 +15,57 @@
             <%= link_to root_path do %>
                 <img src="<%= asset_path "cho.png" %>" class="log">
             <% end %>
-            <%= link_to "サロンの方はこちら", hairdresser_top_path %>
             <% if @current_user %>
                 <%= link_to "美容師一覧をみる", "#" %>
                 <%= link_to "クレジットカード", "#" %>
                 <%= link_to "予約一覧", "#" %>
                 <%= link_to "userログアウト", user_logout_path, method: :post %>
             <% elsif @current_hairdresser %>
-                <%= link_to "hairdresserログアウト", hairdresser_logout_path, method: :post %>
+                <div id = "hairdresser_header">
+                <li class="hairdresser_tag tag_left"><%= link_to "マイページ", hairdresser_path(@current_hairdresser.id)%></li>
+                <li class="hairdresser_tag"><%= link_to "メニュー作成", new_menu_path%></li>
+                <li class="hairdresser_tag"><%= link_to "メニュー一覧", menus_path %></li>
+                <li class="hairdresser_tag"><%= link_to "すべての予約", hairdressers_reservations_path %></li>
+                <li class="hairdresser_tag"><%= link_to "ヘアスタイルの画像を登録",  edit_style_image_path(1) %></li>
+                <li class="hairdresser_tag"><%= link_to "ログアウト", hairdresser_logout_path, method: :post %></li>
+                </div>
             <% else %>
                 <!-- ログインしてない時 -->
                 <% if @user_page == "user" %>
                     <h2 class="top_hairdresser_btn cursor scroll-btn" href="#top_hairdresser_slider">人気美容師</h2>
                     <h2 class="faq_btn cursor scroll-btn" href="#FAQ">FAQ</h2>
-                <% elsif  @hairdresser_page = "hairdresser" %>
+                <% elsif  @hairdresser_page == "hairdresser" %>
                     <h2 class="top_hairdresser_btn cursor scroll-btn" href="#top_hairdresser_slider">ご利用者さまの声</h2>
                     <h2 class="faq_btn cursor scroll-btn" href="#FAQ">FAQ</h2>
-                <% else %>
-                    
                 <% end %>
-                <h2 class="index_hairdresser_btn cursor">美容師一覧</h2>
+                <%= link_to hairdressers_path do %>
+                    <h2 class="index_hairdresser_btn cursor">美容師一覧</h2>
+                <% end %>
                 <div class="sign_in_block">
-                        <h2 class="cursor login">ログイン</h2>
-                        <div class="answer slide_down">
-                            <p id="login_user" class="cursor">会員ログイン</p>
-                            <p id="login_hairdresser" class="cursor ">美容師ログイン</p>
-                        </div>
+                    <h2 class="cursor login">ログイン</h2>
+                    <div class="answer slide_down">
+                        <p id="login_user" class="cursor">会員ログイン</p>
+                        <p id="login_hairdresser" class="cursor ">美容師ログイン</p>
                     </div>
-                    <div class="sign_up_block">
-                        <h2 class="cursor sign_up">新規会員登録</h2>
-                        <div class="answer2 slide_down">
-                            <p id="new_user" class="cursor ">会員登録</p>
-                            <p id="new_hairdresser" class="cursor ">美容師登録</p>
-                        </div>
+                </div>
+                <div class="sign_up_block">
+                    <h2 class="cursor sign_up">新規会員登録</h2>
+                    <div class="answer2 slide_down">
+                        <p id="new_user" class="cursor ">会員登録</p>
+                        <p id="new_hairdresser" class="cursor ">美容師登録</p>
                     </div>
+                </div>
             <% end %>
         </header>
 
+        <div>
+            <%= yield%>
+        </div>
+
+        <footer id="footer">
+            <h3>ruby on rails で作成しました</h3>
+        </footer>
+        
         <!-- ここからはモーダル アクションを起こさない限りdisplayはnone -->
         <!-- 会員登録画面モーダル -->
         <div id="user_sign_up" class="sign_up_in">
@@ -182,7 +196,7 @@
             </div>
         </div>
         
-        <!-- 会員ログイン -->
+        <!-- 会員ログインモーダル -->
         <div id="user_sign_in" class="sign_up_in">
             <div class="login_page">
                 <span class="glyphicon glyphicon-remove cursor" style="margin-left: 410px;"></span>
@@ -200,7 +214,7 @@
             </div>
         </div>
         
-         <!-- 美容師ログイン -->
+         <!-- 美容師ログインモーダル -->
         <div id="hairdresser_sign_in" class="sign_up_in">
             <div class="login_page">
                 <span class="glyphicon glyphicon-remove cursor" style="margin-left: 410px;"></span>
@@ -217,12 +231,6 @@
                 </div>
             </div>
         </div>
-
-
-    <%= yield%>
-    <footer class="">
-        <h3>ruby on rails で作成しました</h3>
-    </footer>
 
     </body>
 </html>

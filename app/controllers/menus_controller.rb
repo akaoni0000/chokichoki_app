@@ -7,6 +7,7 @@ class MenusController < ApplicationController
 
     def create
         @menu = Menu.new(menu_params)
+        @menu.category = params[:menu][:category1] + params[:menu][:category2] + params[:menu][:category3] + params[:menu][:category4]
         @menu.hairdresser_id = @current_hairdresser.id
         if @menu.save
             redirect_to menus_path

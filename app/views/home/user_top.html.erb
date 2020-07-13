@@ -6,16 +6,36 @@
             <h3>今なら500ポイントプレゼント!!(1回利用無料)</h3>
             <%= link_to "adminへ", admins_hairdresser_judge_index_path %>
         </div>
+        <%= link_to "サロンの方はこちら", hairdresser_top_path %>
 </main>
 
-<!-- スライダー -->
-<div id="top_hairdresser_slider" class="container center" style="margin-top: 40px;">
+<div class="center fadein">
+    <h1 style="margin-top: 100px;">chokichokiの特徴</h1>
+    <div class="container">
+    <div class="col-xs-6">
+        <h3 class="blue">たったの500円で予約が取れる!!</h3>
+        <h3 class="blue">口コミを書くと200ポイントゲット!!</h3>
+    </div>
+    <div class="col-xs-6">
+        <h3 class="blue">クレジットカード対応!!</h3>
+        <h3 class="blue">簡単予約!!</h3>
+    </div>
+</div>
+
+<!-- 人気美容師スライダー bootstrapだけ jsなし -->
+<div id="top_hairdresser_slider" class="container center" style="margin-top: 200px;">
     <div class="carousel slide" data-ride="carousel" data-interval="6000">
         <h1 class="fadein" style="margin-bottom: 40px; font-family: serif;">人気美容師</h1>
         <div class="carousel-inner fadein" style="height: 500px;">
             <% @points.each do |point| %>
-                <% @top_hairdresser = @hairdresser_model.find_by(reputation_point: point) %>
-                <% if @i == 0 %>
+                <!-- find_byで見つけると一番最初のデータしかもってこれない。pointが同じ数字だったとき困るので工夫した。 -->
+                <% @top_hairdressers = @hairdresser_model.where(reputation_point: point) %>
+                <% @top_hairdresser = @top_hairdressers[@n] %>
+                <% if  @top_hairdresser == nil %>
+                    <% @n = 0 %> 
+                    <% @top_hairdresser = @top_hairdressers[@n] %>
+                <% end %>
+                <% if @i == 1 %>
                     <div class="item active">
                         <div style="text-align: center;">
                             <%= attachment_image_tag @top_hairdresser, :hairdresser_image, size: "250x250", fallback: "no_image.png", class: "img-circle" %>
@@ -37,6 +57,7 @@
                     </div>
                 <% end %>
                 <% @i += 1 %>
+                <% @n += 1 %>
             <% end %>
         </div>
         <a class="left carousel-control" href=".carousel" data-slide="prev" style="height: 0px; width: 0px;">
@@ -49,7 +70,7 @@
 </div>
 
 <!-- FAQ -->
-<div id="FAQ" class="faq fadein">
+<div id="FAQ" class="faq fadein" style="margin-bottom: 300px; margin-top: 150px;">
     <h1 style="margin-bottom: 30px;">FAQ</h1>
 
     <h3 class="question"><span style="border-bottom: solid 5px #e6ecf0;">chokichokiとは？</span></h3>

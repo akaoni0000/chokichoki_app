@@ -17,6 +17,9 @@
  @import "bootstrap-sprockets";  /*ここを追加*/
  @import "bootstrap";           /*ここを追加*/
 
+body {
+    background-color:#FFEFD5;
+}
 .cursor {
     cursor: pointer;
     transition: all 0.6s ease;
@@ -39,17 +42,35 @@ p {
     font-family: serif;
 }
 
-h1, h2, h3 {
+h1, h2, h3, span {
     font-family: serif;
 }
+
+a {
+    color: #DEB887; 
+    font-family: serif;
+}
+
+a:hover {
+    text-decoration: none;
+    color: #DEB887; 
+}
+    
 
 
 header {
     width: 100%;
     background-color: transparent;
     height: 130px;
-    position: fixed;
     z-index: 80;
+}
+
+.fix {
+    width: 100%;
+    background-color: transparent;
+    height: 130px;
+    z-index: 80;
+    position: fixed;
 }
 
 .error {
@@ -101,6 +122,8 @@ header {
 //header
 .log {
     height: 150px;
+    width: 400px;
+    height: 120px;
 }
 
 .top_hairdresser_btn {
@@ -158,12 +181,13 @@ header {
 
 footer {
     text-align: center;
-    margin-top: 300px;
     padding-top: 70px;
     width: 100%;
     height: 200px;
     background-color:#DEB887;
-    z-index: 99;
+    z-index: 70;
+    // position: relative;
+    // top: 600px;
 }
 
 
@@ -329,16 +353,135 @@ footer {
     margin: 0 auto;
 }
 
+//美容師一覧
+#hairdresser_index {
+    z-index: 90;
+    background-color: #FFEFD5;
+}
+
+.main_index_content {
+    padding-top: 200px;
+}
+
+.hairdresser_show {
+    display: inline-block;
+    text-align: center;
+    margin-right: 9px;
+    margin-bottom: 30px;
+}
+
+.hairdresser_show_img {
+    border-radius: 30px 30px 0 0;
+}
+
+.name_etc {
+    width: 320px;
+    height: 145px;
+    background-color: white;
+    border-radius: 0 0 30px 30px;
+}
+
+
+
+//美容師詳細モーダル
+#hairdresser_show_modal {
+    position: absolute;
+    top: 10%;
+    left: 30%;
+    width: 1200px;
+}
+.box_left {
+    width: 360px;
+    display: inline-block;
+    vertical-align: top;
+}
+
+.box_right {
+    width: 750px;
+    display: inline-block;
+}
+
+.hairdresser_show_box1 {
+    width: 350px;
+}
+
+.hairdresser_show_box2 {
+    width: 375px;
+    background-color: white;
+    border-radius: 30px 30px 30px 30px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.hairdresser_show_box3 {
+    width: 375px;
+    background-color: white;
+    border-radius: 30px 30px 30px 30px;
+    padding-left: 20px;
+}
+
+.hairdresser_appoint_box {
+    width: 320px;
+    height: 50px;
+    margin-top: 20px;
+    background-color: #DEB887;
+    padding-top: 7px;
+    border-radius: 30px 30px 30px 30px;
+    text-align: center;
+}
+
+.show_remove {
+    border-radius: 30px 30px 30px 30px;
+    background-color: white;
+}
+
+//メニュー選択ページ
+#menu_choice {
+
+}
+
+
+//美容師マイページ
+.hairdresser_tag {
+    display: inline-block;
+    font-size: 20px;
+    margin-right: 20px;
+    position: relative;
+    font-family: serif;
+    color: #DEB887;
+}
+
+.tag_left {
+    margin-left: 100px;
+}
+
+#hairdresser_header {
+    position: absolute;
+    top: 40px;
+    right: 0px;
+    width: 1200px;
+    padding-left: 120px;
+}
+
+.hairdresser_box {
+    background-color: #FFF5EE;
+    text-align: center;
+    padding: 30px;
+    border-radius: 30px;
+}
+.hairdresser_show_name {
+    font-size: 18px;
+    margin-top: 10px;
+}
 
 
 
 
-
-
-
-
-
-
+hr {
+    height: 1px;
+    background-color:black;
+    margin-top: 100px;
+}
 
 
 
@@ -367,31 +510,123 @@ footer {
 
 
 
+// 美容師メニュー作成ページ
+.category_name {
+    margin-left: 10px;
+}
+
+.menu_tag {
+    margin-top: 30px;
+}
+
+.categories {
+    position: absolute;
+    right: 30px;
+    top: 80px;
+}
 
 
 
-
-
-
-  
-
-
-
-
-
-
-  
 .menu_card {
-    background-color: red;
+    background-color: white;
+   
+    width: 700px;
+    height: 192px;
+    border-radius: 30px;
+    margin-top: 70px;
+}
+
+.menu_top {
+}
+
+.title {
+    font-size: 30px;
+    width: 360px;
+    height: 42px;
+    display: inline-block;
+    vertical-align: top;
+    margin-left: 20px;
+}
+
+
+.menu_time {
+    width: 40px;
+    height: 20px;
+    margin-top: 10px;
+    margin-left: 20px;
+    display: inline-block;
+    vertical-align: top;
+}
+
+.card_categories {
+    width: 200px;
+    height: 20px;
+    margin-top: 10px;
+    margin-left: 20px;
+    display: inline-block;
+}
+
+.category {
+    background-color: pink;
+    color: white;
+    border-radius: 5px;
+}
+
+.explain {
+    width: 530px;
+    height: 130px;
+    margin-top: 10px;
+    padding-left: 20px;
+    display: inline-block;
     word-wrap: break-word;
 }
 
-
+#prev_menu_img {
+    width: 150px;
+    height: 150px;
+    border-radius: 20px;
+   
+    vertical-align: top;
+}
 
 
 .save_card {
-    display: none;
+    position: absolute;
+    left: 1000px;
+    top: 300px;
 }
+
+//メニュー一覧
+.reservation_make {
+    position: relative;
+    top: -110px;
+    left: 900px;
+    font-size: 20px;
+}
+
+//美容師予定表作成
+.reservation_menu {
+    margin-top: 50px;
+    margin-bottom: 600px;
+}
+.reservation_menu_card {
+    margin-top: 30px;
+    margin: 0 auto;
+}
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
 
 .arrive {
     display: block;
@@ -420,6 +655,10 @@ footer {
     text-align: center;
    
 }
+
+
+
+
 
 
 

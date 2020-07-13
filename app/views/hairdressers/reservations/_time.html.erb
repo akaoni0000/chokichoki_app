@@ -1,0 +1,6 @@
+<%= form_with(url: hairdressers_reservations_path, method: :post, local: true) do |f| %>
+    <%= f.label :start_time %>                             
+    <%= f.datetime_select :start_time, :start_year => year, :start_hour => 06, :minute_step => 30, :use_month_numbers => true, :default => Date.new(year, month, day)+hour.hours+min.minutes %>
+    <%= f.hidden_field :menu_id, :value => @menu_id %>
+    <%= f.submit '作成',class: "btn btn-primary "%>
+<%end%>

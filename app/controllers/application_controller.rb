@@ -1,8 +1,9 @@
 class ApplicationController < ActionController::Base
+    protect_from_forgery with: :null_session #jsファイルから非同期でコントローラにデータを送るときこれがあるとCSRF保護が無効になり非同期できる
     before_action :set_current_user
     before_action :set_current_hairdresser
     before_action :set_gon
-    before_action :set_new
+    before_action :set_new_show
     def set_current_user
       @current_user = User.find_by(id: session[:user_id])
     end
@@ -19,7 +20,7 @@ class ApplicationController < ActionController::Base
       gon.hairdresser_email_data = Hairdresser.pluck(:email)  #emailだけを配列で取得
     end
 
-    def set_new
+    def set_new_show
       @user = User.new
       @hairdresser = Hairdresser.new
     end
