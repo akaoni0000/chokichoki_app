@@ -7,12 +7,13 @@
             <%= render "style_images/style_image_save", hair_arry: @hair_arry  %>
         </span>
         <label class= "image_label">
-            <!--<%= f.file_field :hair_images, class: "hidden image_input", multiple: true%> これだと複数枚選べることになるし、multipleを外すとupdateできない-->
-            <input class="hidden image_input" type="file" name="style_image[hair_images][]"  accept="image/*"> <!--acceptによって画像しか選択できなくなる-->
+            <%= f.file_field :hair_images, class: "hidden image_input", multiple: true, accept: "image/*"%> <!--これだと複数枚選べることになるし、multipleを外すとupdateできない-->
+            <!--<input class="hidden image_input" type="file" name="style_image[hair_images][]"  accept="image/*">--> <!--acceptによって画像しか選択できなくなる-->
             <h1 class="sentence"><span class="glyphicon glyphicon-camera" aria-hidden="true"></span></h1>
         </label>
         <%= f.hidden_field :hairdresser_id, :value => @current_hairdresser.id %>
-        <h1><%= f.submit "保存", class: "btn" %></h1>
+        <div class="image_form_save hidden"></div>
+        <h1><%= f.submit "保存", class: "btn image_form_btn" %></h1>
     <% end %>
 </div>
 

@@ -5,6 +5,8 @@ Rails.application.routes.draw do
   #resources :admins
   resources :style_images, only: [:edit, :update, :destroy]
   post "destroy/preparation" => "style_images#destroy_preparation", as: "destroy_preparation"
+  patch "image_change" => "style_images#image_change", as: "image_change"
+  patch "delete_update" => "style_images#delete_update"
 
   namespace :admins do
     resources :hairdressers
