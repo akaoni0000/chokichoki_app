@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   get "hairdresser_top" => "home#hairdresser_top", as: "hairdresser_top"
   #resources :admins
   resources :style_images, only: [:edit, :update, :destroy]
+  post "destroy/preparation" => "style_images#destroy_preparation", as: "destroy_preparation"
 
   namespace :admins do
     resources :hairdressers

@@ -4,11 +4,11 @@
     
     <%= form_with(model: @style_image, class: "image_form width_100", local: true) do |f| %>
         <span class="image_boxes">
-            <%= render "style_images/style_image_save", style_image: @style_image  %>
+            <%= render "style_images/style_image_save", hair_arry: @hair_arry  %>
         </span>
         <label class= "image_label">
             <!--<%= f.file_field :hair_images, class: "hidden image_input", multiple: true%> これだと複数枚選べることになるし、multipleを外すとupdateできない-->
-            <input class="hidden image_input" type="file" name="style_image[hair_images][]"  accept="image/*">
+            <input class="hidden image_input" type="file" name="style_image[hair_images][]"  accept="image/*"> <!--acceptによって画像しか選択できなくなる-->
             <h1 class="sentence"><span class="glyphicon glyphicon-camera" aria-hidden="true"></span></h1>
         </label>
         <%= f.hidden_field :hairdresser_id, :value => @current_hairdresser.id %>

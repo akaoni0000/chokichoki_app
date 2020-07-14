@@ -1,3 +1,4 @@
+console.log(1);
 if ($(".image_label").hasClass("width_80")) {
       $(".image_label").removeClass("width_80");
       $(".image_label").addClass("width_100");
@@ -23,7 +24,8 @@ if ($(".image_label").hasClass("width_80")) {
       $(".image_label").removeClass("display_none");
       $(".image_label").addClass("width_20");
     }
-var id = $(".arry<%= @class_number%>").attr('href'); 
-console.log(id); 
-$(".box_number<%=@class_number%>").remove();
-$(".image_boxes").html("<%= j(render "style_images/style_image_save", style_image: @style_image) %>");
+var id = <%= @i %>
+$(".image_form").append(`<input name="[arry][]", value=${id} class="hidden">`)
+$(".image_boxes").html("<%= j(render "style_images/style_image_save", hair_arry: @hair_arry) %>");
+
+  

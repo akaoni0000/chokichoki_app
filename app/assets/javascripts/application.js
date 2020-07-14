@@ -812,7 +812,7 @@ $(function () {
       $('.image_label').before(html);
       image_input.appendTo(".hair");
       $(".hair_box").removeClass("hair");
-      $(".image_label").append('<input class="hidden image_input" type="file" name="style_image[hair_images][]">');
+      $(".image_label").append('<input class="hidden image_input" type="file" name="style_image[hair_images][]" accept="image/*">');
     }
   });
   
@@ -1030,7 +1030,9 @@ $(function() {
 
 
 
-
+// <input  name="[arry][]", value="a" class="hidden">
+// <input  name="[arry][]", value="b" class="hidden">
+// <input  name="[arry][]", value="c" class="hidden">
 
 
 

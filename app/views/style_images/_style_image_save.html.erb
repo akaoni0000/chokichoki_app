@@ -1,8 +1,10 @@
 <% i = 0 %>
-<% style_image.hair_images.each do |style_image| %>
-    <div class="hair_box box_number<%= i + 1 %> arry<%= i%>">
+<% hair_arry.each do |style_image| %>
+    <div class="hair_box box_number<%= i %> arry<%= i%>" href="<%= i%>">
         <%= image_tag style_image.to_s, class: "output" %>
-        <h4><%= link_to "削除", style_image_path(id: i), method: :delete, class: ".destroy", remote: true %></h4>
+        <h4><%= link_to "削除", destroy_preparation_path(arry_number: i, arry: hair_arry), method: :post, class: "destroy", remote: true %></h4>
+        <!--<h4><%= link_to "削除", style_image_path(id: i), method: :delete, class: "destroy", remote: true %></h4>-->
+        <!--<div class="destroy cursor" style="font-size: 20px;">削除</div>-->
     </div>
     <% i += 1 %>
 <% end %>
