@@ -739,6 +739,14 @@ $(function(){
       data: {date_year: year, date_month: month, date_day: day}, // コントローラへフォームの値を送信します
       dataType: 'jsonp' // データの型はjsonpでjsになる jsonでjson
     })
+    $(".day").css({
+      "border-width":"0px"
+    })
+    $(this).css({
+      'border-color':'red',
+      "border-top-color":"red",
+      "border-width":"2px"
+    });
   });
 
 
