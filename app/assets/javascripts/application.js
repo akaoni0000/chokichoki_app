@@ -903,8 +903,9 @@ $(function () {
         var number = $(this).get(0).files.length
         if (size + number >10) {
           alert("投稿できる画像は10枚です。")
-        }
-        console.log(number);
+          $(this).val("");
+        } else {
+
         for (i = 0; i < this.files.length; i+=1) {
           var reader = new FileReader();
           reader.readAsDataURL(this.files[i])
@@ -944,7 +945,7 @@ $(function () {
               $(".image_label").removeClass("width_20");
               console.log(20);
               $('.image_label').addClass(`width_100`);
-              if ( size == 9) { 
+              if ( image_size == 9) { 
                 $('.image_label').addClass(`display_none`);
               }
             } 
@@ -953,6 +954,7 @@ $(function () {
         }
         image_input.appendTo(".image_form_save");
         $(".image_label").append('<input class="hidden image_input" multiple="multiple" type="file" name="style_image[hair_images][]" id="style_image_hair_images">');
+      }
       });
 
      //生成されたhtml要素にはこの形じゃないとイベントが発生しない

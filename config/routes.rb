@@ -3,10 +3,9 @@ Rails.application.routes.draw do
   root "home#user_top"
   get "hairdresser_top" => "home#hairdresser_top", as: "hairdresser_top"
   #resources :admins
-  resources :style_images, only: [:edit, :update, :destroy]
+  resources :style_images, only: [:edit, :update]
   post "destroy/preparation" => "style_images#destroy_preparation", as: "destroy_preparation"
-  patch "image_change" => "style_images#image_change", as: "image_change"
-  patch "delete_update" => "style_images#delete_update"
+  
 
   namespace :admins do
     resources :hairdressers

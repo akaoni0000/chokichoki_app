@@ -5,23 +5,6 @@ class StyleImagesController < ApplicationController
         @style_image =  StyleImage.find_by(hairdresser_id: @current_hairdresser.id)
         @hair_arry = @style_image.hair_images
         gon.image_number = @style_image.hair_images.size 
-        
-        # if params[:size] 
-        # #     @style_image_add = StyleImage.new(style_images_params)
-        # #     @style_image = StyleImage.find_by(hairdresser_id: @current_hairdresser.id)
-        # #     @style_image.hair_images.push(@style_image_add.hair_images) #新しく追加した画像の配列を加える 配列の中に配列が入っていることになる
-        # #     @style_image.hair_images.flatten! #配列の中の配列をなくす
-        # #     @style_image.save
-        # #     @hair_arry = @style_image.hair_images
-        #     @size = @style_image.hair_images.size 
-        #     @begin_number = @size - params[:size].to_i
-        #     gon.size = @size 
-        #     gon.begin_number = @begin_number
-        #     gon.current_hairdresser_id = @current_hairdresser.id
-        # # @style_image.hair_images.slice!(@begin_number, @size)
-        
-        # # @style_image.save
-        # end
     end
 
     def update
@@ -41,43 +24,12 @@ class StyleImagesController < ApplicationController
         redirect_to hairdresser_path(@current_hairdresser.id)
     end
 
-    def destroy
-        @class_number = params[:id].to_i
-        @style_image =  StyleImage.find_by(hairdresser_id: @current_hairdresser.id)
-        @image_array = @style_image.hair_images
-        @image_array.delete_at(params[:id].to_i)
-        @style_image.save
-        #redirect_to edit_style_image_path(@style_image.id)
-    end
-
-    # def image_change
-    #     @style_image_add = StyleImage.new(style_images_params)
-    #     @style_image = StyleImage.find_by(hairdresser_id: @current_hairdresser.id)
-    #     @style_image.hair_images.push(@style_image_add.hair_images) #新しく追加した画像の配列を加える 配列の中に配列が入っていることになる
-    #     @style_image.hair_images.flatten! #配列の中の配列をなくす
-    #     @style_image.hair_images
-    #     @style_image.save
-    #     redirect_to edit_style_image_path(id: @current_hairdresser.id, size: @style_image_add.hair_images.size)
-    #     #data-remote="true"
-    #     # @style_image = StyleImage.find_by(hairdresser_id: 1)
-    #     # @style_image.update(style_images_params)
-    # end
-
     def destroy_preparation
         @hair_arry = params[:arry]
         @hair_arry.delete_at(params[:arry_number].to_i)
         @i = params[:arry_number].to_i
         @size = params[:arry].size
     end
-
-    # def delete_update
-    #     @size = params[:size].to_i
-    #     @begin_number = params[:number].to_i
-    #     @style_image = StyleImage.find_by(hairdresser_id: params[:id].to_i)
-    #     @style_image.hair_images.slice!(@begin_number, @size) # 例 num = [1, 2, 3, 4, 5] num.slice!(1, 3) 今回は2番目の要素から３つ分削除 [1, 5]
-    #     @style_image.save
-    # end
-
 
     private
     def style_images_params
