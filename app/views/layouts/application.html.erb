@@ -26,7 +26,7 @@
                 <li class="hairdresser_tag"><%= link_to "メニュー作成", new_menu_path%></li>
                 <li class="hairdresser_tag"><%= link_to "メニュー一覧", menus_path %></li>
                 <li class="hairdresser_tag"><%= link_to "すべての予約", hairdressers_reservations_path %></li>
-                <li class="hairdresser_tag"><%= link_to "ヘアスタイルの画像を登録",  edit_style_image_path(1) %></li>
+                <li class="hairdresser_tag"><%= link_to "ヘアスタイルの画像を登録",  edit_style_image_path(@current_hairdresser.id) %></li>
                 <li class="hairdresser_tag"><%= link_to "ログアウト", hairdresser_logout_path, method: :post %></li>
                 </div>
             <% else %>

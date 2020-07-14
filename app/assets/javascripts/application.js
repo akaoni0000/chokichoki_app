@@ -728,30 +728,30 @@ $(function(){
 });
 
 //menuの予定表
-$(function(){
-  $(".day").click(function(){
-    var year = $(this).find(".calendar_year").text();
-    var month = $(this).find(".calendar_month").text();
-    var day = $(this).text();
-    $.ajax({              //ajaxを使うにはapplication controllerにprotect_from_forgery with: :null_sessionを書く必要があった
-      type:'POST', 
-      url: '/hairdressers/ajax_time_form', 
-      data: {date_year: year, date_month: month, date_day: day}, // コントローラへフォームの値を送信します
-      dataType: 'jsonp' // データの型はjsonpでjsになる jsonでjson
-    })
-    $(".day").css({
-      "border-width":"0px"
-    })
-    $(this).css({
-      'border-color':'red',
-      "border-top-color":"red",
-      "border-width":"2px"
-    });
-  });
+// $(function(){
+//   $(".day").click(function(){
+//     var year = $(this).find(".calendar_year").text();
+//     var month = $(this).find(".calendar_month").text();
+//     var day = $(this).text();
+//     $.ajax({              //ajaxを使うにはapplication controllerにprotect_from_forgery with: :null_sessionを書く必要があった
+//       type:'POST', 
+//       url: '/hairdressers/ajax_time_form', 
+//       data: {date_year: year, date_month: month, date_day: day, menu_id: gon.menu_id}, // コントローラへフォームの値を送信します
+//       dataType: 'jsonp' // データの型はjsonpでjsになる jsonでjson
+//     })
+//     $(".day").css({
+//       "border-width":"0px"
+//     })
+//     $(this).css({
+//       'border-color':'red',
+//       "border-top-color":"red",
+//       "border-width":"2px"
+//     });
+//   });
 
 
 
-})
+// })
 
 
 

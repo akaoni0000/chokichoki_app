@@ -1,19 +1,22 @@
-<div class="time_form">
-    <%= render "hairdressers/reservations/time", year: @year, month: @month, day: @day, hour: @hour, min: @min%>
-</div>
-<%= month_calendar events: @reservations do |date, reservations| %>
-    <%= date.day %>
-    <h1 class="calendar_year hidden"><%= date.year %></h1>
-    <h1 class="calendar_month hidden"><%= date.month %></h1>
-    <% if reservations.present? %>
-        <p>予約設定済み</p>
-    <% end %>
-    <% reservations.each do |reservation| %>
-        <div>
-            <span><%= reservation.start_time.hour %>時<%= reservation.start_time.min %>分</span>
-        </div>
-    <% end %>
+<div class="calendar">
+    <%= month_calendar events: @reservations do |date, reservations| %>
+        <%= date.day %>
+        <% if Time.now < date %> 
+            <%= link_to "予約設定", new_hairdressers_reservation_path(year: date.year, month: date.month, day: date.day, hour: 6, min: 0,menu_id: @menu.id) %>
+        <% end %>
+        <% if Time.now.year == date.year && Time.now.month == date.month && Time.now.day == date.day %>
+           <%= link_to "予約設定", new_hairdressers_reservation_path(year: date.year, month: date.month, day: date.day, hour: 6, min: 0,menu_id: @menu.id) %>
+        <% end %>
+        <% if reservations.present? %>
+            <p>予約設定済み</p>
+        <% end %>
+        <% reservations.each do |reservation| %>
+            <div>
+                <span><%= reservation.start_time.hour %>時<%= reservation.start_time.min %>分</span>
+            </div>
+        <% end %>
 <% end %>
+</div>
 
 <div class="container reservation_menu">
     <div class="menu_card reservation_menu_card">

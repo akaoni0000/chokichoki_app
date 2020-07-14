@@ -8,7 +8,7 @@
         </span>
         <label class= "image_label">
             <!--<%= f.file_field :hair_images, class: "hidden image_input", multiple: true%> これだと複数枚選べることになるし、multipleを外すとupdateできない-->
-            <input class="hidden image_input" type="file" name="style_image[hair_images][]" >
+            <input class="hidden image_input" type="file" name="style_image[hair_images][]"  accept="image/*">
             <h1 class="sentence"><span class="glyphicon glyphicon-camera" aria-hidden="true"></span></h1>
         </label>
         <%= f.hidden_field :hairdresser_id, :value => @current_hairdresser.id %>

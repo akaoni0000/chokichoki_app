@@ -3,7 +3,7 @@
         <div class="time">
             <%= f.label :start_time %>                             
             <%= f.datetime_select :start_time, :start_year => @year.to_i, :start_hour => 06, :minute_step => 30, :use_month_numbers => true, :default => Date.new(@year.to_i, @month.to_i, @day.to_i)+@hour.to_i.hours+@min.to_i.minutes %>
-            <%= f.hidden_field :menu_id, :value => @menu_id %>
+            <%= f.hidden_field :menu_id, :value => @menu.id %>
             <%= f.submit '作成',class: "btn btn-primary "%>
         </div>
     <%end%>
@@ -27,5 +27,5 @@
             </div>
         <% end %>
     </div>
-    <%= link_to "カレンダーに戻る", hairdressers_reservation_index_path(@menu_id) %>
+    <%= link_to "カレンダーに戻る", hairdressers_reservation_index_path(menu_id: @menu.id) %>
 </div>

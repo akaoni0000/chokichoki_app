@@ -17,7 +17,6 @@ Rails.application.routes.draw do
 
   namespace :hairdressers do
     get "hairdresser_reservation" => "reservations#reservation_index", as: "reservation_index"
-    post "ajax_time_form" => "reservations#ajax_time_form"
     resources :reservations, only: [:new, :index, :create, :destroy]
   end
 

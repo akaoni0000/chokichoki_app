@@ -19,6 +19,10 @@
 
 body {
     background-color:#FFEFD5;
+    min-height: 100vh;
+    position: relative;/*←相対位置*/
+    //padding-bottom: 120px;/*←footerの高さ*/
+    box-sizing: border-box;/*←全て含めてmin-height:100vhに*/
 }
 .cursor {
     cursor: pointer;
@@ -186,8 +190,8 @@ footer {
     height: 200px;
     background-color:#DEB887;
     z-index: 70;
-    // position: relative;
-    // top: 600px;
+    position: absolute;
+    bottom: -500px;
 }
 
 
@@ -612,6 +616,14 @@ hr {
 .reservation_menu_card {
     margin-top: 30px;
     margin: 0 auto;
+}
+
+.simple-calendar table {
+    background-color: white;
+}
+
+.day {
+    background-color: wi;
 }
 
   
