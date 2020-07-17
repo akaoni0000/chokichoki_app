@@ -9,147 +9,148 @@
             <%= link_to "adminへ", admins_hairdresser_judge_index_path %>
         </div>
 </main>
-
-<div class="center fadein">
-    <h1 style="margin-top: 100px;">chokichokiの特徴</h1>
-    <div class="container">
-    <div class="col-xs-6">
-        <h3 class="blue">美容師なら誰でも登録可能!!</h3>
-        <h3 class="blue">マネキンではなくお客様の髪が切れる!!</h3>
-    </div>
-    <div class="col-xs-6">
-        <h3 class="blue">かかるお金は0円!完全無料!!</h3>
-        <h3 class="blue">予約の時間を設定して、待つだけ!!</h3>
-    </div>
-</div>
-
-<!-- ご利用者さまの声 -->
-<div id="top_hairdresser_slider" class="container center" style="margin-top: 200px;">
-    <div class="carousel slide" data-ride="carousel" data-interval="9000">
-        <h1 class="fadein" style="margin-bottom: 40px; font-family: serif;">ご利用者さまの声</h1>
-        <div class="carousel-inner fadein" style="height: 500px;">
-            <div class="item active">
-                <div class="hairdresser_use_image">
-                    <img src="<%= asset_path "human1.jpg" %>" class="img-circle human">
-                </div>
-                <div class="hairdresser_use_explain">
-                    <h3>ジュリアさん</h3>
-                    <p>このサイトで実績を積んでいき人気美容師となったことでサロンに認められ、スタイリストデビューすることができました!</p>      
-                </div>
-            </div>
-            <div class="item">
-                <div class="hairdresser_use_image">
-                    <img src="<%= asset_path "human2.jpg" %>" class="img-circle human">
-                </div>
-                <div class="hairdresser_use_explain">
-                    <h3>アンドリューさん</h3>
-                    <p>この手のサイトは手数料をとることが多いので、完全無料はとても助かりました。</p>      
-                </div>
-            </div>
-            <div class="item">
-                <div class="hairdresser_use_image">
-                    <img src="<%= asset_path "human3.jpg" %>" class="img-circle human">
-                </div>
-                <div class="hairdresser_use_explain">
-                    <h3>レベッカさん</h3>
-                    <p>マネキンの髪の毛ばかりを切っていましたが、お客様の髪を実際にきることができモチベーションがあがりました。</p>     
-                </div>
-            </div>
-            <div class="item">
-                <div class="hairdresser_use_image">
-                    <img src="<%= asset_path "human4.jpg" %>" class="img-circle human">
-                </div>
-                <div class="hairdresser_use_explain">
-                    <h3>マイケルさん</h3>
-                    <p>マネキンの髪の毛ばかりを切っていましたが、お客様の髪を実際にきることができモチベーションがあがりました。</p>     
-                </div>
-            </div>
-            <div class="item">
-                <div class="hairdresser_use_image">
-                    <img src="<%= asset_path "human5.jpg" %>" class="img-circle human">
-                </div>
-                <div class="hairdresser_use_explain">
-                    <h3>ビクトリアさん</h3>
-                    <p>施術が終わるとお客様から評価が送られてくるのでとても嬉しいです。</p>
-                </div>
-            </div>
+<div class="down_content2">
+    <div class="center fadein">
+        <h1 style="margin-top: 100px;">chokichokiの特徴</h1>
+        <div class="container">
+        <div class="col-xs-6">
+            <h3 class="blue">美容師なら誰でも登録可能!!</h3>
+            <h3 class="blue">マネキンではなくお客様の髪が切れる!!</h3>
         </div>
-        <a class="left carousel-control" href=".carousel" data-slide="prev" style="height: 0px; width: 0px;">
-            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-        </a>
-        <a class="right carousel-control" href=".carousel" data-slide="next" style="height: 0px; width: 0px;">
-            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-        </a>
-    </div>
-</div>
-
-<!-- FAQ -->
-<div id="FAQ" class="faq fadein" style="margin-bottom: 300px; margin-top: 150px;">
-    <h1 style="margin-bottom: 30px;">FAQ</h1>
-
-    <h3 class="question"><span style="border-bottom: solid 5px #e6ecf0;">chokichokiとは？</span></h3>
-    <div class="left_static">
-        <p class="answers">
-            安価で美容院に行きたい人と、マネキンではなく実際にお客様の髪で施術をしたい美容師アシスタント、双方の希望を叶えるwebアプリケーションです。
-        </p>
+        <div class="col-xs-6">
+            <h3 class="blue">かかるお金は0円!完全無料!!</h3>
+            <h3 class="blue">予約の時間を設定して、待つだけ!!</h3>
+        </div>
     </div>
 
-    <h3 class="question"><span style="border-bottom: solid 5px #e6ecf0;">スタイリストデビューを味わえるとは？</span></h3>
-    <div class="left_static">
-        <p class="answers">
-            このサイトに登録することでスタイリストのように自分でメニューを決め、予約の時間を設定することができます。
-            練習用のマネキンではなくお客様の髪を切ることでスキルアップやモチベーションアップが図れます。
-        </p>
-    </div>
-    
-    <h3 class="question"><span style="border-bottom: solid 5px #e6ecf0;">強制評価システムとは？</span></h3>
-    <div class="left_static">
-        <p class="answers">
-            お客様は施術が完了した後、口コミを書かないとログインできないようになっており、評価をもらうことができます。
-            その評価を参考に上司に相談し、スタイリストデビューしましょう。
-        </p>
+    <!-- ご利用者さまの声 -->
+    <div id="top_hairdresser_slider" class="container center" style="margin-top: 200px;">
+        <div class="carousel slide" data-ride="carousel" data-interval="9000">
+            <h1 class="fadein" style="margin-bottom: 40px; font-family: serif;">ご利用者さまの声</h1>
+            <div class="carousel-inner fadein" style="height: 500px;">
+                <div class="item active">
+                    <div class="hairdresser_use_image">
+                        <img src="<%= asset_path "human1.jpg" %>" class="img-circle human">
+                    </div>
+                    <div class="hairdresser_use_explain">
+                        <h3>ジュリアさん</h3>
+                        <p>このサイトで実績を積んでいき人気美容師となったことでサロンに認められ、スタイリストデビューすることができました!</p>      
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="hairdresser_use_image">
+                        <img src="<%= asset_path "human2.jpg" %>" class="img-circle human">
+                    </div>
+                    <div class="hairdresser_use_explain">
+                        <h3>アンドリューさん</h3>
+                        <p>この手のサイトは手数料をとることが多いので、完全無料はとても助かりました。</p>      
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="hairdresser_use_image">
+                        <img src="<%= asset_path "human3.jpg" %>" class="img-circle human">
+                    </div>
+                    <div class="hairdresser_use_explain">
+                        <h3>レベッカさん</h3>
+                        <p>マネキンの髪の毛ばかりを切っていましたが、お客様の髪を実際にきることができモチベーションがあがりました。</p>     
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="hairdresser_use_image">
+                        <img src="<%= asset_path "human4.jpg" %>" class="img-circle human">
+                    </div>
+                    <div class="hairdresser_use_explain">
+                        <h3>マイケルさん</h3>
+                        <p>マネキンの髪の毛ばかりを切っていましたが、お客様の髪を実際にきることができモチベーションがあがりました。</p>     
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="hairdresser_use_image">
+                        <img src="<%= asset_path "human5.jpg" %>" class="img-circle human">
+                    </div>
+                    <div class="hairdresser_use_explain">
+                        <h3>ビクトリアさん</h3>
+                        <p>施術が終わるとお客様から評価が送られてくるのでとても嬉しいです。</p>
+                    </div>
+                </div>
+            </div>
+            <a class="left carousel-control" href=".carousel" data-slide="prev" style="height: 0px; width: 0px;">
+                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+            </a>
+            <a class="right carousel-control" href=".carousel" data-slide="next" style="height: 0px; width: 0px;">
+                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+            </a>
+        </div>
     </div>
 
-    <h3 class="question"><span style="border-bottom: solid 5px #e6ecf0;">お客様の髪を切るのが初めてなのですが、失敗しても大丈夫ですか？</span></h3>
-    <div class="left_static">
-        <p class="answers">
-            大丈夫とは言い切れませんが、誠心誠意お客様と向き合えば理解してくれると思います。
-        </p>
-    </div>
+    <!-- FAQ -->
+    <div id="FAQ" class="faq fadein" style="margin-bottom: 300px; margin-top: 150px;">
+        <h1 style="margin-bottom: 30px;">FAQ</h1>
 
-    <h3 class="question"><span style="border-bottom: solid 5px #e6ecf0;">予約が全然入りません。どうすればいいですか?</span></h3>
-    <div class="left_static">
-        <p class="answers">
-            宣材写真を爽やかにしたり、メニューを工夫しましょう。
-        </p>
-    </div>
+        <h3 class="question"><span style="border-bottom: solid 5px #e6ecf0;">chokichokiとは？</span></h3>
+        <div class="left_static">
+            <p class="answers">
+                安価で美容院に行きたい人と、マネキンではなく実際にお客様の髪で施術をしたい美容師アシスタント、双方の希望を叶えるwebアプリケーションです。
+            </p>
+        </div>
 
-    <h3 class="question"><span style="border-bottom: solid 5px #e6ecf0;">審査に必要なのは?</span></h3>
-    <div class="left_static">
-        <p class="answers">
-            審査には必ずご自身の美容師免許が必要になります。また、店舗の上司の許可を得てください。
-        </p>
-    </div>
+        <h3 class="question"><span style="border-bottom: solid 5px #e6ecf0;">スタイリストデビューを味わえるとは？</span></h3>
+        <div class="left_static">
+            <p class="answers">
+                このサイトに登録することでスタイリストのように自分でメニューを決め、予約の時間を設定することができます。
+                練習用のマネキンではなくお客様の髪を切ることでスキルアップやモチベーションアップが図れます。
+            </p>
+        </div>
+        
+        <h3 class="question"><span style="border-bottom: solid 5px #e6ecf0;">強制評価システムとは？</span></h3>
+        <div class="left_static">
+            <p class="answers">
+                お客様は施術が完了した後、口コミを書かないとログインできないようになっており、評価をもらうことができます。
+                その評価を参考に上司に相談し、スタイリストデビューしましょう。
+            </p>
+        </div>
 
-    <h3 class="question"><span style="border-bottom: solid 5px #e6ecf0;">サイトを作成する上で苦労した点は?</span></h3>
-    <div class="left_static">
-    　　<p class="answers">
-            予約機能と美容師のマイページにあるヘアスタイルの画像を投稿する複数画像投稿画面のviewページです。
-            例えば18時に施術時間40分のメニューの予約が入ったら、18時30分には予約を入れられないなど、その前後で予約できなくするメニューを設定するのに苦労しました。
-            複数画像投稿はメルカリの出品画像登録のviewを参考にしたのですが、typeがfileのinputタグのvalue属性を操作できなかったのでとても苦労しました。
-        </p>
-    </div>
+        <h3 class="question"><span style="border-bottom: solid 5px #e6ecf0;">お客様の髪を切るのが初めてなのですが、失敗しても大丈夫ですか？</span></h3>
+        <div class="left_static">
+            <p class="answers">
+                大丈夫とは言い切れませんが、誠心誠意お客様と向き合えば理解してくれると思います。
+            </p>
+        </div>
 
-    <h3 class="question"><span style="border-bottom: solid 5px #e6ecf0;">このサイトを作成した理由は?</span></h3>
-    <div class="left_static">
-        <p class="answers"> 
-            誰もが安価で美容院に行くことができ、かつ美容師の離職率を減少させたかったからです。
-            美容師のアシスタントさんが1年目で離職する割合は約50%となっています。
-            アンケートの結果、その理由の一つにいつになったらお客様の髪が切れるようになるのか分からないまま、技術を磨く日々が夜遅くまで毎日続いてしまうことだとわかりました。
-            なので、スタイリストさんに実際にお客さまの髪を切らせる機会をあたえ、技術を磨き、モチベーションをアップさせる場を与えることができ、
-            また有名な美容院に行きたいけどスタイリストさんだと料金が高いという人にも安価で行けるようにしたいと思い、このサイトを作成しました。
-            スクールのカリキュラムで実装したことのない機能(予約機能、クレジットカード支払い、deviseを使わないログイン機能)を実装したかったのもきっかけの一つです。
-        </p>
+        <h3 class="question"><span style="border-bottom: solid 5px #e6ecf0;">予約が全然入りません。どうすればいいですか?</span></h3>
+        <div class="left_static">
+            <p class="answers">
+                宣材写真を爽やかにしたり、メニューを工夫しましょう。
+            </p>
+        </div>
+
+        <h3 class="question"><span style="border-bottom: solid 5px #e6ecf0;">審査に必要なのは?</span></h3>
+        <div class="left_static">
+            <p class="answers">
+                審査には必ずご自身の美容師免許が必要になります。また、店舗の上司の許可を得てください。
+            </p>
+        </div>
+
+        <h3 class="question"><span style="border-bottom: solid 5px #e6ecf0;">サイトを作成する上で苦労した点は?</span></h3>
+        <div class="left_static">
+        　　<p class="answers">
+                予約機能と美容師のマイページにあるヘアスタイルの画像を投稿する複数画像投稿画面のviewページです。
+                例えば18時に施術時間40分のメニューの予約が入ったら、18時30分には予約を入れられないなど、その前後で予約できなくするメニューを設定するのに苦労しました。
+                複数画像投稿はメルカリの出品画像登録のviewを参考にしたのですが、typeがfileのinputタグのvalue属性を操作できなかったのでとても苦労しました。
+            </p>
+        </div>
+
+        <h3 class="question"><span style="border-bottom: solid 5px #e6ecf0;">このサイトを作成した理由は?</span></h3>
+        <div class="left_static">
+            <p class="answers"> 
+                誰もが安価で美容院に行くことができ、かつ美容師の離職率を減少させたかったからです。
+                美容師のアシスタントさんが1年目で離職する割合は約50%となっています。
+                アンケートの結果、その理由の一つにいつになったらお客様の髪が切れるようになるのか分からないまま、技術を磨く日々が夜遅くまで毎日続いてしまうことだとわかりました。
+                なので、スタイリストさんに実際にお客さまの髪を切らせる機会をあたえ、技術を磨き、モチベーションをアップさせる場を与えることができ、
+                また有名な美容院に行きたいけどスタイリストさんだと料金が高いという人にも安価で行けるようにしたいと思い、このサイトを作成しました。
+                スクールのカリキュラムで実装したことのない機能(予約機能、クレジットカード支払い、deviseを使わないログイン機能)を実装したかったのもきっかけの一つです。
+            </p>
+        </div>
     </div>
 </div>
 

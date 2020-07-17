@@ -1,8 +1,7 @@
 <div class="container">
 <h1>ようこそ<%= @user.name %>さん</h1>
 <h1><%= @user.name %>さんのポイントは<%= @user.point %>ポイント</h1>
-
-<%= link_to "クレジットカード登録へ", new_user_card_path %>
+<h2>今日予約できる美容師</h2>
 <h2>予約した美容師</h2>
 <% @reservations.each do |reservation| %>
     <div>

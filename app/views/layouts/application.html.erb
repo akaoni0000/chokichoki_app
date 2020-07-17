@@ -15,19 +15,23 @@
             <%= link_to root_path do %>
                 <img src="<%= asset_path "cho.png" %>" class="log">
             <% end %>
+            <%= link_to "サロンの方はこちら", hairdresser_top_path, class: "salon"%>
             <% if @current_user %>
-                <%= link_to "美容師一覧をみる", "#" %>
-                <%= link_to "クレジットカード", "#" %>
-                <%= link_to "予約一覧", "#" %>
-                <%= link_to "userログアウト", user_logout_path, method: :post %>
+                <div id = "user_header">
+                    <li class="hairdresser_tag tag_left"><%= link_to "マイページ", user_path(@current_user.id)%></li>
+                    <li class="hairdresser_tag"><%= link_to "美容師一覧", hairdressers_path  %></li>
+                    <li class="hairdresser_tag"><%= link_to "クレジットカード", new_user_card_path %></li>
+                    <li class="hairdresser_tag"><%= link_to "予約一覧", new_user_card_path %></li>
+                    <li class="hairdresser_tag"><%= link_to "ログアウト", user_logout_path, method: :post %></li>
+                </div>
             <% elsif @current_hairdresser %>
                 <div id = "hairdresser_header">
-                <li class="hairdresser_tag tag_left"><%= link_to "マイページ", hairdresser_path(@current_hairdresser.id)%></li>
-                <li class="hairdresser_tag"><%= link_to "メニュー作成", new_menu_path%></li>
-                <li class="hairdresser_tag"><%= link_to "メニュー一覧", menus_path %></li>
-                <li class="hairdresser_tag"><%= link_to "すべての予約", hairdressers_reservations_path %></li>
-                <li class="hairdresser_tag"><%= link_to "ヘアスタイルの画像を登録",  edit_style_image_path(@current_hairdresser.id) %></li>
-                <li class="hairdresser_tag"><%= link_to "ログアウト", hairdresser_logout_path, method: :post %></li>
+                    <li class="hairdresser_tag tag_left"><%= link_to "マイページ", hairdresser_path(@current_hairdresser.id)%></li>
+                    <li class="hairdresser_tag"><%= link_to "メニュー作成", new_menu_path%></li>
+                    <li class="hairdresser_tag"><%= link_to "メニュー一覧", menus_path %></li>
+                    <li class="hairdresser_tag"><%= link_to "すべての予約", hairdressers_reservations_path %></li>
+                    <li class="hairdresser_tag"><%= link_to "ヘアスタイルの画像を登録",  edit_style_image_path(@current_hairdresser.id) %></li>
+                    <li class="hairdresser_tag"><%= link_to "ログアウト", hairdresser_logout_path, method: :post %></li>
                 </div>
             <% else %>
                 <!-- ログインしてない時 -->

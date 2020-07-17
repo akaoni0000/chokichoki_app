@@ -7,7 +7,7 @@ var html =
                         <%= attachment_image_tag @hairdresser, :hairdresser_image, size: "320x320", fallback: "no_image.png", class: "hairdresser_show_img"%>
                         <div class="name_etc">
                             <h2 style="margin: 0;"><%= @hairdresser.name %><h2>
-                            <h2>お気に入り登録</h2>
+                            <p>お気に入り登録</p>
                         </div>
                     </div>
                     <div class="hairdresser_appoint_box">
@@ -18,17 +18,17 @@ var html =
                 </div>
                 <div class="box_right">
                     <div class="hairdresser_show_box2" >
-                        <h2>自己紹介文</h2>
+                        <h2 class="introduce">自己紹介文</h2>
                         <%= @hairdresser.introduction%>
                     </div>
                     <div class="hairdresser_show_box2" >
-                        <h2>メニュー</h2>
+                        <h2 class="introduce">メニュー</h2>
                         <% @menus.each do |menu| %>
                             <%= menu.name %>
                         <% end %>
                     </div>
                     <div class="hairdresser_show_box2" >
-                        <h2>口コミ</h2>
+                        <h2 class="introduce">口コミ</h2>
                          <%  @hairdresser_comments.each do |hairdresser_comment| %>
                             <div id="star-rate-<%= hairdresser_comment.id %>"></div>
                                 <script>

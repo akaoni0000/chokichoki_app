@@ -24,10 +24,12 @@ body {
     //padding-bottom: 120px;/*←footerの高さ*/
     box-sizing: border-box;/*←全て含めてmin-height:100vhに*/
 }
+
 .cursor {
     cursor: pointer;
     transition: all 0.6s ease;
 }
+
 
 .cursor:hover {
     color: #CC9933;
@@ -49,6 +51,10 @@ p {
 h1, h2, h3, span {
     font-family: serif;
 }
+
+// li {
+//     text-decoration: none;
+// }
 
 a {
     color: #DEB887; 
@@ -77,6 +83,50 @@ header {
     position: fixed;
 }
 
+
+.fadein {
+    opacity : 0;                      //透明度 0~1         
+    transform : translate(0, 150px);  //右へ0px 下に100px下げる
+}
+
+   
+.fadein.active {
+    opacity : 1;
+    transform : translate(0, 0);
+    transition : all 2s ease; //allはopacityとtransformを指定 hoverやjsでタイミングを定義しないと発動しない
+}
+
+.salon {
+    position: relative;
+    top: 25px;
+}
+// .down_content {
+//      background-color: red;
+//      height: 2600px;
+// }
+
+// .down_content2 {
+//     height: 1600px;
+// }
+
+
+
+
+
+//footer
+
+footer {
+    text-align: center;
+    padding-top: 70px;
+    width: 100%;
+    height: 200px;
+    background-color:#DEB887;
+    z-index: 70;
+    position: absolute;
+    bottom: -500px;
+}
+
+//
 .error {
     color: red;
     margin-bottom: 0px;
@@ -121,6 +171,10 @@ header {
     margin-top: 20px;
     margin-bottom: 20px;
     width: 200px;
+}
+
+.form-control {
+
 }
 
 //header
@@ -286,17 +340,6 @@ footer {
     height: 500px;
 }
 
-.fadein {
-    opacity : 0;                      //透明度 0~1         
-    transform : translate(0, 150px);  //右へ0px 下に100px下げる
-}
-
-   
-.fadein.active {
-    opacity : 1;
-    transform : translate(0, 0);
-    transition : all 2s ease; //allはopacityとtransformを指定 hoverやjsでタイミングを定義しないと発動しない
-}
 
 .carousel-control {
     margin-top: 200px;
@@ -401,7 +444,17 @@ footer {
 }
 
 .box_right {
-    width: 750px;
+    width: 450px;
+    height: 530px;
+    display: inline-block;
+    vertical-align: top;
+    overflow:auto;
+}
+
+.box-right2 {
+    width: 300px;
+    height: 400px;
+    background-color: blue;
     display: inline-block;
 }
 
@@ -415,6 +468,7 @@ footer {
     border-radius: 30px 30px 30px 30px;
     padding-left: 20px;
     padding-right: 20px;
+    //padding-top: 5px;
 }
 
 .hairdresser_show_box3 {
@@ -439,10 +493,75 @@ footer {
     background-color: white;
 }
 
+.name_etc {
+    text-align: center;
+}
+
+.introduce {
+    padding-top: 10px;
+}
+
+
+
+
+
 //メニュー選択ページ
 #menu_choice {
 
 }
+
+//userマイページ
+#user_header {
+    position: absolute;
+    top: 40px;
+    right: 0px;
+    width: 1200px;
+    padding-left: 350px;
+}
+
+//userのカード登録
+.cvc {
+    width: 160px;
+}
+
+.ca_form {
+    display: inline;
+    margin: 30px 0;
+}
+
+#card_number {
+    width: 160px;
+}
+
+#charge-form {
+    margin-top: 70px;
+}
+
+.number_hidden {
+    margin-top: 70px;
+}
+
+.limit {
+    margin-left: -25px;
+}
+
+.security {
+    margin-left: -60px;
+}
+
+.time_limit {
+    margin-right: 10px;
+}
+
+.card_delete {
+    margin-top: 30px;
+}
+
+
+
+
+
+
 
 
 //美容師マイページ
@@ -600,6 +719,12 @@ hr {
     top: 300px;
 }
 
+
+
+
+
+
+
 //メニュー一覧
 .reservation_make {
     position: relative;
@@ -687,20 +812,31 @@ hr {
     height: 350px;
     background-color:grey;
     padding-top: 125px;
+    margin-top: 5px;
+    cursor: pointer;
     display: inline-block;
     text-align: center;
 }
 
 .hair_box {
-    background-color: red;
-    width: 20%;
+    background-color:white;
+    width: 19%;
     height: 350px;
     display: inline-block;
     text-align: center;
     padding-top: 10px;
     font-size: 2;
+    //margin-top: 5px;
+    // margin-right: 0.5%;
+    // margin-left: 0.5%;
+    margin: 5px 0.5%;
     //下にずれるのを防ぐ
     vertical-align: top;
+ }
+
+.change_save_btn {
+    text-align: center;
+    margin-top: 60px;
 }
 
 .width_100 {

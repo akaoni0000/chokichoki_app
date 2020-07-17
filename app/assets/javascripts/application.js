@@ -21,6 +21,7 @@
 
 //turbolinksがあるとjsが発動しないことがあるので消した
 
+
 //topページ
 $(function() {
 　//会員の新規会員登録
@@ -79,7 +80,7 @@ $(function() {
     $('.login').click(function() {
       if($(".answer").hasClass('open')) { 
         $(".answer").removeClass('open');
-        $(".answer").slideUp();  //answerのdisplayをnoneにする     
+        $(".answer").slideUp();  //answerのdisplayをnoneにする  
       } else {
         $(".answer").addClass('open'); 
         $(".answer").slideDown();  //answerのdisplayをblockにする 
@@ -101,6 +102,7 @@ $(function() {
     if($(this).next().hasClass('open')) { 
       $(this).next().removeClass("open");
       $(this).next().slideUp(); 
+      $(".show_introduction").addClass("aaaaaa");
     } else {
       $(this).next().addClass('open'); 
       $(this).next().slideDown(); 
@@ -113,7 +115,7 @@ $(function() {
     var position = $(id).offset().top;  //topからの距離を取得
     $('html').animate({
       'scrollTop': position - 300
-    }, 1000);
+    }, 1500);
   });
 
 
@@ -126,7 +128,7 @@ $(function(){
   $(window).scroll(function (){
       $('.fadein').each(function(){            //fadeinクラスすべて順番に
           var position = $(this).offset().top; //上からfadeinクラスまでの距離
-          var scroll = $(window).scrollTop();     //スクロールした距離
+          var scroll = $(window).scrollTop();     //上からスクロールした距離
           var windowHeight = $(window).height();  //画面の高さ
           if (scroll > position - windowHeight + 190){  //図を書くと理解できる
             $(this).addClass('active');
@@ -616,7 +618,7 @@ $(function(){
       $('#prev_menu_img').attr('src', e.target.result);
       $(".menu_img_save").empty();
       input.appendTo(".menu_img_save");
-      $(".label_menu_img").append('<input id="menu_img" class="hidden" type="file" name="menu[menu_image]">');
+      $(".label_menu_img").append('<input id="menu_img" class="hidden" type="file" accept= "image/*" name="menu[menu_image]" >');
     }
   });
 
@@ -727,130 +729,10 @@ $(function(){
   
 });
 
-//menuの予定表
-// $(function(){
-//   $(".day").click(function(){
-//     var year = $(this).find(".calendar_year").text();
-//     var month = $(this).find(".calendar_month").text();
-//     var day = $(this).text();
-//     $.ajax({              //ajaxを使うにはapplication controllerにprotect_from_forgery with: :null_sessionを書く必要があった
-//       type:'POST', 
-//       url: '/hairdressers/ajax_time_form', 
-//       data: {date_year: year, date_month: month, date_day: day, menu_id: gon.menu_id}, // コントローラへフォームの値を送信します
-//       dataType: 'jsonp' // データの型はjsonpでjsになる jsonでjson
-//     })
-//     $(".day").css({
-//       "border-width":"0px"
-//     })
-//     $(this).css({
-//       'border-color':'red',
-//       "border-top-color":"red",
-//       "border-width":"2px"
-//     });
-//   });
-
-
-
-// })
-
-
-
-
-
-  //varはグローバル変数といいどこでもその変数が使える 関数を定義した中で使うとローカル変数になる
-
-
-
-
-// //美容師のヘアスタイル画像投稿ページで使う
-//  $(function () {
-//   //生成されたhtml要素にはこの形じゃないとイベントが発生しない  既存の要素でも反応する
-//   $(document).on("change", ".image_input", function () { 
-//     size = $('.hair_box').length;
-//     console.log(size);
-//     var image_input =  $(this)
-//     var reader = new FileReader();
-//     reader.readAsDataURL(this.files[0]);
-//     reader.onload = function(e){
-//       var src = e.target.result
-//       var html = 
-//             `
-//               <div class="hair_box hair">
-//                 <img src="${src}" class="image_box" width="80%" height="250">
-//                 <div class="delete cursor" style="font-size: 20px;">削除</div>
-//               </div>
-//             `
-//       if ($(".image_label").hasClass(`width_100`)) {
-//         $(".image_label").removeClass("width_100");
-//         console.log(100);
-//         $('.image_label').addClass(`width_80`);
-//       }
-//       else if ($(".image_label").hasClass("width_80")) {
-//         $(".image_label").removeClass("width_80");
-//         console.log(80);
-//         $('.image_label').addClass(`width_60`);
-//       }
-//       else if ($(".image_label").hasClass("width_60")) {
-//         $(".image_label").removeClass("width_60");
-//         console.log(60);
-//         $('.image_label').addClass(`width_40`);
-//       }
-//       else if ($(".image_label").hasClass("width_40")) {
-//         $(".image_label").removeClass("width_40");
-//         console.log(40);
-//         $('.image_label').addClass(`width_20`);
-//       }
-//       else if ($(".image_label").hasClass("width_20")) {
-//         $(".image_label").removeClass("width_20");
-//         console.log(20);
-//         $('.image_label').addClass(`width_100`);
-//         var src = e.target.result
-//         if ( size == 9) { 
-//           $('.image_label').addClass(`display_none`);
-//         }
-//       } 
-//       $('.image_label').before(html);
-//       image_input.appendTo(".hair");
-//       $(".hair_box").removeClass("hair");
-//       $(".image_label").append('<input class="hidden image_input" type="file" name="style_image[hair_images][]" accept="image/*">');
-//     }
-//   });
-  
-//   //生成されたhtml要素にはこの形じゃないとイベントが発生しない
-//   $(document).on("click", ".delete", function(){
-//     size = $('img').length;
-//     $(this).parent().remove();
-//     if ($(".image_label").hasClass("width_80")) {
-//       $(".image_label").removeClass("width_80");
-//       $(".image_label").addClass("width_100");
-//     } 
-//     else if ($(".image_label").hasClass("width_60")) {
-//       $(".image_label").removeClass("width_60");
-//       $(".image_label").addClass("width_80");
-//     }
-//     else if ($(".image_label").hasClass("width_40")) {
-//       $(".image_label").removeClass("width_40");
-//       $(".image_label").addClass("width_60");
-//     }
-//     else if ($(".image_label").hasClass("width_20")) {
-//       $(".image_label").removeClass("width_20");
-//       $(".image_label").addClass("width_40");
-//     }
-//     else if ($(".image_label").hasClass("width_0")) {
-//       $(".image_label").removeClass("width_0");
-//       $(".image_label").addClass("width_20");
-//     }
-//     else if ($(".image_label").hasClass("width_100")) {
-//       $(".image_label").removeClass("width_100");
-//       $(".image_label").removeClass("display_none");
-//       $(".image_label").addClass("width_20");
-//     }
-//   });
-
-// });
 
 window.onload = function () {
   //複数画像投稿ページ
+  $("input").attr('accept', "image/*");
   if (gon.image_number == 0) {
     $(".image_label").addClass("width_100");
   }
@@ -902,13 +784,14 @@ $(function () {
         var size = $('.hair_box').length;
         var number = $(this).get(0).files.length
         if (size + number >10) {
-          alert("投稿できる画像は10枚です。")
+          alert("投稿できる画像は10枚までです。")
           $(this).val("");
         } else {
 
-        for (i = 0; i < this.files.length; i+=1) {
+        //for (i = 0; i < this.files.length; i+=1) {
           var reader = new FileReader();
-          reader.readAsDataURL(this.files[i])
+          reader.readAsDataURL(this.files[0])
+          console.log(this.files[0])
           //ここで折り返す
 
           //この後input.files.length(選択した画像の数)だけ繰り返す i=input.files.lengthとなる
@@ -918,7 +801,7 @@ $(function () {
             var html = `
                         <div class="hair_box made_box arry${image_size}" href="${image_size}">
                           <img src="${src}" class="image_box" width="80%" height="250">
-                          <div class="delete cursor" style="font-size: 20px;">削除</div>
+                          <h4><a class="delete cursor">削除</a>
                         </div>
                         `
             if ($(".image_label").hasClass(`width_100`)) {
@@ -951,21 +834,19 @@ $(function () {
             } 
             $('.image_label').before(html);
           }
-        }
+        //}
         image_input.appendTo(".image_form_save");
-        $(".image_label").append('<input class="hidden image_input" multiple="multiple" type="file" name="style_image[hair_images][]" id="style_image_hair_images">');
+        $(".image_label").append('<input class="hidden image_input" type="file" name="style_image[hair_images][]" id="style_image_hair_images" accept="image/*">');
       }
       });
 
      //生成されたhtml要素にはこの形じゃないとイベントが発生しない
       $(document).on("click", ".delete", function(){
         image_size = $('.hair_box').length;
-        id = $(this).parent().attr('href'); 
+        id = $(this).parent().parent().attr('href'); 
         for (i = 0; i < 10; i+=1) {
           var target = $(`.arry${i}`);
           var href_number = target.attr('href');
-          console.log(href_number);
-          console.log(id);
           if (href_number>id) {
             href_number -= 1
             target.removeClass();
@@ -974,7 +855,7 @@ $(function () {
           }
         }
         $(".image_form").append(`<input name="[arry][]", value=${id} class="hidden">`)
-        $(this).parent().remove();
+        $(this).parent().parent().remove();
 
         if ($(".image_label").hasClass("width_80")) {
           $(".image_label").removeClass("width_80");
@@ -1014,44 +895,44 @@ $(function () {
 
 
 
-$(function () {
-  $(".input5").change(function () {
-   number = $(this).get(0).files.length
-   if (number > 5) {
-     alert("登録できるのは登録できる写真は5枚までです。")
-   } else {
-    $(".image_form").submit();
-  }
-  });
+// $(function () {
+//   $(".input5").change(function () {
+//    number = $(this).get(0).files.length
+//    if (number > 5) {
+//      alert("登録できるのは登録できる写真は5枚までです。")
+//    } else {
+//     $(".image_form").submit();
+//   }
+//   });
 
-  $(".input4").change(function () {
-    number = $(this).get(0).files.length
-    if (number > 4) {
-      alert("登録できるのは登録できる写真は5枚までです。")
-    }
-  });
+//   $(".input4").change(function () {
+//     number = $(this).get(0).files.length
+//     if (number > 4) {
+//       alert("登録できるのは登録できる写真は5枚までです。")
+//     }
+//   });
 
-  $(".input3").change(function () {
-    number = $(this).get(0).files.length
-    if (number > 3) {
-      alert("登録できるのは登録できる写真は5枚までです。")
-    }
-  });
+//   $(".input3").change(function () {
+//     number = $(this).get(0).files.length
+//     if (number > 3) {
+//       alert("登録できるのは登録できる写真は5枚までです。")
+//     }
+//   });
 
-  $(".input2").change(function () {
-    number = $(this).get(0).files.length
-    if (number > 2) {
-      alert("登録できるのは登録できる写真は5枚までです。")
-    }
-  });
+//   $(".input2").change(function () {
+//     number = $(this).get(0).files.length
+//     if (number > 2) {
+//       alert("登録できるのは登録できる写真は5枚までです。")
+//     }
+//   });
 
-  $(".input1").change(function () {
-    number = $(this).get(0).files.length
-    if (number > 1) {
-      alert("登録できるのは登録できる写真は5枚までです。")
-    }
-  });
-});
+//   $(".input1").change(function () {
+//     number = $(this).get(0).files.length
+//     if (number > 1) {
+//       alert("登録できるのは登録できる写真は5枚までです。")
+//     }
+//   });
+// });
 
 //userのマイページ
 $(function() {
@@ -1100,7 +981,7 @@ $(function() {
         $("#charge-form").append(`<input type="hidden" name="payjp-token" value=${token}></input>`)
         $("#charge-form").submit();
       } else {
-        alert("有効期限またはセキリュティコードを入力してください");
+        alert("正しい有効期限またはセキリュティコードを入力してください。");
         $("#token_submit").prop('disabled', false);　//ボタンを有効化する
       }
     });

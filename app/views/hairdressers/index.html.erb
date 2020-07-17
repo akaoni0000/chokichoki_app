@@ -21,6 +21,9 @@
                                 score: <%= hairdresser.reputation_point %> / <%= @comments %>,
                                 });
                             </script>
+                        <div class="show_introduction">
+                            <%= hairdresser.introduction.slice(0..4) %>
+                        </div>
                     </div>
             <% end %>
            

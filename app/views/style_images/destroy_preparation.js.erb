@@ -28,7 +28,6 @@ $(".image_form").append(`<input name="[arry][]", value=${id} class="hidden">`)
 for (i = <%= @size %> + 1; i < 10; i+=1) {
           var target = $(`.arry${i}`);
           var href_number = target.attr('href');
-          console.log(href_number);
           href_number -= 1
           target.removeClass();
           target.addClass(`hair_box made_box arry${href_number}`);

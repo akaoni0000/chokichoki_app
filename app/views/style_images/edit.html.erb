@@ -1,22 +1,21 @@
 <div class="container image_fo">
-    <%= @current_hairdresser.name %>
-    <h3>画像編集</h3>
-    
+    <p>クリックして画像を追加してください（10枚まで画像を登録できます）</p>
     <%= form_with(model: @style_image, class: "image_form width_100", local: true) do |f| %>
         <span class="image_boxes">
             <%= render "style_images/style_image_save", hair_arry: @hair_arry  %>
         </span>
         <label class= "image_label">
-            <%= f.file_field :hair_images, class: "hidden image_input", multiple: true, accept: "image/*"%> <!--これだと複数枚選べることになるし、multipleを外すとupdateできない-->
-            <!--<input class="hidden image_input" type="file" name="style_image[hair_images][]"  accept="image/*">--> <!--acceptによって画像しか選択できなくなる-->
+            <!--<%= f.file_field :hair_images, class: "hidden image_input", multiple: true, accept: "image/*"%>--> <!--これだと複数枚選べることになるし、multipleを外すとupdateできない 複数画像を一気に投稿できるようにしたかったがjsのfile readerの読み込みの順番が意図した通りに動かず、順番をすきなように決められない-->
+            <input class="hidden image_input" type="file" name="style_image[hair_images][]"  accept="image/*"> <!--acceptによって画像しか選択できなくなる-->
             <h1 class="sentence"><span class="glyphicon glyphicon-camera" aria-hidden="true"></span></h1>
         </label>
         <%= f.hidden_field :hairdresser_id, :value => @current_hairdresser.id %>
         <div class="image_form_save hidden"></div>
-        <h1><%= f.submit "保存", class: "btn image_form_btn" %></h1>
+        <div class="change_save_btn">
+            <%= f.submit "変更を保存する", class: "btn image_form_btn btn btn-success" %>
+        </div>
     <% end %>
 </div>
-
 
 
  
