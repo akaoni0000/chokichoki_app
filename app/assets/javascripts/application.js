@@ -102,7 +102,7 @@ $(function() {
     if($(this).next().hasClass('open')) { 
       $(this).next().removeClass("open");
       $(this).next().slideUp(); 
-      $(".show_introduction").addClass("aaaaaa");
+      $(".show_introduction").addClass("aaaaaaaa");
     } else {
       $(this).next().addClass('open'); 
       $(this).next().slideDown(); 
