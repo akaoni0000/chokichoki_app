@@ -7,7 +7,7 @@ var html =
                         <%= attachment_image_tag @hairdresser, :hairdresser_image, size: "320x320", fallback: "no_image.png", class: "hairdresser_show_img"%>
                         <div class="name_etc">
                             <h2 style="margin: 0;"><%= @hairdresser.name %><h2>
-                            <p>お気に入り登録</p>
+                            <p class="btn btn-primary">お気に入り登録</p>
                         </div>
                     </div>
                     <div class="hairdresser_appoint_box">
@@ -30,29 +30,31 @@ var html =
                     <div class="hairdresser_show_box2" >
                         <h2 class="introduce">口コミ</h2>
                          <%  @hairdresser_comments.each do |hairdresser_comment| %>
-                            <div id="star-rate-<%= hairdresser_comment.id %>"></div>
-                                <script>
-                                    $('#star-rate-<%= hairdresser_comment.id %>').raty({
-                                    size: 36,
-                                    starOff:  '<%= asset_path('star-off.png') %>',
-                                    starOn : '<%= asset_path('star-on.png') %>',
-                                    starHalf: '<%= asset_path('star-half.png') %>',
-                                    half: true,
-                                    readOnly: true,
-                                    score: <%= hairdresser_comment.rate %>,
-                                    });
-                                </script>
-                            <div>
-                                <% @menu = @menu_model.find(hairdresser_comment.menu_id) %>
-                                <%= @menu.name %>
-                            </div>
-                            <div>
-                                <% @user = @user_model.find(hairdresser_comment.user_id) %>
-                                <%= @user.name %>
-                            </div>
-                            <div>
-                                <%= hairdresser_comment.start_time.year %>年<%= hairdresser_comment.start_time.month %>月<%= hairdresser_comment.start_time.day %>日
-                            </div>
+                            <% if hairdresser_comment.rate != nil %>
+                                <div id="star-rate-<%= hairdresser_comment.id %>"></div>
+                                    <script>
+                                        $('#star-rate-<%= hairdresser_comment.id %>').raty({
+                                        size: 36,
+                                        starOff:  '<%= asset_path('star-off.png') %>',
+                                        starOn : '<%= asset_path('star-on.png') %>',
+                                        starHalf: '<%= asset_path('star-half.png') %>',
+                                        half: true,
+                                        readOnly: true,
+                                        score: <%= hairdresser_comment.rate %>,
+                                        });
+                                    </script>
+                                <div>
+                                    <% @menu = @menu_model.find(hairdresser_comment.menu_id) %>
+                                    <%= @menu.name %>
+                                </div>
+                                <div>
+                                    <% @user = @user_model.find(hairdresser_comment.user_id) %>
+                                    <%= @user.name %>
+                                </div>
+                                <div>
+                                    <%= hairdresser_comment.start_time.year %>年<%= hairdresser_comment.start_time.month %>月<%= hairdresser_comment.start_time.day %>日
+                                </div>
+                            <% end %>
                         <% end %>
                     </div>
                 </div>

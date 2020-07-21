@@ -8,19 +8,22 @@ class Users::ReservationsController < ApplicationController
         @reservations = Reservation.where(menu_id: params[:menu_id])
     end
 
+    def show
+    end
+
     def edit
         @reservation = Reservation.find(params[:id])
     end
-
     def update
        
         if params[:card] == "1"
             @card = "pay_success"
         elsif params[:point] == "1"
+            #現在のポイントが500ポイントより多いとき
             if  @current_user.point >= 500
                 @current_user.point -= 500
                 @current_user.save
-
+            
                 #予約した時間のreservationsテーブルのレコードのuser_idとuser_requestをupdate
                 @reservation = Reservation.find(params[:id])
                 @reservation.user_id = @current_user.id
@@ -86,7 +89,7 @@ class Users::ReservationsController < ApplicationController
 
     def pay
         Payjp.api_key = ENV['SECRET_KEY']
-        #Charge.createなので顧客情報は保存されない
+        #Charge.createなので顧客情報は保存されない Payjp::Customer.createのとき顧客情報が保存される
         Payjp::Charge.create(
             :amount => 500, #支払金額を入力
             :card => params['payjp-token'],
@@ -135,7 +138,7 @@ class Users::ReservationsController < ApplicationController
         @hairdresser_id = @reservation.menu.hairdresser_id
         @menu_id = @reservation.menu.id
         @start_time = @reservation.start_time
-        @hairdresser_comment = HairdresserComment.new(user_id: @current_user.id, hairdresser_id: @hairdresser_id, menu_id: @menu_id, start_time: @start_time)
+        @hairdresser_comment = HairdresserComment.find_by(user_id: @current_user.id, hairdresser_id: @hairdresser_id, menu_id: @menu_id, start_time: @start_time)
         @hairdresser_comment.destroy
         
         #予約をキャンセルした情報を保存

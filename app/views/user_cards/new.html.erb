@@ -1,4 +1,4 @@
-<div class="container center">
+<div class="container center card_register">
     <%= form_with(url: user_cards_path, method: :post, id: "charge-form") do |f|  %>
         <%= f.label "カード番号" %>
         <%= f.text_field "card_number", class: "number form-control ca_form", value: 4242424242424242  ,maxlength: "16", type: "text", id: "card_number"%>
@@ -12,7 +12,7 @@
         <%= f.label "セキュリティコード", class: "security"%>
         <%= f.text_field "cvc", class: "cvc form-control ca_form", placeholder: "カード背面3~4桁の番号", maxlength: "4", id: "cvc" %>
         <div>
-        <%= f.submit "追加する", id: "token_submit", class: "btn btn-success" %>
+        <%= f.submit "登録する", id: "token_submit", class: "btn btn-success" %>
         </div>
     <%end%>
 </div>

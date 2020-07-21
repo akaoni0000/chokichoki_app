@@ -2,12 +2,16 @@
     $('.card_modal').fadeIn();       
 <% end %>
 <% if @error == "point_error" %> 
-    $(".error").text("ポイントないよ");
+    $(".error").text("ポイントが不足しています");
 <% end %>
 <% if @error == "registered_card_error" %> 
-    $(".error").text("登録済みのクレジットカードがありません。");
+    $(".error").text("登録済みのクレジットカードがありません");
 <% end %>
 <% if @error == "check_error" %> 
-    $(".error").text("支払い方法にチェックがありません。");
+    $(".error").text("支払い方法にチェックがありません");
 <% end %>
+
+
+
+
 

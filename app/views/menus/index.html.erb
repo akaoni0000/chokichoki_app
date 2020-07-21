@@ -21,9 +21,10 @@
             </div>
             <div class="menu_bottom">
                 <%= attachment_image_tag menu, :menu_image, fallback: "no_image.png", id: "prev_menu_img" %>
-                <div class="explain font"></div>
+                <div class="explain font"><%= menu.explanation %></div>
             </div>
         </div>
         <%= link_to "予定表を編集", hairdressers_reservation_index_path(menu_id: menu.id), class: "reservation_make btn btn-success" %>
     </div>
 <% end %>
+

@@ -1,4 +1,23 @@
-if ($(".image_label").hasClass("width_80")) {
+//連打防止のために工夫した　double_clickというクラスをもっているとき削除ボタンをおすとalertが発生する
+
+if ( $(".hair_box").hasClass('double_click') ){
+  alert("二重クリックは禁止されています。")
+  setTimeout(function(){
+    $(".hair_box").removeClass('double_click');
+  },1000);  
+} 
+else {
+  if (<%= @size %> == 0 ) {
+    $(".hair_box").addClass('double_click');
+    var id = <%= @i %>
+    $(".image_form").append(`<p><input name="[arry][]", value=${id} class="hidden"></p>`)
+    $(".image_label").removeClass("width_80");
+    $(".image_label").addClass("width_100");
+    $(".hair_box").remove();
+    $(".image_form").children("p").eq(1).remove();    //二番目のpを削除
+  } 
+  else {
+    if ($(".image_label").hasClass("width_80")) {
       $(".image_label").removeClass("width_80");
       $(".image_label").addClass("width_100");
     } 
@@ -23,16 +42,12 @@ if ($(".image_label").hasClass("width_80")) {
       $(".image_label").removeClass("display_none");
       $(".image_label").addClass("width_20");
     }
-var id = <%= @i %>
-$(".image_form").append(`<input name="[arry][]", value=${id} class="hidden">`)
-for (i = <%= @size %> + 1; i < 10; i+=1) {
-          var target = $(`.arry${i}`);
-          var href_number = target.attr('href');
-          href_number -= 1
-          target.removeClass();
-          target.addClass(`hair_box made_box arry${href_number}`);
-          target.attr('href', `${href_number}`);
-        }
-$(".image_boxes").html("<%= j(render "style_images/style_image_save", hair_arry: @hair_arry) %>");
-
-  
+    var id = <%= @i %>
+    $(".image_form").append(`<input name="[arry][]", value=${id} class="hidden">`)
+    $(".image_boxes").html("<%= j(render "style_images/style_image_save", hair_arry: @hair_arry) %>");
+    $(".hair_box").addClass('double_click');
+    setTimeout(function(){
+      $(".hair_box").removeClass('double_click');
+    },400); 
+  }
+}

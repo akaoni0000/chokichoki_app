@@ -19,11 +19,28 @@
 
 body {
     background-color:#FFEFD5;
-    min-height: 100vh;
-    position: relative;/*←相対位置*/
-    //padding-bottom: 120px;/*←footerの高さ*/
-    box-sizing: border-box;/*←全て含めてmin-height:100vhに*/
 }
+
+#yield {
+    min-height: 100vh;
+    margin-bottom: 140px;
+    //position: relative;/*←相対位置*/
+    //padding-bottom: 120px;/*←footerの高さ*/
+    //box-sizing: border-box;/*←全て含めてmin-height:100vhに*/
+}
+
+//footer
+
+footer {
+    text-align: center;
+    padding-top: 70px;
+    width: 100%;
+    height: 200px;
+    background-color:#DEB887;
+    z-index: 70;
+    
+}
+
 
 .cursor {
     cursor: pointer;
@@ -80,7 +97,8 @@ header {
     background-color: transparent;
     height: 130px;
     z-index: 80;
-    position: fixed;
+    position: absolute;
+    top: 0;
 }
 
 
@@ -96,10 +114,19 @@ header {
     transition : all 2s ease; //allはopacityとtransformを指定 hoverやjsでタイミングを定義しないと発動しない
 }
 
+.now_login {
+    position: relative;
+    width: 220px;
+    left: 400px;
+    top: -72px;
+}
+
 .salon {
     position: relative;
-    top: 25px;
+    top: -20px;
 }
+
+
 // .down_content {
 //      background-color: red;
 //      height: 2600px;
@@ -112,19 +139,6 @@ header {
 
 
 
-
-//footer
-
-footer {
-    text-align: center;
-    padding-top: 70px;
-    width: 100%;
-    height: 200px;
-    background-color:#DEB887;
-    z-index: 70;
-    position: absolute;
-    bottom: -500px;
-}
 
 //
 .error {
@@ -235,18 +249,7 @@ footer {
 }
 
 
-//footer
 
-footer {
-    text-align: center;
-    padding-top: 70px;
-    width: 100%;
-    height: 200px;
-    background-color:#DEB887;
-    z-index: 70;
-    position: absolute;
-    bottom: -500px;
-}
 
 
 //会員登録
@@ -521,7 +524,7 @@ footer {
 
 //userのカード登録
 .cvc {
-    width: 160px;
+    width: 180px;
 }
 
 .ca_form {
@@ -533,8 +536,12 @@ footer {
     width: 160px;
 }
 
-#charge-form {
-    margin-top: 70px;
+// #charge-form {
+//     margin-top: 70px;
+// }
+
+.card_register {
+    padding-top: 70px;
 }
 
 .number_hidden {
@@ -546,7 +553,7 @@ footer {
 }
 
 .security {
-    margin-left: -60px;
+    margin-left: -40px;
 }
 
 .time_limit {
@@ -582,8 +589,8 @@ footer {
     position: absolute;
     top: 40px;
     right: 0px;
-    width: 1200px;
-    padding-left: 120px;
+    width: 1400px;
+    padding-left: 500px;
 }
 
 .hairdresser_box {
@@ -596,6 +603,18 @@ footer {
     font-size: 18px;
     margin-top: 10px;
 }
+
+.notice_number {
+    position: relative;
+    top: -20px;
+    right: -88px;
+    color: white;
+    background-color: red;
+    border-radius: 40px;
+    font-size: 25px;
+}
+
+
 
 
 
@@ -736,7 +755,6 @@ hr {
 //美容師予定表作成
 .reservation_menu {
     margin-top: 50px;
-    margin-bottom: 600px;
 }
 .reservation_menu_card {
     margin-top: 30px;
@@ -769,7 +787,9 @@ hr {
     display: block;
 }
 
-
+.card_form_close_modal {
+    margin-left: 420px;
+}
 
 .card_modal {
     position: fixed;
@@ -786,12 +806,20 @@ hr {
     position: absolute;
     top: 20%;
     left: 37%;
-    background-color:red;
+    background-color:#CCFFFF;
     border-radius: 10px;
     width: 450px;
     text-align: center;
-   
 }
+
+.card_form_pay {
+    margin-top: 0;
+}
+
+
+
+
+
 
 
 
@@ -870,5 +898,100 @@ hr {
 .output {
     width: 80%;
     height: 250px;
+}
+
+
+
+//予約投稿
+.time {
+    margin-top: 50px;
+    margin-bottom: 100px;
+    //padding-left: 140px;
+
+}
+
+// .make_btn {
+//     margin-right: 100px;
+// }
+
+#_start_time_1i {
+    display: none;
+}
+
+#_start_time_2i {
+    display: none;
+}
+
+#_start_time_3i {
+    display: none;
+}
+
+
+
+
+
+
+//予約するかどうか
+.request {
+    margin: 0 auto;
+}
+
+.plan {
+    margin-top: 50px;
+}
+
+.expect {
+    margin-bottom: 50px;
+}
+
+.reservation_btn {
+    margin-top: 50px;
+}
+
+.checkbox {
+    display: inline;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+//hairdresser予約一覧ページ
+.user_request_modal {
+    position: absolute;
+    top: 25%;
+    left: 35%;
+    width: 500px;
+    min-height: 300px;
+    background-color: #CCFFFF;
+    border-radius: 30px;
+    padding: 30px;
+}
+
+.index_user_reservations {
+    margin-top: 0px;
+}
+
+.start_day {
+    margin-bottom: 20px;
+    font-size: 20px;
+}
+
+.reservation_table {
+    margin-bottom: 90px;
+}
+
+.flash_new {
+    background-color: red;
+    border-radius: 30px;
+    color: white;
 }
 

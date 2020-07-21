@@ -5,6 +5,7 @@ class StyleImagesController < ApplicationController
         @style_image =  StyleImage.find_by(hairdresser_id: @current_hairdresser.id)
         @hair_arry = @style_image.hair_images
         gon.image_number = @style_image.hair_images.size 
+        
     end
 
     def update
@@ -29,6 +30,7 @@ class StyleImagesController < ApplicationController
         @hair_arry.delete_at(params[:arry_number].to_i)
         @i = params[:arry_number].to_i
         @size = params[:arry].size
+        
     end
 
     private

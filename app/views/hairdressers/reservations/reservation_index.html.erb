@@ -1,14 +1,8 @@
 <div class="calendar">
     <%= month_calendar events: @reservations do |date, reservations| %>
         <%= date.day %>
-        <% if Time.now < date %> 
-            <%= link_to "予約設定", new_hairdressers_reservation_path(year: date.year, month: date.month, day: date.day, hour: 6, min: 0,menu_id: @menu.id) %>
-        <% end %>
-        <% if Time.now.year == date.year && Time.now.month == date.month && Time.now.day == date.day %>
+        <% if Date.today <= date %>
            <%= link_to "予約設定", new_hairdressers_reservation_path(year: date.year, month: date.month, day: date.day, hour: 6, min: 0,menu_id: @menu.id) %>
-        <% end %>
-        <% if reservations.present? %>
-            <p>予約設定済み</p>
         <% end %>
         <% reservations.each do |reservation| %>
             <div>
@@ -39,7 +33,7 @@
             </div>
         <div class="menu_bottom">
             <%= attachment_image_tag @menu, :menu_image, fallback: "no_image.png", id: "prev_menu_img" %>
-            <div class="explain font"></div>
+            <div class="explain font"><%= @menu.explanation %></div>
         </div>
     </div>
 </div>

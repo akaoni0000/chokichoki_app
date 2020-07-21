@@ -12,12 +12,18 @@ class UsersController < ApplicationController
     end
 
     def login
-        if @user = User.find_by(email: params[:email])
+        if @user = User.find_by(email: params[:email])  #メールアドレス　パスワードの順で調べていく
             if @user.authenticate(params[:password]) #authenticateは、引数に渡された文字列 (パスワード) をハッシュ化した値と、データベース内にあるpassword_digestカラムの値を比較します。
                 session[:user_id] = @user.id
-                flash[:notice] = "ログインしました"
-                respond_to do |format|
-                    format.js { render ajax_redirect_to(user_path(@user.id)) }
+                if params[:reservation_id] == nil
+                    respond_to do |format|
+                        format.js { render ajax_redirect_to(user_path(@user.id)) }
+                    end
+                else
+                    @reservation_id = params[:reservation_id].to_i
+                    respond_to do |format|
+                        format.js { render ajax_redirect_to(edit_users_reservation_path(@reservation_id)) }
+                    end
                 end
             else
             end

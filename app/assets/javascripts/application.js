@@ -21,7 +21,6 @@
 
 //turbolinksがあるとjsが発動しないことがあるので消した
 
-
 //topページ
 $(function() {
 　//会員の新規会員登録
@@ -42,6 +41,11 @@ $(function() {
   //美容師ログイン
   $('#login_hairdresser').click(function() {
     $('#hairdresser_sign_in').fadeIn();      
+  });
+  
+  //ご希望ありをクリックする
+  $(document).on("click", ".user_hope", function () { 
+    $(this).next("div").fadeIn(); 
   });
   
   //バツアイコンでモーダルを閉じる
@@ -102,7 +106,6 @@ $(function() {
     if($(this).next().hasClass('open')) { 
       $(this).next().removeClass("open");
       $(this).next().slideUp(); 
-      $(".show_introduction").addClass("aaaaaaaa");
     } else {
       $(this).next().addClass('open'); 
       $(this).next().slideDown(); 
@@ -135,6 +138,13 @@ $(function(){
           }
       });
   });
+  $(window).scroll(function (){
+    if (gon.fix == "header") {
+      $("header").css({
+        "position":"fixed"
+      });
+    }
+});
 });
 
 
@@ -547,38 +557,40 @@ $(function () {
 //userの予約確定するかどうかページ
 $(function() {
   $(".point_check").click(function(){
-    if ($(this).hasClass("check")) {
-      $(this).removeClass("check");
-      $(this).prop('checked', false); 
+    if ($(this).children(".checkbox").hasClass("check")) {
+      $(this).children(".checkbox").removeClass("check");
+      $(this).children(".checkbox").prop('checked', false); 
     } else {
       $('.checkbox').prop('checked', false);  
       $('.checkbox').removeClass('check'); 
-      $(this).addClass("check");
-      $(this).prop('checked', true); 
+      $(this).children(".checkbox").addClass("check");
+      $(this).children(".checkbox").prop('checked', true);
     }
   });
 
   $(".card_check").click(function(){
-    if ($(this).hasClass("check")) {
-      $(this).removeClass("check");
-      $(this).prop('checked', false);
+    console.log(2);
+    if ($(this).children(".checkbox").hasClass("check")) {
+      $(this).children(".checkbox").removeClass("check");
+      $(this).children(".checkbox").prop('checked', false);
     } else {
       $('.checkbox').prop('checked', false);  
       $('.checkbox').removeClass('check'); 
-      $(this).addClass("check");
-      $(this).prop('checked', true);  
+      $(this).children(".checkbox").addClass("check");
+      $(this).children(".checkbox").prop('checked', true);  
     }
   });
 
   $(".registered_card_check").click(function(){
-    if ($(this).hasClass("check")) {
-      $(this).removeClass("check");
-      $(this).prop('checked', false);
+    console.log(3);
+    if ($(this).children(".checkbox").hasClass("check")) {
+      $(this).children(".checkbox").removeClass("check");
+      $(this).children(".checkbox").prop('checked', false);
     } else {
       $('.checkbox').prop('checked', false);  
       $('.checkbox').removeClass('check'); 
-      $(this).addClass("check");
-      $(this).prop('checked', true);  
+      $(this).children(".checkbox").addClass("check");
+      $(this).children(".checkbox").prop('checked', true);  
     }
   });
 });
@@ -775,18 +787,29 @@ window.onload = function () {
   if (gon.fix == "header") {
     $("header").addClass("fix");
   }
+  if (gon.reverse == "reverse") {
+    $(".raty").children().remove();
+    $('.index_user_reservations').html($('.index_user_reservations').find('.re_index').get().reverse());
+    $(".raty").css({
+      "position": "relative",
+      "right": "10px"
+    });
+  }
+  if (gon.display_none == "remove_display_none") {
+    $(".display_th").removeClass();
+  }
 };
  
 
 $(function () {
       $(document).on("change", ".image_input", function () { 
         var image_input =  $(this)
-        var size = $('.hair_box').length;
-        var number = $(this).get(0).files.length
-        if (size + number >10) {
-          alert("投稿できる画像は10枚までです。")
-          $(this).val("");
-        } else {
+        //var size = $('.hair_box').length;
+        //var number = $(this).get(0).files.length
+        // if (size + number >10) {
+        //   alert("投稿できる画像は10枚までです。")
+        //   $(this).val("");
+        // } else {
 
         //for (i = 0; i < this.files.length; i+=1) {
           var reader = new FileReader();
@@ -833,11 +856,11 @@ $(function () {
               }
             } 
             $('.image_label').before(html);
-          }
-        //}
+          //}
+        }
         image_input.appendTo(".image_form_save");
         $(".image_label").append('<input class="hidden image_input" type="file" name="style_image[hair_images][]" id="style_image_hair_images" accept="image/*">');
-      }
+      //}
       });
 
      //生成されたhtml要素にはこの形じゃないとイベントが発生しない
@@ -855,6 +878,7 @@ $(function () {
           }
         }
         $(".image_form").append(`<input name="[arry][]", value=${id} class="hidden">`)
+        $(this).prop('disabled',true); //連打を防ぐ
         $(this).parent().parent().remove();
 
         if ($(".image_label").hasClass("width_80")) {
@@ -894,46 +918,6 @@ $(function () {
 
 
 
-
-// $(function () {
-//   $(".input5").change(function () {
-//    number = $(this).get(0).files.length
-//    if (number > 5) {
-//      alert("登録できるのは登録できる写真は5枚までです。")
-//    } else {
-//     $(".image_form").submit();
-//   }
-//   });
-
-//   $(".input4").change(function () {
-//     number = $(this).get(0).files.length
-//     if (number > 4) {
-//       alert("登録できるのは登録できる写真は5枚までです。")
-//     }
-//   });
-
-//   $(".input3").change(function () {
-//     number = $(this).get(0).files.length
-//     if (number > 3) {
-//       alert("登録できるのは登録できる写真は5枚までです。")
-//     }
-//   });
-
-//   $(".input2").change(function () {
-//     number = $(this).get(0).files.length
-//     if (number > 2) {
-//       alert("登録できるのは登録できる写真は5枚までです。")
-//     }
-//   });
-
-//   $(".input1").change(function () {
-//     number = $(this).get(0).files.length
-//     if (number > 1) {
-//       alert("登録できるのは登録できる写真は5枚までです。")
-//     }
-//   });
-// });
-
 //userのマイページ
 $(function() {
   $('.cancel_fail').click(function() { 
@@ -949,6 +933,17 @@ $(function() {
 
 
 
+
+$(function() {
+  
+  $("a").click(function () { 
+    $(this).css({
+      "text-decoration":"none",
+      "color": "#DEB887" 
+    });
+  });
+  
+});
 
 
 
@@ -979,6 +974,8 @@ $(function() {
         $("#cvc").removeAttr("name");
         var token = response.id;               //tokenにはトークン(number exp_month exp_yearのデータが入っている)
         $("#charge-form").append(`<input type="hidden" name="payjp-token" value=${token}></input>`)
+        var user_request = $("#user_request").val();
+        $("#charge-form").append(`<input type="hidden" name="user_request" value=${user_request}></input>`)
         $("#charge-form").submit();
       } else {
         alert("正しい有効期限またはセキリュティコードを入力してください。");
@@ -990,14 +987,28 @@ $(function() {
 
 
 
+$(function() {
+  if (gon.user == null) {
+    $(".user_reservation").on("click", function(e) {
+      e.preventDefault();
+      $('#user_sign_in').fadeIn(); 
+      $(".error").html("ログインする必要があります");  
+      var id = $(this).attr("id")
+      $("#user_login_form").append(`<input type="hidden" name="reservation_id" value=${id}></input>`)
+    });
+  }
+});
 
-// <input  name="[arry][]", value="a" class="hidden">
-// <input  name="[arry][]", value="b" class="hidden">
-// <input  name="[arry][]", value="c" class="hidden">
 
-
-
-
-
+// $(function() {
+// $('#btnrev').click(function(){
+//   $(".raty").children().remove();
+//   $('.index_user_reservations').html($('.index_user_reservations').find('.re_index').get().reverse());
+//   $(".raty").css({
+//     "position": "relative",
+//     "right": "10px"
+//   });
+//   });
+// });
 
 

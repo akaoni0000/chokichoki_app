@@ -1,25 +1,103 @@
-<% @reservations.each do |reservation| %>
-    <% if reservation.menu.hairdresser_id == @current_hairdresser.id && reservation.user_id.present? %>
-        <%= reservation.start_time.year %>年<%= reservation.start_time.month %>月<%= reservation.start_time.hour %>時<%= reservation.start_time.min %>分
-        <%= reservation.id %>
-        <%= reservation.menu.name %>
-        <% user =  @user_model.find(reservation.user_id) %>
-        <%= user.name %>さん
-        <% @hairdresser_comment =  @comment_model.find_by(start_time: reservation.start_time) %>
-        <div id="star-rate-<%= @hairdresser_comment.id %>"></div>
-            <script>
-            $('#star-rate-<%= @hairdresser_comment.id %>').raty({
-              size: 36,
-              starOff:  '<%= asset_path('star-off.png') %>',
-              starOn : '<%= asset_path('star-on.png') %>',
-              starHalf: '<%= asset_path('star-half.png') %>',
-              half: true,
-              readOnly: true,
-              score: <%= @hairdresser_comment.rate %>,
-            });
-            </script>
-        <% if @hairdresser_comment.comment != "" || @hairdresser_comment.comment == nil%>
-            <%= link_to "コメント",  hairdresser_comment_path(@hairdresser_comment.id) %>
-        <% end %>
-    <% end %>
-<% end %>
+<div class="container center index_user_reservations">
+    <% @time = 1 %>
+    <% @day_number.times do %>
+        <div class="re_index">
+        <table class="table reservation_table">
+            <thead>
+                <th class="display_none display_th"></th><th class="center">時間</th><th class="center">メニュー名</th><th class="center">予約した人</th><th class="center">お客様のご希望</th><th class="center">評価</th><th class="center">コメント</th>
+            </thead>
+            <tbody>
+                <% @key = 0 %>
+                <% @reservations.each do |reservation| %>
+                    <!--基準となる日付を見つける そのデータは@begin_reservationに入っている  @key=1は基準の日付が見つかったということ-->
+                    <% if @time == 1 && @key == 0 %>
+                        <% @begin_reservation = @reservations[0] %>
+                        <% @key = 1 %>
+                        <p class="start_day">
+                            <%= @begin_reservation.start_time.year %>年
+                            <%= @begin_reservation.start_time.month %>月
+                            <%= @begin_reservation.start_time.day %>日
+                        </p>
+                    <% elsif @time >= 2 %>　　　　<!--2周目からは前の周の基準の日付を最初に超えた日付を@begin_numberに入れる-->
+                        <% if (@begin_reservation.start_time.year < reservation.start_time.year || @begin_reservation.start_time.month < reservation.start_time.month || @begin_reservation.start_time.day < reservation.start_time.day) && @key == 0 %>
+                            <% @begin_reservation = reservation %>
+                            <% @key = 1 %>
+                            <p class="start_day">
+                                <%= @begin_reservation.start_time.year %>年
+                                <%= @begin_reservation.start_time.month %>月
+                                <%= @begin_reservation.start_time.day %>日
+                            </p>
+                        <% end %>
+                    <% end %>
+
+                    <!--基準の日付がみつかったらテーブル(td要素)を作成していく ループの終わりは基準の日付を超えるreservatioonが回ってきた時-->
+                    <% if @key == 1 %>
+                        <% break if @begin_reservation.start_time.year != reservation.start_time.year || @begin_reservation.start_time.month != reservation.start_time.month || @begin_reservation.start_time.day != reservation.start_time.day %>
+                            <tr>
+                                <td class="display_none display_th">
+                                    <p class="flash_new"><%= flash[:notice] %></p>
+                                </td>
+                                <td>
+                                    <%= reservation.start_time.hour %>時<%= reservation.start_time.min %>分
+                                </td>
+                                <td>
+                                    <%= reservation.menu.name %>
+                                </td>
+                                <td>
+                                    <% user =  @user_model.find(reservation.user_id) %>
+                                    <%= user.name %>さん
+                                </td>
+                                <td>
+                                    <% if reservation.user_request == nil || reservation.user_request == ""%>
+                                        <p>ご希望なし</p>
+                                    <% else %>
+                                        <p class="cursor user_hope">ご希望あり</p>
+                                        <div id="user_request" class="sign_up_in">
+                                            <div class="user_request_modal center">
+                                                <span class="glyphicon glyphicon-remove cursor" style="margin-left: 410px;"></span>
+                                                <p style="font-size: 20px;"><%= reservation.user_request %></p>
+                                            </div>
+                                        </div>
+                                    <% end %>
+                                </td>
+                                <td>
+                                    <% @hairdresser_comment =  user.hairdresser_comments.find_by(start_time: reservation.start_time) %>
+                                    <div id="star-rate-<%= @hairdresser_comment.id %>" class="raty"></div>
+                                        <script>
+                                            $('#star-rate-<%= @hairdresser_comment.id %>').raty({
+                                            size: 36,
+                                            starOff:  '<%= asset_path('star-off.png') %>',
+                                            starOn : '<%= asset_path('star-on.png') %>',
+                                            starHalf: '<%= asset_path('star-half.png') %>',
+                                            half: true,
+                                            readOnly: true,
+                                            score: "<%= @hairdresser_comment.rate %>",
+                                            });
+                                        </script>
+                                </td>
+                                <td>
+                                    <% if @hairdresser_comment.comment == nil || @hairdresser_comment.comment == ""%>
+                                        <p>コメントなし</p>
+                                    <% else %>
+                                        <p class="cursor user_hope">コメントあり</p>
+                                        <div id="user_request" class="sign_up_in">
+                                            <div class="user_request_modal center">
+                                                <span class="glyphicon glyphicon-remove cursor" style="margin-left: 410px;"></span>
+                                                <p style="font-size: 20px;"><%= @hairdresser_comment.comment %></p>
+                                            </div>
+                                        </div>
+                                    <% end %>
+                                </td>
+                            </tr>
+                    <% end %>
+                    
+                 <% end %>
+            </tbodY>
+        </table>
+        <% @time += 1 %>
+        </div>
+        
+    <% end %>  
+</div>  
+        
+  

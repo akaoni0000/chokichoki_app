@@ -11,7 +11,6 @@ class MenusController < ApplicationController
         @menu.hairdresser_id = @current_hairdresser.id
         if @menu.save
             redirect_to menus_path
-        else
         end
     end
 
