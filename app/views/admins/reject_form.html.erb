@@ -1,0 +1,16 @@
+<div class="container center">
+    <%= form_with(url: admins_reject_path(@hairdresser.id), local: true, method: :patch) do |f| %>
+        <h1 class="admin_title">問題のあった項目を選択してください</h1>
+        <span class="category_name">免許証</span>
+        <%= f.check_box :category1, {class: "category1 not_category"}, 1, 0 %>
+        <span class="category_name">自己紹介文</span>
+        <%= f.check_box :category2, {class: "category2 not_category"}, 1, 0 %>
+        <span class="category_name">名前</span>
+        <%= f.check_box :category3, {class: "category3 not_category"}, 1, 0 %>
+        <span class="category_name">宣材写真</span>
+        <%= f.check_box :category4, {class: "category4 not_category"}, 1, 0 %>
+        <div>
+            <%= f.submit "承認しない", class: "btn btn-danger reject_btn" %>
+        </div>
+    <% end %>
+</div>

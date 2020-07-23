@@ -1,6 +1,12 @@
 class Users::HairdressersController < ApplicationController
     def show
         @hairdresser = Hairdresser.find(params[:id])
+        if @hairdresser.status == 1 #まだ承認されていない
+            @status = 1
+        end
+        if params[:admin]
+            @admin = "admin"
+        end
         @hairdresser_comments = HairdresserComment.where(hairdresser_id: params[:id])
         #@style_image_arry = StyleImage.find(@hairdresser.id).hair_images
         @menus = Menu.where(hairdresser_id: @hairdresser.id)

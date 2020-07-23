@@ -4,7 +4,7 @@
         <div class="re_index">
         <table class="table reservation_table">
             <thead>
-                <th class="display_none display_th"></th><th class="center">時間</th><th class="center">メニュー名</th><th class="center">予約した人</th><th class="center">お客様のご希望</th><th class="center">評価</th><th class="center">コメント</th>
+                <th class="display_none display_th"></th><th class="center">時間</th><th class="center">メニュー名</th><th class="center">予約した人</th><th class="center">電話番号</th><th class="center">お客様のご希望</th><th class="center">評価</th><th class="center">コメント</th>
             </thead>
             <tbody>
                 <% @key = 0 %>
@@ -35,7 +35,9 @@
                         <% break if @begin_reservation.start_time.year != reservation.start_time.year || @begin_reservation.start_time.month != reservation.start_time.month || @begin_reservation.start_time.day != reservation.start_time.day %>
                             <tr>
                                 <td class="display_none display_th">
-                                    <p class="flash_new"><%= flash[:notice] %></p>
+                                    <% if @notice_reservations.where(id: reservation.id).present?%>
+                                        <p class="flash_new"><%= flash[:notice] %></p>
+                                    <% end %>
                                 </td>
                                 <td>
                                     <%= reservation.start_time.hour %>時<%= reservation.start_time.min %>分
@@ -46,6 +48,9 @@
                                 <td>
                                     <% user =  @user_model.find(reservation.user_id) %>
                                     <%= user.name %>さん
+                                </td>
+                                <td>
+                                    <%= user.phone_number %>
                                 </td>
                                 <td>
                                     <% if reservation.user_request == nil || reservation.user_request == ""%>

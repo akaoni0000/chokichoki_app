@@ -20,3 +20,4 @@
 #     )
 # end
   
+Admin.create(:email => 'aaa@gmail.com', :password_digest => "Earth2013")

@@ -1,0 +1,63 @@
+<div class="container center index_user_reservations">
+    <% @time = 1 %>
+    <% @day_number.times do %>
+        <div class="re_index">
+        <table class="table reservation_table">
+            <thead>
+                <th class="display_none display_th"></th><th class="center">時間</th><th class="center">メニュー名</th><th class="center">予約した人</th>
+            </thead>
+            <tbody>
+                <% @key = 0 %>
+                <% @cancels.each do |cancel| %>
+                    <!--基準となる日付を見つける そのデータは@begin_reservationに入っている  @key=1は基準の日付が見つかったということ-->
+                    <% if @time == 1 && @key == 0 %>
+                        <% @begin_reservation = @cancels[0] %>
+                        <% @key = 1 %>
+                        <p class="start_day">
+                            <%= @begin_reservation.start_time.year %>年
+                            <%= @begin_reservation.start_time.month %>月
+                            <%= @begin_reservation.start_time.day %>日
+                        </p>
+                    <% elsif @time >= 2 %>　　　　<!--2周目からは前の周の基準の日付を最初に超えた日付を@begin_numberに入れる-->
+                        <% if (@begin_reservation.start_time.year < cancel.start_time.year || @begin_reservation.start_time.month < cancel.start_time.month || @begin_reservation.start_time.day < cancel.start_time.day) && @key == 0 %>
+                            <% @begin_reservation = reservation %>
+                            <% @key = 1 %>
+                            <p class="start_day">
+                                <%= @begin_reservation.start_time.year %>年
+                                <%= @begin_reservation.start_time.month %>月
+                                <%= @begin_reservation.start_time.day %>日
+                            </p>
+                        <% end %>
+                    <% end %>
+
+                    <!--基準の日付がみつかったらテーブル(td要素)を作成していく ループの終わりは基準の日付を超えるreservatioonが回ってきた時-->
+                    <% if @key == 1 %>
+                        <% break if @begin_reservation.start_time.year != cancel.start_time.year || @begin_reservation.start_time.month != cancel.start_time.month || @begin_reservation.start_time.day != cancel.start_time.day %>
+                            <tr>
+                                <td class="display_none display_th">
+                                    <% if @user_cancel.where(id: cancel.id).present? %>
+                                        <p class="flash_new"><%= flash[:notice] %></p>
+                                    <% end %>
+                                </td>
+                                <td>
+                                    <%= cancel.start_time.hour %>時<%= cancel.start_time.min %>分
+                                </td>
+                                <td>
+                                    <% @cancel_menu = @Menu.find(cancel.menu_id) %>
+                                    <%= @cancel_menu.name %>
+                                </td>
+                                <td>
+                                    <% @cancel_user = @User.find(cancel.user_id) %>
+                                    <%= @cancel_user.name %>さん
+                                </td>
+                            </tr>
+                    <% end %>
+                    
+                 <% end %>
+            </tbodY>
+        </table>
+        <% @time += 1 %>
+        </div>
+        
+    <% end %>  
+</div>  

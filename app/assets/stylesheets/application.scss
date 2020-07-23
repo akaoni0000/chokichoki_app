@@ -44,13 +44,15 @@ footer {
 
 .cursor {
     cursor: pointer;
-    transition: all 0.6s ease;
+    transition: all 0.6s ease; //カーソルを離した時もゆっくり変化
+    text-decoration: none;
 }
 
 
 .cursor:hover {
     color: #CC9933;
     transition: all 0.6s ease;
+    text-decoration: none;
 }
 
 .font {
@@ -75,12 +77,15 @@ h1, h2, h3, span {
 
 a {
     color: #DEB887; 
+    transition: all 0.6s ease; //カーソルを離した時もゆっくり変化
+    text-decoration: none;
     font-family: serif;
 }
 
 a:hover {
+    color: #CC9933;
+    transition: all 0.6s ease;
     text-decoration: none;
-    color: #DEB887; 
 }
     
 
@@ -89,6 +94,7 @@ header {
     width: 100%;
     background-color: transparent;
     height: 130px;
+    margin-top: -20px;
     z-index: 80;
 }
 
@@ -98,7 +104,7 @@ header {
     height: 130px;
     z-index: 80;
     position: absolute;
-    top: 0;
+    top: 20px;
 }
 
 
@@ -326,7 +332,7 @@ header {
     height: 1020px;
     background-size: cover;
     background-position: 10% 90%;  
-    margin-top: -70px;
+    margin-top: -90px;
     z-index: 90;
 }
 
@@ -380,7 +386,7 @@ header {
     height: 1020px;
     background-size: cover;
     background-position: 10% 60%;  
-    margin-top: -70px;
+    margin-top: -90px;
     z-index: 90;
 }
 
@@ -422,6 +428,7 @@ header {
 
 .hairdresser_show_img {
     border-radius: 30px 30px 0 0;
+    margin-right: 30px;
 }
 
 .name_etc {
@@ -435,10 +442,7 @@ header {
 
 //美容師詳細モーダル
 #hairdresser_show_modal {
-    position: absolute;
-    top: 10%;
-    left: 30%;
-    width: 1200px;
+   margin-top: 100px;
 }
 .box_left {
     width: 360px;
@@ -448,7 +452,7 @@ header {
 
 .box_right {
     width: 450px;
-    height: 530px;
+    height: 630px;
     display: inline-block;
     vertical-align: top;
     overflow:auto;
@@ -494,6 +498,8 @@ header {
 .show_remove {
     border-radius: 30px 30px 30px 30px;
     background-color: white;
+    position: relative;
+    right: 180px;
 }
 
 .name_etc {
@@ -586,11 +592,9 @@ header {
 }
 
 #hairdresser_header {
-    position: absolute;
-    top: 40px;
-    right: 0px;
-    width: 1400px;
-    padding-left: 500px;
+    float: right;
+    position: relative;
+    top: -100px;
 }
 
 .hairdresser_box {
@@ -607,7 +611,17 @@ header {
 .notice_number {
     position: relative;
     top: -20px;
-    right: -88px;
+    right: -50px;
+    color: white;
+    background-color: red;
+    border-radius: 40px;
+    font-size: 25px;
+}
+
+.notice_cancel_number {
+    position: relative;
+    top: -20px;
+    right: -110px;
     color: white;
     background-color: red;
     border-radius: 40px;
@@ -982,7 +996,9 @@ hr {
 
 .start_day {
     margin-bottom: 20px;
+    margin-top: 60px;
     font-size: 20px;
+    text-align: center;
 }
 
 .reservation_table {
@@ -995,3 +1011,72 @@ hr {
     color: white;
 }
 
+
+//user予約一覧ページ
+.reservation_hairdresser_name {
+    color: black;
+}
+
+
+//adminログイン
+.admin_login_page {
+    margin-top: 70px;
+    text-align: center;
+}
+
+.admin_login_form {
+    margin: 0 auto;
+    width: 300px;
+    margin-bottom: 30px;
+}
+
+#admin_header {
+    float: right;
+    margin-top: 30px;
+    margin-right: 100px;
+}
+
+.admin_title {
+    margin-bottom: 50px;
+}
+
+//承認待ち
+.hairdresser_confirm_img {
+    margin-bottom: 30px;
+    border-radius: 20px;
+}
+
+.hairdresser_confirm_box {
+    width: 450px;
+    background-color: white;
+    border-radius: 30px 30px 30px 30px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.admin_reject {
+    background-color: white;
+    width: 300px;
+    height: 300px;
+    z-index: 99;
+}
+
+.reject_btn {
+    margin-top: 50px;
+}
+
+.admin_reject_content {
+    margin-top: 100px;
+}
+
+.admin_img {
+    font-weight: 20px;
+    position: relative;
+    top: -120px;
+    left: 137px;
+}
+
+.admin_reject_error {
+    color: red;
+    margin-right: 20px;
+}

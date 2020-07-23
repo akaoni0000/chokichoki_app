@@ -1,1 +1,65 @@
-<h1>審査中です</h1>
+<% if @hairdresser.reject_status == nil %>
+    <div class="center">
+    <h1 style="margin-top: 100px;">審査中です。しばらくお待ちください。</h1>
+    </div>
+<% else %>
+    <div class="container center">
+        <h1 class="admin_title">以下の<%=@i%>点が原因で承認されませんでした</h1>
+        <% if @hairdresser.reject_status[0,1] == "1" %>
+            <span class="admin_reject_error">美容師免許証</span>
+        <% end %>
+        <% if @hairdresser.reject_status[1,1] == "1" %>
+            <span class="admin_reject_error">自己紹介文</span>
+        <% end %>
+        <% if @hairdresser.reject_status[2,1] == "1" %>
+            <span class="admin_reject_error">名前</span>
+        <% end %>
+        <% if @hairdresser.reject_status[3,1] == "1" %>
+            <span class="admin_reject_error">宣材写真</span>
+        <% end %>
+        <div class="admin_reject_content">
+            <table class="table">
+                <thead>
+                    <th class="center">名前</th><th class="center">メールアドレス</th><th class="center">店舗名</th><th class="center">店舗住所</th><th class="center">性別</th>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <%= @hairdresser.name %>
+                        </td>
+                        <td>
+                            <%= @hairdresser.email %>
+                        </td>
+                        <td>
+                            <%= @hairdresser.shop_name %>
+                        </td>
+                        <td>
+                            <%= @hairdresser.address %>
+                        </td>
+                        <td>
+                            <%= @hairdresser.sex %>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="admin_reject_content">
+            <% if @hairdresser.introduction != "" %>
+                <p>自己紹介文</p>
+                <%= @hairdresser.introduction %>
+            <% end %>
+        </div>
+        <div class="admin_reject_content">
+            <span class="admin_img">宣材写真</span>
+            <%= attachment_image_tag @hairdresser, :hairdresser_image, size: "200x200", fallback: "no_image.png", class: "hairdresser_show_img"%>
+            <span class="admin_img">美容師免許証</span>
+            <%= attachment_image_tag @hairdresser, :confirm_image, size: "200x200", fallback: "no_image.png", class: "hairdresser_show_img"%>
+        </div>
+        <div class="admin_reject_content">
+        <h2>このアカウントは破棄されました</h2>
+        </div>
+    </div>
+<% end %>
+
+
+                  

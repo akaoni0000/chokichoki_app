@@ -9,29 +9,35 @@ class HairdressersController < ApplicationController
         #美容師のヘアスタイルの写真のレコードを作成 hairdressersテーブルとstyle_imagesテーブルは1対1の関係であり、同じテーブルにした方がいいと思ったが、style_imagesコントローラを作りたかったので独立させた。
         @style = StyleImage.new(hairdresser_id: @hairdresser.id)
         @style.save
-        redirect_to hairdresser_wait_path
+        redirect_to hairdresser_wait_path(@hairdresser.id)
     end
 
     def wait
+        @hairdresser = Hairdresser.find(params[:id])
+        if @hairdresser.reject_status != nil
+           @i = @hairdresser.reject_status.count("1")
+           session[:reject_id] = @hairdresser.id
+        end
     end
 
     def index
-        @hairdressers = Hairdresser.all
+        @hairdressers = Hairdresser.where(status: 1) #承認された美容師だけ
         @hairdresser_comment_model = HairdresserComment
         gon.fix = "header"
     end
 
     def login
-        if @hairdresser = Hairdresser.find_by(email: params[:email])
+        @hairdresser = Hairdresser.find_by(email: params[:email])
+        if @hairdresser.present?
             if @hairdresser.authenticate(params[:password]) && @hairdresser.status == 1
                 session[:hairdresser_id] = @hairdresser.id
                 flash[:notice] = "ログインしました"
                 respond_to do |format|
                     format.js { render ajax_redirect_to(hairdresser_path(@hairdresser.id)) }
                 end
-            elsif @hairdresser.authenticate(params[:password]) && @hairdresser.status == 0
+            elsif @hairdresser.authenticate(params[:password]) && @hairdresser.status == 0   #承認されていない
                 respond_to do |format|
-                    format.js { render ajax_redirect_to(hairdresser_wait_path) }
+                    format.js { render ajax_redirect_to(hairdresser_wait_path(@hairdresser.id)) }
                 end
             else
             end

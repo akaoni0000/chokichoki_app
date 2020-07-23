@@ -20,7 +20,6 @@
 //= require_tree .
 
 //turbolinksがあるとjsが発動しないことがあるので消した
-
 //topページ
 $(function() {
 　//会員の新規会員登録
@@ -920,8 +919,9 @@ $(function () {
 
 //userのマイページ
 $(function() {
-  $('.cancel_fail').click(function() { 
-     alert("予約日から24時間以内なのでこのサイトからキャンセルできません。直接、担当美容師にお問い合わせください");
+  $(document).on("click", ".cancel_fail", function () {  
+    console.log(1);
+    alert("予約日から24時間以内なのでこのサイトからキャンセルできません。直接、担当美容師にお問い合わせください");
   });
 });
 

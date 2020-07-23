@@ -5,20 +5,6 @@ class Hairdressers::ReservationsController < ApplicationController
         @menu = Menu.find(params[:menu_id])
     end
 
-    # def ajax_time_form
-    #     @menu = Menu.find(params[:menu_id])
-    #     @year = params[:date_year].to_i
-    #     @month = params[:date_month].to_i
-    #     @day = params[:date_day].to_i
-    #     if 0 <= Time.now.min && Time.now.min <= 29
-    #         @min = 30
-    #         @hour = Time.now.hour
-    #     elsif 30 <= Time.now.min && Time.now.min <= 59
-    #         @min = 0
-    #         @hour = Time.now.hour + 1
-    #     end
-    # end
-
     def index 
         @reservations = @current_hairdresser.reservations.where.not(user_id: nil).order(start_time: :asc)
         #@reservations.update_all(:notification_status => 1 )
@@ -34,18 +20,46 @@ class Hairdressers::ReservationsController < ApplicationController
         end
         @day_number = @n + 1
 
-        @notice_reservations = @current_hairdresser.reservations.where.not(notification_status: 1, user_id: nil)   #まだ通知を受け取っていない予約
-        
+        #@flash_cofirm_reservations =  @current_hairdresser.reservations.where.not(notification_status: 1, user_id: nil)  #まだ通知を受け取っていない予約 この入れ物はviewでフラッシュを表示するか確かめるために使う
+        @notice_reservations = @current_hairdresser.reservations.where.not(notification_status: 1, user_id: nil)   #まだ通知を受け取っていない予約 この入れ物はupdateするためにつかう
         if @notice_reservations.present?
-            @notice_reservations.update_all(:notification_status => 1 )
+            session[:update] = "please_reservation_notification_update" #application controllerで使う
             flash[:notice] = "new"
-            gon.display_none = "remove_display_none"
+            gon.display_none = "remove_display_none" #jsのwindow.onloadに行き、flashメッセージをtableの中に埋め込む
         end
+        
         @user_model = User    #viewで　user =  @user_model.find(reservation.user_id)　とやらずにモデルを関連付けてreservation.userとやりたかったが、関連づけるとreservationsのデータを保存するときuserのデータをnilで保存することができないためこのような形となった
-        @comment_model = HairdresserComment
-        gon.reverse = "reverse"
+        gon.reverse = "reverse"  #jsのwindow.onloadに行き、順番を逆にする
 
     end
+
+    def cancel_index
+        @cancels = UserCancel.where(hairdresser_id: @current_hairdresser.id).order(start_time: :asc)
+        @Menu = Menu
+        @User = User
+
+        #日付(日まで)の数を調べる @day_numberがその数
+        @n = 0
+        @i = 0
+        @cancels.each do |cancel|
+            if @i == 0
+            elsif @cancels[@i - 1].start_time.year != cancel.start_time.year || @cancels[@i - 1].start_time.month != cancel.start_time.month || @cancels[@i - 1].start_time.day != cancel.start_time.day
+                @n += 1
+            end
+            @i += 1
+        end
+        @day_number = @n + 1
+        
+        @user_cancel = UserCancel.where(hairdresser_id: @current_hairdresser.id, notification_status: 0)
+        if @user_cancel.present?
+            session[:cancel_update] = "please_reservation_notification_cancel_update" #application controllerで使う
+            flash[:notice] = "new"
+            gon.display_none = "remove_display_none"  #jsのwindow.onloadに行き、flashメッセージをtableの中に埋め込む
+        end
+
+        gon.reverse = "reverse" #jsのwindow.onloadに行き、順番を逆にする
+    end
+
 
     def new
         @reservation = Reservation.new
@@ -107,6 +121,7 @@ class Hairdressers::ReservationsController < ApplicationController
         @reservation.destroy
         redirect_to new_hairdressers_reservation_path(year: @reservation.start_time.year, month: @reservation.start_time.month, day: @reservation.start_time.day, hour: @reservation.start_time.hour, min: @reservation.start_time.min, menu_id: @reservation.menu_id )
     end
+    
 
 
     private

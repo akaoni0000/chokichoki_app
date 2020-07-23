@@ -6,11 +6,16 @@
         <%= csp_meta_tag %>
         
         <script src='https://js.pay.jp/' type='text/javascript'></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>
         <%= Gon::Base.render_data %>
         <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
         <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     </head>
     <body>
+
+
+
+    　　
         <header>
             <%= link_to root_path do %>
                 <img src="<%= asset_path "cho.png" %>" class="log">
@@ -28,22 +33,35 @@
                     <li class="hairdresser_tag tag_left"><%= link_to "マイページ", user_path(@current_user.id)%></li>
                     <li class="hairdresser_tag"><%= link_to "美容師一覧", hairdressers_path  %></li>
                     <li class="hairdresser_tag"><%= link_to "クレジットカード", new_user_card_path %></li>
-                    <li class="hairdresser_tag"><%= link_to "予約一覧", new_user_card_path %></li>
+                    <li class="hairdresser_tag"><%= link_to "予約", users_reservations_path %></li>
                     <li class="hairdresser_tag"><%= link_to "ログアウト", user_logout_path, method: :post %></li>
                 </div>
             <% elsif @current_hairdresser %>
-                <div id = "hairdresser_header">
+                <ul id = "hairdresser_header">
                     <li class="hairdresser_tag tag_left"><%= link_to "マイページ", hairdresser_path(@current_hairdresser.id)%></li>
                     <li class="hairdresser_tag"><%= link_to "メニュー作成", new_menu_path%></li>
-                    <li class="hairdresser_tag"><%= link_to "メニュー一覧", menus_path %></li>
+                    <li class="hairdresser_tag"><%= link_to "メニュー", menus_path %></li>
                     <% if @notice_reservations_number != 0 %>
-                        <li class="hairdresser_tag"><span class="notice_number"><%= @notice_reservations_number %></span><%= link_to "予約一覧", hairdressers_reservations_path %></li>
+                        <li class="hairdresser_tag"><span class="notice_number"><%= @notice_reservations_number %></span><%= link_to "予約", hairdressers_reservations_path %></li>
                     <% else %>
-                        <li class="hairdresser_tag"><%= link_to "予約一覧", hairdressers_reservations_path %></li>
+                        <li class="hairdresser_tag"><%= link_to "予約", hairdressers_reservations_path %></li>
+                    <% end %>
+                    <% if @cancel_number != 0 %>
+                        <li class="hairdresser_tag"><span class="notice_cancel_number"><%= @cancel_number %></span><%= link_to "キャンセル", hairdressers_cancel_index_path, class: "cancel_link" %></li>
+                    <% else %>
+                        <li class="hairdresser_tag"><%= link_to "キャンセル", hairdressers_cancel_index_path, class: "cancel_link" %></li>
                     <% end %>
                     <li class="hairdresser_tag"><%= link_to "ヘアスタイル",  edit_style_image_path(@current_hairdresser.id) %></li>
                     <li class="hairdresser_tag"><%= link_to "ログアウト", hairdresser_logout_path, method: :post %></li>
-                </div>
+                </ul>
+            <% elsif @current_admin %>
+                <ul id = "admin_header">
+                    <li class="hairdresser_tag tag_left"><%= link_to "会員", admins_user_index_path%></li>
+                    <li class="hairdresser_tag"><%= link_to "美容師", admins_hairdresser_index_path %></li>
+                    <li class="hairdresser_tag"><%= link_to "承認待ち", admins_hairdresser_judge_index_path%></li>
+                    <li class="hairdresser_tag"><%= link_to "チャート", admins_chart_path%></li>
+                    <li class="hairdresser_tag"><%= link_to "ログアウト", admins_logout_path, method: :post %></li>
+                </ul>
             <% else %>
                 <!-- ログインしてない時 -->
                 <% if @user_page == "user" %>

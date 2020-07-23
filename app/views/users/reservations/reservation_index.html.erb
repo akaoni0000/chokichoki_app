@@ -19,3 +19,29 @@
         <% end %>
     <% end %>
 <% end %>
+
+<div class="container reservation_menu">
+    <div class="menu_card reservation_menu_card">
+        <div class="menu_top" >
+            <div class="title font"><%= @menu.name %></div>
+            <div class="menu_time font"><%= @menu.time %>分</div>
+            <div class="card_categories">
+                <% if @menu.category[0,1] == "1" %>
+                    <span class="cut_category category font">カット</span>
+                <% end %>
+                <% if @menu.category[1,1] == "1" %>
+                    <span class="color_category category font">カラー</span>
+                <% end %>
+                <% if @menu.category[2,1] == "1" %>
+                    <span class="curly_category category font">縮毛矯正</span>
+                <% end %>
+                <% if @menu.category[3,1] == "1" %>
+                    <span class="perm_category category font">パーマ</span>
+                <% end %>
+            </div>
+        <div class="menu_bottom">
+            <%= attachment_image_tag @menu, :menu_image, fallback: "no_image.png", id: "prev_menu_img" %>
+            <div class="explain font"><%= @menu.explanation %></div>
+        </div>
+    </div>
+</div>

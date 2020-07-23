@@ -1,5 +1,0 @@
-<div class="container">
-<h1><%= @hairdresser.name %></h1>
-<%= attachment_image_tag(@hairdresser, :confirm_image, fallback: "no_image.jpg",size: "150x150") %>
-<%= link_to "承認する", admins_hardresser_permit_path(@hairdresser.id), method: :post %>
-</div>

@@ -1,0 +1,54 @@
+<div class="container center">
+    <h1 class="admin_title">美容師一覧</h1>
+    <table class="table">
+        <thead>
+            <th class="center">id</th><th class="center">名前</th><th class="center">店舗名</th><th class="center">店舗住所</th><th class="center">性別</th><th class="center">評価</th>
+        </thead>
+        <tbody>
+            <% @hairdressers.each do |hairdresser| %>
+                <tr>
+                    <td>
+                        <%= hairdresser.id %>
+                    </td>
+                    <td>
+                        <%= link_to users_hairdresser_path(id: hairdresser.id, admin: "admin"), remote: true do %>
+                            <p class="reservation_hairdresser_name cursor"><%= hairdresser.name %></p>
+                        <% end %>
+                    </td>
+                    <td>
+                        <%= hairdresser.shop_name %>
+                    </td>
+                    <td>
+                        <%= hairdresser.address %>
+                    </td>
+                    <td>
+                        <%= hairdresser.sex %>
+                    </td>
+                    <td>
+                        <div id="star-rate-<%= hairdresser.id %>"></div>
+                        <% @comments = hairdresser.hairdresser_comments.count %>
+                            <script>
+                                $('#star-rate-<%= hairdresser.id %>').raty({
+                                size: 36,
+                                starOff:  '<%= asset_path('star-off.png') %>',
+                                starOn : '<%= asset_path('star-on.png') %>',
+                                starHalf: '<%= asset_path('star-half.png') %>',
+                                half: true,
+                                readOnly: true,
+                                //reputation_pointは評価ポイント(星)の合計　@commentsはコメントの数(評価ポイントをくれた人の人数) この二つで平均を出す　
+                                score: '<%= hairdresser.reputation_point %> / <%= @comments %>',
+                                });
+                            </script>
+                    </td>
+                    <td>
+                        <%= link_to users_hairdresser_path(hairdresser.id), remote: true do %>
+                            <p class="btn btn-success">詳細</p>
+                        <% end %>
+                    </td>
+                </tr>
+            <% end %>
+        </tbody>
+    </table>
+</div>
+<div id="hairdresser_show" class="sign_up_in">
+</div>

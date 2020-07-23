@@ -1,0 +1,72 @@
+<div class="container center index_user_reservations">
+    <% @time = 1 %>
+    <% @day_number.times do %>
+        <div class="re_index">
+        <table class="table reservation_table">
+            <thead>
+                <th class="center">時間</th><th class="center">美容師</th><th class="center">メールアドレス</th><th class="center">メニュー名</th><th class="center">施術時間</th>
+            </thead>
+            <tbody>
+                <% @key = 0 %>
+                <% @reservations.each do |reservation| %>
+                    <!--基準となる日付を見つける そのデータは@begin_reservationに入っている  @key=1は基準の日付が見つかったということ-->
+                    <% if @time == 1 && @key == 0 %>
+                        <% @begin_reservation = @reservations[0] %>
+                        <% @key = 1 %>
+                        <p class="start_day">
+                            <%= @begin_reservation.start_time.year %>年
+                            <%= @begin_reservation.start_time.month %>月
+                            <%= @begin_reservation.start_time.day %>日
+                        </p>
+                    <% elsif @time >= 2 %>　　　　<!--2周目からは前の周の基準の日付を最初に超えた日付を@begin_numberに入れる-->
+                        <% if (@begin_reservation.start_time.year < reservation.start_time.year || @begin_reservation.start_time.month < reservation.start_time.month || @begin_reservation.start_time.day < reservation.start_time.day) && @key == 0 %>
+                            <% @begin_reservation = reservation %>
+                            <% @key = 1 %>
+                            <p class="start_day">
+                                <%= @begin_reservation.start_time.year %>年
+                                <%= @begin_reservation.start_time.month %>月
+                                <%= @begin_reservation.start_time.day %>日
+                            </p>
+                        <% end %>
+                    <% end %>
+
+                    <!--基準の日付がみつかったらテーブル(td要素)を作成していく ループの終わりは基準の日付を超えるreservatioonが回ってきた時-->
+                    <% if @key == 1 %>
+                        <% break if @begin_reservation.start_time.year != reservation.start_time.year || @begin_reservation.start_time.month != reservation.start_time.month || @begin_reservation.start_time.day != reservation.start_time.day %>
+                            <tr>
+                                <td>
+                                    <p><%= reservation.start_time.hour %>時<%= reservation.start_time.min %>分</p>
+                                </td>
+                                <td>
+                                    <%= link_to users_hairdresser_path(reservation.menu.hairdresser.id), remote: true do %>
+                                    <p class="reservation_hairdresser_name cursor"><%= reservation.menu.hairdresser.name %></p>
+                                    <% end %>
+                                </td>
+                                <td>
+                                    <%= reservation.menu.hairdresser.email %>
+                                </td>
+                                <td>
+                                    <%= reservation.menu.name %>
+                                </td>
+                                <td>
+                                    <%= reservation.menu.time %>分
+                                </td>
+                                <td>
+                                    <% if reservation.start_time - Time.now > 60*60*24 %>
+                                        <%= link_to "キャンセル", users_reservation_cancel_path(reservation.menu_id, reservation.start_time), method: :post, data: { confirm: '本当にキャンセルしますか？キャンセルした場合支払ったお金はポイントとして返金されます。' }, class: "btn btn-danger" %>
+                                    <% elsif  reservation.start_time - Time.now <= 60*60*24 && reservation.start_time - Time.now >= 0%>
+                                        <div class= "btn btn-danger cancel_fail">キャンセルする</div>
+                                    <%end%>
+                                </td>
+                            </tr>
+                    <% end %>
+                 <% end %>
+            </tbodY>
+        </table>
+        <% @time += 1 %>
+        </div>
+        
+    <% end %>  
+</div>  
+<div id="hairdresser_show" class="sign_up_in">
+</div>

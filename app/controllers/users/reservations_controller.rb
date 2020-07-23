@@ -6,9 +6,28 @@ class Users::ReservationsController < ApplicationController
 
     def reservation_index
         @reservations = Reservation.where(menu_id: params[:menu_id])
+        @menu = Menu.find(params[:menu_id])
     end
 
     def show
+    end
+
+    def index
+        @reservations = Reservation.where(user_id: @current_user.id).order(start_time: :asc)
+
+        #日付(日まで)の数を調べる @day_numberがその数
+        @n = 0
+        @i = 0
+        @reservations.each do |reservation|
+            if @i == 0
+            elsif @reservations[@i - 1].start_time.year != reservation.start_time.year || @reservations[@i - 1].start_time.month != reservation.start_time.month || @reservations[@i - 1].start_time.day != reservation.start_time.day
+                @n += 1
+            end
+            @i += 1
+        end
+        @day_number = @n + 1
+
+        gon.reverse = "reverse" #jsのwindow.onloadに行き、順番を逆にする
     end
 
     def edit
@@ -122,6 +141,7 @@ class Users::ReservationsController < ApplicationController
         #予約した時間のreservationsテーブルのレコードのuser_id(カラム)とuser_request(カラム)をupdateする。
         @reservation = Reservation.find_by(menu_id: params[:menu_id], user_id: @current_user.id, start_time: params[:start_time])
         @reservation.user_id = nil
+        @reservation.notification_status = 0
         @reservation.save
         
         #予約した時間から施術が終わる時間までの間の時間に、start_time(カラム)が存在するreservationsテーブルのレコードのstatus(カラム)をupdateする。そうすることで予約した時間から施術が終わる時間までの時間は予約を入れることができるようにする
@@ -142,9 +162,9 @@ class Users::ReservationsController < ApplicationController
         @hairdresser_comment.destroy
         
         #予約をキャンセルした情報を保存
-        @user_cancel = UserCancel.new(menu_id: params[:menu_id], user_id: @current_user.id, start_time: params[:start_time])
+        @user_cancel = UserCancel.new(menu_id: params[:menu_id], user_id: @current_user.id, hairdresser_id: @hairdresser_id, start_time: params[:start_time])
         @user_cancel.save
-        redirect_to user_path(@current_user.id)
+        redirect_to users_reservations_path
     end
 
     def complete
