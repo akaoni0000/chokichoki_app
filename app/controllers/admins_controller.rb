@@ -44,9 +44,22 @@ class AdminsController < ApplicationController
         redirect_to admins_hairdresser_judge_index_path
     end
 
-   
-
     def chart
+        @time_arry = []
+        i = 6
+        7.times do
+            @Time = Date.today - i
+            @time_arry.push("#{@Time.month}月#{@Time.day}日")
+            i -= 1
+        end
+        @day_arry = @time_arry.to_json.html_safe  #.to_json.html_safeがないと[&quot;大谷&quot;, &quot;吉川&quot;, &quot;メンドーサ&quot;];このような形でjsには表示されてしまう
+        
+        @user_arry = []
+        n = 6
+        7.times do
+            @users_number = User.where.not(created_at: Date.today - n ..Float::INFINITY).size
+            
+        end
     end
 
 
