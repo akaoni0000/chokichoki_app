@@ -7,10 +7,10 @@
                             <%= attachment_image_tag hairdresser, :hairdresser_image, size: "150x150", fallback: "no_image.png", class: "img-circle" %>
                          <% end %>
                             <h3 style="color: black; text-decoration: none;"><%= hairdresser.name %></h3>
-                        <div id="star-rate-<%= hairdresser.id %>"></div>
-                        <% @comments = hairdresser.hairdresser_comments.count %>
+                        <div id="star-rate-index-average-<%= hairdresser.id %>"></div>
+                        <% @comments = hairdresser.hairdresser_comments.where.not(rate: nil).count %>
                             <script>
-                                $('#star-rate-<%= hairdresser.id %>').raty({
+                                $('#star-rate-index-average-<%= hairdresser.id %>').raty({
                                 size: 36,
                                 starOff:  '<%= asset_path('star-off.png') %>',
                                 starOn : '<%= asset_path('star-on.png') %>',
@@ -18,7 +18,7 @@
                                 half: true,
                                 readOnly: true,
                                 //reputation_pointは評価ポイント(星)の合計　@commentsはコメントの数(評価ポイントをくれた人の人数) この二つで平均を出す　
-                                score: '<%= hairdresser.reputation_point %> / <%= @comments %>',
+                                score: <%= hairdresser.reputation_point %>/<%= @comments %>,
                                 });
                             </script>
                         <div class="show_introduction">

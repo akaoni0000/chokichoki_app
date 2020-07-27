@@ -24,7 +24,7 @@ class ApplicationController < ActionController::Base
       @current_admin = Admin.find_by(id: session[:admin_id])
     end
 
-    def admin_reject
+    def admin_reject #承認しなかった美容師のアカウントは美容師がそのアカウントでログインして画面をみたら消去される
       @admin_reject_hairdresser = Hairdresser.find_by(id: session[:reject_id])
       if @admin_reject_hairdresser.present?
         @admin_reject_hairdresser.destroy
@@ -39,6 +39,16 @@ class ApplicationController < ActionController::Base
       gon.hairdresser_name_data = Hairdresser.pluck(:name)  #nameだけを配列で取得
       gon.hairdresser_email_data = Hairdresser.pluck(:email)  #emailだけを配列で取得
       gon.user = @current_user
+      # if @current_user.present? && @current_admin.present?
+      #   session[:user_id] = nil
+      #   session[:admin_id] = nil
+      #   gon.prevent = "admin"
+      # end
+      # if @current_hairdresser.present? && @current_admin.present?
+      #   session[:hairdresser_id] = nil
+      #   session[:admin_id] = nil
+      #   gon.prevent = "admin"
+      # end
     end
 
     def set_new_show
@@ -78,5 +88,4 @@ class ApplicationController < ActionController::Base
         end
       end
     end
-    
 end

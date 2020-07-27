@@ -4,7 +4,7 @@
         <div class="re_index">
         <table class="table reservation_table">
             <thead>
-                <th class="display_none display_th"></th><th class="center">時間</th><th class="center">メニュー名</th><th class="center">予約した人</th>
+                <th class="display_none display_th"></th><th class="center">時間</th><th class="center">メニュー名</th><th class="center">予約した人</th><th class="center">性別</th>
             </thead>
             <tbody>
                 <% @key = 0 %>
@@ -20,7 +20,7 @@
                         </p>
                     <% elsif @time >= 2 %>　　　　<!--2周目からは前の周の基準の日付を最初に超えた日付を@begin_numberに入れる-->
                         <% if (@begin_reservation.start_time.year < cancel.start_time.year || @begin_reservation.start_time.month < cancel.start_time.month || @begin_reservation.start_time.day < cancel.start_time.day) && @key == 0 %>
-                            <% @begin_reservation = reservation %>
+                            <% @begin_reservation = cancel %>
                             <% @key = 1 %>
                             <p class="start_day">
                                 <%= @begin_reservation.start_time.year %>年
@@ -49,6 +49,9 @@
                                 <td>
                                     <% @cancel_user = @User.find(cancel.user_id) %>
                                     <%= @cancel_user.name %>さん
+                                </td>
+                                <td>
+                                    <%= @cancel_user.sex %>
                                 </td>
                             </tr>
                     <% end %>

@@ -52,7 +52,6 @@ class HairdressersController < ApplicationController
     end
       
     def show
-        @comments = HairdresserComment.where(hairdresser_id: @current_hairdresser.id).count
         @menu_id = Menu.where(hairdresser_id: @current_hairdresser.id)
         @reservations = Reservation.where(menu_id: @menu_id)
         @user_model = User

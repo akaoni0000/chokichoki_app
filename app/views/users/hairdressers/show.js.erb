@@ -71,7 +71,7 @@ var html =
                                     </div>
                                     <div>
                                         <% @user = @user_model.find(hairdresser_comment.user_id) %>
-                                        <%= @user.name %>
+                                        <%= @user.name %>さん
                                     </div>
                                     <div>
                                         <%= hairdresser_comment.start_time.year %>年<%= hairdresser_comment.start_time.month %>月<%= hairdresser_comment.start_time.day %>日

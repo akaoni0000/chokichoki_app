@@ -797,7 +797,10 @@ window.onload = function () {
   if (gon.display_none == "remove_display_none") {
     $(".display_th").removeClass();
   }
-  
+
+  // if (gon.prevent == "admin") {
+  //   alert("二重ログインは禁止されています。ログイン情報をリセットしました。");
+  // }
 };
  
 

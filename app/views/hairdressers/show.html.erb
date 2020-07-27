@@ -10,9 +10,10 @@
         </div>
         <hr color="black">
         <p>評価</p>
-        <div id="star-rate-<%= @current_hairdresser.id %>"></div>
+        <div id="star-rate-index-average-<%= @current_hairdresser.id %>"></div>
+        <% @comments = @current_hairdresser.hairdresser_comments.where.not(rate: nil).count %>
             <script>
-                $('#star-rate-<%= @current_hairdresser.id %>').raty({
+                $('#star-rate-index-average-<%= @current_hairdresser.id %>').raty({
                     size: 36,
                     starOff:  '<%= asset_path('star-off.png') %>',
                     starOn : '<%= asset_path('star-on.png') %>',

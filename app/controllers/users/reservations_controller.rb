@@ -77,6 +77,10 @@ class Users::ReservationsController < ApplicationController
                     :currency => 'jpy' #日本円
                 )
 
+                #お金を記録
+                @money = Money.new(user_id: @current_user.id)
+                @money.save
+
                 #予約した時間のreservationsテーブルのレコードのuser_id(カラム)とuser_request(カラム)をupdateする。
                 @reservation = Reservation.find(params[:id])
                 @reservation.user_id = @current_user.id
@@ -114,7 +118,11 @@ class Users::ReservationsController < ApplicationController
             :card => params['payjp-token'],
             :currency => 'jpy', #日本円
         )
-   
+        
+        #お金を記録
+        @money = Money.new(user_id: @current_user.id)
+        @money.save
+
         #予約した時間のreservationsテーブルのレコードのuser_id(カラム)とuser_request(カラム)をupdateする。
         @reservation = Reservation.find(params[:reservation_id])
         @reservation.user_id = @current_user.id

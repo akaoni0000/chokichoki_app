@@ -10,7 +10,9 @@ Rails.application.routes.draw do
   #adminsコントローラー
   get "admins/user_index" => "admins#user_index", as: "admins_user_index"
   get "admins/hairdresser_index" => "admins#hairdresser_index", as: "admins_hairdresser_index"
-  get "admins/chart" => "admins#chart", as: "admins_chart"
+  get "admins/user_chart" => "admins#user_chart", as: "admins_user_chart"
+  get "admins/hairdresser_chart" => "admins#hairdresser_chart", as: "admins_hairdresser_chart"
+  get "admins/sell_chart" => "admins#sell_chart", as: "admins_sell_chart"
   get "admins/login_form" => "admins#login_form", as: "admins_login_form"
   post "admins/login" => "admins#login", as: "admins_login"
   get "admins/hairdresser_judge_index" => "admins#hairdresser_judge_index", as: "admins_hairdresser_judge_index"
