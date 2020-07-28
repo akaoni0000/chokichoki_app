@@ -16,6 +16,7 @@
 //= require bootstrap-sprockets
 //= require activestorage
 //= require jquery.raty
+//= require gmaps/google
 // require turbolinks
 //= require_tree .
 
