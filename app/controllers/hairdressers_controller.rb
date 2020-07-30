@@ -23,7 +23,7 @@ class HairdressersController < ApplicationController
     def index
         @hairdressers = Hairdresser.where(status: 1) #承認された美容師だけ
         @hairdresser_comment_model = HairdresserComment
-        gon.fix = "header"
+        #gon.fix = "header"
     end
 
     def login

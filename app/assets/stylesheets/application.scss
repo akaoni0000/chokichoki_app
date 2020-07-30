@@ -18,12 +18,16 @@
  @import "bootstrap";           /*ここを追加*/
 
 body {
-    background-color:#FFEFD5;
+    //background-color:#FFEFD5;
+
 }
 
 #yield {
     min-height: 100vh;
-    margin-bottom: 140px;
+    //margin-bottom: 140px;
+    background-color:rgba(247, 247, 247, 0.6);
+    //padding-top: 30px;
+    //padding-bottom: 100px;
     //position: relative;/*←相対位置*/
     //padding-bottom: 120px;/*←footerの高さ*/
     //box-sizing: border-box;/*←全て含めてmin-height:100vhに*/
@@ -92,19 +96,22 @@ a:hover {
 
 header {
     width: 100%;
+    height: 100px;
     background-color: transparent;
-    height: 130px;
+    //background-color:rgba(255, 255, 255, 0.9);
+    //background-color: transparent;
     margin-top: -20px;
     z-index: 80;
+
 }
 
 .fix {
-    width: 100%;
-    background-color: transparent;
-    height: 130px;
+    // width: 100%;
+    //background-color: transparent;
+    // height: 130px;
     z-index: 80;
-    position: absolute;
-    top: 20px;
+    position: fixed;
+    // top: 20px;
 }
 
 
@@ -124,12 +131,12 @@ header {
     position: relative;
     width: 220px;
     left: 400px;
-    top: -72px;
+    top: -248px;
 }
 
 .salon {
     position: relative;
-    top: -20px;
+    top: -110px;
 }
 
 
@@ -175,10 +182,13 @@ header {
     position: absolute;
     top: 20%;
     left: 37%;
-    background-color: #CCFFFF;
+    background-color: white;
+    border: 5px black solid;
     border-radius: 10px;
     width: 450px;
     text-align: center;
+    margin: 0 auto;
+    margin-top: 40px;
 }
 
 .login_form {
@@ -199,9 +209,10 @@ header {
 
 //header
 .log {
-    height: 150px;
     width: 400px;
-    height: 120px;
+    height: 300px;
+    position: relative;
+    top: -85px;
 }
 
 .top_hairdresser_btn {
@@ -328,12 +339,13 @@ header {
 //会員top画面
 
 #user_main {
-    background-image: image-url("ca.jpg");
+    background-image: image-url("girl4.jpg"); //ca girl4
     height: 1020px;
     background-size: cover;
     background-position: 10% 90%;  
     margin-top: -90px;
     z-index: 90;
+    background-attachment: fixed;
 }
 
 .slide_down {
@@ -388,6 +400,7 @@ header {
     background-position: 10% 60%;  
     margin-top: -90px;
     z-index: 90;
+    background-attachment: fixed;
 }
 
 .blue {
@@ -416,7 +429,7 @@ header {
 }
 
 .main_index_content {
-    padding-top: 200px;
+    padding-top: 100px;
 }
 
 .hairdresser_show {
@@ -437,6 +450,159 @@ header {
     background-color: white;
     border-radius: 0 0 30px 30px;
 }
+
+.search_box {
+    width: 760px;
+    height: 100px;
+    margin: 0 auto;
+    margin-bottom: 100px;
+    background-color: white;
+    border-radius: 30px;
+    margin-top: -75px;
+    padding-top: 20px;
+}
+
+.search_tag {
+    margin-right: 30px;
+}
+
+.search_form {
+    width: 300px;
+    margin: 0 auto;
+    margin-top: 20px;
+}
+
+
+//検索フォーム画面
+.search_box_big {
+    width: 1000px;
+    height: 700px;
+    background-color: white;
+    border-radius: 30px;
+    margin: 0 auto;
+    padding: 30px;
+    margin-top: 60px;
+}
+
+.search_menu, .search_day, .search_time, .search_area, .search_none, .search_area_name, .search_area_current_place, .search_reputation, .search_keyword {
+    width: 580px;
+    height: 60px;
+    margin: 0 auto;
+}
+
+.font_size {
+    float: left;
+    font-size: 20px;
+    margin-right: 90px;
+}
+
+.font_size2 {
+    font-size: 15px;
+    margin-left: 30px;
+}
+
+.font_size3 {
+    font-size: 15px;
+    margin-left: 180px;
+}
+
+.font_size4 {
+    font-size: 15px;
+}
+
+#day, #start_time{
+    height: 30px;
+    margin-left: 50px;
+}
+
+#finish_time {
+    height: 30px;
+    margin-left: 20px;
+}
+
+#prefectures {
+    height: 30px;
+    margin-left: 180px;
+}
+
+.prefecture_form {
+    width: 230px;
+    margin-left: 300px;
+    margin-top: -30px;
+    height: 30px;
+}
+
+.number_form {
+    height: 25px;
+}
+
+#start_rate {
+    margin-left: 50px;
+    margin-top: 5px;
+}
+
+
+
+.wave {
+    margin-left: 20px;
+    font-size: 25px;
+}
+
+select {
+    border: 1px solid #C0C0C0;
+}
+
+select:focus {
+    outline: 0;
+    box-shadow: none;
+    border: 1px solid #C0C0C0;
+}
+
+#price {
+    border: 1px solid #C0C0C0;
+}
+
+#price:focus {
+    outline: 0;
+    box-shadow: none;
+    border: 1px solid #C0C0C0;
+}
+
+.search_btn {
+    background: linear-gradient(103deg, #52c5eb, #0d92c3);
+    margin-left: 310px;
+    margin-top: 130px;
+    width: 320px;
+    border-radius: 30px;
+    height: 50px;
+    border: 0;
+}
+
+.search_btn:focus {
+    outline: 0;
+}
+
+.search_form2 {
+    width: 300px;
+    position: relative;
+    left: -10px;
+}
+
+.search_btn2 {
+    position: relative;
+    top: -33px;
+    left: 190px;
+}
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -592,9 +758,11 @@ header {
 }
 
 #hairdresser_header {
-    float: right;
-    position: relative;
-    top: -100px;
+    position: absolute;
+    top: 40px;
+    right: 0px;
+    width: 1200px;
+    padding-left: 250px;
 }
 
 .hairdresser_box {
@@ -681,11 +849,8 @@ hr {
     top: 80px;
 }
 
-
-
 .menu_card {
     background-color: white;
-   
     width: 700px;
     height: 192px;
     border-radius: 30px;
@@ -761,7 +926,7 @@ hr {
 //メニュー一覧
 .reservation_make {
     position: relative;
-    top: -110px;
+    top: -120px;
     left: 900px;
     font-size: 20px;
 }
@@ -1019,6 +1184,11 @@ hr {
 
 
 //adminログイン
+
+#admin_login_form {
+    margin-top: -67px;
+    padding-top: 108px;
+}
 .admin_login_page {
     margin-top: 70px;
     text-align: center;
@@ -1094,5 +1264,48 @@ hr {
 .link {
     float: right;
     margin-right: 30px;
+}
+
+
+
+//メニューカード２
+.menu_card2 {
+    background-color: white;
+    width: 700px;
+    height: 292px;
+    border-radius: 30px;
+    margin-top: 70px;
+}
+
+.menu_bottom2 {
+    margin-top: 30px;
+}
+
+.menu_time2 {
+    position: relative;
+    right: 20px;
+}
+
+.title2 {
+    font-size: 30px;
+    width: 360px;
+    height: 42px;
+    display: inline-block;
+    vertical-align: top;
+    margin-left: 20px;
+    margin-top: 13px;
+}
+
+.face_img {
+    margin-left: 10px;
+    margin-top: 2px;
+}
+
+
+.reservation_make2 {
+    position: relative;
+    top: -160px;
+    left: 900px;
+    font-size: 20px;
 }
 

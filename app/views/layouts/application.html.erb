@@ -17,7 +17,7 @@
     <body>
 
 
-<h1>google map</h1>
+<!--<h1>google map</h1>
 <div style='width: 800px;'>
   <div id="map" style='width: 800px; height: 400px;'></div>
 </div>
@@ -36,13 +36,11 @@
     handler.fitMapToBounds();
     handler.getMap().setZoom(16);
   });
-</script>
-
-
+</script>-->
     　　
         <header>
             <%= link_to root_path do %>
-                <img src="<%= asset_path "cho.png" %>" class="log">
+                <img src="<%= asset_path "logo5.png" %>" class="log"><!--cho.png-->
             <% end %>
             <%= link_to "サロンの方はこちら", hairdresser_top_path, class: "salon"%>
             <% if @current_user %>
@@ -56,7 +54,7 @@
                 <div id = "user_header">
                     <li class="hairdresser_tag tag_left"><%= link_to "マイページ", user_path(@current_user.id)%></li>
                     <li class="hairdresser_tag"><%= link_to "美容師一覧", hairdressers_path  %></li>
-                    <li class="hairdresser_tag"><%= link_to "クレジットカード", new_user_card_path %></li>
+                    <li class="hairdresser_tag"><%= link_to "クレジットカード", new_user_card_path, class: "decoration_none" %></li>
                     <li class="hairdresser_tag"><%= link_to "予約", users_reservations_path %></li>
                     <li class="hairdresser_tag"><%= link_to "ログアウト", user_logout_path, method: :post %></li>
                 </div>
@@ -114,7 +112,7 @@
                 </div>
             <% end %>
         </header>
-        
+
         <main id="yield">
             <%= yield%>
         </main>

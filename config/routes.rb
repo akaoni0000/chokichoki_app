@@ -20,6 +20,10 @@ Rails.application.routes.draw do
   get "admins/reject/:id" => "admins#reject_form", as: "admins_reject_form"
   patch "admins/reject/:id" => "admins#reject", as: "admins_reject"
   post "admins/logout" => "admins#logout", as: "admins_logout"
+
+  #searchコントローラ
+  get "search/search_index" => "search#search_index", as: "search_index"
+  post "search_data" => "search#search_data", as: "search_data"
  
 
 

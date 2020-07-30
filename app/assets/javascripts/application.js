@@ -22,6 +22,7 @@
 
 //turbolinksがあるとjsが発動しないことがあるので消した
 //topページ
+
 $(function() {
 　//会員の新規会員登録
   $('#new_user').click(function() {
@@ -121,7 +122,6 @@ $(function() {
     }, 1500);
   });
 
-
 });
 
 
@@ -144,7 +144,8 @@ $(function(){
         "position":"fixed"
       });
     }
-});
+  });
+
 });
 
 
@@ -742,68 +743,6 @@ $(function(){
 });
 
 
-window.onload = function () {
-  //複数画像投稿ページ
-  $("input").attr('accept', "image/*");
-  if (gon.image_number == 0) {
-    $(".image_label").addClass("width_100");
-  }
-  else if (gon.image_number == 1) {
-    $(".image_label").addClass("width_80");
-  }
-  else if (gon.image_number == 2) {
-    $(".image_label").addClass("width_60");
-  }
-  else if (gon.image_number == 3) {
-    $(".image_label").addClass("width_40");
-  }
-  else if (gon.image_number == 4) {
-    $(".image_label").addClass("width_20");
-  }
-  else if (gon.image_number == 5) {
-    $(".image_label").addClass("width_100");
-  }
-  else if (gon.image_number == 6) {
-    $(".image_label").addClass("width_80");
-  }
-  else if (gon.image_number == 7) {
-    $(".image_label").addClass("width_60");
-  }
-  else if (gon.image_number == 8) {
-    $(".image_label").addClass("width_40");
-  }
-  else if (gon.image_number == 9) {
-    $(".image_label").addClass("width_20");
-  }
-  else if (gon.image_number == 10) {
-    $(".image_label").addClass("width_100");
-    $('.image_label').addClass(`display_none`);
-  }
-  if (gon.body == "white"){
-    $("body").css({
-      "background-color":"white"
-    });
-  }
-  if (gon.fix == "header") {
-    $("header").addClass("fix");
-  }
-  if (gon.reverse == "reverse") {
-    $(".raty").children().remove();
-    $('.index_user_reservations').html($('.index_user_reservations').find('.re_index').get().reverse());
-    $(".raty").css({
-      "position": "relative",
-      "right": "10px"
-    });
-  }
-  if (gon.display_none == "remove_display_none") {
-    $(".display_th").removeClass();
-  }
-
-  // if (gon.prevent == "admin") {
-  //   alert("二重ログインは禁止されています。ログイン情報をリセットしました。");
-  // }
-};
- 
 
 $(function () {
       $(document).on("change", ".image_input", function () { 
@@ -943,6 +882,20 @@ $(function() {
   
   $("a").click(function () { 
     $(this).css({
+      "text-decoration":"none"
+    });
+    $(".hairdresser_tag").css({
+      "text-decoration":"none",
+      "color": "#DEB887" 
+    });
+    $(".cursor").css({
+      "text-decoration":"none",
+      "color": "#DEB887" 
+    });
+    $(".reservation_hairdresser_name").css({
+      "text-decoration":"none"
+    });
+    $(".decoration_none").css({
       "text-decoration":"none",
       "color": "#DEB887" 
     });
@@ -991,77 +944,140 @@ $(function() {
 });
 
 
+//ここから検索画面
 
+//検索するときの順番を変更
 $(function() {
-  if (gon.user == null) {
-    $(".user_reservation").on("click", function(e) {
-      e.preventDefault();
-      $('#user_sign_in').fadeIn(); 
-      $(".error").html("ログインする必要があります");  
-      var id = $(this).attr("id")
-      $("#user_login_form").append(`<input type="hidden" name="reservation_id" value=${id}></input>`)
-    });
+  if (gon.turn == 2) {
+    $('.search_day').after($('.search_time'),$('.search_menu'));
+    $(".search_none").removeClass("display_none");
+  } 
+  else if (gon.turn == 3) {
+    $('.search_area').after($('.search_none'),$('.search_area_name'),$('.search_area_current_place'),$('.search_menu'),$(".search_day"),$(".search_time"));
+    $("#name").addClass("check");
+    $("#name").children("input").prop('checked', true);
+    $(".search_area_name").removeClass("display_none");
+  } 
+  else if (gon.turn == 4) {
+    $('.search_area').after($('.search_none'),$('.search_area_name'),$('.search_area_current_place'),$('.search_menu'),$(".search_day"),$(".search_time"));
+    $("#current").addClass("check");
+    $("#current").children("input").prop('checked', true);
+    $(".search_area_current_place").removeClass("display_none");
+  }
+  else if (gon.turn == 5) {
+    $('.search_reputation').after($('.search_menu'),$('.search_day'),$('.search_time'),$('.search_area'),$(".search_none"),$(".search_area_name"),$(".search_area_current_place"));
+    $(".search_none").removeClass("display_none");
+  }
+  else {
+    $(".search_none").removeClass("display_none");
   }
 });
 
+//検索フォーム画面のメニュー選択のcheck_boxを操作
+$(function() {
+  $(".point").click(function(){
+    if (!$(this).hasClass("check")) {
+      $(this).addClass("check");
+      $(this).children("input").prop('checked', true);
+    } else if ($(this).hasClass("check")) {
+      $(this).removeClass("check");
+      $(this).children("input").prop('checked', false);
+    }
+  })
+});
 
-// $(function() {
-// $('#btnrev').click(function(){
-//   $(".raty").children().remove();
-//   $('.index_user_reservations').html($('.index_user_reservations').find('.re_index').get().reverse());
-//   $(".raty").css({
-//     "position": "relative",
-//     "right": "10px"
-//   });
-//   });
-// });
+//検索フォーム画面の日付のselectを操作
+$(function() {
+  $("#day").change(function(){
+    var select_day = $(this).val();
+    if (select_day == "指定しない") {
+      console.log(2);
+      $("#start_time").attr('disabled', true);
+      $("#finish_time").attr('disabled', true);
+    } else {
+      $("#start_time").attr('disabled', false);
+      $("#finish_time").attr('disabled', false);
+    }
+  })
+
+  $("#start_time").change(function(){
+    $("#finish_time").children("option").attr("disabled", false)
+    start_number = $(this).prop("selectedIndex");  //selectボックスで何番目のoptionが選択されているかを取得
+    $("#finish_time").children("option").slice(0, start_number).attr("disabled", true)
+  })
+
+  $("#finish_time").change(function(){
+    $("#start_time").children("option").attr("disabled", false)
+    finish_number = $(this).prop("selectedIndex");  //selectボックスで何番目のoptionが選択されているかを取得
+    $("#start_time").children("option").slice(finish_number+1, ).attr("disabled", true)
+  })
+});
+
+//検索フォーム画面のエリアのcheck_boxを操作
+$(function() {
+  $("#name").click(function(){
+    if (!$(this).hasClass("check")) {
+      $(this).addClass("check");
+      $(this).children("input").prop('checked', true);
+      $("#current").removeClass("check");
+      $("#current").children("input").prop('checked', false);
+      $(".search_area_name").removeClass("display_none");
+      $(".search_area_current_place").addClass("display_none");
+      $(".search_none").addClass("display_none");
+    } else if ($(this).hasClass("check")) {
+      $(this).removeClass("check");
+      $(this).children("input").prop('checked', false);
+      $(".search_area_name").addClass("display_none");
+      $(".search_none").removeClass("display_none");
+    }
+  })
+
+  $("#current").click(function(){
+    if (!$(this).hasClass("check")) {
+      $(this).addClass("check");
+      $(this).children("input").prop('checked', true);
+      $("#name").removeClass("check");
+      $("#name").children("input").prop('checked', false);
+      $(".search_area_current_place").removeClass("display_none");
+      $(".search_area_name").addClass("display_none");
+      $(".search_none").addClass("display_none");
+    } else if ($(this).hasClass("check")) {
+      $(this).removeClass("check");
+      $(this).children("input").prop('checked', false);
+      $(".search_area_current_place").addClass("display_none");
+      $(".search_none").removeClass("display_none");
+    }
+  })
+});
 
 
+//検索フォーム画面の評価選択のselectを操作
+$(function() {
+  $("#start_rate").change(function(){
+    $("#finish_rate").children("option").attr("disabled", false)
+    start_rate = $(this).prop("selectedIndex");  //selectボックスで何番目のoptionが選択されているかを取得
+    $("#finish_rate").children("option").slice(0, start_rate).attr("disabled", true)
+  })
 
-
+  $("#finish_rate").change(function(){
+    $("#start_rate").children("option").attr("disabled", false)
+    finish_rate = $(this).prop("selectedIndex");  //selectボックスで何番目のoptionが選択されているかを取得
+    $("#start_rate").children("option").slice(finish_rate+1, ).attr("disabled", true)
+  })
+});
 
 $(function() {
-  // var ctx = document.getElementById("myLineChart");
-  // myLineChart = new Chart(ctx, {
-  //         type: 'line',
-  //         data: {
-  //              if (3 == 3) {
-  //                  //labels: ['8月1日', '8月2日', '8月3日', '8月4日', '8月5日', '<%= @Time.month - 1 %>月<%= @Time.day %>日', '<%= @Time.month %>月<%= @Time.day %>日'],
-  //              } else {
-  //                  //labels: ['8月1日', '8月2日', '8月3日', '8月4日', '8月5日', '<%= @Time.month - 1 %>月<%= @Time.day %>日', '<%= @Time.month %>月<%= @Time.day %>日'],
-  //              }
-  //             datasets: [
-  //                 {
-  //                 label: '最高気温(度）',
-  //                 data: [35, 34, 37, 35, 34, 35, 34, 25],
-  //                 borderColor: "rgba(255,0,0,1)",
-  //                 backgroundColor: "rgba(0,0,0,0)"
-  //                 },
-  //                 {
-  //                 label: '最低気温(度）',
-  //                 data: [25, 27, 27, 25, 26, 27, 25, 21],
-  //                 borderColor: "rgba(0,0,255,1)",
-  //                 backgroundColor: "rgba(0,0,0,0)"
-  //                 }
-  //             ],
-  //         },
-  //         options: {
-  //             title: {
-  //                 display: true,
-  //                 text: '気温（8月1日~8月7日）'
-  //             },
-  //             scales: {
-  //                 yAxes: [{  //y軸の設定
-  //                 ticks: {
-  //                     //suggestedMax: 80,    //データがこの値を超えたらその値がmaxに自動でなる
-  //                     suggestedMin: 0,
-  //                     //stepSize: 0,
-  //                     callback: function(value, index, values){
-  //                     return  value +  '度'
-  //                     }
-  //                 }
-  //             }]
-  //         },
-  //     }
-  // });
+  var win = $(window);
+  $(window).scroll(function (){
+    if (win.scrollTop()>1000) {
+      $("header").css({
+        "background-color": "rgba(255, 255, 255, 0.9)"
+      })
+      console.log(2);
+    } else {
+      $("header").css({
+        "background-color": "transparent"
+      })
+    }
+  });
 });
