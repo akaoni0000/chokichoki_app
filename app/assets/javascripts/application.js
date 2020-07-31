@@ -1066,18 +1066,18 @@ $(function() {
   })
 });
 
-$(function() {
-  var win = $(window);
-  $(window).scroll(function (){
-    if (win.scrollTop()>1000) {
-      $("header").css({
-        "background-color": "rgba(255, 255, 255, 0.9)"
-      })
-      console.log(2);
-    } else {
-      $("header").css({
-        "background-color": "transparent"
-      })
-    }
-  });
-});
+// $(function() {
+//   var win = $(window);
+//   $(window).scroll(function (){
+//     if (win.scrollTop()>1000) {
+//       $("header").css({
+//         "background-color": "rgba(255, 255, 255, 0.9)"
+//       })
+//       console.log(2);
+//     } else {
+//       $("header").css({
+//         "background-color": "transparent"
+//       })
+//     }
+//   });
+// });

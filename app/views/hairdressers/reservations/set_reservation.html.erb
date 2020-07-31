@@ -1,0 +1,115 @@
+<div class="container center">
+    <table class="reservation_table">
+        <thead>
+            <tr>
+                <!--前の週-->
+                <% if @standard_day != Date.today %>
+                    <th width="87" height="38" rowspan="2" class="border_right border_bottom2"><%= link_to "前の一週間", hairdressers_set_reservation_path(option: "last", day: @standard_day) %></th>
+                <% else %>
+                    <th width="87" height="38" rowspan="2" class="border_right border_bottom2"><%= link_to "前の一週間", hairdressers_set_reservation_path(option: "last", day: @standard_day), style: "pointer-events: none; color: grey;" %></th>
+                <% end %>
+                <!--年月-->
+                <% if  @diff >= 13%>
+                    <th width="43" height="45" colspan="14"><%= @standard_day.year %>年<%= @standard_day.month %>月</th>
+                <% else %>
+                    <% if @diff + 1 >= 4 %>
+                        <th width="43" height="45" colspan="<%= @diff + 1 %>" class="border_right border_bottom"><%= @standard_day.year %>年<%= @standard_day.month %>月</th>
+                    <% else %>
+                        <th width="43" height="45" colspan="<%= @diff + 1 %>" class="border_right border_bottom"></th>
+                    <% end %>
+                    <% if 13 - @diff >= 4 %>
+                        <th width="43" height="45" colspan="<%= 13 - @diff  %>" class="border_right border_bottom"><%= @standard_day.next_month.year %>年<%= @standard_day.next_month.month %>月</th>
+                    <% else %>
+                        <th width="43" height="45" colspan="<%= 13 - @diff  %>" class="border_right border_bottom"></th>
+                    <% end %>
+                <% end %>
+                <!--次の週-->
+                <th width="87" height="38" rowspan="2"><%= link_to "次の一週間", hairdressers_set_reservation_path(option: "next", day: @standard_day) %></th>
+            </tr>
+            <tr>
+                <% for i in 0..13 do %>
+                    <th width="42" height="45" class="border_right border_bottom2">
+                        <%= (@standard_day + i).day %>
+                        <div>
+                        (<%= %w(日 月 火 水 木 金 土)[(@standard_day+i).wday] %>)
+                        </div>
+                    </th>
+                <% end %>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <!--左の時刻表-->
+                <th class="border_right border_lef border_botto">
+                    <table>
+                        <% i = 0 %>
+                        <% @time_arry.each do |time| %>
+                            <% if i % 2 == 0 %>
+                                <tr>
+                                    <th width="89" height="38" style="font-size: 18px;" class="border_bottom"><%= time %></th>
+                                </tr>
+                            <% else %>
+                                <tr>
+                                    <th width="89" height="38" style="font-size: 15px;" class="border_bottom2 border_righ"><%= time %></th>
+                                </tr>
+                            <% end %>
+                            <% i += 1 %>
+                        <% end %>
+                    </table>
+                </th>
+                
+                <!--バツマル-->
+                <% for x in 1..14 do %>
+                    <th>
+                        <table>
+                            <% i = 0 %>
+                            <% @key = 0 %>
+                            <% @day_arry.each do |day| %>
+                                <% if x == 1 && @key == 0%>
+                                    <% @key_day = @day_arry[0] %>
+                                    <% @key = 1 %>
+                                <% elsif x >= 2 && @key == 0%>
+                                    <% if @key_day.day != day.day && @key_day < day %>
+                                        <% @key_day = day %>
+                                        <% @key = 1 %>
+                                    <% end %>
+                                <% end %>
+                                <% if @key == 1 %>
+                                    <% break if @key_day.day != day.day && @key_day < day %>
+                                    <% if i % 2 == 0 %>
+                                        <tr>
+                                            <td width="43" height="38" href="<%=day%>" class="border_bottom border_righ"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></td>
+                                        </tr>
+                                    <% else %>
+                                        <tr>
+                                            <td width="43" height="38" href="<%=day%>" class="border_bottom2 border_righ"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></td>
+                                        </tr>
+                                    <% end %>
+                                <% end %>
+                                <% i += 1 %>
+                            <% end %>
+                        </table>
+                    </th>
+                <% end %>
+                
+                <!--右の時刻表-->
+                <th class="border_righ border_left border_bottm border_top">
+                    <table>
+                        <% @time_arry.each do |time| %>
+                            <% if i % 2 == 0 %>
+                                <tr>
+                                    <th width="89" height="38" style="font-size: 18px;" class="border_bottom"><%= time %></th>
+                                </tr>
+                            <% else %>
+                                <tr>
+                                    <th width="89" height="38" style="font-size: 15px;" class="border_bottom2"><%= time %></th>
+                                </tr>
+                            <% end %>
+                            <% i += 1 %>
+                        <% end %>
+                    </table>
+                </th>
+            </tr>
+        </tbody>
+    </table>
+</div>

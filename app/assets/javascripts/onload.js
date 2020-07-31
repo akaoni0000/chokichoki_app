@@ -42,6 +42,9 @@ window.onload = function () {
       $("body").css({
         "background-color":"white"
       });
+      $("#yield").css({
+        "background-color":"white"
+      });
     }
 
     //headerを固定する headerを固定するviewと固定しないviewで分けている

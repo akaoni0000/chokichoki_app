@@ -37,6 +37,7 @@ Rails.application.routes.draw do
   namespace :hairdressers do
     get "hairdresser_reservation" => "reservations#reservation_index", as: "reservation_index"
     get "hairdresser_cancel_reservation" => "reservations#cancel_index", as: "cancel_index"
+    get "reservation_set" => "reservations#set_reservation", as: "set_reservation"
     resources :reservations, only: [:new, :index, :create, :destroy]
   end
 

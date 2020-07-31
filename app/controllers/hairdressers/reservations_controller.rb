@@ -79,6 +79,47 @@ class Hairdressers::ReservationsController < ApplicationController
             end
         end
     end
+
+
+    def set_reservation
+        if params[:option] == "last"
+            @standard_day = Date.new(params[:day][0,4].to_i, params[:day][5,2].to_i, params[:day][8,2].to_i)
+            @standard_day -= 7
+        elsif params[:option] == "next"
+            @standard_day = Date.new(params[:day][0,4].to_i, params[:day][5,2].to_i, params[:day][8,2].to_i)
+            @standard_day += 7
+        else
+            @standard_day = Date.today 
+        end
+        @diff = (@standard_day.end_of_month - @standard_day).to_i
+
+        @time_arry = []   #配列[06:00, 06:30, 07:00, ....]を作っただけ 数字を全て数字を全て記述するのが面倒だったので工夫した
+        for i in 0..35 do 
+            @time = Time.local(2000,1,1) + 3600*6    
+            @time += 60 * 30 * i  
+            if @time.hour.to_s.length == 1
+                @time_hour = 0.to_s + @time.hour.to_s
+            else
+                @time_hour = @time.hour
+            end
+            if @time.min == 0
+                @time_min = "00"
+            else
+                @time_min = @time.min
+            end
+            @time_arry.push("#{@time_hour}:#{@time_min}")
+        end 
+
+        @day_arry = []    #例　配列[1/1 06:00, 1/1 06:30, 1/1 07:00, ..... 1/1 23:30, 1/2 06:00, .....] を作成
+        for i in 1..14 do 
+            @key_time = Time.local(@standard_day.year, @standard_day.month, @standard_day.day) + 3600*6 + 3600*24*(i-1)
+            for n in 0..35 do
+                @time = @key_time
+                @time += 60 * 30 * n #+30分
+                @day_arry.push(@time)
+            end
+        end 
+    end
     
     def create
         @reservation = Reservation.new(reservation_params) 

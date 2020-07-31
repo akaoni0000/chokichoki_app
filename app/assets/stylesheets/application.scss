@@ -79,26 +79,37 @@ h1, h2, h3, span {
 //     text-decoration: none;
 // }
 
-a {
+a, li {
     color: #DEB887; 
     transition: all 0.6s ease; //カーソルを離した時もゆっくり変化
     text-decoration: none;
     font-family: serif;
 }
 
-a:hover {
+a:hover, li:hover {
     color: #CC9933;
     transition: all 0.6s ease;
     text-decoration: none;
 }
+
+
+li:hover {
+    color: #CC9933;
+}
+
+.fadein {
+    opacity : 0;                      //透明度 0~1         
+    transform : translate(0, 150px);  //右へ0px 下に100px下げる
+}
+
+   
     
-
-
+//header
 header {
     width: 100%;
-    height: 100px;
-    background-color: transparent;
-    //background-color:rgba(255, 255, 255, 0.9);
+    height: 180px;
+    //background-color: transparent;
+    background-color:rgba(255, 255, 255, 0.5);
     //background-color: transparent;
     margin-top: -20px;
     z-index: 80;
@@ -115,39 +126,149 @@ header {
 }
 
 
-.fadein {
-    opacity : 0;                      //透明度 0~1         
-    transform : translate(0, 150px);  //右へ0px 下に100px下げる
+.log {
+    width: 400px;
+    height: 300px;
+    position: relative;
+    top: -85px;
+    left: 160px;
 }
 
-   
+.link_box {
+    background-color:transparent;
+    width: 360px;
+    height: 62px;
+    position: absolute;
+    top: 23px;
+    left: 170px;
+}
+
+.search_form_header {
+    position: absolute;
+    right: 15%;
+    width: 250px;
+    top: 40px;
+}
+
+.search_icon_btn {
+    position: absolute;
+    right: 0px;
+    top: 0px;
+}
+
+#none_login {
+    position: absolute;
+    top: 100px;
+    left: 33%;
+    width: 1200px;
+}
+
+#none_login_user {
+    position: absolute;
+    top: 100px;
+    left: 19%;
+    width: 1200px;
+}
+
+#none_login_hairdresser {
+    position: absolute;
+    top: 100px;
+    left: 14.8%;
+    width: 1208px;
+}
+
+#user_header {
+    position: absolute;
+    top: 100px;
+    left: 25%;
+    width: 1200px;
+}
+
+
+#hairdresser_header {
+    position: absolute;
+    top: 100px;
+    left: 9%;
+    width: 1400px;
+}
+
+.tag {
+    display: inline-block;
+    font-size: 25px;
+    margin-right: 85px;
+    position: relative;
+    font-family: serif;
+    color: #DEB887;
+    cursor: pointer;
+}
+
+.tag_left {
+    margin-left: 100px;
+    cursor: pointer;
+}
+
+.welcome {
+    position: relative;
+    top: -36px;
+    right: -260px; 
+}
+
+.welcome2 {
+    position: relative;
+    top: -28px;
+    right: -260px; 
+}
+
+
 .fadein.active {
     opacity : 1;
     transform : translate(0, 0);
     transition : all 2s ease; //allはopacityとtransformを指定 hoverやjsでタイミングを定義しないと発動しない
 }
 
-.now_login {
-    position: relative;
-    width: 220px;
-    left: 400px;
-    top: -248px;
-}
+// .now_login {
+//     position: relative;
+//     width: 220px;
+//     left: 400px;
+//     top: -170px;
+// }
 
 .salon {
     position: relative;
-    top: -110px;
+    top: -91px;
+    left: 135px;
 }
 
 
-// .down_content {
-//      background-color: red;
-//      height: 2600px;
-// }
 
-// .down_content2 {
-//     height: 1600px;
-// }
+.sign_in_block_user {        //スライドダウンさせると意図してない要素が動く現象があったので、absoluteにするしかなかった
+    position: absolute;
+    left: 59%;
+}
+
+.sign_up_block_user {
+    position: absolute;
+    left: 74.5%;
+}
+
+
+
+.sign_in_block_hairdresser {        //スライドダウンさせると意図してない要素が動く現象があったので、absoluteにするしかなかった
+    position: absolute;
+    left: 65%;
+}
+
+.sign_up_block_hairdresser {
+    position: absolute;
+    left: 80%;
+}
+
+
+.slide_down {
+    display: none;
+    background-color: transparent;
+}
+
 
 
 
@@ -207,63 +328,6 @@ header {
 
 }
 
-//header
-.log {
-    width: 400px;
-    height: 300px;
-    position: relative;
-    top: -85px;
-}
-
-.top_hairdresser_btn {
-    position: absolute;
-    right: 720px;
-    top: 20px;
-    font-size: 25px;
-    color: #DEB887;
-}
-
-.faq_btn {
-    position: absolute;
-    right: 620px;
-    top: 20px;
-    font-size: 25px;
-    color: #DEB887;
-}
-
-.index_hairdresser_btn {
-    position: absolute;
-    right: 450px;
-    top: 20px;
-    font-size: 25px;
-    color: #DEB887;
-}
-
-
-
-
-
-.sign_in_block {        //スライドダウンさせると意図してない要素が動く現象があったので、absoluteにするしかなかった
-    position: absolute;
-    right: 300px;
-    top: 20px
-}
-
-.sign_up_block {
-    position: absolute;
-    right: 100px;
-    top: 20px;
-}
-
-.login {
-    font-size: 25px;
-    color: #DEB887;
-}
-
-.sign_up {
-    font-size: 25px;
-    color: #DEB887;
-}
 
 
 
@@ -348,10 +412,6 @@ header {
     background-attachment: fixed;
 }
 
-.slide_down {
-    display: none;
-    background-color: transparent;
-}
 
 .main_content {
     margin-top: 70px;
@@ -558,6 +618,12 @@ select:focus {
     border: 1px solid #C0C0C0;
 }
 
+// input:focus {
+//     outline: 0;
+//     box-shadow: none;
+//     border: 1px solid #C0C0C0;
+// }
+
 #price {
     border: 1px solid #C0C0C0;
 }
@@ -686,13 +752,7 @@ select:focus {
 }
 
 //userマイページ
-#user_header {
-    position: absolute;
-    top: 40px;
-    right: 0px;
-    width: 1200px;
-    padding-left: 350px;
-}
+
 
 //userのカード登録
 .cvc {
@@ -744,26 +804,7 @@ select:focus {
 
 
 //美容師マイページ
-.hairdresser_tag {
-    display: inline-block;
-    font-size: 20px;
-    margin-right: 20px;
-    position: relative;
-    font-family: serif;
-    color: #DEB887;
-}
 
-.tag_left {
-    margin-left: 100px;
-}
-
-#hairdresser_header {
-    position: absolute;
-    top: 40px;
-    right: 0px;
-    width: 1200px;
-    padding-left: 250px;
-}
 
 .hairdresser_box {
     background-color: #FFF5EE;
@@ -1309,3 +1350,59 @@ hr {
     font-size: 20px;
 }
 
+
+
+
+//reservation
+.reservation_table {
+   margin: 0 auto;
+   margin-top: 50px;
+   margin-bottom: 50px;
+   table-layout: fixed;
+   display: table;
+   //border: solid #BFB9B0;
+   border-spacing: 0;
+    //border-width: 0 1px 1px 1px;
+   box-sizing: border-box;
+    //width: 100%;
+   //border: solid 1px #BFB9B0;
+   border: solid 1px  #BFB9B0; border-collapse: collapse;
+}
+
+th {
+    //background-color: red;
+    text-align: center;
+}
+
+.border_top {
+    border-top: solid 3px #BFB9B0;
+}
+
+.border_right {
+    border-right: solid 1px #BFB9B0;
+}
+
+
+.border_left {
+    border-left: solid 1px #BFB9B0;
+}
+
+.border_bottom {
+    border-bottom: solid 1px #BFB9B0;
+}
+
+
+.border_bottom2 {
+    border-bottom: solid 3px #BFB9B0;
+}
+
+// <tr>
+//                 <th width="87" height="38"></th>
+//                 <% for i in 0..13 do %>
+//                     <th width="42" height="45" style="display: block;">
+//                         <%= (@key_day+i).day %>
+//                         (<%= %w(日 月 火 水 木 金 土)[(@key_day+i).wday] %>)
+//                     </th>
+//                 <% end %>
+//                 <th width="87" height="38"></th>
+//   

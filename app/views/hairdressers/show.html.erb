@@ -28,6 +28,7 @@
     </div>
 </div>
 <div class="col-xs-7">
+<%= link_to "ログアウト", hairdresser_logout_path, method: :post %>
 <h2>今日の予約</h2>
     <% @reservations.each do |reservation| %>
         <% if reservation.menu.hairdresser_id == @current_hairdresser.id && reservation.start_time.year == Date.today.year && reservation.start_time.month == Date.today.month && reservation.start_time.day == Date.today.day && reservation.user_id.present?%>
