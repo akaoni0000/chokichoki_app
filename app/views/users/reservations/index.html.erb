@@ -53,7 +53,7 @@
                                 </td>
                                 <td>
                                     <% if reservation.start_time - Time.now > 60*60*24 %>
-                                        <%= link_to "キャンセル", users_reservation_cancel_path(reservation.menu_id, reservation.start_time), method: :post, data: { confirm: '本当にキャンセルしますか？キャンセルした場合支払ったお金はポイントとして返金されます。' }, class: "btn btn-danger" %>
+                                        <%= link_to "キャンセル", users_reservation_cancel_path(menu_id: reservation.menu_id, start_time: reservation.start_time), method: :post, data: { confirm: '本当にキャンセルしますか？キャンセルした場合支払ったお金はポイントとして返金されます。' }, class: "btn btn-danger" %>
                                     <% elsif  reservation.start_time - Time.now <= 60*60*24 && reservation.start_time - Time.now >= 0%>
                                         <div class= "btn btn-danger cancel_fail">キャンセルする</div>
                                     <%end%>

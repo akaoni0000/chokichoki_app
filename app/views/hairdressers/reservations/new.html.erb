@@ -10,7 +10,7 @@
             <%= f.hidden_field :menu_id, :value => @menu.id %>
             <%= f.submit '作成',class: "btn btn-primary make_btn"%>
     <%end%>
-    <%= link_to "カレンダーに戻る", hairdressers_reservation_index_path(menu_id: @menu.id), class: "back_calendar" %>
+    <%= link_to "カレンダーに戻る", hairdressers_set_month_calendar_reservation_path(menu_id: @menu.id), class: "back_calendar" %>
     </div>
     <div>
         <% if @reservations_arry.present? %>
@@ -31,7 +31,11 @@
                             <% else %>
                                 <td>予約なし</td>
                             <% end %>
-                            <td><%= link_to "削除", hairdressers_reservation_path(reservation.id), method: :delete, class: "btn btn-danger", data: { confirm: 'Are you sure?' }  %></td>
+                            <% if reservation.user_id == nil %>
+                                <td>
+                                    <%= link_to "削除", hairdressers_reservation_path(reservation.id), method: :delete, class: "btn btn-danger", data: { confirm: '本当に削除しますか?' }  %>
+                                </td>
+                            <% end %>
                         </tr>
                     </tbody>
                 <% end %>

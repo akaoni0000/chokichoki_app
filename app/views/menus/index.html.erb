@@ -24,8 +24,7 @@
                 <div class="explain font"><%= menu.explanation %></div>
             </div>
         </div>
-        <%= link_to "予定表を編集だ", hairdressers_set_reservation_path(menu_id: menu.id), class: "reservation_make btn btn-success" %>
-        <%= link_to "予定表を編集", hairdressers_reservation_index_path(menu_id: menu.id), class: "reservation_make btn btn-success" %>
+        <%= link_to "予定表を編集", hairdressers_set_week_calendar_reservation_path(menu_id: menu.id), class: "reservation_make btn btn-success" %>
     </div>
 <% end %>
 

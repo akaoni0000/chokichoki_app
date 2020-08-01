@@ -92,7 +92,7 @@
                     <div class="explain font"><%= menu.explanation %></div>
                 </div>
             </div>
-            <%= link_to "予約する", users_reservation_index_path(menu.id), class: "reservation_make2 btn btn-success" %>
+            <%= link_to "予約する", users_set_week_calendar_reservation_path(menu_id: menu.id), class: "reservation_make2 btn btn-success" %>
         <% end %>
     <% end %>
 </div>

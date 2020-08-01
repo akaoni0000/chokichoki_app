@@ -38,7 +38,7 @@ class UsersController < ApplicationController
     end
 
     def show
-        @user = User.find(params[:id])
+        @user = User.find(@current_user.id)
         @hairdressers = Hairdresser.all
         @hairdresser_model = Hairdresser
         @reservations = Reservation.where(user_id: @user.id) 

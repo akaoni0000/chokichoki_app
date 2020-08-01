@@ -1,6 +1,5 @@
 class MenusController < ApplicationController
 
-
     def new
         @menu = Menu.new
     end
@@ -18,12 +17,6 @@ class MenusController < ApplicationController
         @menus = Menu.where(hairdresser_id: @current_hairdresser.id)
     end
     
-    def edit
-    end
-
-    def update
-    end
-
     def choice
         @menus = Menu.where(hairdresser_id: params[:hairdresser_id])
     end

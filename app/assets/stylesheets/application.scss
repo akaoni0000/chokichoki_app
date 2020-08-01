@@ -25,7 +25,7 @@ body {
 #yield {
     min-height: 100vh;
     //margin-bottom: 140px;
-    background-color:rgba(247, 247, 247, 0.6);
+    background-color:rgba(247, 247, 247, 1.0);
     //padding-top: 30px;
     //padding-bottom: 100px;
     //position: relative;/*←相対位置*/
@@ -896,6 +896,7 @@ hr {
     height: 192px;
     border-radius: 30px;
     margin-top: 70px;
+    border: 1px solid;
 }
 
 .menu_top {
@@ -945,10 +946,10 @@ hr {
 
 #prev_menu_img {
     width: 150px;
-    height: 150px;
+    height: 148px;
     border-radius: 20px;
-   
     vertical-align: top;
+    margin-left: 7px;
 }
 
 
@@ -1354,23 +1355,17 @@ hr {
 
 
 //reservation
-.reservation_table {
+.week_reservation_table {
    margin: 0 auto;
    margin-top: 50px;
    margin-bottom: 50px;
    table-layout: fixed;
    display: table;
-   //border: solid #BFB9B0;
-   border-spacing: 0;
-    //border-width: 0 1px 1px 1px;
    box-sizing: border-box;
-    //width: 100%;
-   //border: solid 1px #BFB9B0;
    border: solid 1px  #BFB9B0; border-collapse: collapse;
 }
 
 th {
-    //background-color: red;
     text-align: center;
 }
 
@@ -1391,18 +1386,15 @@ th {
     border-bottom: solid 1px #BFB9B0;
 }
 
-
 .border_bottom2 {
     border-bottom: solid 3px #BFB9B0;
 }
 
-// <tr>
-//                 <th width="87" height="38"></th>
-//                 <% for i in 0..13 do %>
-//                     <th width="42" height="45" style="display: block;">
-//                         <%= (@key_day+i).day %>
-//                         (<%= %w(日 月 火 水 木 金 土)[(@key_day+i).wday] %>)
-//                     </th>
-//                 <% end %>
-//                 <th width="87" height="38"></th>
-//   
+.function {
+    cursor: pointer;
+}
+
+.to_month_calendar {
+   float: right;
+    
+}

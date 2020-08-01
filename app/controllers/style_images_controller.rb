@@ -4,8 +4,7 @@ class StyleImagesController < ApplicationController
     def edit
         @style_image =  StyleImage.find_by(hairdresser_id: @current_hairdresser.id)
         @hair_arry = @style_image.hair_images
-        gon.image_number = @style_image.hair_images.size 
-        
+        gon.image_number = @style_image.hair_images.size    
     end
 
     def update

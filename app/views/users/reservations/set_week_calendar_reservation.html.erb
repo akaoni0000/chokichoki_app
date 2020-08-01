@@ -1,0 +1,181 @@
+<div class="container">
+    <h3>ご希望の来店日時を選択してください</h3>
+    <div class="menu_card" style="margin: 0 auto; margin-top: 50px;">
+        <div class="menu_top" >
+            <div class="title font"><%= @menu.name %></div>
+            <div class="menu_time font"><%= @menu.time %>分</div>
+            <div class="card_categories">
+                <% if @menu.category[0,1] == "1" %>
+                    <span class="cut_category category font">カット</span>
+                <% end %>
+                <% if @menu.category[1,1] == "1" %>
+                    <span class="color_category category font">カラー</span>
+                <% end %>
+                <% if @menu.category[2,1] == "1" %>
+                    <span class="curly_category category font">縮毛矯正</span>
+                <% end %>
+                <% if @menu.category[3,1] == "1" %>
+                    <span class="perm_category category font">パーマ</span>
+                <% end %>
+            </div>
+        </div>
+        <div class="menu_bottom">
+            <%= attachment_image_tag @menu, :menu_image, fallback: "no_image.png", id: "prev_menu_img" %>
+            <div class="explain font"><%= @menu.explanation %></div>
+        </div>
+    </div>
+    <%= link_to "月間カレンダー", users_set_month_calendar_reservation_path(menu_id: @menu.id), class: "to_month_calendar" %>
+
+    <!--ここから週間カレンダー-->
+    <table class="week_reservation_table">
+        <thead>
+            <tr>
+                <!--前の週-->
+                <% if @standard_day != Date.today %>
+                    <th width="87" height="38" rowspan="2" class="border_right border_bottom2 attr87"><%= link_to "前の一週間", users_set_week_calendar_reservation_path(option: "last", day: @standard_day, menu_id: @menu.id) %></th>
+                <% else %>
+                    <th width="87" height="38" rowspan="2" class="border_right border_bottom2 attr87"><%= link_to "前の一週間", users_set_week_calendar_reservation_path(option: "last", day: @standard_day, menu_id: @menu.id), style: "pointer-events: none; color: grey;" %></th>
+                <% end %>
+                <!--年月-->
+                <% if  @diff >= 13%>
+                    <th width="43" height="45" colspan="14" class="border_right border_bottom attr43"><%= @standard_day.year %>年<%= @standard_day.month %>月</th>
+                <% else %>
+                    <% if @diff + 1 >= 4 %>
+                        <th width="43" height="45" colspan="<%= @diff + 1 %>" class="border_right border_bottom attr43"><%= @standard_day.year %>年<%= @standard_day.month %>月</th>
+                    <% else %>
+                        <th width="43" height="45" colspan="<%= @diff + 1 %>" class="border_right border_bottom attr43"></th>
+                    <% end %>
+                    <% if 13 - @diff >= 4 %>
+                        <th width="43" height="45" colspan="<%= 13 - @diff  %>" class="border_right border_bottom attr43"><%= @standard_day.next_month.year %>年<%= @standard_day.next_month.month %>月</th>
+                    <% else %>
+                        <th width="43" height="45" colspan="<%= 13 - @diff  %>" class="border_right border_bottom attr43"></th>
+                    <% end %>
+                <% end %>
+                <!--次の週-->
+                <th width="87" height="38" rowspan="2" class="attr87"><%= link_to "次の一週間", users_set_week_calendar_reservation_path(option: "next", day: @standard_day, menu_id: @menu.id) %></th>
+            </tr>
+            <tr>
+                <% for i in 0..13 do %>
+                    <th width="42" height="45" class="border_right border_bottom2 attr42">
+                        <%= (@standard_day + i).day %>
+                        <div>
+                        (<%= %w(日 月 火 水 木 金 土)[(@standard_day+i).wday] %>)
+                        </div>
+                    </th>
+                <% end %>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <!--左の時刻表-->
+                <th class="border_right border_lef border_botto">
+                    <table>
+                        <% i = 0 %>
+                        <% @time_arry.each do |time| %>
+                            <% if i % 2 == 0 %>
+                                <tr>
+                                    <th width="90" height="38" style="font-size: 18px;" class="border_bottom"><%= time %></th>
+                                </tr>
+                            <% else %>
+                                <tr>
+                                    <th width="90" height="38" style="font-size: 15px;" class="border_bottom2 border_righ"><%= time %></th>
+                                </tr>
+                            <% end %>
+                            <% i += 1 %>
+                        <% end %>
+                    </table>
+                </th>
+                
+                <!--バツマル-->
+                <% for x in 1..14 do %>
+                    <th class="border_right">
+                        <!--このテーブルは縦一列-->
+                        <table>
+                            <% i = 0 %>
+                            <% @key = 0 %>
+                            <% @day_arry.each do |date| %>
+                                <!--基準となる日付を決める-->
+                                <% if x == 1 && @key == 0%>
+                                    <% @key_day = @day_arry[0] %>
+                                    <% @key = 1 %>
+                                <% elsif x >= 2 && @key == 0%>
+                                    <% if @key_day.day != date.day && @key_day < date %>
+                                        <% @key_day = date %>
+                                        <% @key = 1 %>
+                                    <% end %>
+                                <% end %>
+
+                                <!--基準となる日付が決まったらtd要素を作成-->
+                                <% if @key == 1 %>
+                                    <% break if @key_day.day != date.day && @key_day < date %> <!--日付が変わったらループ終了 例 1/1 23:30 で次が1/2 06:00だったら 1/2 のdateで打ち切る-->
+                                
+                                    <% if i % 2 == 0 %> <!--偶数番目の列はboreser-bottomが1px-->
+                                        <tr>
+                                            <td width="43" height="38" class="border_bottom">
+                                                <% if Reservation.find_by(start_time: date, menu_id: @menu.id).present? %>
+                                                    <% @reservation = Reservation.find_by(start_time: date, menu_id: @menu.id) %>
+                                                    <% @time_min = @reservation.start_time %>
+                                                    <% @time_max = @reservation.start_time  + @reservation.menu.time*60 - 1 %>
+                                                    <% @reservation_after = Reservation.where(start_time: @time_min..@time_max, status: 1) %>
+                                                    <% if @reservation_after.blank? %>
+                                                        <%= link_to edit_users_reservation_path(@reservation.id) do %>
+                                                            <p style='color: red;'>◎</p>
+                                                        <% end %>
+                                                    <% else %>
+                                                        <p style="color: blue">△</p>
+                                                    <% end %>
+                                                <% else %>
+                                                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                                <% end %>
+                                            </td>
+                                        </tr>
+                                    <% else %> <!--奇数番目の列はboreser-bottomが3px-->
+                                        <tr>
+                                            <td width="43" height="38" class="border_bottom2">
+                                                <% if Reservation.find_by(start_time: date, menu_id: @menu.id).present? %>
+                                                    <% @reservation = Reservation.find_by(start_time: date, menu_id: @menu.id) %>
+                                                    <% @time_min = @reservation.start_time %>
+                                                    <% @time_max = @reservation.start_time  + @reservation.menu.time*60 - 1 %>
+                                                    <% @reservation_after = Reservation.where(start_time: @time_min..@time_max, status: 1) %>
+                                                    <% if @reservation_after.blank? %>
+                                                        <%= link_to edit_users_reservation_path(@reservation.id) do %>
+                                                            <p style='color: red;'>◎</p>
+                                                        <% end %>
+                                                    <% else %>
+                                                        <p style="color: blue">△</p>
+                                                    <% end %>
+                                                <% else %> 
+                                                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                                <% end %>
+                                            </td>
+                                        </tr>
+                                    <% end %>
+                                <% end %>
+                                <% i += 1 %>
+                            <% end %>
+                        </table>
+                    </th>
+                <% end %>
+                
+                <!--右の時刻表-->
+                <th class="border_righ border_left border_bottm border_top">
+                    <table>
+                        <% i = 0 %>
+                        <% @time_arry.each do |time| %>
+                            <% if i % 2 == 0 %>
+                                <tr>
+                                    <th width="91" height="38" style="font-size: 18px;" class="border_bottom"><%= time %></th>
+                                </tr>
+                            <% else %>
+                                <tr>
+                                    <th width="91" height="38" style="font-size: 15px;" class="border_bottom2"><%= time %></th>
+                                </tr>
+                            <% end %>
+                            <% i += 1 %>
+                        <% end %>
+                    </table>
+                </th>
+            </tr>
+        </tbody>
+    </table>
+</div>

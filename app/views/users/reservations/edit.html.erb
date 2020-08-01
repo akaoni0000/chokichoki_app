@@ -1,32 +1,32 @@
 <div class="container"> 
-<h2 class="center" style="margin-bottom: 50px;">まだ予約は完了しておりません。[予約を確定する]ボタンを押してください。</h2>
-    <%= form_with(url: users_reservation_path(@reservation.id), method: :patch, class: "display_block reservation_form center") do |f| %>
-        <div class="expect">
-            <span>施術予想時間<%= @reservation.menu.time %>分</span>
-        </div>
-        <h3>美容師への要望</h3>
-        <%= f.text_area :user_request, class: "request form-control", style: "width: 400px; height: 200px;"%>
-        <h3 class="plan">支払い方法</h3>
-        <span class="point_check cursor">
-            <span class="category_name">ポイントで払う</span>
-            <%= f.check_box :point, {class: "checkbox cursor"}, 1, 0 %>
-        </span>
-        <span class="card_check cursor">
-            <span class="category_name">クレジットカードで払う</span>
-            <%= f.check_box :card, {class: "checkbox cursor"}, 1, 0 %>
-        </span>
-        <span class="registered_card_check cursor">
-            <span class="category_name">登録済みのクレジットカードで払う</span>
-            <%= f.check_box :registered_card, {class: "checkbox cursor"}, 1, 0 %>
-        </span>
-        <div>
-            <h3 class="error"></h3>
-            <%= f.submit "予約を確定する", class: "reservation_btn btn btn-success" %>
-        </div>
-    <%end%>
+    <h2 class="center" style="margin-bottom: 50px;">まだ予約は完了しておりません。[予約を確定する]ボタンを押してください。</h2>
+        <%= form_with(url: users_various_update_path(reservation_id: @reservation.id), method: :patch, class: "display_block reservation_form center") do |f| %>
+            <div class="expect">
+                <span>施術予想時間<%= @reservation.menu.time %>分</span>
+            </div>
+            <h3>美容師への要望</h3>
+            <%= f.text_area :user_request, class: "request form-control", style: "width: 400px; height: 200px;"%>
+            <h3 class="plan">支払い方法</h3>
+            <span class="point_check cursor">
+                <span class="category_name">ポイントで払う</span>
+                <%= f.check_box :point, {class: "checkbox cursor"}, 1, 0 %>
+            </span>
+            <span class="card_check cursor">
+                <span class="category_name">クレジットカードで払う</span>
+                <%= f.check_box :card, {class: "checkbox cursor"}, 1, 0 %>
+            </span>
+            <span class="registered_card_check cursor">
+                <span class="category_name">登録済みのクレジットカードで払う</span>
+                <%= f.check_box :registered_card, {class: "checkbox cursor"}, 1, 0 %>
+            </span>
+            <div>
+                <h3 class="error"></h3>
+                <%= f.submit "予約を確定する", class: "reservation_btn btn btn-success" %>
+            </div>
+        <%end%>
 </div>
 
-
+<!--クレジットカード情報入力モーダル-->
 <div class="card_modal">
     <div class="card_form">
         <div>
