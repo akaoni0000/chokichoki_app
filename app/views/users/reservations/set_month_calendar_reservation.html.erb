@@ -1,31 +1,19 @@
-<%= month_calendar events: @reservations do |date, reservations| %>
-    <%= date.day %>
-    <% if Date.today <= date %>
-        <% if reservations.blank?%>
-            <p>予約できません</p>
-        <% end %>
-        <% reservations.each do |reservation| %>
-            <% @time_min = reservation.start_time %>
-            <% @time_max = reservation.start_time  + reservation.menu.time*60 - 1 %>
-            <% @reservations_after = Reservation.where(start_time: @time_min..@time_max, status: 1) %>
-            <% if @reservations_after.blank? %>
-            <div>
-                <span><%= reservation.start_time.hour %>時<%= reservation.start_time.min %>分</span>
-                <span><%= link_to "予約する", edit_users_reservation_path(reservation.id), class: "user_reservation", id: reservation.id%>
-            </div>
-            <% else %>
-                <p>予約できません</p>
-            <% end %>
-        <% end %>
-    <% end %>
-<% end %>
-
-<div class="container reservation_menu">
-    <div class="menu_card reservation_menu_card">
+<div class="container">
+    <h3>ご希望の来店日時を選択してください</h3>
+    <%= link_to "週間カレンダーへ", users_set_week_calendar_reservation_path(menu_id: @menu.id), class: "to_month_calendar" %>
+    <div class="menu_card2" style="margin: 0 auto; margin-top: 15px;">
         <div class="menu_top" >
-            <div class="title font"><%= @menu.name %></div>
-            <div class="menu_time font"><%= @menu.time %>分</div>
-            <div class="card_categories">
+            <div>
+                <%= link_to users_hairdresser_path(@menu.hairdresser.id), remote: true do %>
+                    <%= attachment_image_tag @menu.hairdresser, :hairdresser_image, size: "70x70", fallback: "no_image.png", class: "img-circle face_img" %>
+                <% end %>
+
+                <!-- 美容師のshowモーダルを表示するための記述 -->
+                <div id="hairdresser_show" class="sign_up_in"></div>
+                <!-- 美容師のshowモーダルを表示するための記述 ここまで -->
+
+                <span class="title2 font"><%= @menu.name %></span>
+                <span class="menu_time2 font"><%= @menu.time %>分</span>
                 <% if @menu.category[0,1] == "1" %>
                     <span class="cut_category category font">カット</span>
                 <% end %>
@@ -38,10 +26,58 @@
                 <% if @menu.category[3,1] == "1" %>
                     <span class="perm_category category font">パーマ</span>
                 <% end %>
+                <div style="margin-left: 15px;"><%= @menu.hairdresser.name %></div>
+                <div class="star-rate-<%= @menu.hairdresser.id %>"></div>
+                    <!-- 星をつけるための記述 -->
+                    <% @comments = @menu.hairdresser.hairdresser_comments.where.not(rate: nil).count %>
+                        <script>
+                            $('.star-rate-<%= @menu.hairdresser.id %>').raty({
+                                size: 36,
+                                starOff:  '<%= asset_path('star-off.png') %>',
+                                starOn : '<%= asset_path('star-on.png') %>',
+                                starHalf: '<%= asset_path('star-half.png') %>',
+                                half: true,
+                                readOnly: true,
+                                //reputation_pointは評価ポイント(星)の合計　@commentsはコメントの数(評価ポイントをくれた人の人数) この二つで平均を出す　
+                                score: <%= @menu.hairdresser.reputation_point %>/<%= @comments %>,
+                            });
+                            //sizeを変えてもsize変わらなかったのでここで記述する
+                            $('.star-rate-<%= @menu.hairdresser.id %>').children("img").css({
+                                "width": "13px"
+                            })
+                            $('.star-rate-<%= @menu.hairdresser.id %>').children("img").eq(0).css({
+                                "margin-left": "5px"
+                            })
+                        </script>
+                    <!-- 星をつけるための記述 ここまで -->
             </div>
-        <div class="menu_bottom">
+        <div class="menu_bottom2">
             <%= attachment_image_tag @menu, :menu_image, fallback: "no_image.png", id: "prev_menu_img" %>
             <div class="explain font"><%= @menu.explanation %></div>
         </div>
     </div>
+</div>
+
+<div style="margin-top: 80px; margin-bottom: 80px;">
+<%= month_calendar events: @reservations do |date, reservations| %>
+            <%= date.day %>
+            <% if Date.today <= date %>
+                <% if reservations.blank?%>
+                    <p>予約できません</p>
+                <% end %>
+                <% reservations.each do |reservation| %>
+                    <% @time_min = reservation.start_time %>
+                    <% @time_max = reservation.start_time  + reservation.menu.time*60 - 1 %>
+                    <% @reservations_after = Reservation.where(start_time: @time_min..@time_max, status: 1) %>
+                    <% if @reservations_after.blank? %>
+                    <div>
+                        <span><%= reservation.start_time.hour %>時<%= reservation.start_time.min %>分</span>
+                        <span><%= link_to "予約する", edit_users_reservation_path(reservation.id), class: "user_reservation", id: reservation.id%>
+                    </div>
+                    <% else %>
+                        <p>予約できません</p>
+                    <% end %>
+                <% end %>
+            <% end %>
+        <% end %>
 </div>

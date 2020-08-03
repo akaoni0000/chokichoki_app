@@ -35,6 +35,10 @@ class Users::ReservationsController < ApplicationController
             @standard_day = Date.today 
         end
 
+        if params[:win_height].present?
+            gon.win_height = params[:win_height].to_i
+        end
+
         #テーブルの真ん中上の年月のviewを整えるのに使う
         @diff = (@standard_day.end_of_month - @standard_day).to_i
         
@@ -68,7 +72,6 @@ class Users::ReservationsController < ApplicationController
         end
 
         @menu = Menu.find(params[:menu_id])
-        gon.thead_fix = true
     end
 
     def set_month_calendar_reservation #月間カレンダーで予約

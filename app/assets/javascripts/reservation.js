@@ -28,49 +28,65 @@ $(function() {
     })
 });
 
-
 $(function() {
-    if (gon.thead_fix == true) {
-        var win = $(window);
-    //     $(".container").click(function(){
-    //     console.log(win.scrollTop());
-    // })
-        $(window).scroll(function (){
-            var height = $(".week_reservation_table").offset().top;
-            if (win.scrollTop()>=height) {
-                $("thead").css({
-                    //"position": "absolute",
-                    "position": "fixed",
-                    "top": "0px",
-                    "left": "107px",
-                    "z-index": 99,
-                    "background-color": "rgba(247, 247, 247, 1.0)",
-                    "border": "solid 1px  #BFB9B0; border-collapse: collapse"
-                })
-                $(".attr87").css({
-                    "border-left": "solid 1px #BFB9B0",
-                    "border-bottom": "solid 1px #BFB9B0",
-                    "border-right": "solid 1px #BFB9B0"
-                })
-                $(".attr87").attr({"href": 81});
-                $(".attr87").attr({'width': 81});
-                $(".attr43").attr({'width': 43});
-                $(".attr42").attr({'width': 42});
-                // $("tbody").css({
-                    
-                    
-                // })
-            } 
-            else if (win.scrollTop()<416) {
-                $("thead").css("position", "");
-                $("thead").css("background-color", "");
-            }
-        });
-    }
+    //console.log($(".td_color").children());
+    $('.td_color').each(function(){
+        if ($(this).find("p").hasClass("simbol_round")) {
+            $(this).css({
+                "background-color": "white"
+            })
+            $(this).addClass("hover_color");
+        } 
+        else if ($(this).find("p").hasClass("simbol_triangle")) {
+            $(this).css({
+                "background-color": "#CCCCCC"
+            })
+        } 
+        else if ($(this).find("span").hasClass("simbol_remove")) {
+            $(this).css({
+                "background-color": "#EEEEEE"
+            })
+        } 
+    });
     
+    //マルをhoverしたとき
+    $(".hover_color").hover(function(){
+        $(this).css({
+            "background-color": "red"
+        })
+    })
+    $('.hover_color').hover(function(){
+        $(this).css('background','pink');
+        },function(){
+        $(this).css('background','white');
+    });
+
+    // $('html').animate({
+    //     'scrollTop': position - 300
+    //   }, 1500);
+    
+    //$(window).scrollTop(300);
 });
 
 
-// $('html').animate({
-//     'scrollTop': position - 300
-//   }, 1500);
+$(function() {
+    //次の週をクリックした時点でのスクロール位置を取得してコントローラに送る
+    $(".next_week").on("click", function(e) {
+        //e.preventDefault();
+        var win_height = $(window).scrollTop();
+        var href = $(this).attr("href");        
+        $(this).attr('href', `${href}&win_height=${win_height}`);
+    });
+
+    //前の週をクリックした時点でのスクロール位置を取得してコントローラに送る
+    $(".last_week").on("click", function(e) {
+        //e.preventDefault();
+        var win_height = $(window).scrollTop();
+        var href = $(this).attr("href");        
+        $(this).attr('href', `${href}&win_height=${win_height}`);
+    });
+
+    if (gon.win_height) {
+        $(window).scrollTop(gon.win_height);
+    }
+});

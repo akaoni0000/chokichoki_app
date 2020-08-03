@@ -62,6 +62,8 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 
+#ここからオリジナル
+
 #画像投稿　リサイズ
 gem "refile", require: "refile/rails", github: 'manfe/refile'
 gem "refile-mini_magick"
@@ -110,3 +112,6 @@ gem 'capistrano-rbenv'
 
 #Google マップ
 gem 'gmaps4rails'
+
+#祝日表示
+gem 'holiday_jp'

@@ -26,6 +26,7 @@ body {
     min-height: 100vh;
     //margin-bottom: 140px;
     background-color:rgba(247, 247, 247, 1.0);
+    width: 100%;
     //padding-top: 30px;
     //padding-bottom: 100px;
     //position: relative;/*←相対位置*/
@@ -513,13 +514,14 @@ header {
 
 .search_box {
     width: 760px;
-    height: 100px;
+    height: 125px;
     margin: 0 auto;
     margin-bottom: 100px;
     background-color: white;
     border-radius: 30px;
     margin-top: -75px;
     padding-top: 20px;
+    border: 1px solid;
 }
 
 .search_tag {
@@ -541,7 +543,8 @@ header {
     border-radius: 30px;
     margin: 0 auto;
     padding: 30px;
-    margin-top: 60px;
+    margin-top: 30px;
+    border: 1px solid;
 }
 
 .search_menu, .search_day, .search_time, .search_area, .search_none, .search_area_name, .search_area_current_place, .search_reputation, .search_keyword {
@@ -1316,7 +1319,7 @@ hr {
     width: 700px;
     height: 292px;
     border-radius: 30px;
-    margin-top: 70px;
+    border: 1px solid;
 }
 
 .menu_bottom2 {
@@ -1357,12 +1360,13 @@ hr {
 //reservation
 .week_reservation_table {
    margin: 0 auto;
-   margin-top: 50px;
+   //margin-top: 50px;
    margin-bottom: 50px;
    table-layout: fixed;
    display: table;
    box-sizing: border-box;
    border: solid 1px  #BFB9B0; border-collapse: collapse;
+   width: 762px;
 }
 
 th {
@@ -1370,6 +1374,10 @@ th {
 }
 
 .border_top {
+    border-top: solid 1px #BFB9B0;
+}
+
+.border_top2 {
     border-top: solid 3px #BFB9B0;
 }
 
@@ -1395,6 +1403,104 @@ th {
 }
 
 .to_month_calendar {
-   float: right;
+   //float: right;
+   position: relative;
+   left: 416px;
+   top: -32px;
+}
+
+.width1 {
+    width: 87px;
+    height: 83px;
+}
+
+.width2 {
+    width: 588px;
+    height: 38px;
+}
+
+.height2 {
+    height: 38px;
+}
+
+.width3 {
+    width: 42px;
+    height: 45px;
+} 
+
+.width4 {
+    width: 87px;
+    height: 45px;
+} 
+
+.table_header {
+    background-color: white;
+}
+
+.table_time {
+    background-color: #DDDDDD;
+}
+
+#table_body {
+    display: table;
+}
+
+#table_head {
+    display: table;
+    //position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    z-index: 48;
+}
+
+.inline_block {
+    display: inline-block;
+    vertical-align: top;
+}
+
+
+.holiday_back1 {
+    background-color: #D9E3EC;
+}
+
+.holiday1 {
+    color: #4466BB;
+}
+
+.holiday_back2 {
+    background-color: #EEDDD9;
+}
+
+.holiday2 {
+    color: #BB5555;
+}
+
+.hover_color:hover {
+    background-color: red;
+}
+// .simbol {
+//     height: 42px;
+//     padding-top: 12px;
+// }
+
+.simbol_round {
+    // color: red;
+    // background-color: white;
+    height: 42px;
+    padding-top: 12px;
+}
+
+// .simbol_triangle {
+//     color: blue;
+// }
+
+.explain_simbol {
+    margin-top: 80px;
+    // margin-left: 90px;
     
+    text-align: center;
+}
+
+.simbol {
+    margin-left: 10px;
 }

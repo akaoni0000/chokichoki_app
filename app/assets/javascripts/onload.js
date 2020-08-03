@@ -63,6 +63,10 @@ window.onload = function () {
     if (gon.display_none == "remove_display_none") {
       $(".display_th").removeClass();
     }
+
+
+
+    
     
 };
    
