@@ -1,35 +1,5 @@
+//css
 $(function() {
-    $(".function").click(function(){
-        //すでに予約を作成してあるマル(時刻)をクリックした時
-        if ($(this).find("div").size()) {
-            $(this).html("<span class='glyphicon glyphicon-remove' aria-hidden='true'></span><a></a>");
-            var reservation_time = $(this).attr('href');
-            $("#hairdresser_reservation_form").append(`<input type="hidden" name="start_time_remove[]" value=${reservation_time} class="${reservation_time}"></input>`);
-        }
-        //すでに予約を作成してあるバツ(時刻)をクリックした時
-        else if ($(this).find("a").size()) {
-            $(this).html("<p style='color: red;'>◎</p><div></div>");
-            var reservation_time = $(this).attr('href');
-            $("#hairdresser_reservation_form").find(`.${reservation_time}`).remove();
-        }
-
-        //予約を作成してないバツ(時刻)をクリックした時
-        else if (!$(this).find("p").size()) {
-            $(this).html("<p style='color: red;'>◎</p>");
-            var reservation_time = $(this).attr('href');
-            $("#hairdresser_reservation_form").append(`<input type="hidden" name="start_time[]" value=${reservation_time} class="${reservation_time}"></input>`);
-        }
-        //予約を作成してないマル(時刻)をクリックした時
-        else {
-            $(this).html("<span class='glyphicon glyphicon-remove' aria-hidden='true'></span>");
-            var reservation_time = $(this).attr('href');
-            $("#hairdresser_reservation_form").find(`.${reservation_time}`).remove();
-        }
-    })
-});
-
-$(function() {
-    //console.log($(".td_color").children());
     $('.td_color').each(function(){
         if ($(this).find("p").hasClass("simbol_round")) {
             $(this).css({
@@ -42,13 +12,29 @@ $(function() {
                 "background-color": "#CCCCCC"
             })
         } 
-        else if ($(this).find("span").hasClass("simbol_remove")) {
+        else if ($(this).find("p").hasClass("simbol_remove")) {
             $(this).css({
                 "background-color": "#EEEEEE"
             })
         } 
+        else if ($(this).find("p").hasClass("simbol_exist_reservation")) {
+            $(this).css({
+                "background-color": "#99CCFF"
+            })
+        } 
     });
-    
+
+    //偶数番目 奇数番目でcssをわける
+    $(".times").each(function(){
+        $('.times tr:odd').children("th").addClass("small_time");
+        $('.times tr:even').children("th").addClass("big_time");
+    });
+
+    //偶数番目 奇数番目でcssをわける
+    $(".simbols").each(function(){
+        $('.simbols tr:odd').children("td").addClass("border_bottom2");
+    });
+
     //マルをhoverしたとき
     $(".hover_color").hover(function(){
         $(this).css({
@@ -60,33 +46,91 @@ $(function() {
         },function(){
         $(this).css('background','white');
     });
-
-    // $('html').animate({
-    //     'scrollTop': position - 300
-    //   }, 1500);
-    
-    //$(window).scrollTop(300);
 });
 
-
+//マル、バツをクリックした時 発動
 $(function() {
-    //次の週をクリックした時点でのスクロール位置を取得してコントローラに送る
-    $(".next_week").on("click", function(e) {
-        //e.preventDefault();
+    $(".function").click(function(){
+        //すでに予約を作成してあるマル(時刻)をクリックした時
+        console.log($(this).html());
+        if ($(this).children().hasClass("exist_reservation")) {
+            console.log(1);
+            $(this).html("<p class='glyphicon glyphicon-remove simbol_remove remove_exist_reservation' aria-hidden='true'></p>");
+            var reservation_time = $(this).attr('href');
+            $("#hairdresser_reservation_form").append(`<input type="text" name="start_time_remove[]" value=${reservation_time} class="${reservation_time}"></input>`);
+        }
+        //すでに予約を作成してあるバツ(時刻)をクリックした時
+        else if ($(this).children().hasClass("remove_exist_reservation")) {
+            console.log(2);
+            $(this).html("<p style='color: red;' class='simbol_round exist_reservation'>◎</p>");
+            var reservation_time = $(this).attr('href');
+            $("#hairdresser_reservation_form").find(`.${reservation_time}`).remove();
+        }
+
+        //予約を作成してないバツ(時刻)をクリックした時
+        else if ($(this).children().hasClass("not_reservation")) {
+            console.log(3);
+            $(this).html("<p style='color: red;' class='simbol_round remove_not_reservation'>◎</p>");
+            var reservation_time = $(this).attr('href');
+            $("#hairdresser_reservation_form").append(`<input type="text" name="start_time[]" value=${reservation_time} class="${reservation_time}"></input>`);
+        }
+        //予約を作成してないマル(時刻)をクリックした時
+        else if ($(this).children().hasClass("remove_not_reservation")) {
+            console.log(4);
+            $(this).html("<p class='glyphicon glyphicon-remove simbol_remove not_reservation' aria-hidden='true'></p>");
+            var reservation_time = $(this).attr('href');
+            $("#hairdresser_reservation_form").find(`.${reservation_time}`).remove();
+        }
+    })
+});
+
+//次の月、前の月、次の週、前の週のlinkをクリックした時、発動
+$(function() {
+    $(".link_last_next").on("click", function(e) {
+        var a = $("#hairdresser_reservation_form").children().length;
+        if ( a >= 6 ) {
+            if(confirm('変更は破棄されます。よろしいですか？')){
+                //OKの時の処理
+            }else{
+                //キャンセルの時の処理
+                e.preventDefault();
+                $(this).hover(function(){
+                    $(this).css('color','#CC9933');
+                }, function(){
+                    $(this).css('color','#DEB887');
+                })
+            }
+        } 
         var win_height = $(window).scrollTop();
         var href = $(this).attr("href");        
         $(this).attr('href', `${href}&win_height=${win_height}`);
     });
 
-    //前の週をクリックした時点でのスクロール位置を取得してコントローラに送る
-    $(".last_week").on("click", function(e) {
-        //e.preventDefault();
+    //変更を保存するをクリック
+    $(".change_form").on("click", function(e) {
         var win_height = $(window).scrollTop();
-        var href = $(this).attr("href");        
-        $(this).attr('href', `${href}&win_height=${win_height}`);
+        $("#hairdresser_reservation_form").append(`<input type="hidden" name="win_height" value=${win_height}></input>`)
     });
 
     if (gon.win_height) {
         $(window).scrollTop(gon.win_height);
     }
+
+    if (gon.scroll) {
+        $(window).scrollTop(500);
+    }
 });
+
+//会員ログインしないで予約をすることを防ぐ
+$(function() {
+    if (!gon.user) {
+        $(".user_reservation").on("click", function(e) {
+            e.preventDefault();
+            var reservation_id = $(this).attr("id"); 
+            $('#user_sign_in').fadeIn();
+            $(".user_login_error").text("ログインする必要があります");
+            $("#user_login_form").append(`<input type="hidden" name="reservation_id" value=${reservation_id}></input>`)
+        });
+    }
+});
+

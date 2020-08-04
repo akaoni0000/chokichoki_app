@@ -103,6 +103,21 @@ li:hover {
     transform : translate(0, 150px);  //右へ0px 下に100px下げる
 }
 
+//flash
+#flash {
+    background-color: rgba(153, 255, 161, 0.5);
+    width: 300px;
+    height: 70px;
+    font-size: 21px;
+    padding-top: 20px;
+    text-align: center;
+    border-radius: 10px;
+    border: 1px solid green;
+    position: fixed;
+    top: 200px;
+    color: #009900;
+    right: 100px;
+}
    
     
 //header
@@ -110,7 +125,7 @@ header {
     width: 100%;
     height: 180px;
     //background-color: transparent;
-    background-color:rgba(255, 255, 255, 0.5);
+    background-color:rgba(255, 255, 255, 0.9);
     //background-color: transparent;
     margin-top: -20px;
     z-index: 80;
@@ -1404,9 +1419,8 @@ th {
 
 .to_month_calendar {
    //float: right;
-   position: relative;
-   left: 416px;
-   top: -32px;
+   font-size: 15px;
+   margin-left: 20px;
 }
 
 .width1 {
@@ -1503,4 +1517,27 @@ th {
 
 .simbol {
     margin-left: 10px;
+}
+
+.please_reservation {
+    margin-top: 30px;
+    margin-bottom: 50px;
+}
+
+.change_form {
+    position: fixed;
+    top: 780px;
+    right: 275px;
+    // margin-left: 870px;
+    // margin-top: 300px;
+}
+
+.big_time {
+    font-size: 18px;
+    border-bottom: solid 1px #BFB9B0;
+}
+
+.small_time {
+    font-size: 15px;
+    border-bottom: solid 3px #BFB9B0;
 }

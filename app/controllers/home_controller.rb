@@ -7,10 +7,18 @@ class HomeController < ApplicationController
         @user_page = "user"
         gon.body = "white"
         gon.fix = "header"
+        if session[:double] == true
+            gon.double = true
+            session[:double] = nil
+        end
     end
     def hairdresser_top
         @hairdresser_page = "hairdresser"
         gon.body ="white"
         gon.fix = "header"
+        if session[:double] == true
+            gon.d8uble = true
+            session[:double] = nil
+        end
     end
 end

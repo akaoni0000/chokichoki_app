@@ -64,9 +64,8 @@ window.onload = function () {
       $(".display_th").removeClass();
     }
 
-
-
-    
-    
+    // if (gon.prevent == "admin") {
+    //   alert("二重ログインは禁止されています。ログイン状態をリセットしました。")
+    // }
 };
    

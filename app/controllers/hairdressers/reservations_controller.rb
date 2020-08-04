@@ -67,39 +67,34 @@ class Hairdressers::ReservationsController < ApplicationController
             @standard_day = Date.today 
         end
 
+        if params[:win_height].present?
+            gon.win_height = params[:win_height].to_i
+        end
+
         #テーブルの真ん中上の年月のviewを整えるのに使う
         @diff = (@standard_day.end_of_month - @standard_day).to_i
         
-        #配列[06:00, 06:30, 07:00, ....]を作っただけ 数字を全て数字を全て記述するのが面倒だったので工夫した
-        @time_arry = []  
-        for i in 0..35 do 
-            @time = Time.local(2000,1,1) + 3600*6    
-            @time += 60 * 30 * i  
-            if @time.hour.to_s.length == 1
-                @time_hour = 0.to_s + @time.hour.to_s
-            else
-                @time_hour = @time.hour
-            end
-            if @time.min == 0
-                @time_min = "00"
-            else
-                @time_min = @time.min
-            end
-            @time_arry.push("#{@time_hour}:#{@time_min}")
-        end 
-        
-        #例　配列[1/1 06:00, 1/1 06:30, 1/1 07:00, ..... 1/1 23:30, 1/2 06:00, .....] を作成
-        @day_arry = []
+        @time_arry = ["06:00", "06:30", "07:00", "07:30", "08:00", "08:30", "09:00", "09:30", "10:00", "10:30", "11:00", "11:30", "12:30", "12:30", "13:00", "13:30", "14:00", "14:30", "15:00","15:30", "16:00", "16:30", "17:00", "17:30", "18:00", "18:30", "19:00", "19:30", "20:00", "20:30", "21:00", "21:30", "22:00", "22:30", "23:00", "23:30"]
+
         for i in 1..14 do 
-            @key_time = Time.local(@standard_day.year, @standard_day.month, @standard_day.day) + 3600*6 + 3600*24*(i-1)
-            for n in 0..35 do
-                @time = @key_time
-                @time += 60 * 30 * n #+30分
-                @day_arry.push(@time)
+            if i == 1 
+                @key_time = Time.local(@standard_day.year, @standard_day.month, @standard_day.day) + 3600*6 + 3600*24*(i-1)   #秒で計算している 3600は一時間
+                @day_arry = @key_time.to_i.step( (Time.local(@standard_day.year, @standard_day.month, @standard_day.day)+3600*23.5).to_i, 60*30).to_a    
+                @day_arry.map! {|a| Time.at(a)}
+            else 
+                @key_time = Time.local(@standard_day.year, @standard_day.month, @standard_day.day) + 3600*6 + 3600*24*(i-1)
+                @day_next_arry = @key_time.to_i.step( (Time.local(@standard_day.year, @standard_day.month, @standard_day.day)+3600*24*(i-1)+3600*23.5).to_i, 60*30).to_a
+                @day_next_arry.map! {|a| Time.at(a)}
+                @day_arry.push(@day_next_arry)
             end
         end
-
+        @day_arry.flatten!
+    
         @menu = Menu.find(params[:menu_id])
+
+        if flash[:notice].present?
+            gon.flash = true
+        end
     end
 
     def create_destroy_reservation #週間カレンダーからの予約作成
@@ -121,12 +116,27 @@ class Hairdressers::ReservationsController < ApplicationController
             end
         end
 
-        redirect_to hairdressers_set_week_calendar_reservation_path(menu_id: params[:menu_id], standard_day: params[:standard_day])
+        flash[:notice] = "変更を保存しました"
+        redirect_to hairdressers_set_week_calendar_reservation_path(menu_id: params[:menu_id], standard_day: params[:standard_day], win_height: params[:win_height])
     end
     
     def set_month_calendar_reservation
         @reservations = Reservation.where(menu_id: params[:menu_id])
         @menu = Menu.find(params[:menu_id])
+        if params[:win_height].present? #リンクの 前の月 次の月 をクリックしたらある
+            gon.win_height = params[:win_height].to_i
+        end
+        if params[:start_date].present? #リンクの 前の月 次の月 をクリックしたらある
+            @start_year = params[:start_date].to_time.year
+            @start_month = params[:start_date].to_time.month
+            @start_date = params[:start_date]
+        else
+            @start_year = Date.today.year
+            @start_month = Date.today.month
+        end
+        if params[:win_scroll].present? #リンクの カレンダーに戻る をクリックしたらある
+            gon.scroll = true
+        end
     end
 
     def new
@@ -146,6 +156,7 @@ class Hairdressers::ReservationsController < ApplicationController
                 @reservations_arry.push(reservation)
             end
         end
+        @start_date = params[:start_date]
     end
 
     def create #月間カレンダーからの予約作成
@@ -167,6 +178,7 @@ class Hairdressers::ReservationsController < ApplicationController
                     @reservations_arry.push(reservation)
                 end
             end
+            @start_date = params[:start_date]
             render "hairdressers/reservations/new"
         else
             @reservation.menu_id = params[:menu_id]
@@ -182,8 +194,8 @@ class Hairdressers::ReservationsController < ApplicationController
             else
                 @min += 30    #時間を登録したらフォームにはその時間の30分後の時間が初期値として入力されているようにする
             end
-            
-            redirect_to new_hairdressers_reservation_path(menu_id: @reservation.menu_id, year: @year, month: @month, day: @day, hour: @hour, min: @min)
+            @start_date = params[:start_date]
+            redirect_to new_hairdressers_reservation_path(menu_id: @reservation.menu_id, year: @year, month: @month, day: @day, hour: @hour, min: @min, start_date: @start_date)
         end
     end
 

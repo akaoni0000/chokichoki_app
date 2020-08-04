@@ -15,6 +15,9 @@
         <script src='//cdn.rawgit.com/printercu/google-maps-utility-library-v3-read-only/master/infobox/src/infobox_packed.js' type='text/javascript'></script> 
     </head>
     <body>
+        <div id="flash" class="display_none">
+            <p><%= flash[:notice] %> </p>
+        </div>
 
 
 <!--<h1>google map</h1>
@@ -161,8 +164,7 @@
             <div id="user_register">
                 <span class="glyphicon glyphicon-remove cursor" style="margin-left: 440px; -size: 25px; margin-top: 10px;"></span>
                 <h1  style="margin-top: -20px;">会員登録</h1>
-                <div class="total_error error">
-                </div>
+                <div class="total_error error"></div>
                 <%= form_with(model: @user, url: users_path, method: :post, remote: true, class: "user_form") do |f|%>
                     <p>ユーザー名<span class="must">必須</span></p>
                     <p class="user_name_error error"></p>

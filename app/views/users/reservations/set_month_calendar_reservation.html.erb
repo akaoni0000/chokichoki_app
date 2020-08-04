@@ -1,6 +1,5 @@
 <div class="container">
-    <h3>ご希望の来店日時を選択してください</h3>
-    <%= link_to "週間カレンダーへ", users_set_week_calendar_reservation_path(menu_id: @menu.id), class: "to_month_calendar" %>
+    <h3 class="please_reservation">ご希望の来店日時を選択してください<%= link_to "週間カレンダーへ", users_set_week_calendar_reservation_path(menu_id: @menu.id), class: "to_month_calendar" %></h3>
     <div class="menu_card2" style="margin: 0 auto; margin-top: 15px;">
         <div class="menu_top" >
             <div>

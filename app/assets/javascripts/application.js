@@ -23,6 +23,17 @@
 //turbolinksがあるとjsが発動しないことがあるので消した
 //topページ
 
+
+//フラッシュ
+$(function() {
+  if (gon.flash == true) {
+      $("#flash").removeClass("display_none");
+      setTimeout(function(){
+          $('#flash').fadeOut(); 
+      },5000);  
+  }
+});
+
 $(function() {
 　//会員の新規会員登録
   $('#new_user').click(function() {
@@ -883,14 +894,14 @@ $(function() {
   $("a").click(function () { 
     $(this).css({
       "text-decoration":"none"
+
     });
     $(".hairdresser_tag").css({
       "text-decoration":"none",
       "color": "#DEB887" 
     });
     $(".cursor").css({
-      "text-decoration":"none",
-      "color": "#DEB887" 
+      "text-decoration":"none"
     });
     $(".reservation_hairdresser_name").css({
       "text-decoration":"none"
@@ -1064,4 +1075,11 @@ $(function() {
     finish_rate = $(this).prop("selectedIndex");  //selectボックスで何番目のoptionが選択されているかを取得
     $("#start_rate").children("option").slice(finish_rate+1, ).attr("disabled", true)
   })
+});
+
+//二重ログイン防止
+$(function(){
+  if (gon.double == true) {
+    alert("二重ログインは禁止されています。ログイン状態をリセットしました。")
+  }
 });

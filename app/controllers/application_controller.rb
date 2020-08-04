@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
 
-    require "date"   #これでDateが使える
+    require "date"   #これでDateクラスが使える
     protect_from_forgery with: :null_session #jsファイルから非同期でコントローラにデータを送るときこれがあるとCSRF保護が無効になり非同期できる
 
     before_action :set_current_user
@@ -39,16 +39,24 @@ class ApplicationController < ActionController::Base
       gon.hairdresser_name_data = Hairdresser.pluck(:name)  #nameだけを配列で取得
       gon.hairdresser_email_data = Hairdresser.pluck(:email)  #emailだけを配列で取得
       gon.user = @current_user
-      # if @current_user.present? && @current_admin.present?
-      #   session[:user_id] = nil
-      #   session[:admin_id] = nil
-      #   gon.prevent = "admin"
-      # end
-      # if @current_hairdresser.present? && @current_admin.present?
-      #   session[:hairdresser_id] = nil
-      #   session[:admin_id] = nil
-      #   gon.prevent = "admin"
-      # end
+      if @current_user.present? && @current_admin.present?
+        session[:user_id] = nil
+        session[:admin_id] = nil
+        session[:double] = true
+        redirect_to root_path
+      end
+      if @current_hairdresser.present? && @current_admin.present?
+        session[:hairdresser_id] = nil
+        session[:admin_id] = nil
+        session[:double] = true
+        redirect_to root_path
+      end
+      if @current_hairdresser.present? && @current_user.present?
+        session[:hairdresser_id] = nil
+        session[:user_id] = nil
+        session[:double] = true
+        redirect_to root_path
+      end
     end
 
     def set_new_show

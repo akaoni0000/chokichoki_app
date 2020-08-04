@@ -43,33 +43,57 @@ class Users::ReservationsController < ApplicationController
         @diff = (@standard_day.end_of_month - @standard_day).to_i
         
         #配列[06:00, 06:30, 07:00, ....]を作っただけ 数字を全て数字を全て記述するのが面倒だったので工夫した
-        @time_arry = []  
-        for i in 0..35 do 
-            @time = Time.local(2000,1,1) + 3600*6    
-            @time += 60 * 30 * i  
-            if @time.hour.to_s.length == 1
-                @time_hour = 0.to_s + @time.hour.to_s
-            else
-                @time_hour = @time.hour
-            end
-            if @time.min == 0
-                @time_min = "00"
-            else
-                @time_min = @time.min
-            end
-            @time_arry.push("#{@time_hour}:#{@time_min}")
-        end 
+        # @time_arry = []  
+        # for i in 0..35 do 
+        #     @time = Time.local(2000,1,1) + 3600*6    
+        #     @time += 60 * 30 * i  
+        #     if @time.hour.to_s.length == 1
+        #         @time_hour = 0.to_s + @time.hour.to_s
+        #     else
+        #         @time_hour = @time.hour
+        #     end
+        #     if @time.min == 0
+        #         @time_min = "00"
+        #     else
+        #         @time_min = @time.min
+        #     end
+        #     @time_arry.push("#{@time_hour}:#{@time_min}")
+        # end 
+        @time_arry = ["06:00", "06:30", "07:00", "07:30", "08:00", "08:30", "09:00", "09:30", "10:00", "10:30", "11:00", "11:30", "12:30", "12:30", "13:00", "13:30", "14:00", "14:30", "15:00","15:30", "16:00", "16:30", "17:00", "17:30", "18:00", "18:30", "19:00", "19:30", "20:00", "20:30", "21:00", "21:30", "22:00", "22:30", "23:00", "23:30"]
         
         #配列を作成         例　配列[1/1 06:00, 1/1 06:30, 1/1 07:00, ..... 1/1 23:30, 1/2 06:00, .....] を作成
-        @day_arry = []
+        # @day_arry = []
         for i in 1..14 do 
-            @key_time = Time.local(@standard_day.year, @standard_day.month, @standard_day.day) + 3600*6 + 3600*24*(i-1)
-            for n in 0..35 do
-                @time = @key_time
-                @time += 60 * 30 * n #+30分
-                @day_arry.push(@time)
+            if i == 1 
+                @key_time = Time.local(@standard_day.year, @standard_day.month, @standard_day.day) + 3600*6 + 3600*24*(i-1)   #秒で計算している 3600は一時間
+                @day_arry = @key_time.to_i.step( (Time.local(@standard_day.year, @standard_day.month, @standard_day.day)+3600*23.5).to_i, 60*30).to_a    
+                @day_arry.map! {|a| Time.at(a)}
+            else 
+                @key_time = Time.local(@standard_day.year, @standard_day.month, @standard_day.day) + 3600*6 + 3600*24*(i-1)
+                @day_next_arry = @key_time.to_i.step( (Time.local(@standard_day.year, @standard_day.month, @standard_day.day)+3600*24*(i-1)+3600*23.5).to_i, 60*30).to_a
+                @day_next_arry.map! {|a| Time.at(a)}
+                @day_arry.push(@day_next_arry)
             end
         end
+        @day_arry.flatten!
+        
+
+        # @day_arry = []
+        # for i in 1..14 do 
+        #     @key_time = Time.local(@standard_day.year, @standard_day.month, @standard_day.day) + 3600*6 + 3600*24*(i-1)
+        #     for n in 0..35 do
+        #         @time = @key_time
+        #         @time += 60 * 30 * n #+30分
+        #         @day_arry.push(@time)
+        #     end
+        # end
+        #     for n in 0..35 do
+        #         @time = @key_time
+        #         @time += 60 * 30 * n #+30分
+        #         @day_arry.push(@time)
+        #     end
+        # end
+       
 
         @menu = Menu.find(params[:menu_id])
     end
@@ -77,6 +101,16 @@ class Users::ReservationsController < ApplicationController
     def set_month_calendar_reservation #月間カレンダーで予約
         @reservations = Reservation.where(menu_id: params[:menu_id])
         @menu = Menu.find(params[:menu_id])
+        if params[:win_height].present?
+            gon.win_height = params[:win_height].to_i
+        end
+        if params[:start_date].present?
+            @start_year = params[:start_date].to_time.year
+            @start_month = params[:start_date].to_time.month
+        else
+            @start_year = Date.today.year
+            @start_month = Date.today.month
+        end
     end
 
     def edit #予約を確定するかどうか最終確認画面
