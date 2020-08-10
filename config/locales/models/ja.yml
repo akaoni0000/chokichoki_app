@@ -1,0 +1,15 @@
+ja:
+  activerecord:
+    attributes:
+      user: 
+        name: 名前
+        email: メールアドレス
+        phone_number: 電話番号
+        sex: 性別
+        password: パスワード
+        password_confirmation: 確認用パスワード
+      admin: 
+        email: メールアドレス
+        password: パスワード
+        current_password: 現在のパスワード
+        password_confirmation: 新しいパスワード

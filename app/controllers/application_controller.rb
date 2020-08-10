@@ -8,6 +8,7 @@ class ApplicationController < ActionController::Base
     before_action :set_current_admin
     before_action :admin_reject
     before_action :set_gon
+    before_action :double_login_prevent
     before_action :set_new_show
     before_action :set_reservation_notification
     before_action :force_comment
@@ -34,11 +35,11 @@ class ApplicationController < ActionController::Base
 
     def set_gon
       gon.key = ENV['KEY']
-      gon.user_name_data = User.pluck(:name)  #nameだけを配列で取得
-      gon.user_email_data = User.pluck(:email)  #emailだけを配列で取得
-      gon.hairdresser_name_data = Hairdresser.pluck(:name)  #nameだけを配列で取得
-      gon.hairdresser_email_data = Hairdresser.pluck(:email)  #emailだけを配列で取得
       gon.user = @current_user
+    end
+
+    def double_login_prevent
+      #二重ログイン防止
       if @current_user.present? && @current_admin.present?
         session[:user_id] = nil
         session[:admin_id] = nil
@@ -60,24 +61,15 @@ class ApplicationController < ActionController::Base
     end
 
     def set_new_show
-      @user = User.new
-      @hairdresser = Hairdresser.new
+      @user_new = User.new
+      @hairdresser_new = Hairdresser.new
     end
 
+    #通知機能
     def set_reservation_notification
-      if session[:update] == "please_reservation_notification_update"
-        @notice_reservations = @current_hairdresser.reservations.where.not(notification_status: 1, user_id: nil)
-        @notice_reservations.update_all(:notification_status => 1 )
-        session[:update] = nil
-      end
-      if session[:cancel_update] == "please_reservation_notification_cancel_update"
-        @user_cancel = UserCancel.where(hairdresser_id: @current_hairdresser.id, notification_status: 0)
-        @user_cancel.update_all(:notification_status => 1 )
-        session[:cancel_update] = nil
-      end
-      if @current_hairdresser
+      if @current_hairdresser.present?
         @notice_reservations_number = @current_hairdresser.reservations.where.not(notification_status: 1, user_id: nil).length
-        @cancel_number = UserCancel.where(hairdresser_id: @current_hairdresser.id, notification_status: 0).length
+        @cancel_number = CancelReservation.where(hairdresser_id: @current_hairdresser.id, notification_status: 0).length
       end
     end
     

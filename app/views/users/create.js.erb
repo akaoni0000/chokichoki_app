@@ -1,27 +1,99 @@
-// <% if @error == "password_fail" %>
-//     $(".error").html("<%= j(render "home/error", target: @user) %> <p>パスワードが一致しません</p>");
-// <% else %>
-//     $(".error").html("<%= j(render "home/error", target: @user) %>");
-// <% end %>
-var address = "111-1111";
-  var reg = /^[0-9]{3}-[0-9]{4}$/;
-  if (reg.test(address)) {
-    console.log("正しい");
-  } else {
-    console.log("間違っている");
-  }
-var address = "111-111-1111";
-  var reg = /^[0-9]{3}-[0-9]{3}-[0-9]{4}$/;
-  if (reg.test(address)) {
-    console.log("正しい");
-  } else {
-    console.log("間違っている");
-  }
+$(".total").remove();
+$(".total_error").append('<h2 class="total"><%= @total_error %>件のエラーがあります</h2>');
+<% if @error_name_short.present? || @error_name_taken.present? %>
+    <% if @error_name_short.present? %>
+        $(".name_short").remove();
+        $(".user_name_error").append('<p class="name_short"><%= @error_name_short %></p>');
+    <% else %>
+        $(".name_short").remove();
+    <% end %>
+    <% if @error_name_taken.present? %>
+        $(".name_taken").remove();
+        $(".user_name_error").append('<p class="name_taken"><%= @error_name_taken %><p>');
+    <% else %>
+        $(".name_taken").remove();
+    <% end %>
+    $(".name").css({
+        "border-color": "red",
+        "border-width": "2px"
+    });
+<% else %>
+    $(".user_name_error").html("");
+    $(".name").css({
+        "border-width":"0px"
+    });
+<% end %>
 
-var address = "12345679";
-  var reg = /^[0-9]{9}$/;
-  if (reg.test(address)) {
-    console.log("正しい");
-  } else {
-    console.log("間違っている");
-  }
+<% if @error_email_invalid.present? || @error_email_taken.present? %>
+    <% if @error_email_invalid.present? %>
+        $(".email_invalid").remove();
+        $(".user_email_error").append('<p class="email_invalid"><%= @error_email_invalid %></p>');
+    <% else %>
+        $(".email_invalid").remove();
+    <% end %>
+    <% if @error_email_taken.present? %>
+        $(".email_taken").remove();
+        $(".user_email_error").append('<p class="email_taken"><%= @error_email_taken %><p>');
+    <% else %>
+        $(".email_taken").remove();
+    <% end %>
+    $(".email").css({
+        "border-color": "red",
+        "border-width": "2px"
+    });
+<% else %>
+    $(".user_email_error").html("");
+    $(".email").css({
+        "border-width":"0px"
+    });
+<% end %>
+
+
+<% if @error_phone_invalid.present? %>
+    $(".phone_invalid").remove();
+    $(".user_phone_error").append('<p class="phone_invalid"><%= @error_phone_invalid %></p>');
+    $(".phone_number").css({
+        "border-color": "red",
+        "border-width": "2px"
+    });
+<% else %>
+    $(".user_phone_error").html("");
+    $(".phone_number").css({
+        "border-width":"0px"
+    });
+<% end %>
+
+<% if @error_password_short.present? || @error_password_confirmaiton.present? %>
+    <% if @error_password_short.present? %>
+        $(".password_short").remove();
+        $(".user_password_error").append('<p class="password_short"><%=  @error_password_short %></p>');
+    <% else %>
+        $(".password_short").remove();
+    <% end %>
+    <% if @error_password_confirmaiton.present? %>
+        $(".password_confirm").remove();
+        $(".user_password_error").append('<p class="password_confirm"><%= @error_password_confirmaiton %><p>');
+    <% else %>
+        $(".password_confirm").remove();
+    <% end %>
+    $(".password").css({
+        "border-color": "red",
+        "border-width": "2px"
+    });
+<% else %>
+    $(".user_password_error").html("");
+    $(".password").css({
+        "border-width":"0px"
+    });
+<% end %>
+
+<% if @error_sex_blank.present? %>
+    $(".sex_blank").remove();
+    $(".user_sex_error").append('<p class="sex_blank"><%= @error_sex_blank %></p>');
+<% else %>
+    $(".user_sex_error").html("");
+<% end %>
+
+
+
+

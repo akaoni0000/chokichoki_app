@@ -15,9 +15,16 @@
         <script src='//cdn.rawgit.com/printercu/google-maps-utility-library-v3-read-only/master/infobox/src/infobox_packed.js' type='text/javascript'></script> 
     </head>
     <body>
-        <div id="flash" class="display_none">
-            <p><%= flash[:notice] %> </p>
-        </div>
+        <% if flash[:notice].present? %>
+            <div id="flash">
+                <p><%= flash[:notice] %> </p>
+            </div>
+        <% end %>
+        <% if flash[:notice_red].present? %>
+            <div id="flash_red">
+                <p><%= flash[:notice_red] %> </p>
+            </div>
+        <% end %>
 
 
 <!--<h1>google map</h1>
@@ -57,12 +64,14 @@
                 <% if @current_user %>
                     <div class="welcome">
                         <p class="">ようこそ、<%= @current_user.name %>さん</p>
-                        <p class="">現在のポイントは、<%= @current_user.point %>ポイント</p>
+                        <p class="">現在のポイントは、<%= @current_user.point %>pt</p>
+                        <p><%= link_to "ログアウト", user_logout_path, method: :post %></p>
                     </div>
                 <% end %>
                 <% if @current_hairdresser %>
                     <div class="welcome2">
                         <p class="">ようこそ、<%= @current_hairdresser.name %>さん</p>
+                        <p><%= link_to "ログアウト", hairdresser_logout_path, method: :post %></p>
                     </div>
                 <% end %>
             </div>
@@ -89,7 +98,7 @@
                     <% else %>
                         <li class="tag"><%= link_to "キャンセル", hairdressers_cancel_index_path, class: "cancel_link" %></li>
                     <% end %>
-                    <li class="tag"><%= link_to "ヘアスタイル",  edit_style_image_path(@current_hairdresser.id) %></li>
+                    <li class="tag"><%= link_to "ヘアスタイル", edit_style_image_path(@current_hairdresser.id) %></li>
                 </ul>
             <% elsif @current_admin %>
                 <ul id = "admin_header">
@@ -137,11 +146,11 @@
                     <li class="tag"><%= link_to "美容師一覧", hairdressers_path %></li>
                     <li class="tag login">ログイン</li>
                     <li class="tag sign_up">新規会員登録</li>
-                    <div class="answer slide_down sign_in_block_hairdresser">
+                    <div class="answer slide_down sign_in_block_hairdresser none_login">
                         <p id="login_user" class="cursor">会員ログイン</p>
                         <p id="login_hairdresser" class="cursor ">美容師ログイン</p>
                     </div>
-                    <div class="answer2 slide_down sign_up_block_hairdresser">
+                    <div class="answer2 slide_down sign_up_block_hairdresser none_new">
                         <p id="new_user" class="cursor ">会員登録</p>
                         <p id="new_hairdresser" class="cursor ">美容師登録</p>
                     </div>
@@ -154,32 +163,31 @@
         </main>
     
         <footer id="footer">
-        <h3>ruby on rails で作成しました<%= link_to "adminへ",  admins_login_form_path %></h3>
+            <h3>ruby on rails で作成しました<%= link_to "adminへ",  admins_login_form_path %></h3>
         </footer>
         
         
         <!-- ここからはモーダル アクションを起こさない限りdisplayはnone -->
         <!-- 会員登録画面モーダル -->
+        <div>
+        </div>
         <div id="user_sign_up" class="sign_up_in">
             <div id="user_register">
                 <span class="glyphicon glyphicon-remove cursor" style="margin-left: 440px; -size: 25px; margin-top: 10px;"></span>
                 <h1  style="margin-top: -20px;">会員登録</h1>
                 <div class="total_error error"></div>
-                <%= form_with(model: @user, url: users_path, method: :post, remote: true, class: "user_form") do |f|%>
+                <%= form_with(model: @user_new, url: users_path, method: :post, class: "user_form") do |f|%>
                     <p>ユーザー名<span class="must">必須</span></p>
                     <p class="user_name_error error"></p>
-                    <p class="user_name_error2 error"></p>
                     <%= f.text_field :name, class: "form-control name for_user" %>
                     <p>メールアドレス<span class="must">必須</span></p>
                     <p class="user_email_error error"></p>
-                    <p class="user_email_error2 error"></p>
                     <%= f.email_field :email, class: "form-control email for_user" %>
                     <p>電話番号<span class="must">必須</span></p>
                     <p class="user_phone_error error"></p>
                     <%= f.text_field :phone_number, class: "form-control phone_number for_user" %>
                     <p>パスワード<span class="must">必須</span></p>
                     <p class="user_password_error error"></p>
-                    <p class="user_password_error2 error"></p>
                     <%= f.password_field :password, class: "form-control password for_user" %>
                     <p>パスワード確認<span class="must">必須</span></p>
                     <%= f.password_field :password_confirmation, class: "form-control password for_user" %>
@@ -190,7 +198,7 @@
                     <span>女性</span>
                     <%= f.radio_button :sex, :女性, id: "sex_woman"%>
                     <div>
-                    <%= f.submit "登録", id: "user_btn" %>
+                        <%= f.submit "登録", id: "user_btn", class: "btn btn-success" %>
                     </div>
                 <% end %>
             </div>
@@ -201,50 +209,48 @@
             <div id="hairdresser_register">
                 <span class="glyphicon glyphicon-remove cursor" style="margin-left: 950px; -size: 25px; margin-top: 10px;"></span>
                 <h1 style="margin-top: -20px;">美容師登録</h1>
-                <div class="total_hairdresser_error error">
+                <div class="total_error error">
                 </div>
-                <%= form_with(model: @hairdresser, method: :post, remote: true, class: "hairdresser_form", style: "margin: 0 auto; width: 800px;") do |f|%>
+                <%= form_with(model: @hairdresser_new, method: :post, class: "hairdresser_form", id: "hairdresser_register_form", style: "margin: 0 auto; width: 800px;") do |f|%>
                     <div style="width: 700px; margin: 0 auto;">
                         <div class="display_inline">
                             <p style="padding-right: 160px">ユーザー名<span class="must">必須</span></p>
                             <p class="hairdresser_name_error error" style="padding-right: 55px"></p>
-                            <p class="hairdresser_name_error2 error"></p>
-                            <%= f.text_field :name, class: "form-control hairdresser_name for_hairdresser"%>
+                            <%= f.text_field :name, class: "form-control name for_hairdresser"%>
                         </div>
                         <div class="display_inline">
                             <p style="padding-right: 140px">メールアドレス<span class="must">必須</span></p>
                             <p class="hairdresser_email_error error"></p>
                             <p class="hairdresser_email_error2 error" style="width: 280px"></p>
-                            <%= f.email_field :email, class: "form-control hairdresser_email for_hairdresser" %>
+                            <%= f.email_field :email, class: "form-control email for_hairdresser" %>
                         </div>
                         <div class="display_inline2">
                             <p style="padding-right: 180px">店舗名<span class="must">必須</span></p>
                             <p class="hairdresser_shop_name_error error" style="padding-right: 90px"></p>
-                            <%= f.text_field :shop_name, class: "form-control hairdresser_shop_name for_hairdresser" %>
+                            <%= f.text_field :shop_name, class: "form-control shop_name for_hairdresser" %>
                         </div>
                     </div>
                     <div>
                         <div class="display_inline">
                             <p style="padding-right: 55px">店舗郵便番号(ハイフンなし)<span class="must">必須</span></p>
                             <p class="hairdresser_post_number_error error" style="padding-right: 50px"></p>
-                            <%= f.text_field :post_number, class: "form-control hairdresser_address_number for_hairdresser"  %>
+                            <%= f.text_field :post_number, class: "form-control post_number for_hairdresser"  %>
                         </div>
                         <div class="display_inline">
                             <p style="padding-right: 170px">店舗住所<span class="must">必須</span></p>
                             <p class="hairdresser_address_error error" style="padding-right: 107px"></p>
-                            <%= f.text_field :address, class: "form-control hairdresser_address for_hairdresser" %>
+                            <%= f.text_field :address, class: "form-control address hairdresser_shop_address for_hairdresser" %>
                         </div>
                     </div>
                     <div>
                         <div class="display_inline">
                             <p style="padding-right: 160px">パスワード<span class="must">必須</span></p>
                             <p class="hairdresser_password_error error" style="padding-right: 96px"></p>
-                            <p class="hairdresser_password_error2 error" style="width: 270px"></p>
-                            <%= f.password_field :password, class: "form-control hairdresser_password for_hairdresser" %>
+                            <%= f.password_field :password, class: "form-control password for_hairdresser" %>
                         </div>
                         <div class="display_inline">
                             <p style="padding-right: 130px">パスワード確認<span class="must">必須</span></p>
-                            <%= f.password_field :password_confirmation, class: "form-control hairdresser_password for_hairdresser" %>
+                            <%= f.password_field :password_confirmation, class: "form-control password for_hairdresser" %>
                         </div>
                         <div>
                             <p>自己紹介文</p>
@@ -282,7 +288,7 @@
                         <span>女性</span>
                         <%= f.radio_button :sex, :女性, id: "hairdresser_sex_woman"%>
                     </div>
-                        <%= f.submit "登録", id: "hairdresser_btn"%>
+                        <%= f.submit "登録", id: "hairdresser_btn", class: "btn btn-success"%>
                 <% end %>
             </div>
         </div>

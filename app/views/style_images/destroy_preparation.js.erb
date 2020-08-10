@@ -1,46 +1,42 @@
 //連打防止のために工夫した　double_clickというクラスをもっているとき削除ボタンをおすとalertが発生する
 
 if ( $(".hair_box").hasClass('double_click') ){
-  alert("二重クリックは禁止されています。")
-  setTimeout(function(){
-    $(".hair_box").removeClass('double_click');
-  },1000);  
+    alert("二重クリックは禁止されています。")
+    setTimeout(function(){
+      $(".hair_box").removeClass('double_click');
+    },1000);  
 } 
 else {
-  if (<%= @size %> == 0 ) {
-    $(".hair_box").addClass('double_click');
-    var id = <%= @i %>
-    $(".image_form").append(`<p><input name="[arry][]", value=${id} class="hidden"></p>`)
-    $(".image_label").removeClass("width_80");
-    $(".image_label").addClass("width_100");
-    $(".hair_box").remove();
-    $(".image_form").children("p").eq(1).remove();    //二番目のpを削除
-  } 
-  else {
     if ($(".image_label").hasClass("width_80")) {
       $(".image_label").removeClass("width_80");
       $(".image_label").addClass("width_100");
+      console.log(100);
     } 
     else if ($(".image_label").hasClass("width_60")) {
       $(".image_label").removeClass("width_60");
       $(".image_label").addClass("width_80");
+      console.log(80);
     }
     else if ($(".image_label").hasClass("width_40")) {
       $(".image_label").removeClass("width_40");
       $(".image_label").addClass("width_60");
+      console.log(60);
     }
     else if ($(".image_label").hasClass("width_20")) {
       $(".image_label").removeClass("width_20");
       $(".image_label").addClass("width_40");
+      console.log(40);
     }
     else if ($(".image_label").hasClass("width_0")) {
       $(".image_label").removeClass("width_0");
       $(".image_label").addClass("width_20");
+      console.log(20);
     }
     else if ($(".image_label").hasClass("width_100")) {
       $(".image_label").removeClass("width_100");
       $(".image_label").removeClass("display_none");
       $(".image_label").addClass("width_20");
+      console.log(0);
     }
     var id = <%= @i %>
     $(".image_form").append(`<input name="[arry][]", value=${id} class="hidden">`)
@@ -49,5 +45,4 @@ else {
     setTimeout(function(){
       $(".hair_box").removeClass('double_click');
     },400); 
-  }
 }

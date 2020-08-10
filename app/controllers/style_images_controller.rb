@@ -15,12 +15,14 @@ class StyleImagesController < ApplicationController
         @style_image.save
         
         @destroy_arry_number = params[:arry]
-        if @destroy_arry_number != nil
+        if @destroy_arry_number.present?
             @destroy_arry_number.each do |destroy_arry_number|
-                @style_image.hair_images.delete_at(destroy_arry_number.to_i)
+                @style_image.hair_images.delete_at(destroy_arry_number.to_i) #このようにすることでdestoryが何回も行われなくて済む
             end
             @style_image.save
         end
+
+        flash[:notice] = "変更を保存しました"
         redirect_to hairdresser_path(@current_hairdresser.id)
     end
 
@@ -28,8 +30,7 @@ class StyleImagesController < ApplicationController
         @hair_arry = params[:arry]
         @hair_arry.delete_at(params[:arry_number].to_i)
         @i = params[:arry_number].to_i
-        @size = params[:arry].size
-        
+        @size = params[:arry].size  
     end
 
     private

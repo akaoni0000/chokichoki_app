@@ -10,11 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_27_100133) do
+ActiveRecord::Schema.define(version: 2020_08_05_130246) do
 
   create_table "admins", force: :cascade do |t|
     t.string "email"
     t.string "password_digest"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "cancel_reservations", force: :cascade do |t|
+    t.integer "menu_id"
+    t.integer "user_id"
+    t.datetime "start_time"
+    t.integer "hairdresser_id"
+    t.integer "notification_status", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -55,6 +65,8 @@ ActiveRecord::Schema.define(version: 2020_07_27_100133) do
     t.string "sex"
     t.float "reputation_point", default: 0.0
     t.string "reject_status"
+    t.float "shop_latitude"
+    t.float "shop_longitude"
   end
 
   create_table "menus", force: :cascade do |t|
@@ -93,16 +105,6 @@ ActiveRecord::Schema.define(version: 2020_07_27_100133) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "hair_images"
-  end
-
-  create_table "user_cancels", force: :cascade do |t|
-    t.integer "menu_id"
-    t.integer "user_id"
-    t.datetime "start_time"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "hairdresser_id"
-    t.integer "notification_status", default: 0
   end
 
   create_table "user_cards", force: :cascade do |t|

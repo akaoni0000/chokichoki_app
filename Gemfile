@@ -113,5 +113,11 @@ gem 'capistrano-rbenv'
 #Google マップ
 gem 'gmaps4rails'
 
+#文字列の住所を緯度経度に換算
+gem 'geocoder'
+
 #祝日表示
 gem 'holiday_jp'
+
+#insertを一括にする reservationテーブルを保存するのに使う
+gem 'activerecord-import'

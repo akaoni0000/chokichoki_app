@@ -16,22 +16,13 @@
  */
  @import "bootstrap-sprockets";  /*ここを追加*/
  @import "bootstrap";           /*ここを追加*/
-
 body {
-    //background-color:#FFEFD5;
-
 }
 
 #yield {
     min-height: 100vh;
-    //margin-bottom: 140px;
     background-color:rgba(247, 247, 247, 1.0);
     width: 100%;
-    //padding-top: 30px;
-    //padding-bottom: 100px;
-    //position: relative;/*←相対位置*/
-    //padding-bottom: 120px;/*←footerの高さ*/
-    //box-sizing: border-box;/*←全て含めてmin-height:100vhに*/
 }
 
 //footer
@@ -51,6 +42,10 @@ footer {
     cursor: pointer;
     transition: all 0.6s ease; //カーソルを離した時もゆっくり変化
     text-decoration: none;
+}
+
+.cursor2 {
+    cursor: pointer;
 }
 
 
@@ -75,10 +70,6 @@ p {
 h1, h2, h3, span {
     font-family: serif;
 }
-
-// li {
-//     text-decoration: none;
-// }
 
 a, li {
     color: #DEB887; 
@@ -116,6 +107,21 @@ li:hover {
     position: fixed;
     top: 200px;
     color: #009900;
+    right: 100px;
+}
+
+#flash_red {
+    background-color: rgba(255, 27, 11, 0.5);
+    width: 300px;
+    height: 70px;
+    font-size: 21px;
+    padding-top: 20px;
+    text-align: center;
+    border-radius: 10px;
+    border: 1px solid red;
+    position: fixed;
+    top: 200px;
+    color: #CC0033;
     right: 100px;
 }
    
@@ -204,7 +210,14 @@ header {
 #hairdresser_header {
     position: absolute;
     top: 100px;
-    left: 9%;
+    left: 13%;
+    width: 1400px;
+}
+
+#admin_header {
+    position: absolute;
+    top: 80px;
+    left: 20%;
     width: 1400px;
 }
 
@@ -285,6 +298,15 @@ header {
     background-color: transparent;
 }
 
+.none_login {
+    position: absolute;
+    left: 21.5%;
+}
+
+.none_new {
+    position: absolute;
+    left: 37%;
+}
 
 
 
@@ -351,13 +373,13 @@ header {
 
 //会員登録
 #user_register {
-    position: absolute;
-    top: 3%;
-    left: 35%;
-    background-color: #CCFFFF;
+    margin: 0 auto;
+    margin-top: 80px;
+    background-color: #EEEEEE;
     border-radius: 10px;
     width: 500px;
     text-align: center;
+    border: 5px solid;
 }
 
 .for_user {
@@ -375,13 +397,13 @@ header {
 
 //美容師登録
 #hairdresser_register {
-    position: absolute;
-    top: 3%;
-    left: 20%;
-    background-color: #CCFFFF;
+    margin: 0 auto;
+    margin-top: 30px;
+    background-color: #EEEEEE;
     border-radius: 10px;
     width: 1000px;
     text-align: center;
+    border: 5px solid;
 }
 
 .for_hairdresser {
@@ -540,7 +562,7 @@ header {
 }
 
 .search_tag {
-    margin-right: 30px;
+    margin-left: 20px;
 }
 
 .search_form {
@@ -562,7 +584,7 @@ header {
     border: 1px solid;
 }
 
-.search_menu, .search_day, .search_time, .search_area, .search_none, .search_area_name, .search_area_current_place, .search_reputation, .search_keyword {
+.search_menu, .search_day, .search_time, .search_area, .search_none, .search_area_name, .search_area_current_place, .search_reputation, .search_keyword, .search_sex {
     width: 580px;
     height: 60px;
     margin: 0 auto;
@@ -586,6 +608,11 @@ header {
 
 .font_size4 {
     font-size: 15px;
+}
+
+.font_size5 {
+    font-size: 15px;
+    margin-left: 50px;
 }
 
 #day, #start_time{
@@ -795,7 +822,7 @@ select:focus {
 }
 
 .number_hidden {
-    margin-top: 70px;
+    padding-top: 70px;
 }
 
 .limit {
@@ -1093,6 +1120,7 @@ hr {
     text-align: center;
     padding-top: 10px;
     font-size: 2;
+    border: 1px solid;
     //margin-top: 5px;
     // margin-right: 0.5%;
     // margin-left: 0.5%;
@@ -1220,14 +1248,15 @@ hr {
 }
 
 .start_day {
-    margin-bottom: 20px;
-    margin-top: 60px;
-    font-size: 20px;
-    text-align: center;
+    // margin-bottom: 20px;
+    // margin-top: 60px;
+    // font-size: 20px;
+    // text-align: center;
 }
 
 .reservation_table {
-    margin-bottom: 90px;
+   // margin-bottom: 90px;
+   margin-top: 70px;
 }
 
 .flash_new {
@@ -1540,4 +1569,28 @@ th {
 .small_time {
     font-size: 15px;
     border-bottom: solid 3px #BFB9B0;
+}
+
+
+//予約index
+.re_index {
+    height: 150px;
+}
+
+// .start_day {
+//     position: relative;
+//     top: 0;
+// }
+
+.date {
+    margin-bottom: -75px;
+    font-size: 20px;
+}
+
+.index_user_reservations {
+    padding-top: 60px;
+}
+
+.date_data {
+    margin-bottom: 90px;
 }

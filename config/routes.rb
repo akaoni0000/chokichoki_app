@@ -52,17 +52,18 @@ Rails.application.routes.draw do
   post "admins/logout" => "admins#logout", as: "admins_logout"
   
   #menusコントローラ
-  resources :menus, only: [:new, :index, :create]
+  resources :menus, only: [:new, :index, :create, :destroy]
   get "menus/choice" => "menus#choice", as: "menu_choice"
   
   #searchコントローラ
   get "search/search_index" => "search#search_index", as: "search_index"
   post "search_data" => "search#search_data", as: "search_data"
+  post "strong_search" => "search#strong_search", as: "strong_search"
 
   #style_imagesコントローラ
   resources :style_images, only: [:edit, :update]
   post "destroy/preparation" => "style_images#destroy_preparation", as: "destroy_preparation"
-  
+
   #user_cardsコントラーラ
   resources :user_cards
   resources :hairdresser_comments, only: [:edit, :show, :update, :destroy]

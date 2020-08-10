@@ -1,0 +1,41 @@
+<% if @error_name_short.present? %>
+    $(".name_short").remove();
+    $(".name_error").append('<p class="name_short"><%= @error_name_short %></p>');
+    $(".menu_name").css({
+        "border-color": "red",
+        "border-width": "2px"
+    });
+<% else %>
+    $(".name_error").html("");
+    $(".menu_name").css({
+        "border-width":"0px"
+    });
+<% end %>
+
+<% if @error_explanation_short.present? %>
+    $(".explanation_short").remove();
+    $(".explain_error").append('<p class="explanation_short"><%= @error_explanation_short %></p>');
+    $(".menu_explanation").css({
+        "border-color": "red",
+        "border-width": "2px"
+    });
+<% else %>
+    $(".explain_error").html("");
+    $(".menu_explanation").css({
+        "border-width":"0px"
+    });
+<% end %>
+
+<% if @error_time_blank.present? %>
+    $(".time_invalid").remove();
+    $(".time_error").append('<p class="time_invalid"><%= @error_time_blank %></p>');
+<% else %>
+    $(".time_error").html("");
+<% end %>
+
+<% if @error_category_invalid.present? %>
+    $(".category_blank").remove();
+    $(".category_error").append('<p class="category_blank"><%= @error_category_invalid %></p>');
+<% else %>
+    $(".category_error").html("");
+<% end %>

@@ -16,9 +16,5 @@ class HomeController < ApplicationController
         @hairdresser_page = "hairdresser"
         gon.body ="white"
         gon.fix = "header"
-        if session[:double] == true
-            gon.d8uble = true
-            session[:double] = nil
-        end
     end
 end

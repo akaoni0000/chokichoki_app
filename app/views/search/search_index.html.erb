@@ -1,67 +1,78 @@
 <div class="container">
     <div class="search_box_big">
-        <%= form_with(url: root_path, local: true, method: :get, class: "") do |f| %>
-        <div class="search_menu">
-            <span class="font_size">メニュー</span>
-            <div class="select_box">
-                <span class="point" style="cursor: pointer;">
-                    <span class="category_name">カット</span>
-                    <%= f.check_box :category1, {class: "category1 not_category"}, 1, 0 %>
+        <%= form_with(url: strong_search_path, local: true, method: :post, class: "", id: "strong_search_form") do |f| %>
+            <div class="search_menu">
+                <span class="font_size">メニュー</span>
+                <div class="select_box">
+                    <span class="point" style="cursor: pointer;">
+                        <span class="category_name">カット</span>
+                        <%= f.check_box :category1, {class: "category1 not_category"}, 1, 0 %>
+                    </span>
+                    <span class="point" style="cursor: pointer;">
+                        <span class="category_name">カラー</span>
+                        <%= f.check_box :category2, {class: "category2 not_category"}, 1, 0 %>
+                    </span>
+                    <span class="point" style="cursor: pointer;">
+                        <span class="category_name">縮毛矯正</span>
+                        <%= f.check_box :category3, {class: "category3 not_category"}, 1, 0 %>
+                    </span>
+                    <span class="point" style="cursor: pointer;">
+                        <span class="category_name">パーマ</span>
+                        <%= f.check_box :category4, {class: "category4 not_category"}, 1, 0 %>
+                    </span>
+                </div>
+            </div>
+            <div class="search_day">
+                <span class="font_size">日付</span>
+                <%= f.select 'day', @select_day_arry %>
+            </div> 
+            <div class="search_time">
+                <span class="font_size">時刻</span>
+                <%= f.select 'start_time', @select_time_arry_start, {}, {disabled: true} %><span class="wave">~</span><%= f.select 'finish_time', @select_time_arry_finish, {selected: "23:30"}, {disabled: true} %>
+            </div> 
+            <div class="search_area">
+                <span class="font_size">エリア</span>
+                <span class="" id="name" style="cursor: pointer;">
+                    <span class="font_size2">地名から探す</span>
+                    <%= f.radio_button :area, :area_name%>
                 </span>
-                <span class="point" style="cursor: pointer;">
-                    <span class="category_name">カラー</span>
-                    <%= f.check_box :category2, {class: "category2 not_category"}, 1, 0 %>
+                <span class="" id="current" style="cursor: pointer;">
+                    <span class="font_size2">現在地から探す</span>
+                    <%= f.radio_button :area, :area_current_place%>
                 </span>
-                <span class="point" style="cursor: pointer;">
-                    <span class="category_name">縮毛矯正</span>
-                    <%= f.check_box :category3, {class: "category3 not_category"}, 1, 0 %>
+            </div> 
+            <div class="search_none display_none">
+                <span class="font_size3">指定しない</span>
+            </div> 
+            <div class="search_area_name display_none">
+                <%= f.select 'prefectures', @select_prefecture_arry%>
+                <%= f.text_field :place_name, placeholder: "地名、番地など", class: "form-control prefecture_form" %>
+            </div> 
+            <div class="search_area_current_place display_none">
+                <span class="font_size3">現在地から</span>
+                <%= f.number_field :range, min:1,max:2500,step:1, value: 1, class: "number_form" %>
+                <span class="font_size4">km以内</span>
+            </div> 
+            <div class="search_reputation">
+                <span class="font_size">評価</span>
+                <%= f.select 'start_rate', @select_rate_start %> ~ <%= f.select 'finish_rate', @select_rate_finish, {selected: 5} %>
+            </div> 
+            <div class="search_sex">
+                <span class="font_size">性別</span>
+                <span class="" id="man" style="cursor: pointer;">
+                    <span class="font_size5">男性</span>
+                    <%= f.radio_button :sex, :男性%>
                 </span>
-                <span class="point" style="cursor: pointer;">
-                    <span class="category_name">パーマ</span>
-                    <%= f.check_box :category4, {class: "category4 not_category"}, 1, 0 %>
+                <span class="" id="woman" style="cursor: pointer;">
+                    <span class="font_size2">女性</span>
+                    <%= f.radio_button :sex, :女性%>
                 </span>
             </div>
-        </div>
-        <div class="search_day">
-            <span class="font_size">日付</span>
-            <%= f.select 'day', @select_day_arry %>
-        </div> 
-        <div class="search_time">
-            <span class="font_size">時刻</span>
-            <%= f.select 'start_time', @select_time_arry_start, {}, {disabled: true} %><span class="wave">~</span><%= f.select 'finish_time', @select_time_arry_finish, {selected: "23:30"}, {disabled: true} %>
-        </div> 
-        <div class="search_area">
-            <span class="font_size">エリア</span>
-            <span class="" id="name" style="cursor: pointer;">
-                <span class="font_size2">地名から探す</span>
-                <%= f.radio_button :area, :area_name%>
-            </span>
-            <span class="" id="current" style="cursor: pointer;">
-                <span class="font_size2">現在地から探す</span>
-                <%= f.radio_button :area, :area_current_place%>
-            </span>
-        </div> 
-        <div class="search_none display_none">
-            <span class="font_size3">指定しない</span>
-        </div> 
-        <div class="search_area_name display_none">
-            <%= f.select 'prefectures', @select_prefecture_arry%>
-            <%= f.text_field :name, placeholder: "地名、番地など", class: "form-control prefecture_form" %>
-        </div> 
-        <div class="search_area_current_place display_none">
-            <span class="font_size3">現在地から</span>
-            <%= f.number_field :price,min:1,max:2500,step:1, value: 1, class: "number_form" %>
-            <span class="font_size4">km以内</span>
-        </div> 
-        <div class="search_reputation">
-            <span class="font_size">評価</span>
-            <%= f.select 'start_rate', @select_rate_start %> ~ <%= f.select 'finish_rate', @select_rate_finish, {selected: 5} %>
-        </div> 
-        <div class="search_keyword">
-            <span class="font_size">キーワード</span>
-            <%= f.text_field :search, placeholder: "美容師名、メニュー名など", class: "form-control search_form2" %>
-        </div>
-        <%= f.submit "検索する", class: "search_btn" %>
+            <div class="search_keyword">
+                <span class="font_size">キーワード</span>
+                <%= f.text_field :search_keyword, placeholder: "美容師名、メニュー名など", class: "form-control search_form2" %>
+            </div>
+            <%= f.submit "検索する", class: "search_btn" %>
         <% end %>
     </div>
 </div>

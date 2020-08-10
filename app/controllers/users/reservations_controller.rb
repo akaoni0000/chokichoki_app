@@ -5,20 +5,9 @@ class Users::ReservationsController < ApplicationController
 
     def index #userの予約一覧
         @reservations = Reservation.where(user_id: @current_user.id).order(start_time: :asc)
-
-        #日付(日)の数を調べる @day_numberがその数  例 1/1 06:00, 1/1 07:00, 1/2 06:00 だと 2
-        @n = 0
-        @i = 0
-        @reservations.each do |reservation|
-            if @i == 0
-            elsif @reservations[@i - 1].start_time.year != reservation.start_time.year || @reservations[@i - 1].start_time.month != reservation.start_time.month || @reservations[@i - 1].start_time.day != reservation.start_time.day
-                @n += 1
-            end
-            @i += 1
-        end
-        @day_number = @n + 1
-
-        gon.reverse = "reverse" #jsのwindow.onloadに行き、順番を逆にする
+        @date_arry = @reservations.all.pluck(:start_time).map {|a| a.to_date}
+        @date_arry.uniq!
+        @date_number = @date_arry.length
     end
 
     def set_week_calendar_reservation #週間カレンダーで予約
@@ -42,60 +31,28 @@ class Users::ReservationsController < ApplicationController
         #テーブルの真ん中上の年月のviewを整えるのに使う
         @diff = (@standard_day.end_of_month - @standard_day).to_i
         
-        #配列[06:00, 06:30, 07:00, ....]を作っただけ 数字を全て数字を全て記述するのが面倒だったので工夫した
-        # @time_arry = []  
-        # for i in 0..35 do 
-        #     @time = Time.local(2000,1,1) + 3600*6    
-        #     @time += 60 * 30 * i  
-        #     if @time.hour.to_s.length == 1
-        #         @time_hour = 0.to_s + @time.hour.to_s
-        #     else
-        #         @time_hour = @time.hour
-        #     end
-        #     if @time.min == 0
-        #         @time_min = "00"
-        #     else
-        #         @time_min = @time.min
-        #     end
-        #     @time_arry.push("#{@time_hour}:#{@time_min}")
-        # end 
-        @time_arry = ["06:00", "06:30", "07:00", "07:30", "08:00", "08:30", "09:00", "09:30", "10:00", "10:30", "11:00", "11:30", "12:30", "12:30", "13:00", "13:30", "14:00", "14:30", "15:00","15:30", "16:00", "16:30", "17:00", "17:30", "18:00", "18:30", "19:00", "19:30", "20:00", "20:30", "21:00", "21:30", "22:00", "22:30", "23:00", "23:30"]
+        @clock_arry = ["06:00", "06:30", "07:00", "07:30", "08:00", "08:30", "09:00", "09:30", "10:00", "10:30", "11:00", "11:30", "12:30", "12:30", "13:00", "13:30", "14:00", "14:30", "15:00","15:30", "16:00", "16:30", "17:00", "17:30", "18:00", "18:30", "19:00", "19:30", "20:00", "20:30", "21:00", "21:30", "22:00", "22:30", "23:00", "23:30"]
         
-        #配列を作成         例　配列[1/1 06:00, 1/1 06:30, 1/1 07:00, ..... 1/1 23:30, 1/2 06:00, .....] を作成
-        # @day_arry = []
+        #配列を作成
         for i in 1..14 do 
             if i == 1 
-                @key_time = Time.local(@standard_day.year, @standard_day.month, @standard_day.day) + 3600*6 + 3600*24*(i-1)   #秒で計算している 3600は一時間
-                @day_arry = @key_time.to_i.step( (Time.local(@standard_day.year, @standard_day.month, @standard_day.day)+3600*23.5).to_i, 60*30).to_a    
-                @day_arry.map! {|a| Time.at(a)}
+                @key_time = Time.local(@standard_day.year, @standard_day.month, @standard_day.day) + 3600*6   #秒で計算している 3600は一時間
+                @time_arry = @key_time.to_i.step( (Time.local(@standard_day.year, @standard_day.month, @standard_day.day)+3600*23.5).to_i, 60*30).to_a    
+                @time_arry.map! {|a| Time.at(a)}
             else 
                 @key_time = Time.local(@standard_day.year, @standard_day.month, @standard_day.day) + 3600*6 + 3600*24*(i-1)
-                @day_next_arry = @key_time.to_i.step( (Time.local(@standard_day.year, @standard_day.month, @standard_day.day)+3600*24*(i-1)+3600*23.5).to_i, 60*30).to_a
-                @day_next_arry.map! {|a| Time.at(a)}
-                @day_arry.push(@day_next_arry)
+                @time_next_arry = @key_time.to_i.step( (Time.local(@standard_day.year, @standard_day.month, @standard_day.day)+3600*24*(i-1)+3600*23.5).to_i, 60*30).to_a
+                @time_next_arry.map! {|a| Time.at(a)}
+                @time_arry.push(@time_next_arry)
             end
         end
-        @day_arry.flatten!
-        
-
-        # @day_arry = []
-        # for i in 1..14 do 
-        #     @key_time = Time.local(@standard_day.year, @standard_day.month, @standard_day.day) + 3600*6 + 3600*24*(i-1)
-        #     for n in 0..35 do
-        #         @time = @key_time
-        #         @time += 60 * 30 * n #+30分
-        #         @day_arry.push(@time)
-        #     end
-        # end
-        #     for n in 0..35 do
-        #         @time = @key_time
-        #         @time += 60 * 30 * n #+30分
-        #         @day_arry.push(@time)
-        #     end
-        # end
-       
-
+        @time_arry.flatten! #この時点では要素はTimeクラス
+        @date_arry = @time_arry.map {|a| a.to_date} #これで要素はDateクラス
+        @date_arry.uniq!
+    
         @menu = Menu.find(params[:menu_id])
+
+        @thead_for_user = true
     end
 
     def set_month_calendar_reservation #月間カレンダーで予約
@@ -115,6 +72,7 @@ class Users::ReservationsController < ApplicationController
 
     def edit #予約を確定するかどうか最終確認画面
         @reservation = Reservation.find(params[:id])
+        @menu = Menu.find(@reservation.menu_id)
     end
 
     def various_update
@@ -134,7 +92,7 @@ class Users::ReservationsController < ApplicationController
                 #予約した時間から施術が終わる時間までに存在するreservationsテーブルのレコードのstatusをupdate その時間内は予約を入れられないようにする
                 @time_min = @reservation.start_time
                 @time_max = @reservation.start_time + @reservation.menu.time*60 -1
-                @reservations = Reservation.where(start_time: @time_min..@time_max)
+                @reservations = @reservation.menu.hairdresser.reservations.where(start_time: @time_min..@time_max)
                 @reservations.update_all(:status => 1 )
 
                 #後で客に評価させるためにコメントのレコードをつくる
@@ -165,14 +123,14 @@ class Users::ReservationsController < ApplicationController
                 @money.save
 
                 #予約した時間のreservationsテーブルのレコードのuser_id(カラム)とuser_request(カラム)をupdateする。
-                @reservation = Reservation.find(params[:id])
+                @reservation = Reservation.find(params[:reservation_id])
                 @reservation.user_id = @current_user.id
                 @reservation.update(reservation_params)
 
                 #予約した時間から施術が終わる時間までの間の時間に、start_time(カラム)が存在するreservationsテーブルのレコードのstatus(カラム)をupdateする。そうすることで予約した時間から施術が終わる時間までの時間は予約を入れられないようにする。
                 @time_min = @reservation.start_time
                 @time_max = @reservation.start_time + @reservation.menu.time*60 -1
-                @reservations = Reservation.where(start_time: @time_min..@time_max)
+                @reservations = @reservation.menu.hairdresser.reservations.where(start_time: @time_min..@time_max)
                 @reservations.update_all(:status => 1 )
                 
                 #後で客に評価させるためにコメントのレコードをつくる
@@ -214,15 +172,15 @@ class Users::ReservationsController < ApplicationController
         #予約した時間から施術が終わる時間までの間の時間に、start_time(予約時間)が存在するreservationsテーブルのレコードのstatus(カラム)をupdateする。そうすることで予約した時間から施術が終わる時間までの時間は予約を入れられないようにする。
         @time_min = @reservation.start_time
         @time_max = @reservation.start_time + @reservation.menu.time*60 -1
-        @reservations = Reservation.where(start_time: @time_min..@time_max)
+        @reservations = @reservation.menu.hairdresser.reservations.where(start_time: @time_min..@time_max)
         @reservations.update_all(:status => 1 )
 
-         #後で客に評価させるためにコメントのレコードをつくる
-         @hairdresser_id = @reservation.menu.hairdresser_id
-         @menu_id = @reservation.menu.id
-         @start_time = @reservation.start_time
-         @hairdresser_comment = HairdresserComment.new(user_id: @current_user.id, hairdresser_id: @hairdresser_id, menu_id: @menu_id, start_time: @start_time)
-         @hairdresser_comment.save
+        #後で客に評価させるためにコメントのレコードをつくる
+        @hairdresser_id = @reservation.menu.hairdresser_id
+        @menu_id = @reservation.menu.id
+        @start_time = @reservation.start_time
+        @hairdresser_comment = HairdresserComment.new(user_id: @current_user.id, hairdresser_id: @hairdresser_id, menu_id: @menu_id, start_time: @start_time)
+        @hairdresser_comment.save
         
         redirect_to users_complete_path
     end
@@ -238,7 +196,7 @@ class Users::ReservationsController < ApplicationController
         #予約した時間から施術が終わる時間までの間の時間に、start_time(カラム)が存在するreservationsテーブルのレコードのstatus(カラム)をupdateする。そうすることで予約した時間から施術が終わる時間までの時間は予約を入れることができるようにする
         @time_min = @reservation.start_time
         @time_max = @reservation.start_time + @reservation.menu.time*60 -1
-        @reservations = Reservation.where(start_time: @time_min..@time_max)
+        @reservations = @reservation.menu.hairdresser.reservations.where(start_time: @time_min..@time_max)
         @reservations.update_all(:status => 0 )
 
         #支払った金額をポイントで返す
@@ -253,8 +211,8 @@ class Users::ReservationsController < ApplicationController
         @hairdresser_comment.destroy
         
         #予約をキャンセルした情報を保存
-        @user_cancel = UserCancel.new(menu_id: params[:menu_id], user_id: @current_user.id, hairdresser_id: @hairdresser_id, start_time: params[:start_time])
-        @user_cancel.save
+        @cancel_reservation = CancelReservation.new(menu_id: params[:menu_id], user_id: @current_user.id, hairdresser_id: @hairdresser_id, start_time: params[:start_time])
+        @cancel_reservation.save
 
         redirect_to users_reservations_path
     end

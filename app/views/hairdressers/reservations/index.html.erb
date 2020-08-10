@@ -1,42 +1,34 @@
-<div class="container center index_user_reservations">
-    <% @time = 1 %>
-    <% @day_number.times do %>
-        <div class="re_index">
-        <table class="table reservation_table">
-            <thead>
-                <th class="display_none display_th"></th><th class="center">時間</th><th class="center">メニュー名</th><th class="center">予約した人</th><th class="center">電話番号</th><th class="center">お客様のご希望</th><th class="center">評価</th><th class="center">コメント</th>
-            </thead>
-            <tbody>
-                <% @key = 0 %>
-                <% @reservations.each do |reservation| %>
-                    <!--基準となる日付を見つける そのデータは@begin_reservationに入っている  @key=1は基準の日付が見つかったということ-->
-                    <% if @time == 1 && @key == 0 %>
-                        <% @begin_reservation = @reservations[0] %>
-                        <% @key = 1 %>
-                        <p class="start_day">
-                            <%= @begin_reservation.start_time.year %>年
-                            <%= @begin_reservation.start_time.month %>月
-                            <%= @begin_reservation.start_time.day %>日
-                        </p>
-                    <% elsif @time >= 2 %>　　　　<!--2周目からは前の周の基準の日付を最初に超えた日付を@begin_numberに入れる-->
-                        <% if (@begin_reservation.start_time.year < reservation.start_time.year || @begin_reservation.start_time.month < reservation.start_time.month || @begin_reservation.start_time.day < reservation.start_time.day) && @key == 0 %>
-                            <% @begin_reservation = reservation %>
-                            <% @key = 1 %>
-                            <p class="start_day">
-                                <%= @begin_reservation.start_time.year %>年
-                                <%= @begin_reservation.start_time.month %>月
-                                <%= @begin_reservation.start_time.day %>日
-                            </p>
-                        <% end %>
-                    <% end %>
+<% if @reservations.blank? %>
+    <p class="center" style="padding-top: 80px;">予約はありません。</p>
+<% end %>
 
-                    <!--基準の日付がみつかったらテーブル(td要素)を作成していく ループの終わりは基準の日付を超えるreservatioonが回ってきた時-->
-                    <% if @key == 1 %>
-                        <% break if @begin_reservation.start_time.year != reservation.start_time.year || @begin_reservation.start_time.month != reservation.start_time.month || @begin_reservation.start_time.day != reservation.start_time.day %>
+<div class="container center index_user_reservations">
+    <% i = @date_number - 1 %>
+    <% @date_number.times do %>
+        <div class="date_data">
+            <div class="date">
+                <%= @date_arry[i].year %>年<%= @date_arry[i].month %>月<%= @date_arry[i].day %>日
+            </div>
+            <table class="table reservation_table">
+                <thead>
+                    <th></th>
+                    <th class="center">時間</th>
+                    <th class="center">メニュー名</th>
+                    <th class="center">予約した人</th>
+                    <th class="center">電話番号</th>
+                    <th class="center">お客様のご希望</th>
+                    <th class="center">評価</th>
+                    <th class="center">コメント</th>
+                </thead>
+                <tbody>
+                    <% @reservations.each do |reservation| %>
+                        <% if @date_arry[i] == reservation.start_time.to_date %>
                             <tr>
-                                <td class="display_none display_th">
-                                    <% if @notice_reservations.where(id: reservation.id).present?%>
-                                        <p class="flash_new"><%= flash[:notice] %></p>
+                                <td>
+                                    <% if flash[:notice_reservations].present? %>
+                                        <% if flash[:notice_reservations].pluck(:id).include?(reservation.id) %>
+                                            <p class="flash_new">new</p>
+                                        <% end %>
                                     <% end %>
                                 </td>
                                 <td>
@@ -46,11 +38,10 @@
                                     <%= reservation.menu.name %>
                                 </td>
                                 <td>
-                                    <% user =  @user_model.find(reservation.user_id) %>
-                                    <%= user.name %>さん
+                                    <%= reservation.user.name %>さん
                                 </td>
                                 <td>
-                                    <%= user.phone_number %>
+                                    <%= reservation.user.phone_number %>
                                 </td>
                                 <td>
                                     <% if reservation.user_request == nil || reservation.user_request == ""%>
@@ -66,17 +57,17 @@
                                     <% end %>
                                 </td>
                                 <td>
-                                    <% @hairdresser_comment =  user.hairdresser_comments.find_by(start_time: reservation.start_time) %>
+                                    <% @hairdresser_comment =  reservation.user.hairdresser_comments.find_by(start_time: reservation.start_time) %>
                                     <div id="star-rate-<%= @hairdresser_comment.id %>" class="raty"></div>
                                         <script>
                                             $('#star-rate-<%= @hairdresser_comment.id %>').raty({
-                                            size: 36,
-                                            starOff:  '<%= asset_path('star-off.png') %>',
-                                            starOn : '<%= asset_path('star-on.png') %>',
-                                            starHalf: '<%= asset_path('star-half.png') %>',
-                                            half: true,
-                                            readOnly: true,
-                                            score: "<%= @hairdresser_comment.rate %>",
+                                                size: 36,
+                                                starOff:  '<%= asset_path('star-off.png') %>',
+                                                starOn : '<%= asset_path('star-on.png') %>',
+                                                starHalf: '<%= asset_path('star-half.png') %>',
+                                                half: true,
+                                                readOnly: true,
+                                                score: "<%= @hairdresser_comment.rate %>",
                                             });
                                         </script>
                                 </td>
@@ -94,14 +85,12 @@
                                     <% end %>
                                 </td>
                             </tr>
+                        <% end %>
                     <% end %>
-                    
-                 <% end %>
-            </tbodY>
-        </table>
-        <% @time += 1 %>
+                </tbodY>
+            </table>
         </div>
-        
+        <% i -= 1 %>
     <% end %>  
 </div>  
         

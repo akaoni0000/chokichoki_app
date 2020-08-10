@@ -2,55 +2,28 @@ class Hairdressers::ReservationsController < ApplicationController
     
     def index #実際に予約が入っている予約一覧
         @reservations = @current_hairdresser.reservations.where.not(user_id: nil).order(start_time: :asc) #入っている予約を取り出す
-        #日付(日まで)の数を調べる @day_numberがその数
-        @n = 0
-        @i = 0
-        @reservations.each do |reservation|
-            if @i == 0
-            elsif @reservations[@i - 1].start_time.year != reservation.start_time.year || @reservations[@i - 1].start_time.month != reservation.start_time.month || @reservations[@i - 1].start_time.day != reservation.start_time.day
-                @n += 1
-            end
-            @i += 1
-        end
-        @day_number = @n + 1
-
-        #@flash_cofirm_reservations =  @current_hairdresser.reservations.where.not(notification_status: 1, user_id: nil)  #まだ通知を受け取っていない予約 この入れ物はviewでフラッシュを表示するか確かめるために使う
+        @date_arry = @reservations.all.pluck(:start_time).map {|a| a.to_date}
+        @date_arry.uniq!
+        @date_number = @date_arry.length
+        
         @notice_reservations = @current_hairdresser.reservations.where.not(notification_status: 1, user_id: nil)   #まだ通知を受け取っていない予約 この入れ物はupdateするためにつかう
         if @notice_reservations.present?
-            session[:update] = "please_reservation_notification_update" #application controllerでnotification_statusを1にするのに使う
-            flash[:notice] = "new"
-            gon.display_none = "remove_display_none" #jsのwindow.onloadに行き、flashメッセージをtableの中に埋め込む
+            flash.now[:notice_reservations] = @notice_reservations
+            @notice_reservations.update_all(:notification_status => 1 )
         end
-        
-        @user_model = User    #viewで　user =  @user_model.find(reservation.user_id)　とやらずにモデルを関連付けてreservation.userとやりたかったが、関連づけるとreservationsのデータを保存するときuserのデータをnilで保存することができないためこのような形となった
-        gon.reverse = "reverse"  #jsのwindow.onloadに行き、順番を逆にする
     end
 
     def cancel_index #キャンセルされた予約一覧
-        @cancels = UserCancel.where(hairdresser_id: @current_hairdresser.id).order(start_time: :asc)
-        @Menu = Menu
-        @User = User
+        @cancel_reservations = CancelReservation.where(hairdresser_id: @current_hairdresser.id).order(start_time: :asc)
+        @date_arry = @cancel_reservations.all.pluck(:start_time).map {|a| a.to_date}
+        @date_arry.uniq!
+        @date_number = @date_arry.length
 
-        #日付(日まで)の数を調べる @day_numberがその数
-        @n = 0
-        @i = 0
-        @cancels.each do |cancel|
-            if @i == 0
-            elsif @cancels[@i - 1].start_time.year != cancel.start_time.year || @cancels[@i - 1].start_time.month != cancel.start_time.month || @cancels[@i - 1].start_time.day != cancel.start_time.day
-                @n += 1
-            end
-            @i += 1
+        @notice_cancel_reservations = CancelReservation.where(hairdresser_id: @current_hairdresser.id, notification_status: 0)
+        if @notice_cancel_reservations.present?
+            flash.now[:notice_cancel_reservations] = @notice_cancel_reservations
+            @notice_cancel_reservations.update_all(:notification_status => 1 )
         end
-        @day_number = @n + 1
-        
-        @user_cancel = UserCancel.where(hairdresser_id: @current_hairdresser.id, notification_status: 0)
-        if @user_cancel.present?
-            session[:cancel_update] = "please_reservation_notification_cancel_update" #application controllerで使う
-            flash[:notice] = "new"
-            gon.display_none = "remove_display_none"  #jsのwindow.onloadに行き、flashメッセージをtableの中に埋め込む
-        end
-
-        gon.reverse = "reverse" #jsのwindow.onloadに行き、順番を逆にする
     end
 
     def set_week_calendar_reservation #週間カレンダー
@@ -74,48 +47,53 @@ class Hairdressers::ReservationsController < ApplicationController
         #テーブルの真ん中上の年月のviewを整えるのに使う
         @diff = (@standard_day.end_of_month - @standard_day).to_i
         
-        @time_arry = ["06:00", "06:30", "07:00", "07:30", "08:00", "08:30", "09:00", "09:30", "10:00", "10:30", "11:00", "11:30", "12:30", "12:30", "13:00", "13:30", "14:00", "14:30", "15:00","15:30", "16:00", "16:30", "17:00", "17:30", "18:00", "18:30", "19:00", "19:30", "20:00", "20:30", "21:00", "21:30", "22:00", "22:30", "23:00", "23:30"]
-
+        @clock_arry = ["06:00", "06:30", "07:00", "07:30", "08:00", "08:30", "09:00", "09:30", "10:00", "10:30", "11:00", "11:30", "12:30", "12:30", "13:00", "13:30", "14:00", "14:30", "15:00","15:30", "16:00", "16:30", "17:00", "17:30", "18:00", "18:30", "19:00", "19:30", "20:00", "20:30", "21:00", "21:30", "22:00", "22:30", "23:00", "23:30"]
+        
+        #配列を作成
         for i in 1..14 do 
             if i == 1 
-                @key_time = Time.local(@standard_day.year, @standard_day.month, @standard_day.day) + 3600*6 + 3600*24*(i-1)   #秒で計算している 3600は一時間
-                @day_arry = @key_time.to_i.step( (Time.local(@standard_day.year, @standard_day.month, @standard_day.day)+3600*23.5).to_i, 60*30).to_a    
-                @day_arry.map! {|a| Time.at(a)}
+                @key_time = Time.local(@standard_day.year, @standard_day.month, @standard_day.day) + 3600*6   #秒で計算している 3600は一時間
+                @time_arry = @key_time.to_i.step( (Time.local(@standard_day.year, @standard_day.month, @standard_day.day)+3600*23.5).to_i, 60*30).to_a    
+                @time_arry.map! {|a| Time.at(a)}
             else 
                 @key_time = Time.local(@standard_day.year, @standard_day.month, @standard_day.day) + 3600*6 + 3600*24*(i-1)
-                @day_next_arry = @key_time.to_i.step( (Time.local(@standard_day.year, @standard_day.month, @standard_day.day)+3600*24*(i-1)+3600*23.5).to_i, 60*30).to_a
-                @day_next_arry.map! {|a| Time.at(a)}
-                @day_arry.push(@day_next_arry)
+                @time_next_arry = @key_time.to_i.step( (Time.local(@standard_day.year, @standard_day.month, @standard_day.day)+3600*24*(i-1)+3600*23.5).to_i, 60*30).to_a
+                @time_next_arry.map! {|a| Time.at(a)}
+                @time_arry.push(@time_next_arry)
             end
         end
-        @day_arry.flatten!
+        @time_arry.flatten! #この時点では要素はTimeクラス
+        @date_arry = @time_arry.map {|a| a.to_date} #これで要素はDateクラス
+        @date_arry.uniq!
     
         @menu = Menu.find(params[:menu_id])
 
-        if flash[:notice].present?
-            gon.flash = true
-        end
+        @thead_for_hairdresser = true
     end
 
     def create_destroy_reservation #週間カレンダーからの予約作成
         if params[:start_time].present?
             @reservation_start_time_arry = params[:start_time]
-            @reservation_start_time_arry.each do |start_time|
-                @reservation = Reservation.new
-                @reservation.menu_id = params[:menu_id]
-                @reservation.start_time = start_time
-                @reservation.save
-            end
+            @reservation_start_time_arry.map! {|a| Reservation.new(start_time: a, menu_id: params[:menu_id])}
+            Reservation.import @reservation_start_time_arry #これでinsertが一括でできる
         end
         
+
+        @reservations_user_exist = @current_hairdresser.reservations.where.not(user_id: nil)
+        @reservations_user_exist.all.each do |reservation|
+            @time_min = reservation.start_time
+            @time_max = reservation.start_time + reservation.menu.time*60 -1
+            @reservations = @current_hairdresser.reservations.where(start_time: @time_min..@time_max)
+            @reservations.update_all(:status => 1 )
+        end
+       
         if params[:start_time_remove].present?
             @reservation_start_time_remove_arry = params[:start_time_remove]
-            @reservation_start_time_remove_arry.each do |start_time_remove|
-                @reservation = Reservation.find_by(start_time: start_time_remove, menu_id: params[:menu_id])
-                @reservation.destroy
-            end
+            @reservation_start_time_remove_arry.map! {|a| Reservation.find_by(start_time: a, menu_id: params[:menu_id])}
+            @reservation_id_arry = @reservation_start_time_remove_arry.pluck(:id)
+            Reservation.where(id: @reservation_id_arry).destroy_all
         end
-
+       
         flash[:notice] = "変更を保存しました"
         redirect_to hairdressers_set_week_calendar_reservation_path(menu_id: params[:menu_id], standard_day: params[:standard_day], win_height: params[:win_height])
     end
@@ -195,6 +173,7 @@ class Hairdressers::ReservationsController < ApplicationController
                 @min += 30    #時間を登録したらフォームにはその時間の30分後の時間が初期値として入力されているようにする
             end
             @start_date = params[:start_date]
+            flash[:notice] = "予約を追加しました"
             redirect_to new_hairdressers_reservation_path(menu_id: @reservation.menu_id, year: @year, month: @month, day: @day, hour: @hour, min: @min, start_date: @start_date)
         end
     end
@@ -202,6 +181,7 @@ class Hairdressers::ReservationsController < ApplicationController
     def destroy
         @reservation = Reservation.find(params[:id])
         @reservation.destroy
+        flash[:notice_red] = "予約を削除しました"
         redirect_to new_hairdressers_reservation_path(year: @reservation.start_time.year, month: @reservation.start_time.month, day: @reservation.start_time.day, hour: @reservation.start_time.hour, min: @reservation.start_time.min, menu_id: @reservation.menu_id )
     end
 

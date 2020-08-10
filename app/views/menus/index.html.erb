@@ -1,3 +1,8 @@
+<% if @menus.blank? %>
+   
+    <p class="center" style="padding-top: 80px;">メニューがありません。メニュー作成でメニューを作成してください。</p>
+   
+<% end %>
 <% @menus.reverse_each do |menu| %>
     <div class="container">
         <div class="menu_card">
@@ -27,4 +32,5 @@
         <%= link_to "予定表を編集", hairdressers_set_week_calendar_reservation_path(menu_id: menu.id), class: "reservation_make btn btn-success" %>
     </div>
 <% end %>
+
 

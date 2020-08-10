@@ -52,34 +52,33 @@ $(function() {
 $(function() {
     $(".function").click(function(){
         //すでに予約を作成してあるマル(時刻)をクリックした時
-        console.log($(this).html());
         if ($(this).children().hasClass("exist_reservation")) {
-            console.log(1);
             $(this).html("<p class='glyphicon glyphicon-remove simbol_remove remove_exist_reservation' aria-hidden='true'></p>");
             var reservation_time = $(this).attr('href');
-            $("#hairdresser_reservation_form").append(`<input type="text" name="start_time_remove[]" value=${reservation_time} class="${reservation_time}"></input>`);
+            var reservation_time_num = $(this).attr('id');
+            $("#hairdresser_reservation_form").append(`<input type="hidden" name="start_time_remove[]" value="${reservation_time}" class="${reservation_time_num}"></input>`);
         }
         //すでに予約を作成してあるバツ(時刻)をクリックした時
         else if ($(this).children().hasClass("remove_exist_reservation")) {
-            console.log(2);
             $(this).html("<p style='color: red;' class='simbol_round exist_reservation'>◎</p>");
             var reservation_time = $(this).attr('href');
-            $("#hairdresser_reservation_form").find(`.${reservation_time}`).remove();
+            var reservation_time_num = $(this).attr('id');
+            $("#hairdresser_reservation_form").find(`.${reservation_time_num}`).remove();
         }
 
         //予約を作成してないバツ(時刻)をクリックした時
         else if ($(this).children().hasClass("not_reservation")) {
-            console.log(3);
             $(this).html("<p style='color: red;' class='simbol_round remove_not_reservation'>◎</p>");
             var reservation_time = $(this).attr('href');
-            $("#hairdresser_reservation_form").append(`<input type="text" name="start_time[]" value=${reservation_time} class="${reservation_time}"></input>`);
+            var reservation_time_num = $(this).attr('id');
+            $("#hairdresser_reservation_form").append(`<input type="hidden" name="start_time[]" value="${reservation_time}" class="${reservation_time_num}"></input>`);
         }
         //予約を作成してないマル(時刻)をクリックした時
         else if ($(this).children().hasClass("remove_not_reservation")) {
-            console.log(4);
             $(this).html("<p class='glyphicon glyphicon-remove simbol_remove not_reservation' aria-hidden='true'></p>");
             var reservation_time = $(this).attr('href');
-            $("#hairdresser_reservation_form").find(`.${reservation_time}`).remove();
+            var reservation_time_num = $(this).attr('id');
+            $("#hairdresser_reservation_form").find(`.${reservation_time_num}`).remove();
         }
     })
 });
@@ -133,4 +132,3 @@ $(function() {
         });
     }
 });
-

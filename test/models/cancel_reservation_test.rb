@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class UserCancelTest < ActiveSupport::TestCase
+class CancelReservationTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end
