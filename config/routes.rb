@@ -68,4 +68,11 @@ Rails.application.routes.draw do
   resources :user_cards
   resources :hairdresser_comments, only: [:edit, :show, :update, :destroy]
 
+  #chatコントローラ
+  get "user_chat" => "chats#user_chat", as: "user_chat"
+  get "hairdresser_chat" => "chats#hairdresser_chat", as: "hairdresser_chat"
+  post "message_create" => "chats#message_create", as: "message_create"
+  #post "hairdresser_message_create" => "chats#hairdresser_message_create", as: "hairdresser_message_create"
+  post "room" => "chats#room", as: "room"
+
 end

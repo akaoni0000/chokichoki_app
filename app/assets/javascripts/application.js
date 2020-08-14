@@ -95,39 +95,35 @@ $(function() {
     $('.sign_up_in').fadeOut();
   });
 
-  
-    $('.hairdresser_open_modal').click(function() {
-      $('#hairdresser_login_modal').fadeIn();      //login_modalのdisplayをnoneをブロックにする     
-    });
+  $('.hairdresser_open_modal').click(function() {
+    $('#hairdresser_login_modal').fadeIn();      //login_modalのdisplayをnoneをブロックにする     
+  });
     
-
-
-
-    $('#user_close_modal').click(function() {
-      $('#user_login_modal').fadeOut();         //login_modalのdisplayをnoneにする     
-    });
+  $('#user_close_modal').click(function() {
+    $('#user_login_modal').fadeOut();         //login_modalのdisplayをnoneにする     
+  });
   
-    $('#hairdresser_close_modal').click(function() {
-      $('#hairdresser_login_modal').fadeOut();      //login_modalのdisplayをnoneにする     
-    });
+  $('#hairdresser_close_modal').click(function() {
+    $('#hairdresser_login_modal').fadeOut();      //login_modalのdisplayをnoneにする     
+  });
 
-
-    
-    $('.login').click(function() {
-      if($(".answer").hasClass('open')) { 
-        $(".answer").removeClass('open');
-        $(".answer").slideUp();  //answerのdisplayをnoneにする  
-      } else {
-        $(".answer").addClass('open'); 
-        $(".answer").slideDown();  //answerのdisplayをblockにする 
-      }
-    });
+  $('.login').click(function() {
+    if($(".answer").hasClass('open')) { 
+      $(".answer").removeClass('open');
+      $(".answer").slideUp();  //answerのdisplayをnoneにする  
+    } 
+    else {
+      $(".answer").addClass('open'); 
+      $(".answer").slideDown();  //answerのdisplayをblockにする 
+    }
+  });
     
   $('.sign_up').click(function() {
     if($(".answer2").hasClass('open2')) { 
       $(".answer2").removeClass('open2');
       $(".answer2").slideUp();  //answerのdisplayをnoneにする     
-    } else {
+    }
+    else {
       $(".answer2").addClass('open2'); 
       $(".answer2").slideDown();  //answerのdisplayをblockにする
     }
@@ -152,7 +148,6 @@ $(function() {
       'scrollTop': position - 300
     }, 1500);
   });
-
 });
 
 
@@ -176,7 +171,6 @@ $(function(){
       });
     }
   });
-
 });
 
 
@@ -357,15 +351,6 @@ $(function(){
   });
 
 });
-
-
-
-
-
-
-
-
-
 
 
 //userのマイページ

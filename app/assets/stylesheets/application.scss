@@ -23,6 +23,7 @@ body {
     min-height: 100vh;
     background-color:rgba(247, 247, 247, 1.0);
     width: 100%;
+    padding-bottom: 300px;
 }
 
 //footer
@@ -129,7 +130,7 @@ li:hover {
 //header
 header {
     width: 100%;
-    height: 180px;
+    height: 130px;
     //background-color: transparent;
     background-color:rgba(255, 255, 255, 0.9);
     //background-color: transparent;
@@ -165,60 +166,28 @@ header {
     left: 170px;
 }
 
-.search_form_header {
-    position: absolute;
-    right: 15%;
-    width: 250px;
-    top: 40px;
-}
-
-.search_icon_btn {
-    position: absolute;
-    right: 0px;
-    top: 0px;
-}
 
 #none_login {
-    position: absolute;
-    top: 100px;
-    left: 33%;
-    width: 1200px;
-}
-
-#none_login_user {
-    position: absolute;
-    top: 100px;
-    left: 19%;
-    width: 1200px;
-}
-
-#none_login_hairdresser {
-    position: absolute;
-    top: 100px;
-    left: 14.8%;
-    width: 1208px;
-}
-
-#user_header {
-    position: absolute;
-    top: 100px;
-    left: 25%;
-    width: 1200px;
-}
-
-
-#hairdresser_header {
-    position: absolute;
-    top: 100px;
-    left: 13%;
-    width: 1400px;
+    width: 100%;
+    text-align: center;
+    padding-left: 120px;
+    position: relative;
+    bottom: 181px;
 }
 
 #admin_header {
-    position: absolute;
-    top: 80px;
-    left: 20%;
-    width: 1400px;
+    width: 100%;
+    text-align: center;
+    padding-left: 140px;
+    position: relative;
+    bottom: 230px;
+}
+
+#none_login_user, #none_login_hairdresser, #user_header, #hairdresser_header{
+    width: 100%;
+    text-align: center;
+    position: relative;
+    bottom: 210px;
 }
 
 .tag {
@@ -236,10 +205,32 @@ header {
     cursor: pointer;
 }
 
-.welcome {
+
+.search_form_header {
+    position: absolute;
+    right: 10%;
+    //width: 250px;
+    top: 40px;
+}
+
+.search_top {
+    display: inline-block;
+    vertical-align: top;
+    width: 200px;
+}
+
+.search_icon_btn {
+    //position: absolute;
     position: relative;
-    top: -36px;
-    right: -260px; 
+    top: 0px;
+    left: -5px;
+
+    //display: inline-block;
+}
+
+.welcome {
+    display: inline-block;
+    vertical-align: top;
 }
 
 .welcome2 {
@@ -1593,4 +1584,108 @@ th {
 
 .date_data {
     margin-bottom: 90px;
+}
+
+//チャット機能
+#chat_members {
+    width: 400px;
+    height: 750px;
+    background-color: red;
+    //margin-left: 100px;
+    // position: relative;
+    // top: 50px;
+    display: inline-block;
+    vertical-align: top;
+    overflow: auto;
+}
+
+#search_form {
+    width: 100%;
+    height: 50px;
+    background-color: green;
+}
+
+#chat {
+    background-color: blue;
+    width: 700px;
+    height: 750px;
+    display: inline-block;
+    // position: relative;
+    // top: 50px;
+}
+
+#message_form {
+    width: 700px;
+    height: 150px;
+    background-color: yellow;
+    display: inline-block;
+    //margin-top: 600px;
+}
+
+#messages {
+    background-color: palevioletred;
+    height: 600px;
+}
+
+.chat_form {
+    resize: none;
+    //height: ６00px;
+}
+
+textarea.form-control {
+    //height: auto;
+    height: 100px;
+}
+
+.message_btn {
+    position: relative;
+    left: 323px;
+    top: 8px;
+}
+
+.chat_rooms {
+    height: 80px;
+    background-color:pink;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.chat_img {
+    // position: relative;
+    // top: -4px;
+    // right: 160px;
+}
+
+
+
+.chat_img {
+   display: inline-block;
+   vertical-align: top;
+   float: left;
+   position: relative;
+   top: -4px;
+   left: 5px;
+}
+
+.chat_name {
+    //width: 30px;
+   display: inline-block;
+   float: left;
+   position: relative;
+   top: -20px;
+   left: 30px;
+}
+
+.chat_hairdresser_name > h3 {
+    color: black;;
+}
+
+.opponent {
+    font-size: 15px;
+    background-color: #EEEEEE;
+}
+
+.myself {
+    font-size: 15px;
+    background-color: #DEB887;
 }

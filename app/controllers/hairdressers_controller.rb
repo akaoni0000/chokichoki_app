@@ -33,7 +33,7 @@ class HairdressersController < ApplicationController
             if params[:hairdresser][:post_number] == ""
                 @post_number = nil
             else
-                @post_number = params[:hairdresser][:post_number]
+                @post_number = params[:hairdresser][:post_number].to_i
             end
 
             if @hairdresser.errors.added?(:post_number, :invalid, :value=>@post_number)
@@ -62,6 +62,7 @@ class HairdressersController < ApplicationController
         @hairdresser = Hairdresser.find(params[:id])
         if @hairdresser.reject_status != nil
            @i = @hairdresser.reject_status.count("1")
+           @hairdresser.destroy
            session[:reject_id] = @hairdresser.id
         end
     end

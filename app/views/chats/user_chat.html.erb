@@ -1,0 +1,31 @@
+<div style="text-align: center; padding-top: 50px; font-size: 0;">
+
+    <div id="chat_members">
+        <div id="search_form">
+        </div> 
+        <% @chats.each do |chat| %>
+            <%= link_to room_path(room_id: chat.room_id), remote:true, method: :post do %>
+                <div class="chat_rooms">
+                    <div class="chat_hairdresser_img">
+                        <%= attachment_image_tag chat.hairdresser, :hairdresser_image, size: "70x70", fallback: "no_image.png", class: "img-circle chat_img" %>
+                    </div>
+                    <div class="chat_hairdresser_name">
+                        <h3><%= chat.hairdresser.name %></h3>
+                    </div>
+                </div>
+            <% end %>
+        <% end %>   
+    </div>
+
+    <div id="chat">
+        <div id="messages">
+        </div>
+        <div id="message_form">
+            <%= form_with(url: message_create_path, method: :post, id: "message_form_area") do |f| %>
+                <%= f.text_area :message,  placeholder: "メッセージを入力してください", class: "form-control chat_form" %>
+                <%= f.submit "送信", class: "btn btn-success message_btn" %>
+            <% end %>
+        </div>
+    </div>
+   
+</div>

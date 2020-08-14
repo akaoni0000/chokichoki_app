@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_05_130246) do
+ActiveRecord::Schema.define(version: 2020_08_14_023548) do
 
   create_table "admins", force: :cascade do |t|
     t.string "email"
@@ -27,6 +27,23 @@ ActiveRecord::Schema.define(version: 2020_08_05_130246) do
     t.integer "notification_status", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "chat_messages", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "hairdresser_id"
+    t.integer "room_id"
+    t.string "message"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "chats", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "hairdresser_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "room_id"
   end
 
   create_table "comments", force: :cascade do |t|
@@ -98,6 +115,11 @@ ActiveRecord::Schema.define(version: 2020_08_05_130246) do
     t.integer "status", default: 0
     t.integer "cancel_status", default: 0
     t.integer "notification_status", default: 0
+  end
+
+  create_table "rooms", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "style_images", force: :cascade do |t|

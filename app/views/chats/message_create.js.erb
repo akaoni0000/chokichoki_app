@@ -1,0 +1,6 @@
+var html = 
+            `
+              <div class="myself"><%= @chat_message.message %></div>
+            `
+var room_id = <%= @room_id %>
+App.room.speak(html, room_id);

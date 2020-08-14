@@ -25,17 +25,21 @@ class ApplicationController < ActionController::Base
       @current_admin = Admin.find_by(id: session[:admin_id])
     end
 
-    def admin_reject #承認しなかった美容師のアカウントは美容師がそのアカウントでログインして画面をみたら消去される
-      @admin_reject_hairdresser = Hairdresser.find_by(id: session[:reject_id])
-      if @admin_reject_hairdresser.present?
-        @admin_reject_hairdresser.destroy
+    def admin_reject 
+      if session[:reject_id]
         session[:reject_id] = nil
+        redirect_to root_path
       end
     end
 
     def set_gon
       gon.key = ENV['KEY']
-      gon.user = @current_user
+      if @current_user.present?
+        gon.user_id = @current_user.id
+      end
+      if @current_hairdresser.present?
+        gon.hairdresser_id = @current_hairdresser.id
+      end
     end
 
     def double_login_prevent
@@ -75,7 +79,7 @@ class ApplicationController < ActionController::Base
     
     #美容室で施術が終わった時間以降にログインするとコメント画面へ移行する
     def force_comment
-      if @current_user
+      if @current_user.present?
         @hairdresser_comment = HairdresserComment.find_by(user_id: @current_user.id, rate: nil)
         if @hairdresser_comment.present?
           @start_time = @hairdresser_comment.start_time

@@ -101,6 +101,12 @@ class Users::ReservationsController < ApplicationController
                 @start_time = @reservation.start_time
                 @hairdresser_comment = HairdresserComment.new(user_id: @current_user.id, hairdresser_id: @hairdresser_id, menu_id: @menu_id, start_time: @start_time)
                 @hairdresser_comment.save
+
+                #チャットルーム作成
+                @room = Room.new
+                @room.save
+                @chat = Chat.new(user_id: @current_user.id, hairdresser_id: @hairdresser_id, room_id: @room.id)
+                @chat.save
  
                 respond_to do |format|
                     format.js { render ajax_redirect_to(users_complete_path) }

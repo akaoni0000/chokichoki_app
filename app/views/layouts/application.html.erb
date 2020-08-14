@@ -49,14 +49,14 @@
 </script>-->
     　　
         <header>
-            <img src="<%= asset_path "logo8.png" %>" class="log"><!--cho.png-->
+            <img src="<%= asset_path "new_logo.png" %>" class="log"><!--cho.png-->
             <%= link_to root_path do %>
                 <div class="link_box"></div> <!--本来ならここにロゴをセットするがロゴ画像の背景を削除できなくてロゴ周辺がリンクになってしまうため工夫するしかなかった-->
             <% end %>
             <%= link_to "サロンの方はこちら", hairdresser_top_path, class: "salon"%>
             <div class="search_form_header">
-                <%= form_with(url: search_data_path, method: :post, local: true, class: "") do |f| %>
-                    <%= f.text_field :search_keyword, placeholder: "美容師名、メニュー名など", class: "form-control" %>
+                <%= form_with(url: search_data_path, method: :post, local: true, class: "welcome") do |f| %>
+                    <%= f.text_field :search_keyword, placeholder: "美容師名、メニュー名など", class: "form-control search_top" %>
                     <button type="submit" class="btn btn-primary search_icon_btn"> 
                         <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
                     </button> 
@@ -81,6 +81,7 @@
                     <li class="tag tag_left"><%= link_to "マイページ", user_path(@current_user.id)%></li>
                     <li class="tag"><%= link_to "美容師一覧", hairdressers_path  %></li>
                     <li class="tag"><%= link_to "予約", users_reservations_path %></li>
+                    <li class="tag"><%= link_to "チャット", user_chat_path %></li>
                     <li class="tag"><%= link_to "クレジットカード", new_user_card_path, class: "decoration_none" %></li>
                 </div>
             <% elsif @current_hairdresser %>
@@ -98,6 +99,7 @@
                     <% else %>
                         <li class="tag"><%= link_to "キャンセル", hairdressers_cancel_index_path, class: "cancel_link" %></li>
                     <% end %>
+                    <li class="tag"><%= link_to "チャット", hairdresser_chat_path %></li>
                     <li class="tag"><%= link_to "ヘアスタイル", edit_style_image_path(@current_hairdresser.id) %></li>
                 </ul>
             <% elsif @current_admin %>

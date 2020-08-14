@@ -2,7 +2,7 @@
     <h1 class="admin_title">美容師一覧</h1>
     <table class="table">
         <thead>
-            <th class="center">id</th><th class="center">名前</th><th class="center">店舗名</th><th class="center">店舗住所</th><th class="center">性別</th><th class="center">評価</th>
+            <th class="center">id</th><th class="center">名前</th><th class="center">メールアドレス</th><th class="center">店舗名</th><th class="center">店舗住所</th><th class="center">性別</th><th class="center">評価</th>
         </thead>
         <tbody>
             <% @hairdressers.each do |hairdresser| %>
@@ -14,6 +14,9 @@
                         <%= link_to users_hairdresser_path(id: hairdresser.id, admin: "admin"), remote: true do %>
                             <p class="reservation_hairdresser_name cursor"><%= hairdresser.name %></p>
                         <% end %>
+                    </td>
+                    <td>
+                        <%= hairdresser.email %>
                     </td>
                     <td>
                         <%= hairdresser.shop_name %>

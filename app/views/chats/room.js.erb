@@ -1,0 +1,49 @@
+$("#chat_name").remove();
+$("#room-<%=@room_id%>").remove();
+var html = 
+            `
+                <div id="chat_name" style="height: 50px; background-color: red; font-size:30px;">
+                    チャット
+                </div> 
+                <% if @current_user.present? %>
+                    <div id="room-<%=@room_id%>" class="user-<%=@current_user.id%>" style="height: 550px; overflow: auto;">
+                        <% @chat_messages.each do |chat_message| %>
+                            <% if chat_message.hairdresser_id.present? %>
+                                <div class="opponent">
+                                    <%= chat_message.message %>
+                                </div>
+                            <% elsif chat_message.user_id.present? %>
+                                <div class="myself">
+                                    <%= chat_message.message %>
+                                </div>
+                            <% end %>
+                        <% end %>
+                    </div>
+                <% elsif @current_hairdresser.present? %>
+                    <div id="room-<%=@room_id%>" class="hairdresser-<%=@current_hairdresser.id%>" style="height: 550px; overflow: auto;">
+                        <% @chat_messages.each do |chat_message| %>
+                            <% if chat_message.user_id.present? %>
+                                <div class="opponent">
+                                    <%= chat_message.message %>
+                                </div>
+                            <% elsif chat_message.hairdresser_id.present?  %>
+                                <div class="myself">
+                                    <%= chat_message.message %>
+                                </div>
+                            <% end %>
+                        <% end %>
+                    </div>
+                <% end %>
+            `
+$('#messages').html(html);
+$(".hidden_room").remove();
+$("#message_form").children("form").append(`<input type="hidden" name="room_id" value="<%=@room_id%>" class="hidden_room">`)
+if (gon.user_id) {
+    user_id = gon.user_id
+    $(`.user-${user_id}`).scrollTop($(`.user-${user_id}`)[0].scrollHeight);
+}
+else if (gon.hairdresser_id) {
+    hairdresser_id = gon.hairdresser_id
+    $(`.hairdresser-${hairdresser_id}`).scrollTop($(`.hairdresser-${hairdresser_id}`)[0].scrollHeight);
+}
+
