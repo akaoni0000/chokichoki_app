@@ -8,7 +8,7 @@
         <span class="search_tag"><%= link_to "評価から探す", search_index_path(turn: 5) %></span>
         <span class="search_tag"><%= link_to "性別から探す", search_index_path(turn: 6) %></span>
         <%= form_with(url: search_data_path, method: :post, local: true) do |f| %>
-            <%= f.text_field :search_keyword, placeholder: "美容師名、メニュー名など", class: "form-control search_form" %>
+            <%= f.text_field :search_keyword, placeholder: "美容師名、メニュー名など", class: "form-control search_form_index" %>
             <%= f.submit "検索", class: "btn btn-primary search_btn2" %>
         <% end %>
     </div>

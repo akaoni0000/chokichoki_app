@@ -23,7 +23,9 @@ body {
     min-height: 100vh;
     background-color:rgba(247, 247, 247, 1.0);
     width: 100%;
-    padding-bottom: 300px;
+    //padding-bottom: 300px;
+    display: block;
+    //margin-top: 110px;
 }
 
 //footer
@@ -38,10 +40,19 @@ footer {
     
 }
 
+.color {
+    color: #DEB887;
+}
+
+.color:hover {
+    color: #DEB887;
+}
+
+
 
 .cursor {
     cursor: pointer;
-    transition: all 0.6s ease; //カーソルを離した時もゆっくり変化
+    transition: all 0.3s ease; //カーソルを離した時もゆっくり変化
     text-decoration: none;
 }
 
@@ -51,8 +62,8 @@ footer {
 
 
 .cursor:hover {
-    color: #CC9933;
-    transition: all 0.6s ease;
+    color: #FFDEAD;
+    transition: all 0.3s ease;
     text-decoration: none;
 }
 
@@ -73,26 +84,34 @@ h1, h2, h3, span {
 }
 
 a, li {
-    color: #DEB887; 
-    transition: all 0.6s ease; //カーソルを離した時もゆっくり変化
+    // color: #F5DEB3; 
+    // transition: all 0.3s ease; //カーソルを離した時もゆっくり変化
     text-decoration: none;
     font-family: serif;
+    cursor: pointer;
+    color: black;
 }
 
 a:hover, li:hover {
-    color: #CC9933;
-    transition: all 0.6s ease;
+    // color: #FFDEAD;
+    // transition: all 0.3s ease;
     text-decoration: none;
+    cursor: pointer;
+    color: black;
 }
 
 
-li:hover {
-    color: #CC9933;
-}
 
 .fadein {
     opacity : 0;                      //透明度 0~1         
     transform : translate(0, 150px);  //右へ0px 下に100px下げる
+}
+
+
+.fadein.active {
+    opacity : 1;
+    transform : translate(0, 0);
+    transition : all 2s ease; //allはopacityとtransformを指定 hoverやjsでタイミングを定義しないと発動しない
 }
 
 //flash
@@ -132,78 +151,203 @@ header {
     width: 100%;
     height: 130px;
     //background-color: transparent;
-    background-color:rgba(255, 255, 255, 0.9);
+    //background-color:rgba(255, 255, 255, 0.9);
+    background-color:  #DEB887;
     //background-color: transparent;
-    margin-top: -20px;
+    margin-top: -5px;
     z-index: 80;
-
 }
 
-.fix {
-    // width: 100%;
-    //background-color: transparent;
-    // height: 130px;
+.fixed{
     z-index: 80;
     position: fixed;
-    // top: 20px;
 }
 
 
-.log {
-    width: 400px;
-    height: 300px;
-    position: relative;
-    top: -85px;
-    left: 160px;
+
+.header_top {
+    background-color: white;
+    height: 50px;
+    width: 100%;
+}
+
+.header_top_left {
+    height: 50px;
+    width: 80%;
+    color: black;
+    text-align: center;
+    padding-top: 15px;
+    float: left;
+}
+
+.header_top_right {
+    
+    //display: inline-block;
+    width: 20%;
+    height: 50px;
+    float: left;
+}
+
+.user_register {
+    display: inline-block;
+    height: 50px;
+    width: 50%;
+    
+    float: left;
+    text-align: center;
+    padding-top: 15px;
+}
+
+.user_login {
+    display: inline-block;
+    height: 50px;
+    width: 50%;
+    
+    float: left;
+    text-align: center;
+    padding-top: 15px;
+}
+
+.header_bottom {
+    width: 100%;
+    height: 80px;
+}
+
+.logo {
+    //background-color: red;
+    width: 345px;
+    height: 293px;
+    position: absolute;
+    top: -50px;
 }
 
 .link_box {
     background-color:transparent;
-    width: 360px;
-    height: 62px;
+    //background-color: rgb(122, 115, 115);
+    width: 300px;
+    height: 66px;
     position: absolute;
-    top: 23px;
-    left: 170px;
+    top: 55px;
+    left: 25px;
+}
+
+
+.salon {
+    position: relative;
+    position: relative;
+    left: 310px;
+    color: black;
+    top: 60px;
+}
+   
+
+.search_form {
+    width: 300px;
+    height: 80px;
+    text-align: center;
+    float: right;
+    //background-color: yellow;
+    padding-top: 20px;
 }
 
 
 #none_login {
-    width: 100%;
+    height: 80px;
+    width: 700px;
+    //background-color: red;
+    float: right;
     text-align: center;
-    padding-left: 120px;
-    position: relative;
-    bottom: 181px;
+    padding-top: 23px;
 }
 
-#admin_header {
-    width: 100%;
-    text-align: center;
-    padding-left: 140px;
-    position: relative;
-    bottom: 230px;
+.none_login_ul_user {
+    padding: 0;
+    padding-left: 200px;
 }
 
-#none_login_user, #none_login_hairdresser, #user_header, #hairdresser_header{
-    width: 100%;
-    text-align: center;
-    position: relative;
-    bottom: 210px;
+.none_login_ul_hairdresser {
+    padding: 0;
+    padding-left: 180px;
 }
 
-.tag {
+.tag1 {
     display: inline-block;
-    font-size: 25px;
-    margin-right: 85px;
-    position: relative;
-    font-family: serif;
-    color: #DEB887;
+    color: black;
+    margin-right: 30px;
+    font-size: 20px;
     cursor: pointer;
 }
 
-.tag_left {
-    margin-left: 100px;
-    cursor: pointer;
+
+.tag_left1 {
+    margin-left: 20px;
 }
+
+
+
+//aboutページ
+.title_chokichoki_1 {
+    padding-top: 70px;
+    text-align: center;
+    font-size: 30px;
+    margin-bottom: 30px;
+}
+
+.chokichoki_explain {
+   
+    margin: 0 auto;
+    margin-top: 50px;
+    word-wrap: break-word;
+}
+
+.explain_img {
+    height: 500px;
+    width: 400px;
+}
+
+.how_to_chokichoki {
+    //background-color: #333333;
+    background-color:  #DEB887;
+    width: 100%;
+    height: 700px;
+    margin-top: 100px;
+}
+
+.title_chokichoki_2 {
+    text-align: center;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.step_explain {
+    width: 1100px;
+    margin: 0 auto;
+}
+
+.step {
+    width: 150px;
+    display: inline-block;
+    vertical-align: top;
+    margin-right: 30px;
+    word-wrap: break-word;
+}
+
+.step_img {
+    width: 150px;
+    height: 150px;
+}
+
+
+
+
+
+#user_header, #hairdresser_header, #admin_header {
+    //padding-left: 590px;
+    float: right;
+    margin-top: 20px;
+}
+
+
 
 
 .search_form_header {
@@ -240,11 +384,6 @@ header {
 }
 
 
-.fadein.active {
-    opacity : 1;
-    transform : translate(0, 0);
-    transition : all 2s ease; //allはopacityとtransformを指定 hoverやjsでタイミングを定義しないと発動しない
-}
 
 // .now_login {
 //     position: relative;
@@ -252,13 +391,6 @@ header {
 //     left: 400px;
 //     top: -170px;
 // }
-
-.salon {
-    position: relative;
-    top: -91px;
-    left: 135px;
-}
-
 
 
 .sign_in_block_user {        //スライドダウンさせると意図してない要素が動く現象があったので、absoluteにするしかなかった
@@ -432,19 +564,116 @@ header {
 //会員top画面
 
 #user_main {
-    background-image: image-url("girl4.jpg"); //ca girl4
-    height: 1020px;
+    background-image: image-url("girl_top100.jpeg");
+    height: 810px;
     background-size: cover;
-    background-position: 10% 90%;  
-    margin-top: -90px;
+    background-position: 0% -5%; 
+    //margin-right: -13px; 
+    //margin-top: -232px;
     z-index: 90;
-    background-attachment: fixed;
+    //margin-left: 0px;
+    //background-attachment: fixed;
+}
+
+.dark2 {
+    height: 800px;
+    width: 100%;
+    background-color: rgba(0,0,0,0.0);
+}
+
+.publicity {
+    font-size: 40px;
+    padding-top: 270px;
+    padding-left: 850px;
 }
 
 
-.main_content {
-    margin-top: 70px;
+.search_form_square {
+    width: 480px;
+    height: 320px;
+    background: #fff;
+    box-shadow: 0 0 15px 0 rgba(191,203,222,0.4);
+    border-radius: 10px;
+    margin-left: 53%;
+    margin-top: 10px;
+    padding-top: 8px;
 }
+
+.find {
+    width: 230px;
+    height: 160px;
+    display: inline-block;
+    vertical-align: top;
+    padding-left: 18px;
+    padding-top: 15px;
+}
+
+.find_content {
+    text-align: left;
+    padding-left: 40px;
+    position: relative;
+    top: -8px;
+}
+
+.find_icon {
+    position: relative;
+    right: 75px;
+    top: 10px;
+}
+
+
+.find_tag {
+    width: 195px;
+    height: 50px;
+    border: 3px solid #DEB887;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.search_top2 {
+    display: inline-block;
+    vertical-align: top;
+    width: 360px;
+    height: 50px;
+}
+
+.circles {
+    position: absolute;
+    top: 600px;
+    left: 200px;
+}
+
+.circle_top {
+    background-color:  #DEB887;
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+    display: inline-block;
+    vertical-align: top;   
+    margin-right: 20px;
+    text-align: center;
+    padding-top: 55px;
+}
+
+.propaganda_user {
+    font-size: 25px;
+    color: white;
+}
+
+.botttom_search {
+    background-color: #F5DEB3;
+    width: 100%;
+    height: 200px;
+}
+
+.search_icon_btn2 {
+    position: relative;
+    top: 0px;
+    left: -5px;
+    width: 50px;
+    height: 50px;
+}
+
 
 #top_hairdresser_slider {
     height: 500px;
@@ -483,18 +712,186 @@ header {
 
 //美容師のtop画面
 #hairdresser_main {
-    background-image: image-url("hair4.jpg");
-    height: 1020px;
+    background-image: image-url("hair_top3.jpg");
+    background-size: cover;
+    width: 100%;
+    height: 500px;
     background-size: cover;
     background-position: 10% 60%;  
-    margin-top: -90px;
     z-index: 90;
-    background-attachment: fixed;
 }
 
-.blue {
+.dark {
+    width: 100%;
+    height: 500px;
+    background-color: rgba(0,0,0,0.4);
+}
+
+.header2 {
+    width: 100%;
+    height: 72px;
+    background-color: white;
+}
+
+.logo2 {
+    width: 345px;
+    height: 293px;
+    position: absolute;
+    top: -100px;
+}
+
+.link_top {
+    position: absolute;
+    top: 20px;
+    left: 30px;
+}
+
+.header_top_left2 {
+    height: 72px;
+    width: 10%;
+    float: right;
+    //background-color: yellow;
+}
+
+.header_top_right2 {
+    height: 72px;
+    width: 10%;
+    float: right;
+    //background-color: red;
+}
+
+.propaganda {
+    color: white;
+    font-size: 25px;
+    margin-top: 50px;
+}
+
+.propaganda2 {
+    color: white;
+    font-size: 50px;
+    margin-top: 10px;
+}
+
+.propaganda3 {
+    color: white;
+    margin-top: 10px;
+}
+
+.propaganda4 {
+
+}
+
+.circle {
+    width: 125px;
+    height: 125px;
+    border-radius: 50%;
+    background-color:  #DEB887;
+    display: inline-block;
+    margin-top: 50px;
+    margin-right: 30px;
+    padding-top: 45px;
+}
+
+.circle > p {
+    color: white;
+    font-size: 20px;
+}
+
+.chokichoki_feature {
+    display: inline-block;
+    vertical-align: top;
+    margin-right: 40px;
+    margin-left: 20px;
+}
+
+.feature {
+    width: 480px;
+    height: 120px;
+    border: 3px solid #DEB887;
+    margin-bottom: 20px;
+}
+
+.gold {
     color: #DEB887;
 }
+
+.reason {
+    width: 100%;
+    background-color: #F5DEB3;
+    height: 430px;
+    margin-top: 60px;
+}
+
+.reason_point {
+    width: 190px;
+    height: 190px;
+    background-color: #DEB887;
+    display: inline-block;
+    margin-right: 30px;
+    vertical-align: top;
+}
+
+.point {
+    background-color:#ffffff;
+    color: #f5618a;
+    font-size: 16px;
+    height: 40px;
+    padding-top: 6px;
+}
+
+.flow {
+    width: 100%;
+    height: 500px;
+    //background-color: #F5DEB3;
+    margin-top: 30px;
+}
+
+.flow_step {
+    width: 190px;
+    height: 230px;
+    border: 3px solid #DEB887;
+    display: inline-block;
+    //margin-right: 30px;
+    vertical-align: top;
+}
+
+.next_img {
+    margin-top: 80px;
+}
+
+.next_img2 {
+    margin-top: 100px;
+}
+
+.visit {
+    width: 100%;
+    height: 430px;
+    background-color: #F5DEB3;
+    padding-top: 50px;
+}
+
+.flow_step2 {
+    width: 190px;
+    height: 230px;
+    //border: 3px solid #DEB887;
+    display: inline-block;
+    margin-top: 20px;
+    //margin-right: 30px;
+    vertical-align: top;
+    background-color:  #DEB887;
+}
+
+.visit_img {
+    margin-top: 10px;
+}
+// color: #f5618a;
+//     font-size: 16px;
+//     height: 40px;
+//     padding-top: 6px;
+
+
+
+
 
 .human {
     width: 230px;
@@ -554,12 +951,6 @@ header {
 
 .search_tag {
     margin-left: 20px;
-}
-
-.search_form {
-    width: 300px;
-    margin: 0 auto;
-    margin-top: 20px;
 }
 
 
@@ -688,6 +1079,12 @@ select:focus {
     width: 300px;
     position: relative;
     left: -10px;
+}
+
+.search_form_index {
+    width: 435px;
+    margin: 0 auto;
+    margin-top: 20px;
 }
 
 .search_btn2 {
@@ -895,9 +1292,6 @@ hr {
     display: block;
 }
 
-.display_none {
-    display: none;
-}
 
 .display_inline_block {
     display: inline-block;
@@ -1280,12 +1674,6 @@ hr {
     margin-bottom: 30px;
 }
 
-#admin_header {
-    float: right;
-    margin-top: 30px;
-    margin-right: 100px;
-}
-
 .admin_title {
     margin-bottom: 50px;
 }
@@ -1487,11 +1875,6 @@ th {
     z-index: 48;
 }
 
-.inline_block {
-    display: inline-block;
-    vertical-align: top;
-}
-
 
 .holiday_back1 {
     background-color: #D9E3EC;
@@ -1586,7 +1969,20 @@ th {
     margin-bottom: 90px;
 }
 
+
+
+
+
+
+
 //チャット機能
+#chat_page {
+    width: 1100px;
+    margin: 0 auto;
+    font-size: 0;
+    padding-top: 30px;
+}
+
 #chat_members {
     width: 400px;
     height: 750px;
@@ -1616,7 +2012,8 @@ th {
 
 #message_form {
     width: 700px;
-    height: 150px;
+    height: 100px;
+    //height: 50px;
     background-color: yellow;
     display: inline-block;
     //margin-top: 600px;
@@ -1624,7 +2021,6 @@ th {
 
 #messages {
     background-color: palevioletred;
-    height: 600px;
 }
 
 .chat_form {
@@ -1634,13 +2030,15 @@ th {
 
 textarea.form-control {
     //height: auto;
-    height: 100px;
+    height: 73px;
+    width: 700px;
 }
 
 .message_btn {
-    position: relative;
-    left: 323px;
-    top: 8px;
+    float: right;
+    height: 37px;
+    //pointer-events: none; 
+   
 }
 
 .chat_rooms {
@@ -1686,6 +2084,125 @@ textarea.form-control {
 }
 
 .myself {
+    min-height: 40px;
+    margin-top: 20px;
+    margin-bottom: 20px;
     font-size: 15px;
     background-color: #DEB887;
+    text-align: right;
+    padding-right: 10px;
+}
+
+.myself_chat {
+    max-width: 450px;
+    text-align: left;
+    display: inline-block;
+    background-color: blue;
+    color: white;
+    padding: 10px;
+    border-radius: 15px 0px 15px 15px;
+    word-wrap: break-word;
+}
+
+.opponent {
+    min-height: 40px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-size: 15px;
+    background-color: pink;
+    text-align: left;
+    padding-left: 10px;
+    //padding-top: 30px;
+}
+
+.opponent_chat {
+    max-width: 450px;
+    text-align: left;
+    display: inline-block;
+    background-color: green;
+    color: white;
+    padding: 10px;
+    border-radius: 15px 15px 15px 15px;
+    word-wrap: break-word;
+    // position: relative;
+    // top: 3px;
+}
+
+.opponent_img {
+    display: inline-block;
+    vertical-align: top;
+    // position: relative;
+    // top: -30px;
+}
+
+#chat_style_images {
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.dark_chat {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: none;
+    z-index: 90;
+    text-align: center;
+    padding-top: 150px;
+}
+
+.dark_remove {
+    position: absolute;
+    top: 130px;
+    left: 320px;
+    background-color: white;
+    border-radius: 50%;
+}
+
+.chat_hair_box {
+    background-color: white;
+    width: 230px;
+    height: 273px;
+    display: inline-block;
+    text-align: center;
+    padding-top: 10px;
+    font-size: 2;
+    border: 1px solid;
+    margin: 5px 0.5%;
+    vertical-align: top;
+}
+
+
+.circle2 {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: white;
+    border: 1px solid;
+    float: right;
+    margin-right: 5px;
+}
+
+// .myself_chat > span {
+//     background-color: blue;
+//     color: white;
+//     padding: 10px;
+// }
+
+
+
+
+
+
+.display_none {
+    display: none;
+}
+
+
+.inline_block {
+    display: inline-block;
+    vertical-align: top;
 }

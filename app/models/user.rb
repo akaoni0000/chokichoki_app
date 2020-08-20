@@ -25,4 +25,5 @@ class User < ApplicationRecord
     has_many :reservations
     has_many :hairdresser_comments
     has_many :cancel_reservations
+    has_many :chats
 end

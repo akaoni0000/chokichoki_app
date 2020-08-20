@@ -2,13 +2,13 @@
     <!--前の週へのリンク-->
     <% if @thead_for_user == true %>
         <% if @standard_day != Date.today %>
-            <th rowspan="2" class="border_right border_bottom2 width1"><%= link_to "前の一週間", users_set_week_calendar_reservation_path(option: "last", day: @standard_day, menu_id: @menu.id), class: "last_week link_last_next" %></th>
+            <th rowspan="2" class="border_right border_bottom2 width1"><%= link_to "前の一週間", users_set_week_calendar_reservation_path(option: "last", day: @standard_day, menu_id: @menu.id), class: "last_week link_last_next color" %></th>
         <% else %> <!--linkを無効-->
             <th rowspan="2" class="border_right border_bottom2 width1 add1"><%= link_to "前の一週間", users_set_week_calendar_reservation_path(option: "last", day: @standard_day, menu_id: @menu.id), style: "pointer-events: none; color: grey;" %></th>
         <% end %>
     <% elsif @thead_for_hairdresser == true %>
         <% if @standard_day != Date.today %>
-            <th rowspan="2" class="border_right border_bottom2 width1"><%= link_to "前の一週間", hairdressers_set_week_calendar_reservation_path(option: "last", day: @standard_day, menu_id: @menu.id), class: "last_week link_last_next" %></th>
+            <th rowspan="2" class="border_right border_bottom2 width1"><%= link_to "前の一週間", hairdressers_set_week_calendar_reservation_path(option: "last", day: @standard_day, menu_id: @menu.id), class: "last_week link_last_next color" %></th>
         <% else %> <!--linkを無効-->
             <th rowspan="2" class="border_right border_bottom2 width1 add1"><%= link_to "前の一週間", hairdressers_set_week_calendar_reservation_path(option: "last", day: @standard_day, menu_id: @menu.id), style: "pointer-events: none; color: grey;" %></th>
         <% end %>
@@ -32,9 +32,9 @@
 
     <!--次の週へのリンク-->
     <% if @thead_for_user == true %>
-        <th rowspan="2" class="attr87 width1 add1 border_bottom2 border_left"><%= link_to "次の一週間", users_set_week_calendar_reservation_path(option: "next", day: @standard_day, menu_id: @menu.id), class: "next_week link_last_next" %></th>
+        <th rowspan="2" class="attr87 width1 add1 border_bottom2 border_left"><%= link_to "次の一週間", users_set_week_calendar_reservation_path(option: "next", day: @standard_day, menu_id: @menu.id), class: "next_week link_last_next color" %></th>
     <% elsif @thead_for_hairdresser == true %>
-        <th rowspan="2" class="attr87 width1 add1 border_bottom2 border_left"><%= link_to "次の一週間", hairdressers_set_week_calendar_reservation_path(option: "next", day: @standard_day, menu_id: @menu.id), class: "next_week link_last_next" %></th>
+        <th rowspan="2" class="attr87 width1 add1 border_bottom2 border_left"><%= link_to "次の一週間", hairdressers_set_week_calendar_reservation_path(option: "next", day: @standard_day, menu_id: @menu.id), class: "next_week link_last_next color" %></th>
     <% end %>
 </tr>
 

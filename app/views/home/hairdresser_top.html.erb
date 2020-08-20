@@ -1,32 +1,150 @@
-<main id="hairdresser_main">
-        <div class="container main_content">
-            <!--<h3 style="margin-top: 250px;">スタリスリストデビューを味わえる!!</h3>
-            <h3>無料でカットモデルが募集できる!!</h3>
-            <h3>街に出て声をかける必要なし!!</h3>
-            <h3>登録無料!!(審査あり)</h3>
-            <h3>強制評価システムで必ず評価をもらえる!!</h3>
-            <h3>スタイリストデビューの判断材料に!!</h3>-->
+<div class="header2">
+    <img src="<%= asset_path "new_logo.png" %>" class="logo2">
+    <%= link_to "一般の方はこちら", root_path, class: "link_top" %>
+    <div class="header_top_left2">
+        <span class="hairdresser_register cursor2" id="login_hairdresser">
+            <span class="glyphicon glyphicon-log-in" aria-hidden="true" style="margin: 30px 5px 0px 20px;"></span>ログイン
+        </span>
+    </div>
+    <div class="header_top_left2">
+        <span class="hairdresser_register cursor2" id="new_hairdresser">
+            <span class="glyphicon glyphicon-user" aria-hidden="true" style="margin: 30px 5px 0px 20px;"></span>新規登録
+        </span>
+    </div>
+</div>
+
+<div id="hairdresser_main">
+    <div class="dark container">
+        <div class="center">
+            <p class="propaganda">月間予約50万件以上！</p>
+            <p class="propaganda2">美容師アシスタントのための集客アプリ!!</p>
+            <p class="propaganda3">chokichokiは美容師アシスタントがカットモデルを募集できるアプリです。<br>もう街中で声をかける必要はありません。</p>
+            <div class="propaganda4 circle">
+               <p>簡単操作!</p>
+            </div>
+            <div class="propaganda4 circle">
+                <p>完全無料!</p>
+            </div>
+            <div class="propaganda4 circle">
+                <p>高い集客力!</p>
+            </div>
         </div>
-</main>
+    </div>
+</div>
+
 <div class="down_content2">
-    <div class="center fadein">
-        <h1 style="margin-top: 100px;">chokichokiの特徴</h1>
-        <div class="container">
-        <div class="col-xs-6">
-            <h3 class="blue">美容師なら誰でも登録可能!!</h3>
-            <h3 class="blue">マネキンではなくお客様の髪が切れる!!</h3>
+
+    <div class="container center">
+        <h1 style="margin-top: 50px;">chokichokiの特徴</h1>
+        <div class="chokichoki_feature">
+            <div class="feature">
+                <h3 class="gold">スタイリストデビューが味わえる!!</h3>
+                <p>自分で施術メニューを作成し、予約の時間を決めることができます!</p>
+            </div>
+            <div class="feature">
+                <h3 class="gold">モチベーションアップ!!</h3>
+                <p>マネキンではなくお客様の髪を施術できるのでモチベーションがup!</p>
+            </div>
         </div>
-        <div class="col-xs-6">
-            <h3 class="blue">かかるお金は0円!完全無料!!</h3>
-            <h3 class="blue">予約の時間を設定して、待つだけ!!</h3>
+        <div class="chokichoki_feature">
+            <div class="feature">
+                <h3 class="gold">かかるお金は0円!完全無料!!</h3>
+                <p>どんなにメニューを掲載しても掲載料0円!</p>
+            </div>
+            <div class="feature">
+                <h3 class="gold">アシスタントなら誰でも登録可能!!</h3>
+                <p>経験年数関係なく、一年目の人もご利用いただけます!</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="reason container center">
+        <div class="center" style="margin-top: 50px; margin-bottom: 30px">
+            <h1>chokichokiを使うべき理由</h1>
+        </div>
+        <div class="reason_point">
+            <div class="point">POINT<strong style="font-size: 20px; margin-left: 3px;">1</strong></div>
+            <h3 style="color: white; margin-bottom: 20px;">隙間時間の集客</h3>
+            <p style="color: white;">平日の空き時間や埋めたい時間に合わせて集客できます</p>
+        </div>
+        <div class="reason_point">
+            <div class="point">POINT<strong style="font-size: 20px; margin-left: 3px;">2</strong></div>
+            <h3 style="color: white; margin-bottom: 20px;">技術力向上</h3>
+            <p style="color: white;">メニュー作成は自由なので自分が磨きたい施術のメニューを作成することができます</p>
+        </div>
+        <div class="reason_point">
+            <div class="point">POINT<strong style="font-size: 20px; margin-left: 3px;">3</strong></div>
+            <h3 style="color: white; margin-bottom: 20px;">スタイリスト昇格</h3>
+            <p style="color: white;">施術が終わった後、口コミを書いてもらえるのでその評価をスタイリスト昇格の判断材料としてつかえます</p>
+        </div>
+        <div class="reason_point">
+            <div class="point">POINT<strong style="font-size: 20px; margin-left: 3px;">4</strong></div>
+            <h3 style="color: white; margin-bottom: 20px;">カウンセリング</h3>
+            <p style="color: white;">予約が確定するとお客様とチャットをすることができ、好みのスタイルを聞くことができます</p>
+        </div>
+        <div class="reason_point">
+            <div class="point">POINT<strong style="font-size: 20px; margin-left: 3px;">5</strong></div>
+            <h3 style="color: white; margin-bottom: 20px;">完全無料</h3>
+            <p style="color: white;">初期費用・月額掲載費は一切かかりません</p>
+        </div>
+    </div>
+    
+    <div class="flow container center">
+        <div class="center" style="margin-top: 50px; margin-bottom: 30px">
+            <h1>メニュー掲載までの流れ</h1>
+        </div>
+        <div class="flow_step">
+            <div class="point">STEP<strong style="font-size: 20px; margin-left: 3px;">1</strong></div>
+            <img src="<%= asset_path "pen.png" %>" class="">
+            <p style="margin-top: 10px;">新規登録、またはログインより必要な情報を入力してアカウントにログイン(美容師免許証が必要になる審査があります)</p>
+        </div>
+        <img src="<%= asset_path "next.png" %>" class="next_img">
+        <div class="flow_step">
+            <div class="point">STEP<strong style="font-size: 20px; margin-left: 3px;">2</strong></div>
+            <img src="<%= asset_path "menu.png" %>" class="">
+            <p style="margin-top: 10px;">メニュー作成よりメニューを作成します</p>
+        </div>
+        <img src="<%= asset_path "next.png" %>" class="next_img">
+        <div class="flow_step">
+            <div class="point">STEP<strong style="font-size: 20px; margin-left: 3px;">3</strong></div>
+            <img src="<%= asset_path "clock.png" %>" class="">
+            <p style="margin-top: 10px;">メニュー一覧の「予約を編集」からそのメニューの施術可能時間を設定します</p>
+        </div>
+        <img src="<%= asset_path "next.png" %>" class="next_img">
+        <div class="flow_step">
+            <div class="point">STEP<strong style="font-size: 20px; margin-left: 3px;">4</strong></div>
+            <img src="<%= asset_path "smaho.png" %>" class="">
+            <p style="margin-top: 10px;">掲載開始</p>
+        </div>
+    </div>
+
+    <div class="visit container center">
+        <h1>来店までの流れ</h1>
+        <div class="flow_step2">
+            <div class="point">STEP<strong style="font-size: 20px; margin-left: 3px;">1</strong></div>
+            <img src="<%= asset_path "huma.png" %>" class="visit_img">
+            <p style="margin-top: 10px; color: white;">予約が入る</p>
+            
+        </div>
+        <img src="<%= asset_path "next2.png" %>" class="next_img2">
+        <div class="flow_step2">
+            <div class="point">STEP<strong style="font-size: 20px; margin-left: 3px;">2</strong></div>
+            <img src="<%= asset_path "message.png" %>" class="visit_img">
+            <p style="margin-top: 10px; color: white">チャット機能でカウンセリング お互いが同意すればビデオ電話ができます。（ブラウザによってできない可能性があります）</p>
+        </div>
+        <img src="<%= asset_path "next2.png" %>" class="next_img2">
+        <div class="flow_step2">
+            <div class="point">STEP<strong style="font-size: 20px; margin-left: 3px;">3</strong></div>
+            <img src="<%= asset_path "hasami.png" %>" class="visit_img">
+            <p style="margin-top: 10px; color: white;">お客様が来店し、施術開始</p>
         </div>
     </div>
 
     <!-- ご利用者さまの声 -->
-    <div id="top_hairdresser_slider" class="container center" style="margin-top: 200px;">
+    <div id="top_hairdresser_slider" class="container center" style="margin-top: 50px;">
         <div class="carousel slide" data-ride="carousel" data-interval="9000">
-            <h1 class="fadein" style="margin-bottom: 40px; font-family: serif;">ご利用者さまの声</h1>
-            <div class="carousel-inner fadein" style="height: 500px;">
+            <h1 class="" style="margin-bottom: 40px; font-family: serif;">ご利用者さまの声</h1>
+            <div class="carousel-inner" style="height: 500px;">
                 <div class="item active">
                     <div class="hairdresser_use_image">
                         <img src="<%= asset_path "human1.jpg" %>" class="img-circle human">
@@ -83,15 +201,8 @@
     </div>
 
     <!-- FAQ -->
-    <div id="FAQ" class="faq fadein" style="margin-bottom: 300px; margin-top: 150px;">
+    <div id="FAQ" class="faq" style="margin-bottom: 300px; margin-top: 150px;">
         <h1 style="margin-bottom: 30px;">FAQ</h1>
-
-        <h3 class="question"><span style="border-bottom: solid 5px #e6ecf0;">chokichokiとは？</span></h3>
-        <div class="left_static">
-            <p class="answers">
-                安価で美容院に行きたい人と、マネキンではなく実際にお客様の髪で施術をしたい美容師アシスタント、双方の希望を叶えるwebアプリケーションです。
-            </p>
-        </div>
 
         <h3 class="question"><span style="border-bottom: solid 5px #e6ecf0;">スタイリストデビューを味わえるとは？</span></h3>
         <div class="left_static">
@@ -101,7 +212,7 @@
             </p>
         </div>
         
-        <h3 class="question"><span style="border-bottom: solid 5px #e6ecf0;">強制評価システムとは？</span></h3>
+        <h3 class="question"><span style="border-bottom: solid 5px #e6ecf0;">必ず口コミを書いてもらえるんですか？</span></h3>
         <div class="left_static">
             <p class="answers">
                 お客様は施術が完了した後、口コミを書かないとログインできないようになっており、評価をもらうことができます。

@@ -7,6 +7,7 @@
         
         <script src='https://js.pay.jp/' type='text/javascript'></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>
+        <script src="https://cdn.webrtc.ecl.ntt.com/skyway-latest.js"></script>
         <%= Gon::Base.render_data %>
         <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
         <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
@@ -46,119 +47,122 @@
     handler.fitMapToBounds();
     handler.getMap().setZoom(16);
   });
+
 </script>-->
-    　　
+    
         <header>
-            <img src="<%= asset_path "new_logo.png" %>" class="log"><!--cho.png-->
-            <%= link_to root_path do %>
-                <div class="link_box"></div> <!--本来ならここにロゴをセットするがロゴ画像の背景を削除できなくてロゴ周辺がリンクになってしまうため工夫するしかなかった-->
-            <% end %>
-            <%= link_to "サロンの方はこちら", hairdresser_top_path, class: "salon"%>
-            <div class="search_form_header">
-                <%= form_with(url: search_data_path, method: :post, local: true, class: "welcome") do |f| %>
-                    <%= f.text_field :search_keyword, placeholder: "美容師名、メニュー名など", class: "form-control search_top" %>
-                    <button type="submit" class="btn btn-primary search_icon_btn"> 
-                        <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-                    </button> 
+            <div class="header_top">
+                <div class="header_top_left">
+                    美容室予約アプリchokichoki 今なら500ptプレゼント!!
+                </div>
+                <div class="header_top_right">
+                    <% if @current_user.present? %>
+                        <span class="user_register cursor2">
+                            <span class="glyphicon glyphicon-user" aria-hidden="true" style="margin-right: 5px;"></span>アカウント
+                        </span>
+                        <%= link_to user_logout_path, method: :post do %>
+                            <span class="user_login cursor2">
+                                <span class="glyphicon glyphicon-log-out" aria-hidden="true" style="margin-right: 5px;"></span>ログアウト
+                            </span>
+                        <% end %>
+                    <% elsif @current_hairdresser.present? %>
+                        <span class="user_register cursor2">
+                            <span class="glyphicon glyphicon-user" aria-hidden="true" style="margin-right: 5px;"></span>ようこそ
+                        </span>
+                        <%= link_to hairdresser_logout_path, method: :post do %>
+                            <span class="user_login cursor2">
+                                <span class="glyphicon glyphicon-log-out" aria-hidden="true" style="margin-right: 5px;"></span>ログアウト
+                            </span>
+                        <% end %>
+                    <% elsif @current_admin.present? %>
+                        <span class="user_register cursor2">
+                            <span class="glyphicon glyphicon-user" aria-hidden="true" style="margin-right: 5px;"></span>管理者
+                        </span>
+                        <%= link_to admins_logout_path, method: :post do %>
+                            <span class="user_login cursor2">
+                                <span class="glyphicon glyphicon-log-out" aria-hidden="true" style="margin-right: 5px;"></span>ログアウト
+                            </span>
+                        <% end %>
+                    <% else %>
+                        <span class="user_register cursor2" id="new_user">
+                            <span class="glyphicon glyphicon-user" aria-hidden="true" style="margin-right: 5px;"></span>新規登録
+                        </span>
+                        <span class="user_login cursor2" id="login_user">
+                            <span class="glyphicon glyphicon-log-in" aria-hidden="true" style="margin-right: 5px;"></span>ログイン
+                        </span>
+                    <% end %>
+                </div>
+            </div>
+            <div class="header_bottom">
+                <img src="<%= asset_path "new_logo.png" %>" class="logo">
+                <%= link_to root_path do %>
+                    <div class="link_box"></div> <!--本来ならここにロゴをセットするがロゴ画像の背景を削除できなくてロゴ周辺がリンクになってしまうため工夫するしかなかった-->
                 <% end %>
-                <% if @current_user %>
-                    <div class="welcome">
-                        <p class="">ようこそ、<%= @current_user.name %>さん</p>
-                        <p class="">現在のポイントは、<%= @current_user.point %>pt</p>
-                        <p><%= link_to "ログアウト", user_logout_path, method: :post %></p>
+                <% if @current_user.blank? %>
+                    <%= link_to "サロンの方はこちら", hairdresser_top_path, class: "salon"%>
+                <% end %>
+        
+                <% if @current_user.present? || @current_hairdresser.blank? %>
+                    <div class="search_form">
+                        <%= form_with(url: search_data_path, method: :post, local: true, class: "welcome") do |f| %>
+                            <%= f.text_field :search_keyword, placeholder: "美容師名、メニュー名など", class: "form-control search_top" %>
+                            <button type="submit" class="btn btn-primary search_icon_btn"> 
+                                <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                            </button> 
+                        <% end %>
                     </div>
                 <% end %>
-                <% if @current_hairdresser %>
-                    <div class="welcome2">
-                        <p class="">ようこそ、<%= @current_hairdresser.name %>さん</p>
-                        <p><%= link_to "ログアウト", hairdresser_logout_path, method: :post %></p>
+                <% if @current_user.present? %>
+                    <div id="user_header">
+                        <ul>
+                            <li class="tag1 scroll-btn" href="#top_hairdresser_slider">人気美容師</li>
+                            <li class="tag1"><%= link_to "美容師一覧", hairdressers_path  %></li>
+                            <li class="tag1"><%= link_to "予約", users_reservations_path %></li>
+                            <li class="tag1"><%= link_to "チャット", user_chat_path %></li>
+                            <li class="tag1"><%= link_to "クレジットカード", new_user_card_path %></li>
+                        </ul>
+                    </div>
+                <% elsif @current_hairdresser.present? %>
+                    <div id="hairdresser_header">
+                        <ul>
+                            <li class="tag1"><%= link_to "メニュー作成", new_menu_path%></li>
+                            <li class="tag1"><%= link_to "メニュー", menus_path %></li>
+                            <% if @notice_reservations_number != 0 %>
+                                <li class="tag1"><span class="notice_number"><%= @notice_reservations_number %></span><%= link_to "予約", hairdressers_reservations_path %></li>
+                            <% else %>
+                                <li class="tag1"><%= link_to "予約", hairdressers_reservations_path %></li>
+                            <% end %>
+                            <% if @cancel_number != 0 %>
+                                <li class="tag1"><span class="notice_cancel_number"><%= @cancel_number %></span><%= link_to "キャンセル", hairdressers_cancel_index_path, class: "cancel_link" %></li>
+                            <% else %>
+                                <li class="tag1"><%= link_to "キャンセル", hairdressers_cancel_index_path, class: "cancel_link" %></li>
+                            <% end %>
+                            <li class="tag1"><%= link_to "チャット", hairdresser_chat_path %></li>
+                            <li class="tag1"><%= link_to "ヘアスタイル", edit_style_image_path(@current_hairdresser.id) %></li>
+                        </ul>
+                    </div>
+                <% elsif @current_admin.present? %>
+                    <div id="admin_header">
+                        <ul>
+                            <li class="tag1"><%= link_to "会員", admins_user_index_path%></li>
+                            <li class="tag1"><%= link_to "美容師", admins_hairdresser_index_path %></li>
+                            <li class="tag1"><%= link_to "承認待ち", admins_hairdresser_judge_index_path%></li>
+                            <li class="tag1"><%= link_to "チャート", admins_user_chart_path%></li>
+                        </ul>
+                    </div>
+                <% else %>
+                    <div id="none_login">
+                        <ul class="none_login_ul_user">
+                            <li class="tag1" style="width: 78px;"><%= link_to "ABOUT", about_path, class: "tag1" %></li>
+                            <li class="tag1 scroll-btn" href="#FAQ">FAQ</li>
+                            <li class="tag1 tag_left scroll-btn" href="#top_hairdresser_slider">人気美容師</li>
+                            <li class="tag1"><%= link_to "美容師一覧", hairdressers_path, class: "tag1" %></li>
+                        </ul>
                     </div>
                 <% end %>
             </div>
-
-            <% if @current_user %>
-                <div id = "user_header">
-                    <li class="tag tag_left"><%= link_to "マイページ", user_path(@current_user.id)%></li>
-                    <li class="tag"><%= link_to "美容師一覧", hairdressers_path  %></li>
-                    <li class="tag"><%= link_to "予約", users_reservations_path %></li>
-                    <li class="tag"><%= link_to "チャット", user_chat_path %></li>
-                    <li class="tag"><%= link_to "クレジットカード", new_user_card_path, class: "decoration_none" %></li>
-                </div>
-            <% elsif @current_hairdresser %>
-                <ul id = "hairdresser_header">
-                    <li class="tag tag_left"><%= link_to "マイページ", hairdresser_path(@current_hairdresser.id)%></li>
-                    <li class="tag"><%= link_to "メニュー作成", new_menu_path%></li>
-                    <li class="tag"><%= link_to "メニュー", menus_path %></li>
-                    <% if @notice_reservations_number != 0 %>
-                        <li class="tag"><span class="notice_number"><%= @notice_reservations_number %></span><%= link_to "予約", hairdressers_reservations_path %></li>
-                    <% else %>
-                        <li class="tag"><%= link_to "予約", hairdressers_reservations_path %></li>
-                    <% end %>
-                    <% if @cancel_number != 0 %>
-                        <li class="tag"><span class="notice_cancel_number"><%= @cancel_number %></span><%= link_to "キャンセル", hairdressers_cancel_index_path, class: "cancel_link" %></li>
-                    <% else %>
-                        <li class="tag"><%= link_to "キャンセル", hairdressers_cancel_index_path, class: "cancel_link" %></li>
-                    <% end %>
-                    <li class="tag"><%= link_to "チャット", hairdresser_chat_path %></li>
-                    <li class="tag"><%= link_to "ヘアスタイル", edit_style_image_path(@current_hairdresser.id) %></li>
-                </ul>
-            <% elsif @current_admin %>
-                <ul id = "admin_header">
-                    <li class="tag tag_left"><%= link_to "会員", admins_user_index_path%></li>
-                    <li class="tag"><%= link_to "美容師", admins_hairdresser_index_path %></li>
-                    <li class="tag"><%= link_to "承認待ち", admins_hairdresser_judge_index_path%></li>
-                    <li class="tag"><%= link_to "チャート", admins_user_chart_path%></li>
-                    <li class="tag"><%= link_to "ログアウト", admins_logout_path, method: :post %></li>
-                </ul>
-            <!-- ログインしてない時 -->
-            <% elsif @user_page == "user"%>
-                <ul id = "none_login_user">
-                    <li class="tag tag_left scroll-btn" href="#top_hairdresser_slider">人気美容師</li>
-                    <li class="tag scroll-btn" href="#FAQ">FAQ</li>
-                    <li class="tag"><%= link_to "美容師一覧", hairdressers_path %></li>
-                    <li class="tag login">ログイン</li>
-                    <li class="tag sign_up">新規会員登録</li>
-                    <div class="answer slide_down sign_in_block_user">
-                        <p id="login_user" class="cursor">会員ログイン</p>
-                        <p id="login_hairdresser" class="cursor ">美容師ログイン</p>
-                    </div>
-                    <div class="answer2 slide_down sign_up_block_user">
-                        <p id="new_user" class="cursor ">会員登録</p>
-                        <p id="new_hairdresser" class="cursor ">美容師登録</p>
-                    </div>
-                </ul>
-            <% elsif  @hairdresser_page == "hairdresser" %>
-                <ul id = "none_login_hairdresser">
-                    <li class="tag tag_left scroll-btn" href="#top_hairdresser_slider">ご利用者さまの声</li>
-                    <li class="tag scroll-btn" href="#FAQ">FAQ</li>
-                    <li class="tag"><%= link_to "美容師一覧", hairdressers_path %></li>
-                    <li class="tag login">ログイン</li>
-                    <li class="tag sign_up">新規会員登録</li>
-                    <div class="answer slide_down sign_in_block_hairdresser">
-                        <p id="login_user" class="cursor">会員ログイン</p>
-                        <p id="login_hairdresser" class="cursor ">美容師ログイン</p>
-                    </div>
-                    <div class="answer2 slide_down sign_up_block_hairdresser">
-                        <p id="new_user" class="cursor ">会員登録</p>
-                        <p id="new_hairdresser" class="cursor ">美容師登録</p>
-                    </div>
-                </ul>
-            <% else %>
-                <ul id = "none_login">
-                    <li class="tag"><%= link_to "美容師一覧", hairdressers_path %></li>
-                    <li class="tag login">ログイン</li>
-                    <li class="tag sign_up">新規会員登録</li>
-                    <div class="answer slide_down sign_in_block_hairdresser none_login">
-                        <p id="login_user" class="cursor">会員ログイン</p>
-                        <p id="login_hairdresser" class="cursor ">美容師ログイン</p>
-                    </div>
-                    <div class="answer2 slide_down sign_up_block_hairdresser none_new">
-                        <p id="new_user" class="cursor ">会員登録</p>
-                        <p id="new_hairdresser" class="cursor ">美容師登録</p>
-                    </div>
-                </ul>
-            <% end %>
         </header>
+    
 
         <main id="yield">
             <%= yield%>
@@ -171,8 +175,6 @@
         
         <!-- ここからはモーダル アクションを起こさない限りdisplayはnone -->
         <!-- 会員登録画面モーダル -->
-        <div>
-        </div>
         <div id="user_sign_up" class="sign_up_in">
             <div id="user_register">
                 <span class="glyphicon glyphicon-remove cursor" style="margin-left: 440px; -size: 25px; margin-top: 10px;"></span>

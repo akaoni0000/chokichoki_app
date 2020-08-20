@@ -9,7 +9,7 @@ class UsersController < ApplicationController
         if @user.save
             session[:user_id] = @user.id
             respond_to do |format|
-                format.js { render ajax_redirect_to(user_path(@user.id)) }
+                format.js { render ajax_redirect_to(root_path(id: @user.id)) }
             end
         else
             #バリデーションのメッセージ
@@ -48,7 +48,7 @@ class UsersController < ApplicationController
                 flash[:notice] = "ログインしました"
                 if params[:reservation_id] == nil
                     respond_to do |format|
-                        format.js { render ajax_redirect_to(user_path(@user.id)) }
+                        format.js { render ajax_redirect_to(root_path(id: @user.id)) }
                     end
                 else
                     @reservation_id = params[:reservation_id].to_i

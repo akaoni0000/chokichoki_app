@@ -11,10 +11,19 @@ class HomeController < ApplicationController
             gon.double = true
             session[:double] = nil
         end
+        #@home_user = "exist"
     end
     def hairdresser_top
         @hairdresser_page = "hairdresser"
         gon.body ="white"
         gon.fix = "header"
+        gon.display_none = "none"
+    end
+
+    def about
+    end
+
+    def video
+        gon.skyway_key = ENV['SKYWAY_KEY']
     end
 end

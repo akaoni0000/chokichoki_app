@@ -1,6 +1,72 @@
-var html = 
-            `
-              <div class="myself"><%= @chat_message.message %></div>
-            `
-var room_id = <%= @room_id %>
-App.room.speak(html, room_id);
+<% if @chat_message.image_id.present? && @chat_message.style_images.present? %>
+    var html = 
+                `
+                <div class="myself">
+                    <div class="myself_chat">
+                        <% @chat_message.style_images.each do |image| %>
+                            <%= image_tag @hair_arry[image].to_s, style: "width: 200px; height: 200px; margin-bottom: 10px;" %>
+                        <% end %>
+                        <%= attachment_image_tag @chat_message, :image, size: "200x200", fallback: "no_image.png", style: "margin-bottom: 10px;"%>
+                        <%= simple_format(@chat_message.message) %>
+                    </div>
+                </div>
+                `
+    var room_id = <%= @room_id %>
+    App.room.speak(html, room_id);
+<% else %>
+    <% if @chat_message.image_id.present? %>
+        var html = 
+                    `
+                    <div class="myself">
+                        <div class="myself_chat">
+                            <%= attachment_image_tag @chat_message, :image, size: "200x200", fallback: "no_image.png", style: "margin-bottom: 10px;" %>
+                            <%= simple_format(@chat_message.message) %>
+                        </div>
+                    </div>
+                    `
+        var room_id = <%= @room_id %>
+        App.room.speak(html, room_id);
+    <% elsif @chat_message.style_images.present? %>
+        var html = 
+                    `
+                    <div class="myself">
+                        <div class="myself_chat">
+                            <% @chat_message.style_images.each do |image| %>
+                                <%= image_tag @hair_arry[image].to_s, style: "width: 200px; height: 200px; margin-bottom: 10px;" %>
+                            <% end %>
+                            <%= simple_format(@chat_message.message) %>
+                        </div>
+                    </div>
+                    `
+        var room_id = <%= @room_id %>
+        App.room.speak(html, room_id);
+    <% elsif @chat_message.message != "" %>
+        var html = 
+                    `
+                    <div class="myself">
+                        <div class="myself_chat">
+                            <%= simple_format(@chat_message.message) %>
+                        </div>
+                    </div>
+                    `
+        var room_id = <%= @room_id %>
+        App.room.speak(html, room_id);
+    <% end %>
+<% end %>
+
+$('.chat_style_img').each(function(){
+    $(this).remove();
+});
+
+$('.circle2').each(function(){
+    $(this).css({
+        "background-color": "white"
+    })
+    $(this).removeClass("click");
+});
+
+$(".chat_img_save").empty();
+$('#chat_prev_img').addClass("display_none");
+$(".delete_chat_img").addClass("display_none");
+
+$("#chat_message_message").val("");

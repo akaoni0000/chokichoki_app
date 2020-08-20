@@ -12,6 +12,7 @@
 //
 //= require rails-ujs
 //= require jquery
+//= require js.cookie
 //= require jquery.jposta
 //= require bootstrap-sprockets
 //= require activestorage
@@ -46,6 +47,16 @@ $(function(){
     $("#flash").addClass("display_none");
   }
 });
+
+
+$(function() {
+  // //$("a").click(function(){
+  //   $("a"):active{
+  //     color : #26a69a;
+  //   }
+  // //})
+});
+
 
 //モーダル系
 $(function() {
@@ -164,14 +175,28 @@ $(function(){
           }
       });
   });
-  $(window).scroll(function (){
-    if (gon.fix == "header") {
-      $("header").css({
-        "position":"fixed"
-      });
-    }
-  });
+  // $(window).scroll(function (){
+  //   if (gon.fix == "header") {
+  //     $("header").css({
+  //       "position":"fixed"
+  //     });
+  //   }
+  // });
 });
+
+$(function(){
+  if (gon.fix == "header") {
+    $("header").addClass("fixed");
+    $(".logo").css({
+      "top": "-45px"
+    })
+  }
+
+  if (gon.display_none) {
+    $("header").addClass("display_none")
+  }
+})
+
 
 
 
@@ -370,8 +395,10 @@ $(function() {
 
 $(function() {
   $("a").click(function () { 
+   
     $(this).css({
-      "text-decoration":"none"
+      "text-decoration":"none",
+      "color": "black"
     });
     $(".hairdresser_tag").css({
       "text-decoration":"none",

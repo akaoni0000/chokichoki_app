@@ -13,13 +13,24 @@ window.onload = function () {
       });
     }
 
-    //headerを固定する headerを固定するviewと固定しないviewで分けている
-    if (gon.fix == "header") {
-      $("header").addClass("fix");
-    }
-
     if (gon.display_none == "remove_display_none") {
       $(".display_th").removeClass();
     }
+
+    // URLの取得
+    //var url = location.href
+ 
+    // パスの取得
+    var path = location.pathname
+
+    $('a').each(function(){
+      var href = $(this).attr('href');
+      if (href == path) {
+        $(this).css({
+          "color": "#FAF0E6"
+        })
+      }
+    });
+
 };
    

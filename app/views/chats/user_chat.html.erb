@@ -1,4 +1,4 @@
-<div style="text-align: center; padding-top: 50px; font-size: 0;">
+<div id="chat_page">
 
     <div id="chat_members">
         <div id="search_form">
@@ -18,14 +18,30 @@
     </div>
 
     <div id="chat">
-        <div id="messages">
-        </div>
-        <div id="message_form">
-            <%= form_with(url: message_create_path, method: :post, id: "message_form_area") do |f| %>
-                <%= f.text_area :message,  placeholder: "メッセージを入力してください", class: "form-control chat_form" %>
-                <%= f.submit "送信", class: "btn btn-success message_btn" %>
-            <% end %>
+        <div class="chat_message display_none">
+            <div id="messages">
+            </div>
+            <div id="message_form">
+                <%= form_with(model: @chat_message, url: message_create_path, method: :post, id: "message_form_area") do |f| %>
+                    <img src="<%= asset_path "style_images.png" %>" id="chat_style_images" >
+                    <label class="chat_img_label cursor2">
+                        <%= f.attachment_field :image, id: "chat_img", class: "hidden" %>
+                        <img src="<%= asset_path "film.png" %>" id="" >
+                    </label>  
+                    <img id="chat_prev_img" style="width: 32px; height: 32px;" class="display_none">
+                    <div class="chat_img_save display_none"></div>
+                    <span class="delete_chat_img display_none" style="font-size: 15px;">削除</span>
+                    <%= f.submit "送信", class: "btn btn-success message_btn" %>
+                    <%= f.text_area :message, placeholder: "メッセージを入力してください", class: "form-control chat_form" %>
+                <% end %>
+            </div>
         </div>
     </div>
+    
+
    
+</div>
+
+<div class="dark_chat">
+    <span class="glyphicon glyphicon-remove cursor dark_remove"></span>
 </div>

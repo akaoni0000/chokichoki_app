@@ -3,10 +3,10 @@
   <% if @start_year == Date.today.year && @start_month == Date.today.month %>
       <%= link_to t('simple_calendar.previous', default: '前の月'), calendar.url_for_previous_view, class: "last_month", style: "pointer-events: none; color: grey;"%>
     <% else %>
-      <%= link_to t('simple_calendar.previous', default: '前の月'), calendar.url_for_previous_view, class: "last_month link_last_next" %>
+      <%= link_to t('simple_calendar.previous', default: '前の月'), calendar.url_for_previous_view, class: "last_month link_last_next color" %>
     <% end %>
     <span class="calendar-title"><%= start_date.year %>年 <%= t('date.month_names')[start_date.month] %></span>
-    <%= link_to t('simple_calendar.next', default: '次の月'), calendar.url_for_next_view, class: "next_month link_last_next" %>
+    <%= link_to t('simple_calendar.next', default: '次の月'), calendar.url_for_next_view, class: "next_month link_last_next color" %>
   </div>
 
   <table class="table table-striped">

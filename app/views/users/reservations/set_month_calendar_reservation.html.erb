@@ -1,5 +1,5 @@
 <div class="container">
-    <h3 class="please_reservation">ご希望の来店日時を選択してください<%= link_to "週間カレンダーへ", users_set_week_calendar_reservation_path(menu_id: @menu.id), class: "to_month_calendar" %></h3>
+    <h3 class="please_reservation">ご希望の来店日時を選択してください<%= link_to "週間カレンダーへ", users_set_week_calendar_reservation_path(menu_id: @menu.id), class: "to_month_calendar color" %></h3>
 
     <!--menuカード-->
     <%= render "menus/menu2" %>
@@ -18,7 +18,7 @@
                     <% if @reservations_after.blank? %>
                         <div>
                             <span><%= reservation.start_time.hour %>時<%= reservation.start_time.min %>分</span>
-                            <span style="float: right"><%= link_to "予約する", edit_users_reservation_path(reservation.id), class: "user_reservation", id: reservation.id%>
+                            <span style="float: right"><%= link_to "予約する", edit_users_reservation_path(reservation.id), class: "user_reservation color", id: reservation.id%>
                         </div>
                     <% else %>
                         <div>

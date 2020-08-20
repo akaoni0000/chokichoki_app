@@ -6,29 +6,79 @@ var html =
                     チャット
                 </div> 
                 <% if @current_user.present? %>
-                    <div id="room-<%=@room_id%>" class="user-<%=@current_user.id%>" style="height: 550px; overflow: auto;">
+                    <div id="room-<%=@room_id%>" class="user-<%=@current_user.id%>" style="height: 590px; overflow: auto;">
                         <% @chat_messages.each do |chat_message| %>
                             <% if chat_message.hairdresser_id.present? %>
                                 <div class="opponent">
-                                    <%= chat_message.message %>
+                                    <div class="opponent_img">
+                                        <%= attachment_image_tag @hairdresser, :hairdresser_image, size: "40x40", fallback: "no_image.png", class: "img-circle" %>
+                                    </div>
+                                    <div class="opponent_chat">
+                                        <% if chat_message.style_images.present? %>
+                                            <% chat_message.style_images.each do |image| %>
+                                                <%= image_tag @hair_arry[image].to_s, style: "width: 200px; height: 200px; margin-bottom: 10px;" %>
+                                            <% end %>
+                                        <% end %>
+                                        <% if chat_message.image_id.present? %>
+                                            <%= attachment_image_tag chat_message, :image, size: "200x200", fallback: "no_image.png", style: "margin-bottom: 10px;" %>
+                                        <% end %>
+                                        <%= simple_format(chat_message.message) %>
+                                    </div>
                                 </div>
                             <% elsif chat_message.user_id.present? %>
                                 <div class="myself">
-                                    <%= chat_message.message %>
+                                    <div class="myself_chat">
+                                        <% if chat_message.style_images.present? %>
+                                            <% chat_message.style_images.each do |image| %>
+                                                <%= image_tag @hair_arry[image].to_s, style: "width: 200px; height: 200px; margin-bottom: 10px;" %>
+                                            <% end %>
+                                        <% end %>
+                                        <% if chat_message.image_id.present? %>
+                                            <%= attachment_image_tag chat_message, :image, size: "200x200", fallback: "no_image.png", style: "margin-bottom: 10px;" %>
+                                        <% end %>
+                                        <%= simple_format(chat_message.message) %>
+                                    </div>
                                 </div>
                             <% end %>
                         <% end %>
                     </div>
                 <% elsif @current_hairdresser.present? %>
-                    <div id="room-<%=@room_id%>" class="hairdresser-<%=@current_hairdresser.id%>" style="height: 550px; overflow: auto;">
+                    <div id="room-<%=@room_id%>" class="hairdresser-<%=@current_hairdresser.id%>" style="height: 590px; overflow: auto;">
                         <% @chat_messages.each do |chat_message| %>
                             <% if chat_message.user_id.present? %>
                                 <div class="opponent">
-                                    <%= chat_message.message %>
+                                    <div class="opponent_img">
+                                        <% if @user.sex == "男性" %>
+                                            <img src="<%= asset_path "man.png" %>" style="width: 40px; height: 40px;">
+                                        <% else %>
+                                            <img src="<%= asset_path "woman.png" %>" style="width: 40px; height: 40px;">
+                                        <% end %>
+                                    </div>
+                                    <div class="opponent_chat">
+                                        <% if chat_message.style_images.present? %>
+                                            <% chat_message.style_images.each do |image| %>
+                                                <%= image_tag @hair_arry[image].to_s, style: "width: 200px; height: 200px; margin-bottom: 10px;" %>
+                                            <% end %>
+                                        <% end %>
+                                        <% if chat_message.image_id.present? %>
+                                            <%= attachment_image_tag chat_message, :image, size: "200x200", fallback: "no_image.png", style: "margin-bottom: 10px;" %>
+                                        <% end %>
+                                        <%= simple_format(chat_message.message) %>
+                                    </div>
                                 </div>
                             <% elsif chat_message.hairdresser_id.present?  %>
                                 <div class="myself">
-                                    <%= chat_message.message %>
+                                    <div class="myself_chat">
+                                        <% if chat_message.style_images.present? %>
+                                            <% chat_message.style_images.each do |image| %>
+                                                <%= image_tag @hair_arry[image].to_s, style: "width: 200px; height: 200px; margin-bottom: 10px;" %>
+                                            <% end %>
+                                        <% end %>
+                                        <% if chat_message.image_id.present? %>
+                                            <%= attachment_image_tag chat_message, :image, size: "200x200", fallback: "no_image.png", style: "margin-bottom: 10px;" %>
+                                        <% end %>
+                                        <%= simple_format(chat_message.message) %>
+                                    </div>
                                 </div>
                             <% end %>
                         <% end %>
@@ -37,12 +87,29 @@ var html =
             `
 $('#messages').html(html);
 $(".hidden_room").remove();
-$("#message_form").children("form").append(`<input type="hidden" name="room_id" value="<%=@room_id%>" class="hidden_room">`)
-if (gon.user_id) {
+$("#message_form").children("form").append(`<input type="hidden" name="chat_message[room_id]" value="<%=@room_id%>" class="hidden_room">`)
+
+//viewを調整
+$(".chat_message").removeClass("display_none");
+
+//hairdresserのスタイルの画像を用意
+html2 = `
+        <% i = 0 %>
+        <% @style_image.hair_images.each do |hair_image| %>
+            <div class="chat_hair_box box_number<%= i %> arry<%= i%>" href="<%= i%>">
+                <div class="circle2"></div>
+                <%= image_tag hair_image.to_s, class: "output" %>
+            </div>
+            <% i+=1 %>
+        <% end %>
+        `
+$(".dark_chat").append(html2);
+
+if (gon.user_id) { //メッセージの一番したにスクロール
     user_id = gon.user_id
     $(`.user-${user_id}`).scrollTop($(`.user-${user_id}`)[0].scrollHeight);
 }
-else if (gon.hairdresser_id) {
+else if (gon.hairdresser_id) { //メッセージの一番したにスクロール
     hairdresser_id = gon.hairdresser_id
     $(`.hairdresser-${hairdresser_id}`).scrollTop($(`.hairdresser-${hairdresser_id}`)[0].scrollHeight);
 }

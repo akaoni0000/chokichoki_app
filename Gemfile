@@ -68,8 +68,9 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem "refile", require: "refile/rails", github: 'manfe/refile'
 gem "refile-mini_magick"
 
-#jquery bootstrap
+#jquery cookie.js bootstrap
 gem "jquery-rails"
+gem "js_cookie_rails"
 gem 'bootstrap-sass', '~> 3.3.6'
 
 #password_digestの値を乱数化
@@ -119,5 +120,5 @@ gem 'geocoder'
 #祝日表示
 gem 'holiday_jp'
 
-#insertを一括にする reservationテーブルを保存するのに使う
+#insertを一括にする reservationsテーブルを保存するのに使う
 gem 'activerecord-import'

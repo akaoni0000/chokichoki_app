@@ -94,7 +94,7 @@ class HairdressersController < ApplicationController
     def logout
         session[:hairdresserr_id] = nil
         flash[:notice] = "ログアウトしました"
-        redirect_to root_path
+        redirect_to hairdresser_top_path
     end
       
     def show
@@ -107,7 +107,7 @@ class HairdressersController < ApplicationController
     def logout
         session[:hairdresser_id] = nil
         flash[:notice] = "ログアウトしました"
-        redirect_to root_path
+        redirect_to hairdresser_top_path
     end
 
     private
