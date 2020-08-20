@@ -23,7 +23,4 @@ class HomeController < ApplicationController
     def about
     end
 
-    def video
-        gon.skyway_key = ENV['SKYWAY_KEY']
-    end
 end

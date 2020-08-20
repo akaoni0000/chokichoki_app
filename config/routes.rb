@@ -5,7 +5,6 @@ Rails.application.routes.draw do
   root "home#user_top"
   get "hairdresser_top" => "home#hairdresser_top", as: "hairdresser_top"
   get "about" => "home#about", as: "about"
-  get "video" => "home#video"
 
   #users::reservationsコントローラ users::hairdressersコントローラ  namespaceを使う時は使っていないものより上に書く 思い通りのrutingにならないerrorがでた
   namespace :users do
