@@ -59,6 +59,15 @@ $(function(){
     })
 })
 
+$(function() {
+    if (gon.chat) {
+        $("footer").addClass("display_none");
+        $("#yield").css({
+            "min-height": "87vh"
+        })
+    }
+})
+
 // $(function() {
 //     var message = $(".chat_form").val();
 //         if (!$("#message_form_area").find("input").hasClass("hidden_room") || message=="") {

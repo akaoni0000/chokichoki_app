@@ -2,11 +2,13 @@ class ChatsController < ApplicationController
     def user_chat
         @chats = Chat.where(user_id: @current_user.id)
         @chat_message = ChatMessage.new
+        gon.chat = "chat"
     end
 
     def hairdresser_chat
         @chats = Chat.where(hairdresser_id: @current_hairdresser.id)
         @chat_message = ChatMessage.new
+        gon.chat = "chat"
     end
 
     def message_create
@@ -22,6 +24,10 @@ class ChatsController < ApplicationController
             @chat = Chat.find_by(room_id: @room_id)
             @style_image = StyleImage.find_by(hairdresser_id: @chat.hairdresser_id)
             @hair_arry = @style_image.hair_images
+            @chat_messages = ChatMessage.where(room_id: @room_id)
+            if @chat_messages.last(2).first.created_at.to_date != @chat_messages.last(2).last.created_at.to_date
+                @date = @chat_messages.last(2).last.created_at.to_date
+            end
         end
     end
    

@@ -2,12 +2,26 @@ $("#chat_name").remove();
 $("#room-<%=@room_id%>").remove();
 var html = 
             `
-                <div id="chat_name" style="height: 50px; background-color: red; font-size:30px;">
-                    チャット
+                <div id="chat_name">
+                    <% if @current_user.present? %>
+                        <p><%= @hairdresser.name %></p>
+                    <% else %>
+                        <p><%= @user.name %></p>
+                    <% end %>
                 </div> 
                 <% if @current_user.present? %>
                     <div id="room-<%=@room_id%>" class="user-<%=@current_user.id%>" style="height: 590px; overflow: auto;">
+                        <% i = 0 %>
                         <% @chat_messages.each do |chat_message| %>
+                            <% if i == 0 %>
+                                <% @date = @chat_messages[i].created_at.to_date %>
+                                <P class="chat_date"><%= @date.month %>/<%= @date.day %>(<%= %w(日 月 火 水 木 金 土)[(@date).wday] %>)</p>
+                            <% elsif @chat_messages[i-1].created_at.to_date != @chat_messages[i].created_at.to_date %>
+                                <% @date = @chat_messages[i].created_at.to_date %>
+                                <P class="chat_date"><%= @date.month %>/<%= @date.day %>(<%= %w(日 月 火 水 木 金 土)[(@date).wday] %>)</p>
+                            <% end %>
+
+                            <!--相手のメッセージ-->
                             <% if chat_message.hairdresser_id.present? %>
                                 <div class="opponent">
                                     <div class="opponent_img">
@@ -24,9 +38,15 @@ var html =
                                         <% end %>
                                         <%= simple_format(chat_message.message) %>
                                     </div>
+                                    <!--メッセージ送信時刻-->
+                                    <div class="chat_time"><p><%= chat_message.created_at.to_time.hour %>:<%= chat_message.created_at.to_time.strftime("%Y-%m-%d %H:%M:%S").strip[14, 2]%></p></div>
                                 </div>
+
+                            <!--自分のメッセージ-->
                             <% elsif chat_message.user_id.present? %>
                                 <div class="myself">
+                                    <!--メッセージ送信時刻-->
+                                    <div class="chat_time"><p><%= chat_message.created_at.to_time.hour %>:<%= chat_message.created_at.to_time.strftime("%Y-%m-%d %H:%M:%S").strip[14, 2]%></p></div>
                                     <div class="myself_chat">
                                         <% if chat_message.style_images.present? %>
                                             <% chat_message.style_images.each do |image| %>
@@ -40,11 +60,22 @@ var html =
                                     </div>
                                 </div>
                             <% end %>
+                        <% i += 1 %>
                         <% end %>
                     </div>
                 <% elsif @current_hairdresser.present? %>
                     <div id="room-<%=@room_id%>" class="hairdresser-<%=@current_hairdresser.id%>" style="height: 590px; overflow: auto;">
+                        <% i = 0 %>
                         <% @chat_messages.each do |chat_message| %>
+                            <% if i == 0 %>
+                                <% @date = @chat_messages[i].created_at.to_date %>
+                                <P class="chat_date"><%= @date.month %>/<%= @date.day %>(<%= %w(日 月 火 水 木 金 土)[(@date).wday] %>)</p>
+                            <% elsif @chat_messages[i-1].created_at.to_date != @chat_messages[i].created_at.to_date %>
+                                <% @date = @chat_messages[i].created_at.to_date %>
+                                <P class="chat_date"><%= @date.month %>/<%= @date.day %>(<%= %w(日 月 火 水 木 金 土)[(@date).wday] %>)</p>
+                            <% end %>
+
+                            <!--相手のメッセージ-->
                             <% if chat_message.user_id.present? %>
                                 <div class="opponent">
                                     <div class="opponent_img">
@@ -65,9 +96,15 @@ var html =
                                         <% end %>
                                         <%= simple_format(chat_message.message) %>
                                     </div>
+                                    <!--メッセージ送信時刻-->
+                                    <div class="chat_time"><p><%= chat_message.created_at.to_time.hour %>:<%= chat_message.created_at.to_time.strftime("%Y-%m-%d %H:%M:%S").strip[14, 2]%></p></div>
                                 </div>
+
+                            <!--自分のメッセージ-->
                             <% elsif chat_message.hairdresser_id.present?  %>
                                 <div class="myself">
+                                    <!--メッセージ送信時刻-->
+                                    <div class="chat_time"><p><%= chat_message.created_at.to_time.hour %>:<%= chat_message.created_at.to_time.strftime("%Y-%m-%d %H:%M:%S").strip[14, 2]%></p></div>
                                     <div class="myself_chat">
                                         <% if chat_message.style_images.present? %>
                                             <% chat_message.style_images.each do |image| %>
@@ -81,6 +118,7 @@ var html =
                                     </div>
                                 </div>
                             <% end %>
+                        <% i += 1 %>
                         <% end %>
                     </div>
                 <% end %>
@@ -91,6 +129,13 @@ $("#message_form").children("form").append(`<input type="hidden" name="chat_mess
 
 //viewを調整
 $(".chat_message").removeClass("display_none");
+$(".instruction").addClass("display_none");
+$(".chat_rooms").css({
+    "background-color": "#FFFFF0"
+})
+$("#chat_room_<%=@room_id%>").css({
+    "background-color": "#FFE4B5"
+})
 
 //hairdresserのスタイルの画像を用意
 html2 = `

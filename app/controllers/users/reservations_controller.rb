@@ -105,7 +105,7 @@ class Users::ReservationsController < ApplicationController
                 #チャットルーム作成
                 @room = Room.new
                 @room.save
-                @chat = Chat.new(user_id: @current_user.id, hairdresser_id: @hairdresser_id, room_id: @room.id)
+                @chat = Chat.new(user_id: @current_user.id, hairdresser_id: @hairdresser_id, room_id: @room.id, reservation_id: @reservation.id)
                 @chat.save
  
                 respond_to do |format|
@@ -145,6 +145,12 @@ class Users::ReservationsController < ApplicationController
                 @start_time = @reservation.start_time
                 @hairdresser_comment = HairdresserComment.new(user_id: @current_user.id, hairdresser_id: @hairdresser_id, menu_id: @menu_id, start_time: @start_time)
                 @hairdresser_comment.save
+
+                #チャットルーム作成
+                @room = Room.new
+                @room.save
+                @chat = Chat.new(user_id: @current_user.id, hairdresser_id: @hairdresser_id, room_id: @room.id, reservation_id: @reservation.id)
+                @chat.save
 
                 respond_to do |format|
                     format.js { render ajax_redirect_to(users_complete_path) } #予約が完了しました画面にいく
@@ -188,6 +194,12 @@ class Users::ReservationsController < ApplicationController
         @hairdresser_comment = HairdresserComment.new(user_id: @current_user.id, hairdresser_id: @hairdresser_id, menu_id: @menu_id, start_time: @start_time)
         @hairdresser_comment.save
         
+        #チャットルーム作成
+        @room = Room.new
+        @room.save
+        @chat = Chat.new(user_id: @current_user.id, hairdresser_id: @hairdresser_id, room_id: @room.id, reservation_id: @reservation.id)
+        @chat.save
+
         redirect_to users_complete_path
     end
 
@@ -220,11 +232,20 @@ class Users::ReservationsController < ApplicationController
         @cancel_reservation = CancelReservation.new(menu_id: params[:menu_id], user_id: @current_user.id, hairdresser_id: @hairdresser_id, start_time: params[:start_time])
         @cancel_reservation.save
 
+        #チャットルームとそのメッセージを削除
+        @chat = Chat.find_by(reservation_id: @reservation.id)
+        @chat.destroy
+        @chat_messages = ChatMessage.where(room_id: @chat.room_id)
+        @chat_messages.destroy_all
+
+
         redirect_to users_reservations_path
     end
 
     def complete  #予約が完了しました のviewを返す
     end
+
+
 
     private
     def reservation_params

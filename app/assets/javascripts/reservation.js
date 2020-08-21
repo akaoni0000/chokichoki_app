@@ -122,7 +122,7 @@ $(function() {
 
 //会員ログインしないで予約をすることを防ぐ
 $(function() {
-    if (!gon.user) {
+    if (!gon.user_id) {
         $(".user_reservation").on("click", function(e) {
             e.preventDefault();
             var reservation_id = $(this).attr("id"); 
