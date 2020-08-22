@@ -1,6 +1,5 @@
-
-window.onload = function () {
-    //画像投稿のとき画像しか選べなくする
+//ページ読み込み時に発動
+$(document).ready(function(){
     $("input").attr('accept', "image/*");
     
     //背景色を変える
@@ -23,6 +22,7 @@ window.onload = function () {
     // パスの取得
     var path = location.pathname
 
+    //今いるページのリンクを白くする
     $('a').each(function(){
       var href = $(this).attr('href');
       if (href == path) {
@@ -31,6 +31,16 @@ window.onload = function () {
         })
       }
     });
-
-};
+})
    
+$(function(){
+    // $(".header_top_left").click(function(){
+    //     App.room.report("fdafda");
+    // })
+})
+
+// window.onpageshow = function(event) {
+// 	if (event.persisted) {
+// 		 window.location.reload();
+// 	}
+// };

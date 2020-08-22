@@ -19,34 +19,36 @@
                 </thead>
                 <tbody>
                     <% @reservations.each do |reservation| %>
-                        <tr>
-                            <td>
-                                <p><%= reservation.start_time.hour %>時<%= reservation.start_time.min %>分</p>
-                            </td>
-                            <td>
-                                <%= link_to users_hairdresser_path(reservation.menu.hairdresser.id), remote: true do %>
-                                    <p class="reservation_hairdresser_name cursor"><%= reservation.menu.hairdresser.name %></p>
-                                <% end %>
-                                <div id="hairdresser_show" class="sign_up_in">
-                                </div>
-                            </td>
-                            <td>
-                                <%= reservation.menu.hairdresser.email %>
-                            </td>
-                            <td>
-                                <%= reservation.menu.name %>
-                            </td>
-                            <td>
-                                <%= reservation.menu.time %>分
-                            </td>
-                            <td>
-                                <% if reservation.start_time - Time.now > 60*60*24 %>
-                                    <%= link_to "キャンセル", users_reservation_cancel_path(menu_id: reservation.menu_id, start_time: reservation.start_time), method: :post, data: { confirm: '本当にキャンセルしますか？キャンセルした場合支払ったお金はポイントとして返金されます。' }, class: "btn btn-danger" %>
-                                <% elsif  reservation.start_time - Time.now <= 60*60*24 && reservation.start_time - Time.now >= 0%>
-                                    <div class= "btn btn-danger cancel_fail">キャンセルする</div>
-                                <%end%>
-                            </td>
-                        </tr>
+                        <% if @date_arry[i] == reservation.start_time.to_date %>
+                            <tr>
+                                <td>
+                                    <p><%= reservation.start_time.hour %>時<%= reservation.start_time.min %>分</p>
+                                </td>
+                                <td>
+                                    <%= link_to users_hairdresser_path(reservation.menu.hairdresser.id), remote: true do %>
+                                        <p class="reservation_hairdresser_name cursor"><%= reservation.menu.hairdresser.name %></p>
+                                    <% end %>
+                                    <div id="hairdresser_show" class="sign_up_in">
+                                    </div>
+                                </td>
+                                <td>
+                                    <%= reservation.menu.hairdresser.email %>
+                                </td>
+                                <td>
+                                    <%= reservation.menu.name %>
+                                </td>
+                                <td>
+                                    <%= reservation.menu.time %>分
+                                </td>
+                                <td>
+                                    <% if reservation.start_time - Time.now > 60*60*24 %>
+                                        <%= link_to "キャンセル", users_reservation_cancel_path(menu_id: reservation.menu_id, start_time: reservation.start_time), method: :post, data: { confirm: '本当にキャンセルしますか？キャンセルした場合支払ったお金はポイントとして返金されます。' }, class: "btn btn-danger" %>
+                                    <% elsif  reservation.start_time - Time.now <= 60*60*24 && reservation.start_time - Time.now >= 0%>
+                                        <div class= "btn btn-danger cancel_fail">キャンセルする</div>
+                                    <%end%>
+                                </td>
+                            </tr>
+                        <% end %>
                     <% end %>
                 </tbodY>
             </table>

@@ -83,30 +83,8 @@ class Users::ReservationsController < ApplicationController
             if  @current_user.point >= 500
                 @current_user.point -= 500
                 @current_user.save
-            
-                #予約した時間のreservationsテーブルのレコードのuser_idとuser_requestをupdate
-                @reservation = Reservation.find(params[:reservation_id])
-                @reservation.user_id = @current_user.id
-                @reservation.update(reservation_params)
-
-                #予約した時間から施術が終わる時間までに存在するreservationsテーブルのレコードのstatusをupdate その時間内は予約を入れられないようにする
-                @time_min = @reservation.start_time
-                @time_max = @reservation.start_time + @reservation.menu.time*60 -1
-                @reservations = @reservation.menu.hairdresser.reservations.where(start_time: @time_min..@time_max)
-                @reservations.update_all(:status => 1 )
-
-                #後で客に評価させるためにコメントのレコードをつくる
-                @hairdresser_id = @reservation.menu.hairdresser_id
-                @menu_id = @reservation.menu.id
-                @start_time = @reservation.start_time
-                @hairdresser_comment = HairdresserComment.new(user_id: @current_user.id, hairdresser_id: @hairdresser_id, menu_id: @menu_id, start_time: @start_time)
-                @hairdresser_comment.save
-
-                #チャットルーム作成
-                @room = Room.new
-                @room.save
-                @chat = Chat.new(user_id: @current_user.id, hairdresser_id: @hairdresser_id, room_id: @room.id, reservation_id: @reservation.id)
-                @chat.save
+                
+                various_change #インスタンスメソッド
  
                 respond_to do |format|
                     format.js { render ajax_redirect_to(users_complete_path) }
@@ -128,29 +106,7 @@ class Users::ReservationsController < ApplicationController
                 @money = Money.new(user_id: @current_user.id)
                 @money.save
 
-                #予約した時間のreservationsテーブルのレコードのuser_id(カラム)とuser_request(カラム)をupdateする。
-                @reservation = Reservation.find(params[:reservation_id])
-                @reservation.user_id = @current_user.id
-                @reservation.update(reservation_params)
-
-                #予約した時間から施術が終わる時間までの間の時間に、start_time(カラム)が存在するreservationsテーブルのレコードのstatus(カラム)をupdateする。そうすることで予約した時間から施術が終わる時間までの時間は予約を入れられないようにする。
-                @time_min = @reservation.start_time
-                @time_max = @reservation.start_time + @reservation.menu.time*60 -1
-                @reservations = @reservation.menu.hairdresser.reservations.where(start_time: @time_min..@time_max)
-                @reservations.update_all(:status => 1 )
-                
-                #後で客に評価させるためにコメントのレコードをつくる
-                @hairdresser_id = @reservation.menu.hairdresser_id
-                @menu_id = @reservation.menu.id
-                @start_time = @reservation.start_time
-                @hairdresser_comment = HairdresserComment.new(user_id: @current_user.id, hairdresser_id: @hairdresser_id, menu_id: @menu_id, start_time: @start_time)
-                @hairdresser_comment.save
-
-                #チャットルーム作成
-                @room = Room.new
-                @room.save
-                @chat = Chat.new(user_id: @current_user.id, hairdresser_id: @hairdresser_id, room_id: @room.id, reservation_id: @reservation.id)
-                @chat.save
+                various_change #インスタンスメソッド
 
                 respond_to do |format|
                     format.js { render ajax_redirect_to(users_complete_path) } #予約が完了しました画面にいく
@@ -176,29 +132,7 @@ class Users::ReservationsController < ApplicationController
         @money = Money.new(user_id: @current_user.id)
         @money.save
 
-        #予約した時間のreservationsテーブルのレコードのuser_id(カラム)とuser_request(カラム)をupdateする。
-        @reservation = Reservation.find(params[:reservation_id])
-        @reservation.user_id = @current_user.id
-        @reservation.update(reservation_params)
-
-        #予約した時間から施術が終わる時間までの間の時間に、start_time(予約時間)が存在するreservationsテーブルのレコードのstatus(カラム)をupdateする。そうすることで予約した時間から施術が終わる時間までの時間は予約を入れられないようにする。
-        @time_min = @reservation.start_time
-        @time_max = @reservation.start_time + @reservation.menu.time*60 -1
-        @reservations = @reservation.menu.hairdresser.reservations.where(start_time: @time_min..@time_max)
-        @reservations.update_all(:status => 1 )
-
-        #後で客に評価させるためにコメントのレコードをつくる
-        @hairdresser_id = @reservation.menu.hairdresser_id
-        @menu_id = @reservation.menu.id
-        @start_time = @reservation.start_time
-        @hairdresser_comment = HairdresserComment.new(user_id: @current_user.id, hairdresser_id: @hairdresser_id, menu_id: @menu_id, start_time: @start_time)
-        @hairdresser_comment.save
-        
-        #チャットルーム作成
-        @room = Room.new
-        @room.save
-        @chat = Chat.new(user_id: @current_user.id, hairdresser_id: @hairdresser_id, room_id: @room.id, reservation_id: @reservation.id)
-        @chat.save
+        various_change #インスタンスメソッド
 
         redirect_to users_complete_path
     end
@@ -238,14 +172,41 @@ class Users::ReservationsController < ApplicationController
         @chat_messages = ChatMessage.where(room_id: @chat.room_id)
         @chat_messages.destroy_all
 
-
         redirect_to users_reservations_path
     end
 
     def complete  #予約が完了しました のviewを返す
     end
 
+    def various_change #このコントローラ内で使うメソッド
+        #予約した時間のreservationsテーブルのレコードのuser_idとuser_requestをupdate
+        @reservation = Reservation.find(params[:reservation_id])
+        @reservation.user_id = @current_user.id
+        @reservation.update(reservation_params)
 
+        #予約した時間から施術が終わる時間までに存在するreservationsテーブルのレコードのstatusをupdate その時間内は予約を入れられないようにする
+        @time_min = @reservation.start_time
+        @time_max = @reservation.start_time + @reservation.menu.time*60 -1
+        @reservations = @reservation.menu.hairdresser.reservations.where(start_time: @time_min..@time_max)
+        @reservations.update_all(:status => 1 )
+
+        #後で客に評価させるためにコメントのレコードをつくる
+        @hairdresser_id = @reservation.menu.hairdresser_id
+        @menu_id = @reservation.menu.id
+        @start_time = @reservation.start_time
+        @hairdresser_comment = HairdresserComment.new(user_id: @current_user.id, hairdresser_id: @hairdresser_id, menu_id: @menu_id, start_time: @start_time)
+        @hairdresser_comment.save
+
+        #チャットルーム作成
+        @room = Room.new
+        @room.save
+        @chat = Chat.new(user_id: @current_user.id, hairdresser_id: @hairdresser_id, room_id: @room.id, reservation_id: @reservation.id)
+        @chat.save
+        if @reservation.user_request != ""
+            @chat_message = ChatMessage.new(user_id: @current_user.id, room_id: @room.id, message: @reservation.user_request)
+            @chat_message.save
+        end
+    end
 
     private
     def reservation_params

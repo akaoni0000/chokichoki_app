@@ -33,7 +33,7 @@ class ApplicationController < ActionController::Base
     end
 
     def set_gon
-      gon.key = ENV['KEY']
+      gon.key = ENV['KEY'] #payjp(クレジットカード)の公開鍵
       if @current_user.present?
         gon.user_id = @current_user.id
       end

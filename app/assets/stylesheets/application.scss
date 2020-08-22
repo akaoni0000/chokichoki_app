@@ -2029,6 +2029,7 @@ th {
     height: 50px; 
     font-size:30px; 
     background-color:#FFEBCD;
+    padding-top: 5px;
 }
 
 
@@ -2064,19 +2065,10 @@ textarea.form-control {
 }
 
 .chat_rooms {
-    height: 80px;
+    height: 100px;
     background-color:#FFFFF0;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    padding-top: 17px;
 }
-
-.chat_img {
-    // position: relative;
-    // top: -4px;
-    // right: 160px;
-}
-
-
 
 .chat_img {
    display: inline-block;
@@ -2096,9 +2088,7 @@ textarea.form-control {
    left: 30px;
 }
 
-.chat_hairdresser_name > h3 {
-    color: black;;
-}
+
 
 .opponent {
     font-size: 15px;
@@ -2220,13 +2210,25 @@ textarea.form-control {
     margin-right: 5px;
     margin-left: 5px;
 }
-// .myself_chat > span {
-//     background-color: blue;
-//     color: white;
-//     padding: 10px;
-// }
 
+.chat_last_message {
+    font-size: 14px; 
+    margin-left: 10px; 
+    color: grey;
+}
 
+.unread_number {
+    font-size: 19px;
+    width: 35px;
+    background-color: #DEB887;
+    border-radius: 50%;
+    height: 35px;
+    text-align: center;
+    padding-top: 4px;
+    color: white;
+    margin-top: 8px;
+    margin-left: 15px;
+}
 
 
 

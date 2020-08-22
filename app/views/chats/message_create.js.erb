@@ -1,79 +1,104 @@
-<% if @date.present? %>
-    <P class="chat_date"><%= @date.month %>/<%= @date.day %>(<%= %w(日 月 火 水 木 金 土)[(@date).wday] %>)</p>
-<% end %>
-<% if @chat_message.image_id.present? && @chat_message.style_images.present? %>
-    var html = 
-                `
-                <div class="myself">
-                    <div class="chat_time"><p><%= @chat_message.created_at.to_time.hour %>:<%= @chat_message.created_at.to_time.strftime("%Y-%m-%d %H:%M:%S").strip[14, 2]%></p></div>
-                    <div class="myself_chat">
-                        <% @chat_message.style_images.each do |image| %>
-                            <%= image_tag @hair_arry[image].to_s, style: "width: 200px; height: 200px; margin-bottom: 10px;" %>
-                        <% end %>
-                        <%= attachment_image_tag @chat_message, :image, size: "200x200", fallback: "no_image.png", style: "margin-bottom: 10px;"%>
-                        <%= simple_format(@chat_message.message) %>
-                    </div>
-                </div>
-                `
-    var room_id = <%= @room_id %>
-    App.room.speak(html, room_id);
-<% else %>
-    <% if @chat_message.image_id.present? %>
+<% if @chat_message.save %>
+
+    <% if @chat_message.image_id.present? && @chat_message.style_images.present? %>
         var html = 
                     `
-                    <div class="myself">
-                        <div class="chat_time"><p><%= @chat_message.created_at.to_time.hour %>:<%= @chat_message.created_at.to_time.strftime("%Y-%m-%d %H:%M:%S").strip[14, 2]%></p></div>
-                        <div class="myself_chat">
-                            <%= attachment_image_tag @chat_message, :image, size: "200x200", fallback: "no_image.png", style: "margin-bottom: 10px;" %>
-                            <%= simple_format(@chat_message.message) %>
+                        <% if @chat_messages.blank? || @chat_messages.last.created_at.to_date != @chat_message.created_at.to_date %>
+                            <% @date = @chat_message.created_at.to_date %>
+                            <P class="chat_date"><%= @date.month %>/<%= @date.day %>(<%= %w(日 月 火 水 木 金 土)[(@date).wday] %>)</p>
+                        <% end %>
+                        <div class="myself create1">
+                            <div class="chat_time"><p><%= @chat_message.created_at.to_time.hour %>:<%= @chat_message.created_at.to_time.strftime("%Y-%m-%d %H:%M:%S").strip[14, 2]%></p></div>
+                            <div class="myself_chat create2">
+                                <% @chat_message.style_images.each do |image| %>
+                                    <%= image_tag @hair_arry[image].to_s, style: "width: 200px; height: 200px; margin-bottom: 10px;" %>
+                                <% end %>
+                                <%= attachment_image_tag @chat_message, :image, size: "200x200", fallback: "no_image.png", style: "margin-bottom: 10px;"%>
+                                <%= simple_format(@chat_message.message) %>
+                            </div>
                         </div>
-                    </div>
                     `
-        var room_id = <%= @room_id %>
-        App.room.speak(html, room_id);
+    <% elsif @chat_message.image_id.present? %>
+        var html = 
+                    `
+                        <% if @chat_messages.blank? || @chat_messages.last.created_at.to_date != @chat_message.created_at.to_date %>
+                            <% @date = @chat_message.created_at.to_date %>
+                            <P class="chat_date"><%= @date.month %>/<%= @date.day %>(<%= %w(日 月 火 水 木 金 土)[(@date).wday] %>)</p>
+                        <% end %>
+                        <div class="myself create1">
+                            <div class="chat_time time_create"><p><%= @chat_message.created_at.to_time.hour %>:<%= @chat_message.created_at.to_time.strftime("%Y-%m-%d %H:%M:%S").strip[14, 2]%></p></div>
+                            <div class="myself_chat create2">
+                                <%= attachment_image_tag @chat_message, :image, size: "200x200", fallback: "no_image.png", style: "margin-bottom: 10px;" %>
+                                <%= simple_format(@chat_message.message) %>
+                            </div>
+                        </div>
+                    `
     <% elsif @chat_message.style_images.present? %>
         var html = 
                     `
-                    <div class="myself">
-                        <div class="chat_time"><p><%= @chat_message.created_at.to_time.hour %>:<%= @chat_message.created_at.to_time.strftime("%Y-%m-%d %H:%M:%S").strip[14, 2]%></p></div>
-                        <div class="myself_chat">
-                            <% @chat_message.style_images.each do |image| %>
-                                <%= image_tag @hair_arry[image].to_s, style: "width: 200px; height: 200px; margin-bottom: 10px;" %>
-                            <% end %>
-                            <%= simple_format(@chat_message.message) %>
+                        <% if @chat_messages.blank? || @chat_messages.last.created_at.to_date != @chat_message.created_at.to_date %>
+                            <% @date = @chat_message.created_at.to_date %>
+                                <P class="chat_date"><%= @date.month %>/<%= @date.day %>(<%= %w(日 月 火 水 木 金 土)[(@date).wday] %>)</p>
+                        <% end %>
+                        <div class="myself create1">
+                            <div class="chat_time time_create"><p><%= @chat_message.created_at.to_time.hour %>:<%= @chat_message.created_at.to_time.strftime("%Y-%m-%d %H:%M:%S").strip[14, 2]%></p></div>
+                            <div class="myself_chat create2">
+                                <% @chat_message.style_images.each do |image| %>
+                                    <%= image_tag @hair_arry[image].to_s, style: "width: 200px; height: 200px; margin-bottom: 10px;" %>
+                                <% end %>
+                                <%= simple_format(@chat_message.message) %>
+                            </div>
                         </div>
-                    </div>
                     `
-        var room_id = <%= @room_id %>
-        App.room.speak(html, room_id);
     <% elsif @chat_message.message != "" %>
         var html = 
                     `
-                    <div class="myself">
-                        <div class="chat_time"><p><%= @chat_message.created_at.to_time.hour %>:<%= @chat_message.created_at.to_time.strftime("%Y-%m-%d %H:%M:%S").strip[14, 2]%></p></div>
-                        <div class="myself_chat">
-                            <%= simple_format(@chat_message.message) %>
+                        <% if @chat_messages.length == 1 || @chat_messages.last.created_at.to_date != @chat_message.created_at.to_date %>
+                            <% @date = @chat_message.created_at.to_date %>
+                            <P class="chat_date"><%= @date.month %>/<%= @date.day %>(<%= %w(日 月 火 水 木 金 土)[(@date).wday] %>)</p>
+                        <% end %>
+                        <div class="myself create1">
+                            <div class="chat_time time_create"><p><%= @chat_message.created_at.to_time.hour %>:<%= @chat_message.created_at.to_time.strftime("%Y-%m-%d %H:%M:%S").strip[14, 2]%></p></div>
+                            <div class="myself_chat create2">
+                                <%= simple_format(@chat_message.message) %>
+                            </div>
                         </div>
-                    </div>
                     `
-        var room_id = <%= @room_id %>
-        App.room.speak(html, room_id);
     <% end %>
+
+    <% if @current_user.present? %>
+        var user_or_hairdresser = "user"
+        <% if @chat.user.sex == "男性" %>
+            var img_html = `<div class="opponent_img"><img src="<%= asset_path "man.png" %>" style="width: 40px; height: 40px;"></div>`
+        <% else @chat.user.sex == "女性" %>
+            var img_html = `<div class="opponent_img"><img src="<%= asset_path "woman.png" %>" style="width: 40px; height: 40px;"></div>`
+        <% end %>
+    <% elsif @current_hairdresser.present? %>
+        var user_or_hairdresser = "hairdresser"
+        var img_html = `<div class="opponent_img"><%= attachment_image_tag @chat.hairdresser, :hairdresser_image, size: "40x40", fallback: "no_image.png", class: "img-circle" %></div>`
+    <% end %>
+    var room_token = "<%= @room.room_token %>"
+    var message = "<%= @chat_message.message %>"
+    App.room.speak(html, user_or_hairdresser, room_token, message, img_html);
+
+
+    //フォームを初期化
+    $('.chat_style_img').each(function(){
+        $(this).remove();
+    });
+
+    $('.circle2').each(function(){
+        $(this).css({
+            "background-color": "white"
+        })
+        $(this).removeClass("click");
+    });
+
+    //フォームを初期化
+    $(".chat_img_save").empty();
+    $('#chat_prev_img').addClass("display_none");
+    $(".delete_chat_img").addClass("display_none");
+
+    $("#chat_message_message").val("");
+
 <% end %>
-
-$('.chat_style_img').each(function(){
-    $(this).remove();
-});
-
-$('.circle2').each(function(){
-    $(this).css({
-        "background-color": "white"
-    })
-    $(this).removeClass("click");
-});
-
-$(".chat_img_save").empty();
-$('#chat_prev_img').addClass("display_none");
-$(".delete_chat_img").addClass("display_none");
-
-$("#chat_message_message").val("");

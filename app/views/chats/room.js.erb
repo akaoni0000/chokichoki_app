@@ -1,27 +1,27 @@
 $("#chat_name").remove();
-$("#room-<%=@room_id%>").remove();
+$("#room-<%=@room.room_token%>").remove();
 var html = 
             `
                 <div id="chat_name">
+                    <p style="font-size:15px; text-align: center;">施術日：<%=@time.month%>月<%=@time.day%>日(<%= %w(日 月 火 水 木 金 土)[(@time).wday] %>)<%=@time.hour%>時<%=@time.min%>分</p>
+                    <p style="font-size:15px; text-align: center;">メニュー：<%=@reservation.menu.name%></p>
                     <% if @current_user.present? %>
-                        <p><%= @hairdresser.name %></p>
-                    <% else %>
-                        <p><%= @user.name %></p>
+                        <p style="position: relative; top: -40px; left: 10px;"><%= @hairdresser.name %></p>
+                    <% elsif @current_hairdresser.present? %>
+                        <p style="position: relative; top: -40px; left: 10px;"><%= @user.name %></p>
                     <% end %>
                 </div> 
-                <% if @current_user.present? %>
-                    <div id="room-<%=@room_id%>" class="user-<%=@current_user.id%>" style="height: 590px; overflow: auto;">
-                        <% i = 0 %>
-                        <% @chat_messages.each do |chat_message| %>
-                            <% if i == 0 %>
-                                <% @date = @chat_messages[i].created_at.to_date %>
-                                <P class="chat_date"><%= @date.month %>/<%= @date.day %>(<%= %w(日 月 火 水 木 金 土)[(@date).wday] %>)</p>
-                            <% elsif @chat_messages[i-1].created_at.to_date != @chat_messages[i].created_at.to_date %>
-                                <% @date = @chat_messages[i].created_at.to_date %>
-                                <P class="chat_date"><%= @date.month %>/<%= @date.day %>(<%= %w(日 月 火 水 木 金 土)[(@date).wday] %>)</p>
-                            <% end %>
-
-                            <!--相手のメッセージ-->
+                
+                <!--チャットルーム-->
+                <div id="room-<%=@room.room_token%>" class="room" href="<%=@room.id%>" style="height: 590px; overflow: auto;">
+                    <% i = 0 %>
+                    <% @chat_messages.each do |chat_message| %>
+                        <% if i == 0 || @chat_messages[i-1].created_at.to_date != @chat_messages[i].created_at.to_date %>
+                            <% @date = @chat_messages[i].created_at.to_date %>
+                            <P class="chat_date"><%= @date.month %>/<%= @date.day %>(<%= %w(日 月 火 水 木 金 土)[(@date).wday] %>)</p>
+                        <% end %>
+                        <% if @current_user.present? %> <!--自分がお客のとき-->
+                            <!--相手のメッセージ(美容師)-->
                             <% if chat_message.hairdresser_id.present? %>
                                 <div class="opponent">
                                     <div class="opponent_img">
@@ -41,7 +41,6 @@ var html =
                                     <!--メッセージ送信時刻-->
                                     <div class="chat_time"><p><%= chat_message.created_at.to_time.hour %>:<%= chat_message.created_at.to_time.strftime("%Y-%m-%d %H:%M:%S").strip[14, 2]%></p></div>
                                 </div>
-
                             <!--自分のメッセージ-->
                             <% elsif chat_message.user_id.present? %>
                                 <div class="myself">
@@ -60,21 +59,7 @@ var html =
                                     </div>
                                 </div>
                             <% end %>
-                        <% i += 1 %>
-                        <% end %>
-                    </div>
-                <% elsif @current_hairdresser.present? %>
-                    <div id="room-<%=@room_id%>" class="hairdresser-<%=@current_hairdresser.id%>" style="height: 590px; overflow: auto;">
-                        <% i = 0 %>
-                        <% @chat_messages.each do |chat_message| %>
-                            <% if i == 0 %>
-                                <% @date = @chat_messages[i].created_at.to_date %>
-                                <P class="chat_date"><%= @date.month %>/<%= @date.day %>(<%= %w(日 月 火 水 木 金 土)[(@date).wday] %>)</p>
-                            <% elsif @chat_messages[i-1].created_at.to_date != @chat_messages[i].created_at.to_date %>
-                                <% @date = @chat_messages[i].created_at.to_date %>
-                                <P class="chat_date"><%= @date.month %>/<%= @date.day %>(<%= %w(日 月 火 水 木 金 土)[(@date).wday] %>)</p>
-                            <% end %>
-
+                        <% elsif @current_hairdresser.present? %> <!--自分が美容師のとき--->
                             <!--相手のメッセージ-->
                             <% if chat_message.user_id.present? %>
                                 <div class="opponent">
@@ -99,7 +84,6 @@ var html =
                                     <!--メッセージ送信時刻-->
                                     <div class="chat_time"><p><%= chat_message.created_at.to_time.hour %>:<%= chat_message.created_at.to_time.strftime("%Y-%m-%d %H:%M:%S").strip[14, 2]%></p></div>
                                 </div>
-
                             <!--自分のメッセージ-->
                             <% elsif chat_message.hairdresser_id.present?  %>
                                 <div class="myself">
@@ -118,44 +102,53 @@ var html =
                                     </div>
                                 </div>
                             <% end %>
-                        <% i += 1 %>
                         <% end %>
-                    </div>
-                <% end %>
+                    <% i += 1 %>
+                    <% end %>
+                </div>
             `
 $('#messages').html(html);
-$(".hidden_room").remove();
-$("#message_form").children("form").append(`<input type="hidden" name="chat_message[room_id]" value="<%=@room_id%>" class="hidden_room">`)
 
 //viewを調整
-$(".chat_message").removeClass("display_none");
-$(".instruction").addClass("display_none");
+$(".chat_message").removeClass("display_none"); //チャット画面を表示
+$(".instruction").addClass("display_none"); //チャットしたい相手を選択してくださいを削除
 $(".chat_rooms").css({
     "background-color": "#FFFFF0"
 })
-$("#chat_room_<%=@room_id%>").css({
+$("#chat_room_<%=@room.room_token%>").css({ //今いるチャットルームに色をつける
     "background-color": "#FFE4B5"
 })
 
 //hairdresserのスタイルの画像を用意
 html2 = `
-        <% i = 0 %>
-        <% @style_image.hair_images.each do |hair_image| %>
-            <div class="chat_hair_box box_number<%= i %> arry<%= i%>" href="<%= i%>">
-                <div class="circle2"></div>
-                <%= image_tag hair_image.to_s, class: "output" %>
-            </div>
-            <% i+=1 %>
-        <% end %>
+            <% i = 0 %>
+            <% @style_image.hair_images.each do |hair_image| %>
+                <div class="chat_hair_box box_number<%= i %> arry<%= i%>" href="<%= i%>">
+                    <div class="circle2"></div>
+                    <%= image_tag hair_image.to_s, class: "output" %>
+                </div>
+                <% i+=1 %>
+            <% end %>
         `
 $(".dark_chat").append(html2);
 
-if (gon.user_id) { //メッセージの一番したにスクロール
-    user_id = gon.user_id
-    $(`.user-${user_id}`).scrollTop($(`.user-${user_id}`)[0].scrollHeight);
-}
-else if (gon.hairdresser_id) { //メッセージの一番したにスクロール
-    hairdresser_id = gon.hairdresser_id
-    $(`.hairdresser-${hairdresser_id}`).scrollTop($(`.hairdresser-${hairdresser_id}`)[0].scrollHeight);
-}
+//一番下にスクロール
+$(`#room-<%=@room.room_token%>`).scrollTop($(`#room-<%=@room.room_token%>`)[0].scrollHeight);
 
+//未読の番号を消す
+$(".unread_number_<%=@room.id%>").css({
+    "display": "none"
+})
+
+<% if @current_user.present? %>
+    $("#room-<%=@room.room_token%>").addClass("user");
+<% end %>
+<% if @current_hairdresser.present? %>
+    $("#room-<%=@room.room_token%>").addClass("hairdresser");
+<% end %>
+
+// <% if @current_user.present? %>
+//     App.room.in_room("user", <%=@room_id%>);
+// <% else @current_hairdresser.present? %>
+//     App.room.in_room("hairdresser", <%=@room_id%>);
+// <% end %>

@@ -1,10 +1,9 @@
 $(function() {
     $(".message_btn").on("click", function(e) {
-        // var message = $(".chat_form").val();
-        if (!$("#message_form_area").find("input").hasClass("hidden_room")) {
-            e.preventDefault();
-            //$("#button").prop("disabled", true);
-        } 
+        e.preventDefault();
+        var room_id = $(".room").attr('href');
+        $("#message_form").children("form").append(`<input type="hidden" name="chat_message[room_id]" value=${room_id} class="hidden_room">`);
+        Rails.fire($("#message_form_area")[0], 'submit');
     });
 });
 
@@ -69,11 +68,7 @@ $(function() {
 })
 
 // $(function() {
-//     var message = $(".chat_form").val();
-//         if (!$("#message_form_area").find("input").hasClass("hidden_room") || message=="") {
-//             $(".message_btn").prop("disabled", true);
-//         }  
-// }); 
-// height = $(document).height()
-// $("#room-1").scrollTop(height);
-//<input type="hidden" name="chat_message[style_image][]" value="${href}" class="chat_style_image_${href}"
+//     $(window).Unload(function(){
+//         alert("fdsaf")
+//     })
+// })

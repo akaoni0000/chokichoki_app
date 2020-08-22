@@ -15,4 +15,6 @@ class ChatMessage < ApplicationRecord
     attachment :image
 
     #refileを扱うときはidは絶対いらない idを入れると不具合起こる
+
+    belongs_to :room
 end

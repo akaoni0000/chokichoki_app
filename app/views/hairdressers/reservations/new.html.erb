@@ -10,7 +10,7 @@
             <%= f.hidden_field :start_date, :value => @start_date %>
             <%= f.submit '作成',class: "btn btn-primary make_btn"%>
     <%end%>
-    <%= link_to "カレンダーに戻る", hairdressers_set_month_calendar_reservation_path(menu_id: @menu.id, start_date: @start_date, win_scroll: true), class: "back_calendar" %>
+    <%= link_to "カレンダーに戻る", hairdressers_set_month_calendar_reservation_path(menu_id: @menu.id, start_date: @start_date), class: "back_calendar color" %>
     </div>
     <div>
         <% if @reservations_arry.present? %>

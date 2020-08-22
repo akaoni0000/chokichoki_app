@@ -5,13 +5,36 @@
         </div> 
         <% @chats.each do |chat| %>
             <%= link_to room_path(room_id: chat.room_id), remote:true, method: :post do %>
-                <div class="chat_rooms" id="chat_room_<%=chat.room_id%>">
-                    <div class="chat_hairdresser_img">
-                        <img src="<%= asset_path "no_image.png" %>" size="70x70" class="img-circle chat_img" style="height: 70px; width: 70px;">
+                <% @room = Room.find(chat.room_id) %>
+                <div class="chat_rooms" id="chat_room_<%=@room.room_token%>">
+                    <div class="inline_block">
+                        <% if chat.user.sex == "男性" %>
+                            <img src="<%= asset_path "man.png" %>" style="width: 70px; height: 70px;">
+                        <% else %>
+                            <img src="<%= asset_path "woman.png" %>" style="width: 70px; height: 70px;">
+                        <% end %>
                     </div>
-                    <div class="chat_hairdresser_name">
-                        <h3><%= chat.user.name %></h3>
+                    <div class="inline_block" style="margin-left: 20px; width: 250px;">
+                        <p style="color: black; font-size: 22px;"><%= chat.user.name %></p>
+                        <% @last_message = ChatMessage.where(room_id: chat.room_id).last %>
+                        <% if 1 <= @last_message.message.length && @last_message.message.length <= 32 %>
+                            <p class="chat_last_message chat_last_message_room_<%=@room.room_token%>"><%= @last_message.message %></p>
+                        <% elsif 33 <= @last_message.message.length %>
+                            <p class="chat_last_message chat_last_message_room_<%=@room.room_token%>"><%= @last_message.message[0..32] %>...</p>
+                        <% else %>
+                            <p class="chat_last_message chat_last_message_room_<%=@room.room_token%>">写真を送信しました</p>
+                        <% end %>
                     </div>
+                    <% @unread_number = ChatMessage.where(notification: false, room_id: chat.room_id, user_id: chat.user.id).length %>
+                    <% if 1 <= @unread_number && @unread_number <= 99 %>
+                        <div class="inline_block unread_number unread_number_<%=chat.room_id%>">
+                            <p><%= @unread_number %></p>
+                        </div>
+                    <% elsif 100 <= @unread_number %>
+                        <div class="inline_block unread_number unread_number_<%=chat.room_id%>">
+                            <p>99+</p>
+                        </div>
+                    <% end %>
                 </div>
             <% end %>
         <% end %>   

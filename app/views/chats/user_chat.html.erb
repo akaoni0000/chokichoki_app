@@ -5,13 +5,34 @@
         </div> 
         <% @chats.each do |chat| %>
             <%= link_to room_path(room_id: chat.room_id), remote:true, method: :post do %>
-                <div class="chat_rooms" id="chat_room_<%=chat.room_id%>">
-                    <div class="chat_hairdresser_img">
+                <% @room = Room.find(chat.room_id) %>
+                <div class="chat_rooms" id="chat_room_<%=@room.room_token%>">
+                    <div class="inline_block">
                         <%= attachment_image_tag chat.hairdresser, :hairdresser_image, size: "70x70", fallback: "no_image.png", class: "img-circle chat_img" %>
                     </div>
-                    <div class="chat_hairdresser_name">
-                        <h3><%= chat.hairdresser.name %></h3>
+                    <div class="inline_block" style="margin-left: 20px; width: 250px;">
+                        <p style="color: black; font-size: 22px;"><%= chat.hairdresser.name %></p>
+                        <% @last_message = ChatMessage.where(room_id: chat.room_id).last %>
+                        <% if @last_message.present? %>
+                            <% if 1 <= @last_message.message.length && @last_message.message.length <= 32 %>
+                                <p class="chat_last_message chat_last_message_room_<%=@room.room_token%>"><%= @last_message.message %></p>
+                            <% elsif 33 <= @last_message.message.length %>
+                                <p class="chat_last_message chat_last_message_room_<%=@room.room_token%>"><%= @last_message.message[0..32] %>...</p>
+                            <% else %>
+                                <p class="chat_last_message chat_last_message_room_<%=@room.room_token%>">写真を送信しました</p>
+                            <% end %>
+                        <% end %>
                     </div>
+                    <% @unread_number = ChatMessage.where(notification: false, room_id: chat.room_id, hairdresser_id: chat.hairdresser.id).length %>
+                    <% if 1 <= @unread_number && @unread_number <= 99 %>
+                        <div class="inline_block unread_number unread_number_<%=chat.room_id%>">
+                            <p><%= @unread_number %></p>
+                        </div>
+                    <% elsif 100 <= @unread_number %>
+                        <div class="inline_block unread_number unread_number_<%=chat.room_id%>">
+                            <p>99+</p>
+                        </div>
+                    <% end %>
                 </div>
             <% end %>
         <% end %>   
@@ -39,8 +60,6 @@
         </div>
     </div>
     
-
-   
 </div>
 
 <div class="dark_chat">
