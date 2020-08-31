@@ -1,105 +1,24 @@
-var html = 
-            `
-            <div id="hairdresser_show_modal" class="container center">
-                <div class="box_left">
-                    <span class="glyphicon glyphicon-remove cursor show_remove"></span>
-                    <div class="hairdresser_show_box1">
-                        <%= attachment_image_tag @hairdresser, :hairdresser_image, size: "320x320", fallback: "no_image.png", class: "hairdresser_show_img"%>
-                        <div class="name_etc">
-                            <h2 style="margin: 0;"><%= @hairdresser.name %><h2>
-                            <% if @status == 1 %>
-                                <% if @admin == "admin" %>
-                                <% else %>
-                                    <p class="btn btn-primary">お気に入り登録</p>
-                                <% end %>
-                            <% end %>
-                        </div>
-                    </div>
-                    <% if @status == 1 %>
-                        <% if @admin == "admin" %>
-                        <% else %>
-                            <div class="hairdresser_appoint_box">
-                                <%= link_to menu_choice_path(hairdresser_id: @hairdresser.id) do %>
-                                    <p style="font-size: 25px; cursor: pointer; color: black;">指名する</p>
-                                <% end %>
-                            </div>
-                        <% end %>
-                    <% else %>
-                        <div class="hairdresser_appoint_box">
-                            <%= link_to admins_permit_path(@hairdresser.id), method: :patch do %>
-                                <p style="font-size: 25px; cursor: pointer; color: black;">承認する</p>
-                            <% end %>
-                        </div>
-                        <div class="hairdresser_appoint_box">
-                            <%= link_to admins_reject_form_path(@hairdresser.id) do %>
-                                <p style="font-size: 25px; cursor: pointer; color: black;">承認しない</p>
-                            <% end %>
-                        </div>
-                    <% end %>
-                </div>
-                <div class="box_right">
-                    <div class="hairdresser_show_box2" >
-                        <h2 class="introduce">自己紹介文</h2>
-                        <%= @hairdresser.introduction%>
-                    </div>
-                    <% if @status == 1 %>
-                        <div class="hairdresser_show_box2" >
-                            <h2 class="introduce">メニュー</h2>
-                            <% @menus.each do |menu| %>
-                                <%= menu.name %>
-                            <% end %>
-                        </div>
-                        <div class="hairdresser_show_box2" >
-                            <h2 class="introduce">口コミ</h2>
-                            <%  @hairdresser_comments.each do |hairdresser_comment| %>
-                                <% if hairdresser_comment.rate != nil %>
-                                    <div id="star-rate-<%= hairdresser_comment.id %>"></div>
-                                        <script>
-                                            $('#star-rate-<%= hairdresser_comment.id %>').raty({
-                                            size: 36,
-                                            starOff:  '<%= asset_path('star-off.png') %>',
-                                            starOn : '<%= asset_path('star-on.png') %>',
-                                            starHalf: '<%= asset_path('star-half.png') %>',
-                                            half: true,
-                                            readOnly: true,
-                                            score: <%= hairdresser_comment.rate %>,
-                                            });
-                                        </script>
-                                    <div>
-                                        <% @menu = @menu_model.find(hairdresser_comment.menu_id) %>
-                                        <%= @menu.name %>
-                                    </div>
-                                    <div>
-                                        <% @user = @user_model.find(hairdresser_comment.user_id) %>
-                                        <%= @user.name %>さん
-                                    </div>
-                                    <div>
-                                        <%= hairdresser_comment.start_time.year %>年<%= hairdresser_comment.start_time.month %>月<%= hairdresser_comment.start_time.day %>日
-                                    </div>
-                                <% end %>
-                            <% end %>
-                        </div>
-                    <% else %><!--承認されていなかったら-->
-                        <div class="hairdresser_confirm_box" >
-                            <h2 class="introduce">美容師免許証</h2>
-                            <%= attachment_image_tag @hairdresser, :confirm_image, size: "400x400", fallback: "no_image.png", class: "hairdresser_confirm_img"%>
-                            
-                        </div>
-                    <% end %>
-                </div>
-            </div>
-            `
-$('#hairdresser_show').html(html);
+$(".options_select").each(function(){
+    $(this).removeClass("border");
+});
+<% if @profile %>
+    $(".options_profile").addClass("border");
+    $('.hairdresser_info').html("<%= j(render "users/hairdressers/templete/profile") %>");
+<% elsif @menu %>
+    $(".options_menu").addClass("border");
+    $('.hairdresser_info').html("<%= j(render "users/hairdressers/templete/menu") %>");
+<% elsif @photo %>
+    $(".options_photo").addClass("border");
+    $('.hairdresser_info').html("<%= j(render "users/hairdressers/templete/photo") %>");
+<% elsif @review %>
+    $(".options_review").addClass("border");
+    $('.hairdresser_info').html("<%= j(render "users/hairdressers/templete/review") %>");
+<% else %>
+$(".options_profile").addClass("border");
+$('#hairdresser_show').html("<%= j(render "users/hairdressers/templete/hairdresser_info") %>");
+$('.hairdresser_info').html("<%= j(render "users/hairdressers/templete/profile") %>");
 $('#hairdresser_show').fadeIn(); 
-//効果ない
-$(".cursor").css({
-    "ext-decoration": "none",
-    "outline": "none"
-});   
-$("p").css({
-    "ext-decoration": "none",
-    "outline": "none"
-});   
-$(".reservation_hairdresser_name").css({
-      "text-decoration":"none"
-    });
+$(".show_remove").click(function(){
+    $('#hairdresser_show').fadeOut();
+});
+<% end %>

@@ -20,4 +20,7 @@
 #     )
 # end
   
-Admin.create(:email => 'aaa@gmail.com', :password_digest => "Earth2013")
+Admin.create!(:email => 'aaa@gmail.com', :password_digest => "chokichoki")
+
+User.create!(:name => "えみたん", :email => "abc@gmail.com", :password => "chokichoki", :sex => "女性")
+User.create!(:name => "えみりん", :email => "bbb@gmail.com", :password => "chokichoki", :sex => "女性")

@@ -1,0 +1,15 @@
+if ($("header").children("div").hasClass("hairdresser_options")) {
+    $(".hairdresser_options").remove();
+}
+else {
+    var html = `
+                    <div class="hairdresser_options">
+                        <p>現在の予約件数</p>
+                        <p style="margin-bottom: 10px;"><%=@reservation_number%>件</p>
+                        <%= link_to edit_hairdresser_path(@current_hairdresser.id) do %>
+                            <p class="hairdresser_options_account">アカウント設定</p>
+                        <% end %>
+                    </div>
+                `
+    $("header").append(html);
+}

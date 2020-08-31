@@ -1,0 +1,63 @@
+<div>
+    <h2 class="profile"><%=@hairdresser.name%>のプロフィール</h2>
+    <p class="intro"><%=@hairdresser.introduction%></p>
+    <table class="table" style="margin-top: 70px;">
+        <tbody>
+            <tr>
+                <td>施術内容</td>
+                <td>
+                    <% if @cut.include?("1") %>
+                        <span class="cut_category category font">カット</span>
+                    <% end %>
+                    <% if @color.include?("1") %>
+                        <span class="color_category category font">カラー</span>
+                    <% end %>
+                    <% if @perm.include?("1") %>
+                        <span class="perm_category category font">パーマ</span>
+                    <% end %>
+                    <% if @curly.include?("1") %>
+                        <span class="curly_category category font">縮毛矯正</span>
+                    <% end %>
+                    <% if @menus.blank? %>
+                        <p>メニューがありません</P>
+                    <% end %>
+                </td>
+            </tr>
+            <tr>
+                <td>メニュー数</td>
+                <td><%=@menus.length%></td>
+            </tr>
+            <tr>
+                <td>最短予約可能日時</td>
+                <td>
+                    <% if @reservations.first.present? %>
+                        <%=@reservations.first.start_time.month%>月<%=@reservations.first.start_time.day%>日<%=@reservations.first.start_time.hour%>時<%=@reservations.first.start_time.min%>分
+                    <% else %>
+                        <p>予約可能な日時はありません</p>
+                    <% end %>
+                </td>
+            </tr>
+            <tr>
+                <td>所属店舗</td>
+                <td><%=@hairdresser.shop_name%></td>
+            </tr>
+        </tbody>
+    </table>
+    <div id="map" style='width: 400px; height: 300px; margin: 0 auto;'></div>
+    <script type="text/javascript">
+        handler = Gmaps.build('Google');
+        handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
+            markers = handler.addMarkers([
+            {
+                "lat": "<%=@hairdresser.shop_latitude%>", //緯度
+                "lng": "<%=@hairdresser.shop_longitude%>", //経度
+                "infowindow": "<%=@hairdresser.shop_name%>"
+            }
+            ]);
+            handler.bounds.extendWith(markers);
+            handler.fitMapToBounds();
+            handler.getMap().setZoom(16);
+        });
+    </script>
+</div>
+

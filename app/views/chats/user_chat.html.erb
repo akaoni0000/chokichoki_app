@@ -2,6 +2,12 @@
 
     <div id="chat_members">
         <div id="search_form">
+            <%= form_with(url: chat_room_search_path, method: :post, local: true) do |f| %>
+                <%= f.text_field :search_room, placeholder: "名前を入力してください", class: "chat_search_form form-control" %>
+                <button type="submit" class="btn btn-primary chat_search_btn"> 
+                     <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                </button> 
+            <% end %>
         </div> 
         <% @chats.each do |chat| %>
             <%= link_to room_path(room_id: chat.room_id), remote:true, method: :post do %>
@@ -25,11 +31,11 @@
                     </div>
                     <% @unread_number = ChatMessage.where(notification: false, room_id: chat.room_id, hairdresser_id: chat.hairdresser.id).length %>
                     <% if 1 <= @unread_number && @unread_number <= 99 %>
-                        <div class="inline_block unread_number unread_number_<%=chat.room_id%>">
+                        <div class="inline_block unread_number unread_number_<%=@room.room_token%>">
                             <p><%= @unread_number %></p>
                         </div>
                     <% elsif 100 <= @unread_number %>
-                        <div class="inline_block unread_number unread_number_<%=chat.room_id%>">
+                        <div class="inline_block unread_number unread_number_<%=@room.room_token%>">
                             <p>99+</p>
                         </div>
                     <% end %>
@@ -40,23 +46,7 @@
 
     <div id="chat">
         <p class="instruction">チャットしたい相手を選択してください</p>
-        <div class="chat_message display_none">
-            <div id="messages">
-            </div>
-            <div id="message_form">
-                <%= form_with(model: @chat_message, url: message_create_path, method: :post, id: "message_form_area") do |f| %>
-                    <img src="<%= asset_path "style_images.png" %>" id="chat_style_images" >
-                    <label class="chat_img_label cursor2">
-                        <%= f.attachment_field :image, id: "chat_img", class: "hidden" %>
-                        <img src="<%= asset_path "film.png" %>" id="" >
-                    </label>  
-                    <img id="chat_prev_img" style="width: 32px; height: 32px;" class="display_none">
-                    <div class="chat_img_save display_none"></div>
-                    <span class="delete_chat_img display_none" style="font-size: 15px;">削除</span>
-                    <%= f.submit "送信", class: "btn btn-success message_btn" %>
-                    <%= f.text_area :message, placeholder: "メッセージを入力してください", class: "form-control chat_form" %>
-                <% end %>
-            </div>
+        <div class="chat_message display_none" id="messages">
         </div>
     </div>
     

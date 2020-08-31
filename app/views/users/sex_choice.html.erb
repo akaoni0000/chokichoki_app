@@ -1,0 +1,11 @@
+<div class="center">
+    <p style="font-size: 30px; padding-top: 150px; margin-bottom: 30px;">まだ登録は完了していません。</p>
+    <p>性別を選択してください</p>
+    <%= form_with(model: @user, url: twitter_create_path, local: true) do |f| %>
+        <span>男性</span>
+        <%= f.radio_button :sex, :男性 %>
+        <span>女性</span>
+        <%= f.radio_button :sex, :女性 %>
+        <%= f.submit "登録", class: "btn btn-success", style: "width: 150px; display: block; margin: 0 auto; margin-top: 30px;" %>
+    <% end %>
+</div>

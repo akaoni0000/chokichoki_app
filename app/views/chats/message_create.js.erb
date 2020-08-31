@@ -1,13 +1,12 @@
 <% if @chat_message.save %>
-
-    <% if @chat_message.image_id.present? && @chat_message.style_images.present? %>
+    <% if @chat_message.image_id.present? && @chat_message.style_images.present? %> //自分パソコンの画像と美容師のヘアカタログの写真を一度に選択して送信したとき
         var html = 
                     `
-                        <% if @chat_messages.blank? || @chat_messages.last.created_at.to_date != @chat_message.created_at.to_date %>
+                        <% if @chat_messages.length == 1 || @date.present? %> //一番最初にメッセージを送信した時と 送信した時に前のメッセージと日付が異なっていたら 日付を表示
                             <% @date = @chat_message.created_at.to_date %>
                             <P class="chat_date"><%= @date.month %>/<%= @date.day %>(<%= %w(日 月 火 水 木 金 土)[(@date).wday] %>)</p>
                         <% end %>
-                        <div class="myself create1">
+                        <div class="myself create1 not_read">
                             <div class="chat_time"><p><%= @chat_message.created_at.to_time.hour %>:<%= @chat_message.created_at.to_time.strftime("%Y-%m-%d %H:%M:%S").strip[14, 2]%></p></div>
                             <div class="myself_chat create2">
                                 <% @chat_message.style_images.each do |image| %>
@@ -18,29 +17,29 @@
                             </div>
                         </div>
                     `
-    <% elsif @chat_message.image_id.present? %>
+    <% elsif @chat_message.image_id.present? %> //自分のパソコンの画像を選択して送信したとき
         var html = 
                     `
-                        <% if @chat_messages.blank? || @chat_messages.last.created_at.to_date != @chat_message.created_at.to_date %>
+                        <% if @chat_messages.length == 1 || @date.present? %> //一番最初にメッセージを送信した時と 送信した時に前のメッセージと日付が異なっていたら 日付を表示
                             <% @date = @chat_message.created_at.to_date %>
                             <P class="chat_date"><%= @date.month %>/<%= @date.day %>(<%= %w(日 月 火 水 木 金 土)[(@date).wday] %>)</p>
                         <% end %>
-                        <div class="myself create1">
+                        <div class="myself create1 not_read">
                             <div class="chat_time time_create"><p><%= @chat_message.created_at.to_time.hour %>:<%= @chat_message.created_at.to_time.strftime("%Y-%m-%d %H:%M:%S").strip[14, 2]%></p></div>
                             <div class="myself_chat create2">
                                 <%= attachment_image_tag @chat_message, :image, size: "200x200", fallback: "no_image.png", style: "margin-bottom: 10px;" %>
-                                <%= simple_format(@chat_message.message) %>
+                                <%= simple_format(@chat_message.message) %> //スペースも表す
                             </div>
                         </div>
                     `
-    <% elsif @chat_message.style_images.present? %>
+    <% elsif @chat_message.style_images.present? %> //美容師のヘアカタログの写真を選択したとき
         var html = 
                     `
-                        <% if @chat_messages.blank? || @chat_messages.last.created_at.to_date != @chat_message.created_at.to_date %>
+                        <% if @chat_messages.length == 1 || @date.present? %> //一番最初にメッセージを送信した時と 送信した時に前のメッセージと日付が異なっていたら 日付を表示
                             <% @date = @chat_message.created_at.to_date %>
                                 <P class="chat_date"><%= @date.month %>/<%= @date.day %>(<%= %w(日 月 火 水 木 金 土)[(@date).wday] %>)</p>
                         <% end %>
-                        <div class="myself create1">
+                        <div class="myself create1 not_read">
                             <div class="chat_time time_create"><p><%= @chat_message.created_at.to_time.hour %>:<%= @chat_message.created_at.to_time.strftime("%Y-%m-%d %H:%M:%S").strip[14, 2]%></p></div>
                             <div class="myself_chat create2">
                                 <% @chat_message.style_images.each do |image| %>
@@ -50,14 +49,14 @@
                             </div>
                         </div>
                     `
-    <% elsif @chat_message.message != "" %>
+    <% elsif @chat_message.message != "" %> //メッセージだけを送信したとき
         var html = 
                     `
-                        <% if @chat_messages.length == 1 || @chat_messages.last.created_at.to_date != @chat_message.created_at.to_date %>
+                        <% if @chat_messages.length == 1 || @date.present? %> //一番最初にメッセージを送信した時と 送信した時に前のメッセージと日付が異なっていたら 日付を表示
                             <% @date = @chat_message.created_at.to_date %>
                             <P class="chat_date"><%= @date.month %>/<%= @date.day %>(<%= %w(日 月 火 水 木 金 土)[(@date).wday] %>)</p>
                         <% end %>
-                        <div class="myself create1">
+                        <div class="myself create1 not_read">
                             <div class="chat_time time_create"><p><%= @chat_message.created_at.to_time.hour %>:<%= @chat_message.created_at.to_time.strftime("%Y-%m-%d %H:%M:%S").strip[14, 2]%></p></div>
                             <div class="myself_chat create2">
                                 <%= simple_format(@chat_message.message) %>
@@ -79,8 +78,7 @@
     <% end %>
     var room_token = "<%= @room.room_token %>"
     var message = "<%= @chat_message.message %>"
-    App.room.speak(html, user_or_hairdresser, room_token, message, img_html);
-
+    App.room.speak(html, user_or_hairdresser, room_token, message, img_html); //アクションケーブルで送る
 
     //フォームを初期化
     $('.chat_style_img').each(function(){
@@ -98,7 +96,5 @@
     $(".chat_img_save").empty();
     $('#chat_prev_img').addClass("display_none");
     $(".delete_chat_img").addClass("display_none");
-
     $("#chat_message_message").val("");
-
 <% end %>

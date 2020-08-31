@@ -1,0 +1,19 @@
+<p style="font-size: 20px;">店舗名: <%=@hairdresser.shop_name%></p>
+<p style="font-size: 20px; margin-bottom: 30px;">住所: <%=@hairdresser.address%></p>
+<div id="map" style='width: 800px; height: 400px; margin: 0 auto;'></div>
+
+<script type="text/javascript">
+    handler = Gmaps.build('Google');
+    handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
+        markers = handler.addMarkers([
+        {
+            "lat": "<%=@hairdresser.shop_latitude%>", //緯度
+            "lng": "<%=@hairdresser.shop_longitude%>", //経度
+            "infowindow": "<%=@hairdresser.shop_name%>"
+        }
+        ]);
+        handler.bounds.extendWith(markers);
+        handler.fitMapToBounds();
+        handler.getMap().setZoom(16);
+    });
+</script>

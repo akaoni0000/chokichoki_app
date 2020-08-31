@@ -71,20 +71,19 @@ class Hairdressers::ReservationsController < ApplicationController
         @thead_for_hairdresser = true
     end
 
-    def create_destroy_reservation #週間カレンダーからの予約作成
+    def create_destroy_reservation #週間カレンダーからの予約作成 予約の削除も行う
         if params[:start_time].present?
             @reservation_start_time_arry = params[:start_time]
             @reservation_start_time_arry.map! {|a| Reservation.new(start_time: a, menu_id: params[:menu_id])}
             Reservation.import @reservation_start_time_arry #これでinsertが一括でできる
         end
         
-
         @reservations_user_exist = @current_hairdresser.reservations.where.not(user_id: nil)
         @reservations_user_exist.all.each do |reservation|
             @time_min = reservation.start_time
             @time_max = reservation.start_time + reservation.menu.time*60 -1
             @reservations = @current_hairdresser.reservations.where(start_time: @time_min..@time_max)
-            @reservations.update_all(:status => 1 )
+            @reservations.update_all(:status => true )
         end
        
         if params[:start_time_remove].present?

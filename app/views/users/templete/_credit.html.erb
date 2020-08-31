@@ -1,18 +1,26 @@
+<h3>クレジットカード情報入力</h3>
+<p>ご利用可能なカードは以下の通りです</p>
+<img src="<%= asset_path "visa.gif" %>" class="card_logo">
+<img src="<%= asset_path "master.gif" %>" class="card_logo">
+<img src="<%= asset_path "jcb.gif" %>" class="card_logo">
+<img src="<%= asset_path "amex.gif" %>" class="card_logo">
+<img src="<%= asset_path "diner.gif" %>" class="card_logo">
+<img src="<%= asset_path "discover.gif" %>" class="card_logo">
 <div class="container center card_register">
     <%= form_with(url: user_cards_path, method: :post, id: "charge-form") do |f|  %>
-        <%= f.label "カード番号" %>
+        <%= f.label "カード番号" %><span class="must">必須</span>
         <%= f.text_field "card_number", class: "number form-control ca_form", value: 4242424242424242  ,maxlength: "16", type: "text", id: "card_number"%>
         <br>
-        <%= f.label "有効期限", class: "limit" %>
+        <%= f.label "有効期限", class: "limit" %><span class="must">必須</span>
         <%= f.select 'exp_month', options_for_select({"--": "", "01": 1, "02": 2, "03": 3, "04": 4, "05": 5, "06": 6, "07": 7, "08": 8, "09": 9, "10": 10, "11": 11, "12": 12}, "")%>
         <span>月/</span>
         <%= f.select 'exp_year', options_for_select({"--": "", "19": 2019, "20": 2020, "21": 2021, "22": 2022, "23": 2023, "24": 2024, "25": 2025, "26": 2026, "27": 2027, "28": 2028, "29": 2029}, "")%>
         <span>年</span>
         <br>
-        <%= f.label "セキュリティコード", class: "security"%>
+        <%= f.label "セキュリティコード", class: "security"%><span class="must">必須</span>
         <%= f.text_field "cvc", class: "cvc form-control ca_form", placeholder: "カード背面3~4桁の番号", maxlength: "4", id: "cvc" %>
         <div>
-        <%= f.submit "登録する", id: "token_submit", class: "btn btn-success" %>
+            <%= f.submit "登録する", id: "token_submit", class: "btn btn-success" %>
         </div>
     <%end%>
 </div>

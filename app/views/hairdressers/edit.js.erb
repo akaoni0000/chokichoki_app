@@ -1,0 +1,56 @@
+$(".hairdresser_show_element").each(function(){
+    $(this).removeClass("border");
+});
+<% if @profile %>
+    $(".hairdresser_profile").addClass("border");
+    $(".hairdresser_information").html("<%= j(render "hairdressers/templete/profile") %>");
+    $("#hairdresser_post_number").jpostal({
+        postcode: ["#hairdresser_post_number"],
+        address: {
+           "#hairdresser_address": "%3%4%5"
+        }
+    });
+    function getLatLng(place) {
+        var geocoder = new google.maps.Geocoder();
+        geocoder.geocode({address: place}, 
+            function(results, status) {
+            if (status == google.maps.GeocoderStatus.OK) {
+                var shop_lat = results[0].geometry.location.lat();
+                var shop_lng = results[0].geometry.location.lng();
+                $("#hairdresser_form").append(`<input type="hidden" name="hairdresser[shop_latitude]" value="${shop_lat}" class="lat">`);
+                $("#hairdresser_form").append(`<input type="hidden" name="hairdresser[shop_longitude]" value="${shop_lng}" class="lng">`);
+                setTimeout(function(){
+                    Rails.fire($("#hairdresser_form")[0], 'submit');
+                    $(".lat").remove();
+                    $(".lng").remove();
+                },500);  
+            } 
+            else {
+                Rails.fire($("#hairdresser_form")[0], 'submit');
+            }
+        });
+    }
+    $("#hairdresser_btn").on("click", function(e) {
+        e.preventDefault();
+        var shop_address = $(".hairdresser_shop_address").val();
+        getLatLng(shop_address);
+    });
+<% end %>
+
+<% if @shop_info %>
+    $(".hairdresser_shop_info").addClass("border");
+    $(".hairdresser_information").html("<%= j(render "hairdressers/templete/shop_info") %>");
+<% end %>
+
+<% if @password %>
+    $(".hairdresser_password").addClass("border");
+    $(".hairdresser_information").html("<%= j(render "hairdressers/templete/password") %>");
+<% end %>
+
+<% if @current_password %>
+    $(".hairdresser_password").addClass("border");
+    $(".hairdresser_information").html("<%= j(render "hairdressers/templete/reset_password") %>");
+<% elsif @current_password == false %>
+    $(".hairdresser_password").addClass("border");
+    $(".show_password_error").text("パスワードが違います");
+<% end %>

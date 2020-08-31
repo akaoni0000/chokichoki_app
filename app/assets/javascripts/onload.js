@@ -31,16 +31,6 @@ $(document).ready(function(){
         })
       }
     });
-})
-   
-$(function(){
-    // $(".header_top_left").click(function(){
-    //     App.room.report("fdafda");
-    // })
-})
 
-// window.onpageshow = function(event) {
-// 	if (event.persisted) {
-// 		 window.location.reload();
-// 	}
-// };
+    // $("#name_hidden").hide();
+})

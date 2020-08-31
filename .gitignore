@@ -33,3 +33,5 @@
 /.env
 
 /public/uploads
+
+/config/initializers/mail_config.rb

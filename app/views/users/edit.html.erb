@@ -1,0 +1,23 @@
+<div class="container" style="padding-top: 70px;">
+        
+    <%= link_to edit_user_path(profile: true), remote: true do %>
+        <div class="col-xs-4 user_profile center user_show_element border_none border">
+            <p>プロフィール</p>
+        </div>
+    <% end %>
+    <%= link_to edit_user_path(password: true), remote: true do %>
+        <div class="col-xs-4 user_password center user_show_element border_none">
+            <p>パスワード</p>
+        </div>
+    <% end %>
+    <%= link_to edit_user_path(credit: true), remote: true do %>
+        <div class="col-xs-4 user_credit center user_show_element border_none">
+            <p>お支払い情報</p>
+        </div>
+    <% end %>
+    
+    <div class="user_information center" style="margin-top: 100px;">
+        <%= render "users/templete/profile" %>
+    </div>
+
+</div>

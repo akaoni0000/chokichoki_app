@@ -18,10 +18,10 @@ class MenusController < ApplicationController
         else
             #バリデーションのメッセージ
             if @menu.errors.added?(:name, :too_short, :count=>2) || @menu.errors.added?(:name, :too_long, :count=>12) 
-                @error_name_short = "名前は2文字以上20文字以下で入力してください"
+                @error_name_short = "名前は2文字以上12文字以下で入力してください"
             end
             if @menu.errors.added?(:explanation, :too_short, :count=>10) || @menu.errors.added?(:explanation, :too_short, :count=>160)
-                @error_explanation_short = "説明は10文字以上20文字以下で入力してください"
+                @error_explanation_short = "説明は10文字以上160文字以下で入力してください"
             end
             if @menu.errors.added?(:time, :blank)
                 @error_time_blank = "時間を選択してください"

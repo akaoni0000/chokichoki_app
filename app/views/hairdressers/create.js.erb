@@ -1,133 +1,140 @@
-$(".total").remove();
-$(".total_error").append('<h2 class="total"><%= @total_error %>件のエラーがあります</h2>');
-<% if @error_name_short.present? || @error_name_taken.present? %>
-    <% if @error_name_short.present? %>
-        $(".name_short").remove();
-        $(".hairdresser_name_error").append('<p class="name_short"><%= @error_name_short %></p>');
-    <% else %>
-        $(".name_short").remove();
-    <% end %>
-    <% if @error_name_taken.present? %>
+<% if @hairdresser.save %>
+    $(".back_dark").eq(7).remove();
+    html = `   
+                <div id="email" class="back_dark"><!--メールを送信しましたのhtml-->
+                    <div class="send_email">
+                        <span class="glyphicon glyphicon-remove cursor" style="float: right;"></span>
+                        <h2>確認メールを送信しました</h2>
+                        <p>確認メールを<%=@hairdresser.email%>に送信しました。</p>
+                        <p>送信された確認メール内に記載されたURLにアクセルすると登録が完了します。</p>
+                        <p>※URLの有効期限は10分間です。</p>
+                        <%= link_to "メールを再送信", hairdresser_resend_path, method: :post, remote: true, class: "btn btn-success resend", style: "width: 200px; margin-top: 70px;" %>
+                        <div id="resend" class="cursor2"></div>
+                    </div>
+                </div>
+            `
+    $("body").append(html);
+    $('.back_dark').eq(4).hide();
+    $(".back_dark").eq(7).show();
+<% else %>
+    $(".total").remove();
+    $(".total_error").append('<h2 class="total"><%= @total_error %>件のエラーがあります</h2>');
+    <% if @error_name_short_long.present? || @error_name_taken.present? %>
+        $(".name_short_long").remove();
         $(".name_taken").remove();
-        $(".hairdresser_name_error").append('<p class="name_taken"><%= @error_name_taken %><p>');
+        <% if @error_name_short_long.present? %>
+            $(".hairdresser_name_error").append('<p class="name_short_long" style="width: 320px; padding-right: 15px;"><%= @error_name_short_long %></p>');
+        <% end %>
+        <% if @error_name_taken.present? %>
+            $(".hairdresser_name_error").append('<p class="name_taken"><%= @error_name_taken %><p>');
+        <% end %>
+        $(".name").css({
+            "border-color": "red",
+            "border-width": "2px"
+        });
     <% else %>
-        $(".name_taken").remove();
+        $(".hairdresser_name_error").html("");
+        $(".name").css({
+            "border-width":"0px"
+        });
     <% end %>
-    $(".name").css({
-        "border-color": "red",
-        "border-width": "2px"
-    });
-<% else %>
-    $(".hairdresser_name_error").html("");
-    $(".name").css({
-        "border-width":"0px"
-    });
-<% end %>
 
-<% if @error_email_invalid.present? || @error_email_taken.present? %>
-    <% if @error_email_invalid.present? %>
+    <% if @error_email_invalid.present? || @error_email_taken.present? %>
         $(".email_invalid").remove();
-        $(".hairdresser_email_error").append('<p class="email_invalid"><%= @error_email_invalid %></p>');
-    <% else %>
-        $(".email_invalid").remove();
-    <% end %>
-    <% if @error_email_taken.present? %>
         $(".email_taken").remove();
-        $(".hairdresser_email_error").append('<p class="email_taken"><%= @error_email_taken %><p>');
+        <% if @error_email_invalid.present? %>
+            $(".hairdresser_email_error").append('<p class="email_invalid"><%= @error_email_invalid %></p>');
+        <% end %>
+        <% if @error_email_taken.present? %>
+            $(".hairdresser_email_error").append('<p class="email_taken"><%= @error_email_taken %><p>');
+        <% end %>
+        $(".email").css({
+            "border-color": "red",
+            "border-width": "2px"
+        });
     <% else %>
-        $(".email_taken").remove();
+        $(".hairdresser_email_error").html("");
+        $(".email").css({
+            "border-width":"0px"
+        });
     <% end %>
-    $(".email").css({
-        "border-color": "red",
-        "border-width": "2px"
-    });
-<% else %>
-    $(".hairdresser_email_error").html("");
-    $(".email").css({
-        "border-width":"0px"
-    });
-<% end %>
 
-<% if @error_shop_short.present? %>
-    $(".shop_short").remove();
-    $(".hairdresser_shop_name_error").append('<p class="shop_short" style="width: 320px;"><%= @error_shop_short %></p>');
-    $(".shop_name").css({
-        "border-color": "red",
-        "border-width": "2px"
-    });
-<% else %>
-    $(".hairdresser_shop_name_error").html("");
-    $(".shop_name").css({
-        "border-width":"0px"
-    });
-<% end %>
+    <% if @error_shop_short.present? %>
+        $(".shop_short").remove();
+        $(".hairdresser_shop_name_error").append('<p class="shop_short" style="width: 320px;"><%= @error_shop_short %></p>');
+        $(".shop_name").css({
+            "border-color": "red",
+            "border-width": "2px"
+        });
+    <% else %>
+        $(".hairdresser_shop_name_error").html("");
+        $(".shop_name").css({
+            "border-width":"0px"
+        });
+    <% end %>
 
-<% if @error_post_invalid.present? %>
-    $(".post_invalid").remove();
-    $(".hairdresser_post_number_error").append('<p class="post_invalid" style="width: 302px;"><%= @error_post_invalid %></p>');
-    $(".post_number").css({
-        "border-color": "red",
-        "border-width": "2px"
-    });
-<% else %>
-    $(".hairdresser_post_number_error").html("");
-    $(".post_number").css({
-        "border-width":"0px"
-    });
-<% end %>
+    <% if @error_post_invalid.present? %>
+        $(".post_invalid").remove();
+        $(".hairdresser_post_number_error").append('<p class="post_invalid" style="width: 302px;"><%= @error_post_invalid %></p>');
+        $(".post_number").css({
+            "border-color": "red",
+            "border-width": "2px"
+        });
+    <% else %>
+        $(".hairdresser_post_number_error").html("");
+        $(".post_number").css({
+            "border-width":"0px"
+        });
+    <% end %>
 
-<% if @error_address.present? %>
-    $(".address_invalid").remove();
-    $(".hairdresser_address_error").append('<p class="address_invalid" style="width: 200px;"><%= @error_address %></p>');
-    $(".address").css({
-        "border-color": "red",
-        "border-width": "2px"
-    });
-<% else %>
-    $(".hairdresser_address_error").html("");
-    $(".address").css({
-        "border-width":"0px"
-    });
-<% end %>
+    <% if @error_address.present? %>
+        $(".address_invalid").remove();
+        $(".hairdresser_address_error").append('<p class="address_invalid" style="width: 200px;"><%= @error_address %></p>');
+        $(".address").css({
+            "border-color": "red",
+            "border-width": "2px"
+        });
+    <% else %>
+        $(".hairdresser_address_error").html("");
+        $(".address").css({
+            "border-width":"0px"
+        });
+    <% end %>
 
-<% if @error_password_short.present? || @error_password_confirmaiton.present? %>
-    <% if @error_password_short.present? %>
+    <% if @error_password_short.present? || @error_password_confirmaiton.present? %>
         $(".password_short").remove();
-        $(".hairdresser_password_error").append('<p class="password_short" style="width: 345px;"><%=  @error_password_short %></p>');
-    <% else %>
-        $(".password_short").remove();
-    <% end %>
-    <% if @error_password_confirmaiton.present? %>
         $(".password_confirm").remove();
-        $(".hairdresser_password_error").append('<p class="password_confirm"><%= @error_password_confirmaiton %><p>');
+        <% if @error_password_short.present? %>
+            $(".hairdresser_password_error").append('<p class="password_short" style="width: 345px;"><%=  @error_password_short %></p>');
+        <% end %>
+        <% if @error_password_confirmaiton.present? %>
+            $(".hairdresser_password_error").append('<p class="password_confirm"><%= @error_password_confirmaiton %><p>');
+        <% end %>
+        $(".password").css({
+            "border-color": "red",
+            "border-width": "2px"
+        });
     <% else %>
-        $(".password_confirm").remove();
+        $(".hairdresser_password_error").html("");
+        $(".password").css({
+            "border-width":"0px"
+        });
     <% end %>
-    $(".password").css({
-        "border-color": "red",
-        "border-width": "2px"
-    });
-<% else %>
-    $(".hairdresser_password_error").html("");
-    $(".password").css({
-        "border-width":"0px"
-    });
-<% end %>
 
-<% if @error_confirm_blank.present? %>
-    $(".image_blank").remove();
-    $(".img_error").append('<p class="image_blank"><%= @error_confirm_blank %></p>');
-<% else %>
-    $(".img_error").html("");
-<% end %>
+    <% if @error_confirm_blank.present? %>
+        $(".image_blank").remove();
+        $(".img_error").append('<p class="image_blank"><%= @error_confirm_blank %></p>');
+    <% else %>
+        $(".img_error").html("");
+    <% end %>
 
-<% if @error_sex_blank.present? %>
-    $(".sex_blank").remove();
-    $(".hairdresser_sex_error").append('<p class="sex_blank"><%= @error_sex_blank %></p>');
-<% else %>
-    $(".hairdresser_sex_error").html("");
+    <% if @error_sex_blank.present? %>
+        $(".sex_blank").remove();
+        $(".hairdresser_sex_error").append('<p class="sex_blank"><%= @error_sex_blank %></p>');
+    <% else %>
+        $(".hairdresser_sex_error").html("");
+    <% end %>
 <% end %>
-
 
 
 

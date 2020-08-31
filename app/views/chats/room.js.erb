@@ -1,14 +1,14 @@
-$("#chat_name").remove();
-$("#room-<%=@room.room_token%>").remove();
+$("#chat_name").remove(); //元のチャット画面をなくす
+$("#room-<%=@room.room_token%>").remove(); //元のチャット画面をなくす
 var html = 
             `
                 <div id="chat_name">
                     <p style="font-size:15px; text-align: center;">施術日：<%=@time.month%>月<%=@time.day%>日(<%= %w(日 月 火 水 木 金 土)[(@time).wday] %>)<%=@time.hour%>時<%=@time.min%>分</p>
                     <p style="font-size:15px; text-align: center;">メニュー：<%=@reservation.menu.name%></p>
                     <% if @current_user.present? %>
-                        <p style="position: relative; top: -40px; left: 10px;"><%= @hairdresser.name %></p>
+                        <p style="position: relative; top: -40px; left: 10px; font-size: 20px;"><%= @hairdresser.name %></p>
                     <% elsif @current_hairdresser.present? %>
-                        <p style="position: relative; top: -40px; left: 10px;"><%= @user.name %></p>
+                        <p style="position: relative; top: -40px; left: 10px; font-size: 20px;"><%= @user.name %></p>
                     <% end %>
                 </div> 
                 
@@ -16,7 +16,7 @@ var html =
                 <div id="room-<%=@room.room_token%>" class="room" href="<%=@room.id%>" style="height: 590px; overflow: auto;">
                     <% i = 0 %>
                     <% @chat_messages.each do |chat_message| %>
-                        <% if i == 0 || @chat_messages[i-1].created_at.to_date != @chat_messages[i].created_at.to_date %>
+                        <% if i == 0 || @chat_messages[i-1].created_at.to_date != @chat_messages[i].created_at.to_date %> <!--メッセージの送信した日付が変わる時は日付を表示する-->
                             <% @date = @chat_messages[i].created_at.to_date %>
                             <P class="chat_date"><%= @date.month %>/<%= @date.day %>(<%= %w(日 月 火 水 木 金 土)[(@date).wday] %>)</p>
                         <% end %>
@@ -44,7 +44,10 @@ var html =
                             <!--自分のメッセージ-->
                             <% elsif chat_message.user_id.present? %>
                                 <div class="myself">
-                                    <!--メッセージ送信時刻-->
+                                    <% if chat_message.notification == true %>
+                                        <div class="notice"><p>既読</p></div>
+                                    <% end %>
+                                     <!--メッセージ送信時刻-->
                                     <div class="chat_time"><p><%= chat_message.created_at.to_time.hour %>:<%= chat_message.created_at.to_time.strftime("%Y-%m-%d %H:%M:%S").strip[14, 2]%></p></div>
                                     <div class="myself_chat">
                                         <% if chat_message.style_images.present? %>
@@ -87,6 +90,9 @@ var html =
                             <!--自分のメッセージ-->
                             <% elsif chat_message.hairdresser_id.present?  %>
                                 <div class="myself">
+                                    <% if chat_message.notification == true %>
+                                        <div class="notice"><p>既読</p></div>
+                                    <% end %>
                                     <!--メッセージ送信時刻-->
                                     <div class="chat_time"><p><%= chat_message.created_at.to_time.hour %>:<%= chat_message.created_at.to_time.strftime("%Y-%m-%d %H:%M:%S").strip[14, 2]%></p></div>
                                     <div class="myself_chat">
@@ -106,13 +112,27 @@ var html =
                     <% i += 1 %>
                     <% end %>
                 </div>
+
+                <!--メッセージ送信フォーム-->
+                <div id="message_form">
+                    <%= form_with(model: @chat_message, url: message_create_path, method: :post, id: "message_form_area") do |f| %>
+                        <img src="<%= asset_path "style_images.png" %>" id="chat_style_images" >
+                        <label class="chat_img_label cursor2">
+                            <%= f.attachment_field :image, id: "chat_img", class: "hidden" %>
+                            <img src="<%= asset_path "film.png" %>" id="" >
+                        </label>  
+                        <img id="chat_prev_img" style="width: 32px; height: 32px;" class="display_none">
+                        <div class="chat_img_save display_none"></div>
+                        <span class="delete_chat_img display_none" style="font-size: 15px;">削除</span>
+                        <%= f.submit "送信", class: "btn btn-success message_btn" %>
+                        <%= f.text_area :message, placeholder: "メッセージを入力してください", class: "form-control chat_form" %>
+                    <% end %>
+                </div>
             `
 $('#messages').html(html);
 
 //viewを調整
-$(".chat_message").removeClass("display_none"); //チャット画面を表示
-$(".instruction").addClass("display_none"); //チャットしたい相手を選択してくださいを削除
-$(".chat_rooms").css({
+$(".chat_rooms").css({ //すべてのチャットルームの色を元に戻す
     "background-color": "#FFFFF0"
 })
 $("#chat_room_<%=@room.room_token%>").css({ //今いるチャットルームに色をつける
@@ -132,23 +152,33 @@ html2 = `
         `
 $(".dark_chat").append(html2);
 
-//一番下にスクロール
+//メッセージの一番下にスクロール
 $(`#room-<%=@room.room_token%>`).scrollTop($(`#room-<%=@room.room_token%>`)[0].scrollHeight);
 
-//未読の番号を消す
-$(".unread_number_<%=@room.id%>").css({
+//未読の数を表す要素を消す
+$(".unread_number_<%=@room.room_token%>").css({
     "display": "none"
 })
 
-<% if @current_user.present? %>
+//未読のメッセージにクラスをつける
+$(".myself").each(function(){
+    if (!$(this).children("div").hasClass("notice")) {
+        $(this).addClass("not_read");
+    }
+});
+
+<% if @current_user.present? %> //チャットルームにいるという証拠を残す 既読機能のとき使う
     $("#room-<%=@room.room_token%>").addClass("user");
+    <% if @last_message.present? && @last_message.hairdresser_id.present? %>
+        <% data = {"user_or_hairdresser" => "hairdresser", "room_token" => @room.room_token} %>
+        <% RoomChannel.notice(data) %>
+    <% end %>
 <% end %>
 <% if @current_hairdresser.present? %>
     $("#room-<%=@room.room_token%>").addClass("hairdresser");
+    <% if @last_message.present? && @last_message.user_id.present? %>
+        <% data = {"user_or_hairdresser" => "user", "room_token" => @room.room_token} %>
+        <% RoomChannel.notice(data) %>
+    <% end %>
 <% end %>
 
-// <% if @current_user.present? %>
-//     App.room.in_room("user", <%=@room_id%>);
-// <% else @current_hairdresser.present? %>
-//     App.room.in_room("hairdresser", <%=@room_id%>);
-// <% end %>

@@ -122,3 +122,7 @@ gem 'holiday_jp'
 
 #insertを一括にする reservationsテーブルを保存するのに使う
 gem 'activerecord-import'
+
+#twitter認証
+gem 'omniauth-twitter'
+gem "omniauth-rails_csrf_protection"

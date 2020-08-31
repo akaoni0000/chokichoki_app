@@ -92,4 +92,7 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+　#mailでlink_toを使うための設定 product.rbは本番環境での設定
+  config.action_mailer.default_url_options = { host: '54.64.74.19'}
 end

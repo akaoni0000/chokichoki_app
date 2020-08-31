@@ -1,0 +1,57 @@
+<%= form_with(model: @current_hairdresser, id: "hairdresser_form") do |f| %>
+    <div style="margin-bottom: 30px;">
+        <label class= "hairdresser_label cursor2" style="width: 150px; height: 150px;">
+            <%= f.attachment_field :hairdresser_image, id: "hairdresser_img", class: "hidden" %>
+            <% if @current_hairdresser.sex == "男性" %>
+                <%= attachment_image_tag @current_hairdresser, :hairdresser_image, size: "150x150", fallback: "male2.png", class: "img-circle", id: "prev_img", style: "margin-right: 5px;"%>
+            <% elsif @current_hairdresser.sex == "女性" %>
+                <%= attachment_image_tag @current_hairdresser, :hairdresser_image, size: "150x150", fallback: "female2.png", class: "img-circle", id: "prev_img", style: "margin-right: 5px;"%>
+            <% end %>
+        </label>
+        <div class="img_save" style="display: none;"></div>
+        <div>
+            <%= @current_hairdresser.name %>
+        </div>
+    </div>
+    <div style="width: 700px; margin: 0 auto;">
+        <div class="display_inline_show">
+            <p style="padding-right: 130px;">ユーザー名</p>
+            <p class="hairdresser_name_error error" style="padding-right: 55px"></p>
+            <%= f.text_field :name, class: "hairdresser_show_form name for_hairdresser"%>
+        </div>
+        <div class="display_inline_show">
+            <p style="padding-right: 107px;">メールアドレス</p>
+            <p class="hairdresser_show_form hairdresser_show_email"><%= @current_hairdresser.email %></p>
+        </div>
+        <div class="display_inline2">
+            <p style="padding-right: 155px;">店舗名</p>
+            <p class="hairdresser_shop_name_error error" style="padding-right: 90px"></p>
+            <%= f.text_field :shop_name, class: "hairdresser_show_form shop_name for_hairdresser" %>
+        </div>
+    </div>
+    <div>
+        <div class="display_inline_show">
+            <p style="padding-right: 25px;">店舗郵便番号(ハイフンなし)</p>
+            <p class="hairdresser_post_number_error error" style="padding-right: 50px"></p>
+            <%= f.text_field :post_number, class: "hairdresser_show_form post_number for_hairdresser"  %>
+        </div>
+        <div class="display_inline_show">
+            <p style="padding-right: 145px;">店舗住所</p>
+            <p class="hairdresser_address_error error" style="padding-right: 107px"></p>
+            <%= f.text_field :address, class: "hairdresser_show_form address hairdresser_shop_address for_hairdresser" %>
+        </div>
+    </div>
+    <div style="margin-top: 15px; margin-bottom: 15px;">
+        <p>自己紹介文</p>
+        <%= f.text_area :introduction, class: "form-control", style: "width: 80%; height: 80px; margin: 0 auto; resize: none;"%>
+    </div>
+    <div>
+        <p>性別</p>
+        <p class="hairdresser_sex_error error"></p>
+        <span>男性</span>
+        <%= f.radio_button :sex, :男性, id: "hairdresser_sex_man"%>
+        <span>女性</span>
+        <%= f.radio_button :sex, :女性, id: "hairdresser_sex_woman"%>
+    </div>
+    <%= f.submit "更新", id: "hairdresser_btn", class: "btn btn-success"%>
+<% end %>

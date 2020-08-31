@@ -1,6 +1,6 @@
 <div class="admin_login_page">
-    <p class="error"><%= @error %></p>
     <%= form_with(url: admins_login_path, method: :post, id: "admin_login_form", local: true) do |f| %>
+        <p class="error"><%= @error %></p>
         <p>メールアドレス</p>
         <%= f.text_field :email, class: "form-control admin_login_form" %>
         <p>パスワード</p>

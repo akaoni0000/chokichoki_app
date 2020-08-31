@@ -1,11 +1,11 @@
-$(function() {
-    $(".message_btn").on("click", function(e) {
-        e.preventDefault();
-        var room_id = $(".room").attr('href');
-        $("#message_form").children("form").append(`<input type="hidden" name="chat_message[room_id]" value=${room_id} class="hidden_room">`);
-        Rails.fire($("#message_form_area")[0], 'submit');
-    });
-});
+// $(function() {
+//     $(".message_btn").on("click", function(e) {
+//         e.preventDefault();
+//         var room_id = $(".room").attr('href');
+//         $("#message_form").children("form").append(`<input type="hidden" name="chat_message[room_id]" value=${room_id} class="hidden_room">`);
+//         Rails.fire($("#message_form_area")[0], 'submit');
+//     });
+// });
 
 $(function(){
     $(document).on("change", "#chat_img", function () { 
@@ -22,19 +22,19 @@ $(function(){
         }
     });
 
-    $(".delete_chat_img").click(function(){
+    $(document).on("click", ".delete_chat_img", function () { 
         $(".chat_img_save").empty();
         $('#chat_prev_img').addClass("display_none");
         $(this).addClass("display_none");
-    })
+    });
 })
 
 $(function(){
-    $("#chat_style_images").click(function(){
+    $(document).on("click", "#chat_style_images", function () { 
         $(".dark_chat").fadeIn();
     })
 
-    $(document).on("click", ".circle2", function () {
+    $(document).on("click", ".circle2", function () { //美容師のヘアカタログの右上のまるをクリックした時
         if (!$(this).hasClass("click")) {
             $(this).css({
                 "background-color": "red"
@@ -58,7 +58,7 @@ $(function(){
     })
 })
 
-$(function() {
+$(function() { //chat画面があるときはfooterをなくす スクロールのとき邪魔
     if (gon.chat) {
         $("footer").addClass("display_none");
         $("#yield").css({
@@ -66,9 +66,3 @@ $(function() {
         })
     }
 })
-
-// $(function() {
-//     $(window).Unload(function(){
-//         alert("fdsaf")
-//     })
-// })

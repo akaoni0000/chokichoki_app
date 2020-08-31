@@ -23,13 +23,9 @@ body {
     min-height: 100vh;
     background-color:rgba(247, 247, 247, 1.0);
     width: 100%;
-    //padding-bottom: 300px;
-    //display: block;
-    //margin-top: -20px;
 }
 
 //footer
-
 footer {
     text-align: center;
     padding-top: 70px;
@@ -37,10 +33,6 @@ footer {
     height: 200px;
     background-color:#DEB887;
     z-index: 70;
-
-    //display: none;
-    // position: absolute;
-    // top: 0px;
 }
 
 .color {
@@ -50,8 +42,6 @@ footer {
 .color:hover {
     color: #DEB887;
 }
-
-
 
 .cursor {
     cursor: pointer;
@@ -103,13 +93,10 @@ a:hover, li:hover {
     color: black;
 }
 
-
-
 .fadein {
     opacity : 0;                      //透明度 0~1         
     transform : translate(0, 150px);  //右へ0px 下に100px下げる
 }
-
 
 .fadein.active {
     opacity : 1;
@@ -117,25 +104,29 @@ a:hover, li:hover {
     transition : all 2s ease; //allはopacityとtransformを指定 hoverやjsでタイミングを定義しないと発動しない
 }
 
+
+
+
 //flash
 #flash {
     background-color: rgba(153, 255, 161, 0.5);
-    width: 300px;
+    width: 100%;
     height: 70px;
     font-size: 21px;
     padding-top: 20px;
     text-align: center;
-    border-radius: 10px;
     border: 1px solid green;
     position: fixed;
-    top: 200px;
+    top: -25px;
     color: #009900;
     right: 100px;
+    transform : translate(100px, 150px);
+    z-index: 80;
 }
 
 #flash_red {
     background-color: rgba(255, 27, 11, 0.5);
-    width: 300px;
+    width: 100%;
     height: 70px;
     font-size: 21px;
     padding-top: 20px;
@@ -143,20 +134,22 @@ a:hover, li:hover {
     border-radius: 10px;
     border: 1px solid red;
     position: fixed;
-    top: 200px;
+    top: -25px;
     color: #CC0033;
     right: 100px;
+    transform : translate(100px, 150px);
+    z-index: 80;
 }
    
+
+
     
 //header
 header {
     width: 100%;
     height: 130px;
-    //background-color: transparent;
-    //background-color:rgba(255, 255, 255, 0.9);
     background-color:  #DEB887;
-    //background-color: transparent;
+    //background-color: #F5DEB3;
     margin-top: -5px;
     z-index: 80;
 }
@@ -165,8 +158,6 @@ header {
     z-index: 80;
     position: fixed;
 }
-
-
 
 .header_top {
     background-color: white;
@@ -184,28 +175,24 @@ header {
 }
 
 .header_top_right {
-    
-    //display: inline-block;
     width: 20%;
     height: 50px;
     float: left;
 }
 
-.user_register {
+.header_top_right_user_register {
     display: inline-block;
     height: 50px;
     width: 50%;
-    
     float: left;
     text-align: center;
     padding-top: 15px;
 }
 
-.user_login {
+.header_top_right_user_login {
     display: inline-block;
     height: 50px;
     width: 50%;
-    
     float: left;
     text-align: center;
     padding-top: 15px;
@@ -217,7 +204,6 @@ header {
 }
 
 .logo {
-    //background-color: red;
     width: 345px;
     height: 293px;
     position: absolute;
@@ -226,14 +212,12 @@ header {
 
 .link_box {
     background-color:transparent;
-    //background-color: rgb(122, 115, 115);
     width: 300px;
     height: 66px;
     position: absolute;
     top: 55px;
     left: 25px;
 }
-
 
 .salon {
     position: relative;
@@ -243,21 +227,17 @@ header {
     top: 60px;
 }
    
-
 .search_form {
     width: 300px;
     height: 80px;
     text-align: center;
     float: right;
-    //background-color: yellow;
     padding-top: 20px;
 }
-
 
 #none_login {
     height: 80px;
     width: 700px;
-    //background-color: red;
     float: right;
     text-align: center;
     padding-top: 23px;
@@ -277,14 +257,41 @@ header {
     display: inline-block;
     color: black;
     margin-right: 30px;
-    font-size: 20px;
+    font-size: 18px;
     cursor: pointer;
 }
-
 
 .tag_left1 {
     margin-left: 20px;
 }
+
+.human_logo {
+    height: 20px;
+    width: 20px;
+    margin-right: 6px;
+    margin-bottom: 3px;
+}
+
+.user_options, .hairdresser_options {
+    width: 130px;
+    background-color:#F8F8FF;
+    text-align: center;
+    z-index: 90;
+    position: absolute;
+    top: 45px;
+    left: 82%;
+    padding: 10px;
+}
+
+.user_options_account:hover, .hairdresser_options_account:hover {
+    background-color: #EEEEEE;
+}
+
+.human_logo2 {
+    width: 100px;
+    height: 100px;
+}
+
 
 
 
@@ -309,7 +316,6 @@ header {
 }
 
 .how_to_chokichoki {
-    //background-color: #333333;
     background-color:  #DEB887;
     width: 100%;
     height: 700px;
@@ -340,23 +346,14 @@ header {
     height: 150px;
 }
 
-
-
-
-
 #user_header, #hairdresser_header, #admin_header {
-    //padding-left: 590px;
     float: right;
     margin-top: 20px;
 }
 
-
-
-
 .search_form_header {
     position: absolute;
     right: 10%;
-    //width: 250px;
     top: 40px;
 }
 
@@ -367,12 +364,9 @@ header {
 }
 
 .search_icon_btn {
-    //position: absolute;
     position: relative;
     top: 0px;
     left: -5px;
-
-    //display: inline-block;
 }
 
 .welcome {
@@ -386,16 +380,6 @@ header {
     right: -260px; 
 }
 
-
-
-// .now_login {
-//     position: relative;
-//     width: 220px;
-//     left: 400px;
-//     top: -170px;
-// }
-
-
 .sign_in_block_user {        //スライドダウンさせると意図してない要素が動く現象があったので、absoluteにするしかなかった
     position: absolute;
     left: 59%;
@@ -406,8 +390,6 @@ header {
     left: 74.5%;
 }
 
-
-
 .sign_in_block_hairdresser {        //スライドダウンさせると意図してない要素が動く現象があったので、absoluteにするしかなかった
     position: absolute;
     left: 65%;
@@ -417,7 +399,6 @@ header {
     position: absolute;
     left: 80%;
 }
-
 
 .slide_down {
     display: none;
@@ -437,8 +418,8 @@ header {
 
 
 
-
-//
+////userの新規登録、ログイン
+//共通
 .error {
     color: red;
     margin-bottom: 0px;
@@ -451,7 +432,7 @@ header {
     border-radius: 3px;
 }
 
-.sign_up_in {
+.back_dark {
     position: fixed;
     top: 0;
     right: 0;
@@ -463,69 +444,264 @@ header {
 }
 
 
-.login_page {
-    position: absolute;
-    top: 20%;
-    left: 37%;
+
+
+//新規登録のトップ
+.user_sign_up_top {
+    width: 370px;
     background-color: white;
-    border: 5px black solid;
-    border-radius: 10px;
-    width: 450px;
     text-align: center;
+    min-height: 300px;
     margin: 0 auto;
-    margin-top: 40px;
+    margin-top: 130px;
+    padding: 10px;
+    border: 5px solid;
+    border-radius: 10px;
 }
 
-.login_form {
-    width: 300px;
-    margin-left: 75px;
+.user_sign_up_top_title {
+    font-size: 30px;
+    margin-top: 30px;
     margin-bottom: 20px;
 }
 
-.login_btn {
-    margin-top: 20px;
-    margin-bottom: 20px;
-    width: 200px;
+.user_sign_up_top_twitter {
+    margin-bottom: 10px;
+    margin-right: 80px;
+    font-size: 20px;
+    color: #555555;
 }
 
-.form-control {
+.user_sing_up_top_mail {
+    margin-bottom: 50px;
+    font-size: 20px;
+    color: #555555;
+}
 
+.user_sing_up_top_mail_logo {
+    width: 20px;
+    height: 20px;
+    margin-right: 11px;
+}
+
+.user_sign_up_top_twitter_logo {
+    width: 40px;
+    height: 40px;
 }
 
 
 
 
-
-
-//会員登録
-#user_register {
+//userの新規登録
+.user_register {
     margin: 0 auto;
-    margin-top: 80px;
-    background-color: #EEEEEE;
+    margin-top: 130px;
+    background-color:white;
     border-radius: 10px;
     width: 500px;
     text-align: center;
     border: 5px solid;
+    padding: 10px;
 }
 
-.for_user {
+.user_register_form_element {
     width: 200px;
-    margin-left: 150px;
+    margin: 0 auto;
     margin-bottom: 40px;
 }
 
-#user_btn {
-    width: 50%;
-    height: 30px;
+.user_register_form_btn {
+    margin: 0 auto;
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+
+
+
+
+//userのログイン
+.user_login {
+    background-color: white;
+    border: 5px solid;
+    border-radius: 10px;
+    width: 450px;
+    text-align: center;
+    margin: 0 auto;
+    padding: 10px;
+    margin-top: 130px;
+}
+
+.user_login_twitter {
+    margin-bottom: 10px;
+    font-size: 20px;
+    color: #555555;
+    margin-top: 10px
+}
+
+.user_login_border {
+    width: 170px;
+    display: inline-block;
+    transform: translate(0, -5px);
+    margin: 0;
+    color:#DDDDDD;
+    border: 1px solid;
+}
+
+.user_login_border_text {
+    color:#444444;
+}
+
+.user_login_form {
+    margin-top: 20px;
+}
+
+.user_login_form_email, .user_login_form_password {
+    width: 300px;
+    margin: 0 auto;
+    margin-bottom: 20px;
+}
+
+.user_login_form_btn {
+    width: 200px;
+    margin: 0 auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+
+
+
+//userのカード登録
+.card_logo {
+   margin-right: 30px;
+   margin-top: 10px;
+}
+
+.cvc {
+    width: 180px;
+}
+
+.ca_form {
+    display: inline;
+    margin: 30px 0;
+}
+
+#card_number {
+    width: 160px;
+}
+
+.number_hidden {
+    padding-top: 40px;
+}
+
+.limit {
+    margin-left: -25px;
+}
+
+.security {
+    margin-left: -40px;
+}
+
+.time_limit {
+    margin-right: 10px;
+}
+
+.card_delete {
     margin-top: 30px;
+}
+
+////userの新規登録、ログインここまで
+#resend {
+    width: 200px;
+    height: 35px;
+    position: relative;
+    top: -35px;
+    left: 160px;
+}
+
+
+//パスワードリセット
+.user_password_reset, .hairdresser_password_reset {
+    background-color: white;
+    border: 5px solid;
+    border-radius: 10px;
+    width: 450px;
+    text-align: center;
+    margin: 0 auto;
+    padding: 10px;
+    margin-top: 130px;
+}
+
+.reset_email {
+    width: 300px;
+    margin: 0 auto;
+}
+
+
+
+
+
+
+//userとhairdresserのshow 
+.user_show_element, .hairdresser_show_element {
+    //background-color:#fff;
+    height: 50px;
+    padding-top: 12px;
+    font-size: 17px;
+    transition: 500ms;
+}
+
+.user_show_element:hover, .hairdresser_show_element:hover {
+    background-color:#FFE4B5;
+    transition: 500ms;
+}
+
+.user_show_form, .hairdresser_show_form {
+    background-color: #f7f7f7;
+    border: 0px;
+    border-bottom: 3px solid #DDDDDD;
+}
+
+.user_show_form:focus, .hairdresser_show_form:focus {
+    outline: 0;
+    border-bottom: 3px solid #DEB887;
+    transition: 500ms;
+}
+
+.user_show_email {
+    width: 200px;
+    margin: 0 auto;
     margin-bottom: 30px;
 }
 
+.hairdresser_show_email {
+    width: 200px;
+    margin: 0 auto;
+}
+
+.border_none {
+    border-bottom: 7px solid #EEEEEE;
+}
+
+.border {
+    border-bottom: 7px solid #F5DEB3;
+}
+
+.display_inline_show {
+    display: inline-block;
+    width: 270px;
+}
+
+
+
+
+
+////美容師登録、ログイン
 //美容師登録
 #hairdresser_register {
     margin: 0 auto;
     margin-top: 30px;
-    background-color: #EEEEEE;
+    background-color: white;
     border-radius: 10px;
     width: 1000px;
     text-align: center;
@@ -564,18 +740,58 @@ header {
 }
 
 
-//会員top画面
 
+
+//美容師ログイン
+.hairdresser_login {
+    background-color: white;
+    border: 5px solid;
+    border-radius: 10px;
+    width: 450px;
+    text-align: center;
+    margin: 0 auto;
+    padding: 10px;
+    margin-top: 130px;
+}
+
+.hairdresser_login_form_element {
+    width: 300px;
+    margin: 0 auto;
+    margin-bottom: 20px;
+}
+
+.hairdresser_form_login_btn {
+    width: 200px;
+    margin: 0 auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+
+
+
+//メール送信
+.send_email {
+    background-color: white;
+    border: 5px solid;
+    border-radius: 10px;
+    width: 550px;
+    text-align: center;
+    margin: 0 auto;
+    padding: 10px;
+    margin-top: 130px;
+    height: 300px;
+}
+
+
+
+//会員top画面
 #user_main {
     background-image: image-url("girl_top100.jpeg");
     height: 810px;
     background-size: cover;
     background-position: 0% -5%; 
-    //margin-right: -13px; 
-    //margin-top: -232px;
     z-index: 90;
-    //margin-left: 0px;
-    //background-attachment: fixed;
 }
 
 .dark2 {
@@ -584,12 +800,18 @@ header {
     background-color: rgba(0,0,0,0.0);
 }
 
-.publicity {
-    font-size: 40px;
-    padding-top: 270px;
-    padding-left: 850px;
+.stand_out {
+    position: absolute;
+    top: 237px;
+    right: 8%;
 }
 
+
+.publicity {
+    font-size: 30px;
+    // padding-top: 270px;
+    // padding-left: 850px;
+}
 
 .search_form_square {
     width: 480px;
@@ -597,9 +819,10 @@ header {
     background: #fff;
     box-shadow: 0 0 15px 0 rgba(191,203,222,0.4);
     border-radius: 10px;
-    margin-left: 53%;
+    // margin-left: 53%;
     margin-top: 10px;
     padding-top: 8px;
+    margin-left: 10px;
 }
 
 .find {
@@ -677,11 +900,9 @@ header {
     height: 50px;
 }
 
-
 #top_hairdresser_slider {
     height: 500px;
 }
-
 
 .carousel-control {
     margin-top: 200px;
@@ -702,7 +923,6 @@ header {
     display: none;
 }
 
-
 .answers {
     width: 750px;
     margin: 0 auto;
@@ -711,6 +931,8 @@ header {
 .question {
     cursor: pointer;
 }
+
+
 
 
 //美容師のtop画面
@@ -730,17 +952,17 @@ header {
     background-color: rgba(0,0,0,0.4);
 }
 
-.header2 {
-    width: 100%;
-    height: 72px;
-    background-color: white;
-}
-
 .logo2 {
     width: 345px;
     height: 293px;
     position: absolute;
-    top: -100px;
+    top: -101px;
+}
+
+.header2 {
+    width: 100%;
+    height: 72px;
+    background-color: white;
 }
 
 .link_top {
@@ -753,14 +975,12 @@ header {
     height: 72px;
     width: 10%;
     float: right;
-    //background-color: yellow;
 }
 
 .header_top_right2 {
     height: 72px;
     width: 10%;
     float: right;
-    //background-color: red;
 }
 
 .propaganda {
@@ -778,10 +998,6 @@ header {
 .propaganda3 {
     color: white;
     margin-top: 10px;
-}
-
-.propaganda4 {
-
 }
 
 .circle {
@@ -845,7 +1061,6 @@ header {
 .flow {
     width: 100%;
     height: 500px;
-    //background-color: #F5DEB3;
     margin-top: 30px;
 }
 
@@ -854,7 +1069,6 @@ header {
     height: 230px;
     border: 3px solid #DEB887;
     display: inline-block;
-    //margin-right: 30px;
     vertical-align: top;
 }
 
@@ -876,10 +1090,8 @@ header {
 .flow_step2 {
     width: 190px;
     height: 230px;
-    //border: 3px solid #DEB887;
     display: inline-block;
     margin-top: 20px;
-    //margin-right: 30px;
     vertical-align: top;
     background-color:  #DEB887;
 }
@@ -887,14 +1099,6 @@ header {
 .visit_img {
     margin-top: 10px;
 }
-// color: #f5618a;
-//     font-size: 16px;
-//     height: 40px;
-//     padding-top: 6px;
-
-
-
-
 
 .human {
     width: 230px;
@@ -910,6 +1114,9 @@ header {
     width: 400px;
     margin: 0 auto;
 }
+
+
+
 
 //美容師一覧
 #hairdresser_index {
@@ -955,6 +1162,8 @@ header {
 .search_tag {
     margin-left: 20px;
 }
+
+
 
 
 //検索フォーム画面
@@ -1031,8 +1240,6 @@ header {
     margin-top: 5px;
 }
 
-
-
 .wave {
     margin-left: 20px;
     font-size: 25px;
@@ -1047,12 +1254,6 @@ select:focus {
     box-shadow: none;
     border: 1px solid #C0C0C0;
 }
-
-// input:focus {
-//     outline: 0;
-//     box-shadow: none;
-//     border: 1px solid #C0C0C0;
-// }
 
 #price {
     border: 1px solid #C0C0C0;
@@ -1099,51 +1300,72 @@ select:focus {
 
 
 
-
-
-
-
-
-
-
-
-
 //美容師詳細モーダル
-#hairdresser_show_modal {
-   margin-top: 100px;
+#hairdresser_show {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: none;
+    z-index: 90;
 }
+
+#hairdresser_show_modal {
+    padding-top: 100px;
+}
+
 .box_left {
     width: 360px;
     display: inline-block;
     vertical-align: top;
 }
 
-.box_right {
-    width: 450px;
-    height: 630px;
-    display: inline-block;
-    vertical-align: top;
-    overflow:auto;
-}
-
-.box-right2 {
-    width: 300px;
-    height: 400px;
-    background-color: blue;
-    display: inline-block;
-}
-
-.hairdresser_show_box1 {
+.hairdresser_show_box {
     width: 350px;
 }
 
-.hairdresser_show_box2 {
-    width: 375px;
+.box_right {
+    width: 560px;
+    height: 630px;
+    display: inline-block;
+    vertical-align: top;
+}
+
+.options {
+    width: 560px;
+    height: 50px;
+    background-color:#fff;
+    margin-top: 20px;
+    font-size: 0;
+}
+
+.options_select {
+    display: inline-block;
+    vertical-align: top;
+    width: 140px;
+    height: 50px;
+    font-size: 15px;
+    padding-top: 13px;
+    background-color:#fff;
+    cursor: pointer;
+    color: black;
+}
+
+.options_select:hover {
+    background-color: #FFE4B5;
+    transition: 500ms;
+}
+
+.hairdresser_info {
+    width: 560px;
+    border-radius: 30px;
+    height: 670px;
+    margin-top: 25px;
     background-color: white;
-    border-radius: 30px 30px 30px 30px;
-    padding-left: 20px;
-    padding-right: 20px;
-    //padding-top: 5px;
+    overflow:auto;
+    padding: 10px;
 }
 
 .hairdresser_show_box3 {
@@ -1172,66 +1394,70 @@ select:focus {
 
 .name_etc {
     text-align: center;
+    background-color: #fff;
 }
 
-.introduce {
-    padding-top: 10px;
+//profile
+.profile {
+    text-align: left;
+    margin-bottom: 30px;
 }
 
-
-
-
-
-//メニュー選択ページ
-#menu_choice {
-
+.intro {
+    text-align: left;
 }
 
-//userマイページ
-
-
-//userのカード登録
-.cvc {
-    width: 180px;
+//menu
+.menu_card_small {
+    width: 530px;
+    min-height: 160px;
+    margin: 0 auto;
+    border-radius: 5px;
+    box-shadow: 0 0 15px 0 rgba(191,203,222,0.4);
+    text-align: left;
+    margin-top: 50px;
 }
 
-.ca_form {
-    display: inline;
-    margin: 30px 0;
+.menu_title {
+    font-size: 20px;
+    width: 270px;
+    display: inline-block;
+    vertical-align: top;
+    margin-left: 10px;
+    margin-bottom: 10px;
 }
 
-#card_number {
-    width: 160px;
+.menu_time_small {
+    display: inline-block;
+    vertical-align: top;
+    width: 50px;
+    margin-top: 5px;
 }
 
-// #charge-form {
-//     margin-top: 70px;
-// }
-
-.card_register {
-    padding-top: 70px;
+.card_categories_small {
+    display: inline-block;
+    vertical-align: top;
+    width: 190px;
+    margin-top: 5px;
 }
 
-.number_hidden {
-    padding-top: 70px;
+.menu_explain {
+    display: inline-block;
+    width: 400px;
+    text-align: left;
 }
 
-.limit {
-    margin-left: -25px;
+//photo
+.hair {
+   text-align: left; 
+   margin-top: 30px;
+   display: inline-block;
+   vertical-align: top;
 }
-
-.security {
-    margin-left: -40px;
+.hair_img {
+    width: 150px;
+    height: 150px;
 }
-
-.time_limit {
-    margin-right: 10px;
-}
-
-.card_delete {
-    margin-top: 30px;
-}
-
 
 
 
@@ -1240,8 +1466,6 @@ select:focus {
 
 
 //美容師マイページ
-
-
 .hairdresser_box {
     background-color: #FFF5EE;
     text-align: center;
@@ -1273,37 +1497,11 @@ select:focus {
     font-size: 25px;
 }
 
-
-
-
-
-
 hr {
     height: 1px;
     background-color:black;
     margin-top: 100px;
 }
-
-
-
-
-
-
-
-
-.display_block {
-    display: block;
-}
-
-
-.display_inline_block {
-    display: inline-block;
-}
-
-
-
-
-
 
 
 
@@ -1330,9 +1528,6 @@ hr {
     border-radius: 30px;
     margin-top: 70px;
     border: 1px solid;
-}
-
-.menu_top {
 }
 
 .title {
@@ -1395,9 +1590,6 @@ hr {
 
 
 
-
-
-
 //メニュー一覧
 .reservation_make {
     position: relative;
@@ -1405,6 +1597,9 @@ hr {
     left: 900px;
     font-size: 20px;
 }
+
+
+
 
 //美容師予定表作成
 .reservation_menu {
@@ -1473,15 +1668,7 @@ hr {
 
 
 
-
-
-
-
-
-
-
-
-
+//ヘアスタイルの画像を登録するview
 .image_form {
     display: inline-block;
     width: 100%;
@@ -1509,9 +1696,6 @@ hr {
     padding-top: 10px;
     font-size: 2;
     border: 1px solid;
-    //margin-top: 5px;
-    // margin-right: 0.5%;
-    // margin-left: 0.5%;
     margin: 5px 0.5%;
     //下にずれるのを防ぐ
     vertical-align: top;
@@ -1557,17 +1741,12 @@ hr {
 
 
 
+
 //予約投稿
 .time {
     margin-top: 50px;
     margin-bottom: 100px;
-    //padding-left: 140px;
-
 }
-
-// .make_btn {
-//     margin-right: 100px;
-// }
 
 #_start_time_1i {
     display: none;
@@ -1580,8 +1759,6 @@ hr {
 #_start_time_3i {
     display: none;
 }
-
-
 
 
 
@@ -1610,15 +1787,6 @@ hr {
 
 
 
-
-
-
-
-
-
-
-
-
 //hairdresser予約一覧ページ
 .user_request_modal {
     position: absolute;
@@ -1635,15 +1803,7 @@ hr {
     margin-top: 0px;
 }
 
-.start_day {
-    // margin-bottom: 20px;
-    // margin-top: 60px;
-    // font-size: 20px;
-    // text-align: center;
-}
-
 .reservation_table {
-   // margin-bottom: 90px;
    margin-top: 70px;
 }
 
@@ -1654,16 +1814,19 @@ hr {
 }
 
 
+
+
 //user予約一覧ページ
 .reservation_hairdresser_name {
     color: black;
 }
 
 
-//adminログイン
 
+
+//adminログイン
 #admin_login_form {
-    margin-top: -67px;
+    margin-top: -70px;
     padding-top: 108px;
 }
 .admin_login_page {
@@ -1680,6 +1843,9 @@ hr {
 .admin_title {
     margin-bottom: 50px;
 }
+
+
+
 
 //承認待ち
 .hairdresser_confirm_img {
@@ -1739,6 +1905,7 @@ hr {
 
 
 
+
 //メニューカード２
 .menu_card2 {
     background-color: white;
@@ -1759,7 +1926,7 @@ hr {
 
 .title2 {
     font-size: 30px;
-    width: 360px;
+    width: 380px;
     height: 42px;
     display: inline-block;
     vertical-align: top;
@@ -1771,7 +1938,6 @@ hr {
     margin-left: 10px;
     margin-top: 2px;
 }
-
 
 .reservation_make2 {
     position: relative;
@@ -1786,7 +1952,6 @@ hr {
 //reservation
 .week_reservation_table {
    margin: 0 auto;
-   //margin-top: 50px;
    margin-bottom: 50px;
    table-layout: fixed;
    display: table;
@@ -1829,7 +1994,6 @@ th {
 }
 
 .to_month_calendar {
-   //float: right;
    font-size: 15px;
    margin-left: 20px;
 }
@@ -1872,12 +2036,10 @@ th {
 
 #table_head {
     display: table;
-    //position: -webkit-sticky;
     position: sticky;
     top: 0;
     z-index: 48;
 }
-
 
 .holiday_back1 {
     background-color: #D9E3EC;
@@ -1898,26 +2060,14 @@ th {
 .hover_color:hover {
     background-color: red;
 }
-// .simbol {
-//     height: 42px;
-//     padding-top: 12px;
-// }
 
 .simbol_round {
-    // color: red;
-    // background-color: white;
     height: 42px;
     padding-top: 12px;
 }
 
-// .simbol_triangle {
-//     color: blue;
-// }
-
 .explain_simbol {
     margin-top: 80px;
-    // margin-left: 90px;
-    
     text-align: center;
 }
 
@@ -1934,8 +2084,6 @@ th {
     position: fixed;
     top: 780px;
     right: 275px;
-    // margin-left: 870px;
-    // margin-top: 300px;
 }
 
 .big_time {
@@ -1949,15 +2097,12 @@ th {
 }
 
 
+
+
 //予約index
 .re_index {
     height: 150px;
 }
-
-// .start_day {
-//     position: relative;
-//     top: 0;
-// }
 
 .date {
     margin-bottom: -75px;
@@ -1975,9 +2120,6 @@ th {
 
 
 
-
-
-
 //チャット機能
 #chat_page {
     width: 1100px;
@@ -1991,32 +2133,19 @@ th {
     height: 750px;
     background-color:#FFFFF0;
     border: 1px solid;
-    //margin-left: 100px;
-    // position: relative;
-    // top: 50px;
     display: inline-block;
     vertical-align: top;
     overflow: auto;
 }
 
-#search_form {
-    width: 100%;
-    height: 50px;
-    background-color:#FFEBCD;
-}
-
 #chat {
-    //background-color: blue;
     background-color: #FFFFF0;
     width: 700px;
     height: 750px;
     display: inline-block;
-    // border: 1px solid;
     border-top: 1px solid;
     border-right: 1px solid;
     border-bottom: 1px solid;
-    // position: relative;
-    // top: 50px;
 }
 
 .instruction {
@@ -2032,7 +2161,6 @@ th {
     padding-top: 5px;
 }
 
-
 #messages {
     background-color:#FFFFF0;
 }
@@ -2040,19 +2168,15 @@ th {
 #message_form {
     width: 700px;
     height: 100px;
-    //height: 50px;
     background-color:#FFEBCD;
     display: inline-block;
-    //margin-top: 600px;
 }
 
 .chat_form {
     resize: none;
-    //height: ６00px;
 }
 
 textarea.form-control {
-    //height: auto;
     height: 73px;
     width: 700px;
 }
@@ -2060,8 +2184,6 @@ textarea.form-control {
 .message_btn {
     float: right;
     height: 37px;
-    //pointer-events: none; 
-   
 }
 
 .chat_rooms {
@@ -2080,7 +2202,6 @@ textarea.form-control {
 }
 
 .chat_name {
-    //width: 30px;
    display: inline-block;
    float: left;
    position: relative;
@@ -2124,7 +2245,6 @@ textarea.form-control {
     background-color:#FFFFF0;
     text-align: left;
     padding-left: 10px;
-    //padding-top: 30px;
 }
 
 .opponent_chat {
@@ -2136,15 +2256,11 @@ textarea.form-control {
     padding: 10px;
     border-radius: 5px 15px 15px 15px;
     word-wrap: break-word;
-    // position: relative;
-    // top: 3px;
 }
 
 .opponent_img {
     display: inline-block;
     vertical-align: top;
-    // position: relative;
-    // top: -30px;
 }
 
 #chat_style_images {
@@ -2186,7 +2302,6 @@ textarea.form-control {
     margin: 5px 0.5%;
     vertical-align: top;
 }
-
 
 .circle2 {
     width: 20px;
@@ -2230,6 +2345,38 @@ textarea.form-control {
     margin-left: 15px;
 }
 
+.notice {
+    display: inline-block;
+    font-size: 15px;
+    vertical-align: bottom;
+}
+
+.chat_insert {
+    font-size: 20px;
+    position: fixed;
+    margin-top: 557px;
+    background-color: rgba(153, 255, 161, 0.5);
+}
+
+#search_form {
+    width: 100%;
+    height: 50px;
+    background-color:#FFEBCD;
+}
+
+.chat_search_form {
+    width: 348px;
+    height: 50px;
+    display: inline-block;
+    vertical-align: top;
+    position: relative;
+}
+
+.chat_search_btn {
+    height: 50px;
+    width: 50px;
+}
+
 
 
 
@@ -2238,8 +2385,19 @@ textarea.form-control {
     display: none;
 }
 
-
 .inline_block {
     display: inline-block;
     vertical-align: top;
+}
+
+.display_inline_block {
+    display: inline-block;
+}
+
+
+.noti {
+    background-color: red;
+    width: 350px;
+    position: absolute;
+    margin-left: -350px;
 }

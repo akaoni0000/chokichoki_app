@@ -1,11 +1,11 @@
 class AdminsController < ApplicationController
 
     def user_index
-        @users = User.all
+        @users = User.where(activation_status: true)
     end
 
     def hairdresser_index
-        @hairdressers = Hairdresser.where(status: 1)
+        @hairdressers = Hairdresser.where(judge_status: true)
     end
    
     def login_form
@@ -20,18 +20,18 @@ class AdminsController < ApplicationController
             session[:admin_id] = @admin.id
             redirect_to admins_user_index_path
         else
-            @error = "メールアドレスまたはパスワードが間違っています"
+            @error = "メールアドレスまたはパスワードが違います"
             render "admins/login_form"
         end
     end
 
     def hairdresser_judge_index
-        @hairdressers = Hairdresser.where(status: 0, reject_status: nil)
+        @hairdressers = Hairdresser.where(judge_status: false, reject_status: nil, activation_status: true)
     end
 
     def permit
         @hairdresser = Hairdresser.find(params[:id])
-        @hairdresser.status = 1
+        @hairdresser.judge_status = true
         @hairdresser.save!
         redirect_to admins_hairdresser_judge_index_path
     end
@@ -48,7 +48,7 @@ class AdminsController < ApplicationController
         redirect_to admins_hairdresser_judge_index_path
     end
 
-    def user_chart
+    def user_chart #userのデータをチャートで見やすくした
         #週間会員数推移
         if params[:pre_week_index]
             @week_index_standard = Date.new(params[:pre_week_index][0,4].to_i, params[:pre_week_index][5,2].to_i, params[:pre_week_index][8,2].to_i)
@@ -162,7 +162,7 @@ class AdminsController < ApplicationController
         @user_month_arry_update = @user_month_arry.to_json.html_safe
     end
 
-    def sell_chart
+    def sell_chart #hairdresserのデータをチャートで見やすくした
         #売り上げ推移(日別)
         if params[:pre_day]
             @day_standard = Date.new(params[:pre_day][0,4].to_i, params[:pre_day][5,2].to_i, params[:pre_day][8,2].to_i)
@@ -278,7 +278,7 @@ class AdminsController < ApplicationController
 
     end
 
-    def hairdresser_chart
+    def hairdresser_chart #hairdresserのデータをチャートで見やすくした
         #週間会員数推移
         if params[:pre_week_index]
             @week_index_standard = Date.new(params[:pre_week_index][0,4].to_i, params[:pre_week_index][5,2].to_i, params[:pre_week_index][8,2].to_i)
@@ -295,7 +295,7 @@ class AdminsController < ApplicationController
         5.times do
             @Time_week_index = @week_index_standard - i*7
             @time_week_index_arry.push("#{@Time_week_index.month}月#{@Time_week_index.day}日")
-            @hairdresser_number = Hairdresser.where.not(created_at: Time.local((@Time_week_index+1).year, (@Time_week_index+1).month, (@Time_week_index+1).day)..Float::INFINITY, status: 0).size 
+            @hairdresser_number = Hairdresser.where.not(created_at: Time.local((@Time_week_index+1).year, (@Time_week_index+1).month, (@Time_week_index+1).day)..Float::INFINITY, judge_status: false).size 
             @hairdresser_week_index_arry.push(@hairdresser_number)
             i -= 1
         end
@@ -316,7 +316,7 @@ class AdminsController < ApplicationController
         4.times do
             @Time_month_index = @month_index_standard.months_ago(i)
             @time_month_index_arry.push("#{@Time_month_index.year}年#{@Time_month_index.month}月")
-            @hairdresser_number = Hairdresser.where.not(created_at: Time.local((@Time_month_index+1).year, (@Time_month_index+1).month, (@Time_month_index+1).day)..Float::INFINITY, status: 0).size 
+            @hairdresser_number = Hairdresser.where.not(created_at: Time.local((@Time_month_index+1).year, (@Time_month_index+1).month, (@Time_month_index+1).day)..Float::INFINITY, judge_status: false).size 
             @hairdresser_month_index_arry.push(@hairdresser_number)
             i -= 1
         end
@@ -339,7 +339,7 @@ class AdminsController < ApplicationController
         7.times do
             @Time_day = @day_standard - i
             @time_day_arry.push("#{@Time_day.month}月#{@Time_day.day}日")
-            @hairdresser_number = Hairdresser.where(created_at: Time.local(@Time_day.year, @Time_day.month, @Time_day.day).all_day, status: 1).size 
+            @hairdresser_number = Hairdresser.where(created_at: Time.local(@Time_day.year, @Time_day.month, @Time_day.day).all_day, judge_status: true).size 
             @hairdresser_day_arry.push(@hairdresser_number)
             i -= 1
         end
@@ -363,7 +363,7 @@ class AdminsController < ApplicationController
         4.times do
             @Time_week = @week_standard - i*7
             @time_week_arry.push("#{@Time_week.month}月#{@Time_week.day}日~#{(@Time_week + 6).month}月#{(@Time_week + 6).day}日")
-            @hairdresser_number = Hairdresser.where(created_at: Time.local(@Time_week.year, @Time_week.month, @Time_week.day).all_week, status: 1).size #dateでall_weekやall_monthをつかうと最後の日が範囲に入らなかった 例 7月20日0時 ~ 7月25日23時59分
+            @hairdresser_number = Hairdresser.where(created_at: Time.local(@Time_week.year, @Time_week.month, @Time_week.day).all_week, judge_status: true).size #dateでall_weekやall_monthをつかうと最後の日が範囲に入らなかった 例 7月20日0時 ~ 7月25日23時59分
             @hairdresser_week_arry.push(@hairdresser_number)
             i -= 1
         end
@@ -384,7 +384,7 @@ class AdminsController < ApplicationController
         4.times do
             @Time_month = @month_standard.months_ago(i)
             @time_month_arry.push("#{@Time_month.year}年#{@Time_month.month}月")
-            @hairdresser_number = Hairdresser.where(created_at: Time.local(@Time_month.year, @Time_month.month, @Time_month.day).all_month, status: 1).size 
+            @hairdresser_number = Hairdresser.where(created_at: Time.local(@Time_month.year, @Time_month.month, @Time_month.day).all_month, judge_status: true).size 
             @hairdresser_month_arry.push(@hairdresser_number)
             i -= 1
         end
@@ -394,6 +394,7 @@ class AdminsController < ApplicationController
 
     def logout
         session[:admin_id] = nil
+        flash[:notice] = "ログアウトしました"
         redirect_to root_path
     end
 

@@ -1,0 +1,33 @@
+<h2 style="text-align: left"><%=@hairdresser.name%>の口コミ</h2>
+<% if @hairdresser_comments.present? %>
+    <div class="container" style="padding-top: 300px;">
+        <%= @hairdresser.name %>
+        <% @hairdresser_comments.each do |hairdresser_comment| %>
+            <div id="star-rate-<%= hairdresser_comment.id %>"></div>
+                <script>
+                    $('#star-rate-<%= hairdresser_comment.id %>').raty({
+                    size: 36,
+                    starOff:  '<%= asset_path('star-off.png') %>',
+                    starOn : '<%= asset_path('star-on.png') %>',
+                    starHalf: '<%= asset_path('star-half.png') %>',
+                    half: true,
+                    readOnly: true,
+                    score: "<%= hairdresser_comment.rate %>",
+                    });
+                </script>
+            <div>
+                <% @menu = Menu.find(hairdresser_comment.menu_id) %>
+                <%= @menu.name %>
+            </div>
+            <div>
+                <% @user = User.find(hairdresser_comment.user_id) %>
+                <%= @user.name %>
+            </div>
+            <div>
+                <%= hairdresser_comment.start_time.year %>年<%= hairdresser_comment.start_time.month %>月<%= hairdresser_comment.start_time.day %>日
+            </div>
+        <% end %>
+    </div>
+<% else %>
+    <p style="margin-top: 30px;">口コミはありません</p>
+<% end %>

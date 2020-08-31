@@ -1,0 +1,63 @@
+<div id="hairdresser_show_modal" class="container center">
+
+    <div class="box_left">
+        <span class="glyphicon glyphicon-remove cursor show_remove"></span>
+        <div class="hairdresser_show_box">
+                <%= attachment_image_tag @hairdresser, :hairdresser_image, size: "320x320", fallback: "no_image.png", class: "hairdresser_show_img"%>
+            <div class="name_etc" style="padding: 10px;">
+                <p style="padding-right: 235px;"><%= @hairdresser.shop_name %></p>
+                <h2 style="margin: 0;"><%= @hairdresser.name %><h2>
+                <p style="font-size: 15px;"><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span><%= @hairdresser.address %></p>
+                <% if @current_user.present? %>
+                    <p class="btn btn-primary">お気に入り登録</p>
+                <% end %>
+            </div>
+        </div>
+        <% if @current_admin.blank?%>
+            <div class="hairdresser_appoint_box">
+                <%= link_to menu_choice_path(hairdresser_id: @hairdresser.id) do %>
+                    <p style="font-size: 25px; cursor: pointer; color: black;">指名する</p>
+                <% end %>
+            </div>
+        <% elsif @status == false && @current_admin.present? %>
+            <div class="hairdresser_appoint_box">
+                <%= link_to admins_permit_path(@hairdresser.id), method: :patch do %>
+                    <p style="font-size: 25px; cursor: pointer; color: black;">承認する</p>
+                <% end %>
+            </div>
+            <div class="hairdresser_appoint_box">
+                <%= link_to admins_reject_form_path(@hairdresser.id) do %>
+                    <p style="font-size: 25px; cursor: pointer; color: black;">承認しない</p>
+                <% end %>
+            </div>
+        <% end %>
+    </div>
+
+    <div class="box_right">
+        <div class="options">
+            <%= link_to users_hairdresser_path(@hairdresser.id, profile: true), remote: true do %>
+                <div class="options_select options_profile border">
+                    <p>プロフィール</p>
+                </div>
+            <% end %>
+            <%= link_to users_hairdresser_path(@hairdresser.id, menu: true), remote: true do %>
+                <div class="options_select options_menu">
+                    <p>メニュー</p>
+                </div>
+            <% end %>
+            <%= link_to users_hairdresser_path(@hairdresser.id, photo: true), remote: true do %>
+                <div class="options_select options_photo">
+                    <p>フォト</p>
+                </div>
+            <% end %>
+            <%= link_to users_hairdresser_path(@hairdresser.id, review: true), remote: true do %>
+                <div class="options_select options_review">
+                    <p>口コミ</p>
+                </div>
+            <% end %>
+        </div>
+        <div class="hairdresser_info">
+        </div>
+    </div>
+
+</div>

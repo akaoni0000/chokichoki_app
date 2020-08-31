@@ -50,7 +50,7 @@ $(function() {
 })
 
 $(function() {
-    //正確な緯度経度を調べるための関数を定義
+    //正確な緯度経度を調べるための関数を定義 //apiの力
     function getLatLng(place) {
         var geocoder = new google.maps.Geocoder();
         geocoder.geocode({address: place}, 
@@ -58,22 +58,24 @@ $(function() {
             if (status == google.maps.GeocoderStatus.OK) {
                 var shop_lat = results[0].geometry.location.lat();
                 var shop_lng = results[0].geometry.location.lng();
-                $("#hairdresser_register_form").append(`<input type="hidden" name="hairdresser[shop_latitude]" value="${shop_lat}"></input>`);
-                $("#hairdresser_register_form").append(`<input type="hidden" name="hairdresser[shop_longitude]" value="${shop_lng}"></input>`);
+                $("#hairdresser_form").append(`<input type="hidden" name="hairdresser[shop_latitude]" value="${shop_lat}" class="lat">`);
+                $("#hairdresser_form").append(`<input type="hidden" name="hairdresser[shop_longitude]" value="${shop_lng}" class="lng">`);
                 setTimeout(function(){ //緯度経度を取得するのに少し時間がかかるので送信するタイミングを少しずらす
                     //$("#hairdresser_register_form").submit(); //これだとhtmlをリクエストすることになる
-                    Rails.fire($("#hairdresser_register_form")[0], 'submit'); // application.jsでrequrireする必要がある
+                    Rails.fire($("#hairdresser_form")[0], 'submit'); // application.jsでrequrireする必要がある
+                    $(".lat").remove();
+                    $(".lng").remove();
                 },500);  
             } 
             else {
                 //$("#hairdresser_register_form").submit(); 
-                Rails.fire($("#hairdresser_register_form")[0], 'submit');
+                Rails.fire($("#hairdresser_form")[0], 'submit');
             }
         });
     }
-    $("#hairdresser_btn").on("click", function(e) {
+    $("#hairdresser_btn").on("click", function(e) { //美容師登録のとき
         e.preventDefault();
         var shop_address = $(".hairdresser_shop_address").val();
         getLatLng(shop_address);
-    })
+    });
 })

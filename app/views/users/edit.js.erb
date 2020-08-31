@@ -1,0 +1,28 @@
+$(".user_show_element").each(function(){
+    $(this).removeClass("border");
+});
+<% if @profile %>
+    $(".user_profile").addClass("border");
+    $(".user_information").html("<%= j(render "users/templete/profile") %>");
+<% end %>
+
+<% if @password %>
+    $(".user_password").addClass("border");
+    $(".user_information").html("<%= j(render "users/templete/password") %>");
+<% end %>
+
+<% if @current_password %>
+    $(".user_password").addClass("border");
+    $(".user_information").html("<%= j(render "users/templete/reset_password") %>");
+<% elsif @current_password == false %>
+    $(".user_password").addClass("border");
+    $(".show_password_error").text("パスワードが違います");
+<% end %>
+
+<% if @credit %>
+    $(".user_credit").addClass("border");
+    $(".user_information").html("<%= j(render "users/templete/credit_show") %>");
+<% elsif @credit == false %>
+    $(".user_credit").addClass("border");
+    $(".user_information").html("<%= j(render "users/templete/credit") %>");
+<% end %>

@@ -1,0 +1,23 @@
+<div class="container" style="padding-top: 70px;">
+        
+    <%= link_to edit_hairdresser_path(profile: true), remote: true do %>
+        <div class="col-xs-4 hairdresser_profile center hairdresser_show_element border_none border">
+            <p>プロフィール</p>
+        </div>
+    <% end %>
+    <%= link_to edit_hairdresser_path(shop_info: true), remote: true do %>
+        <div class="col-xs-4 hairdresser_shop_info center hairdresser_show_element border_none">
+            <p>店舗情報</p>
+        </div>
+    <% end %>
+    <%= link_to edit_hairdresser_path(password: true), remote: true do %>
+        <div class="col-xs-4 hairdresser_password center hairdresser_show_element border_none">
+            <p>パスワード</p>
+        </div>
+    <% end %>
+    
+    <div class="hairdresser_information center" style="margin-top: 100px;">
+        <%= render "hairdressers/templete/profile" %>
+    </div>
+
+</div>

@@ -1,0 +1,61 @@
+<% if @error_name_short_long.present? || @error_name_taken.present? %>
+    $(".name_short_long").remove();
+    $(".name_taken").remove();
+    <% if @error_name_short_long.present? %>
+        $(".hairdresser_name_error").append('<p class="name_short_long" style="width: 320px; padding-right: 15px;"><%= @error_name_short_long %></p>');
+    <% end %>
+    <% if @error_name_taken.present? %>
+        $(".hairdresser_name_error").append('<p class="name_taken"><%= @error_name_taken %><p>');
+    <% end %>
+    $(".name").css({
+        "border-color": "red",
+        "border-width": "2px"
+    });
+<% else %>
+        $(".hairdresser_name_error").html("");
+        $(".name").css({
+            "border-color": "#DDDDDD"
+        });
+<% end %>
+
+<% if @error_shop_short.present? %>
+    $(".shop_short").remove();
+    $(".hairdresser_shop_name_error").append('<p class="shop_short" style="width: 320px;"><%= @error_shop_short %></p>');
+    $(".shop_name").css({
+        "border-color": "red",
+        "border-width": "2px"
+    });
+<% else %>
+    $(".hairdresser_shop_name_error").html("");
+    $(".shop_name").css({
+        "border-color":"#DDDDDD"
+    });
+<% end %>
+
+<% if @error_post_invalid.present? %>
+    $(".post_invalid").remove();
+    $(".hairdresser_post_number_error").append('<p class="post_invalid" style="width: 302px;"><%= @error_post_invalid %></p>');
+    $(".post_number").css({
+        "border-color": "red",
+        "border-width": "2px"
+    });
+<% else %>
+    $(".hairdresser_post_number_error").html("");
+    $(".post_number").css({
+        "border-color": "#DDDDDD"
+    });
+<% end %>
+
+<% if @error_address.present? %>
+    $(".address_invalid").remove();
+    $(".hairdresser_address_error").append('<p class="address_invalid" style="width: 200px;"><%= @error_address %></p>');
+    $(".address").css({
+        "border-color": "red",
+        "border-width": "2px"
+    });
+<% else %>
+    $(".hairdresser_address_error").html("");
+    $(".address").css({
+        "border-color": "#DDDDDD"
+    });
+<% end %>

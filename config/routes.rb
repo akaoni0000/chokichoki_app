@@ -5,7 +5,8 @@ Rails.application.routes.draw do
   root "home#user_top"
   get "hairdresser_top" => "home#hairdresser_top", as: "hairdresser_top"
   get "about" => "home#about", as: "about"
-
+  get "deadline" => "home#deadline", as: "deadline"
+  
   #users::reservationsコントローラ users::hairdressersコントローラ  namespaceを使う時は使っていないものより上に書く 思い通りのrutingにならないerrorがでた
   namespace :users do
     get "set_week_calendar_reservation" => "reservations#set_week_calendar_reservation", as: "set_week_calendar_reservation"
@@ -20,9 +21,22 @@ Rails.application.routes.draw do
   end
   
   #usersコントローラ
-  resources :users, only: [:show, :create]
+  resources :users, only: [:edit, :create, :update]
+  post "user/resend" => "users#resend", as: "user_resend"
+  patch "user/password" => "users#password_update", as: "user_password_update"
   post "user/login" => "users#login", as: "user_login"
   post "user/logout" => "users#logout", as: "user_logout"
+  get "user/activation" => "users#activation", as: "user_activation"
+  get "user/sex_choice" => "users#sex_choice", as: "sex_choice"
+  post "user/twitter_create" => "users#twitter_create", as: "twitter_create"
+  post "user/guide" => "users#guide", as: "user_guide"
+  post "user/password_reset" => "users#password_reset", as: "user_password_reset"
+  get "user/password_update_as_forget" => "users#password_update_as_forget", as: "user_password_update_as_forget"
+  patch "user/password_update_when_not_login" => "users#password_update_when_not_login", as: "user_password_update_when_not_login"
+
+  #twitter認証のコールバック
+  get '/auth/:provider/callback' => 'users#twitter' #url入力だとrootにいく
+  get "/auth/failure", :to => 'users#twitter_failure' #この書き方にしないとhomesコントローラを探しにいく
 
   #hairdressers::reservationsコントローラ namespaceを使う時は使っていないものより上に書く 思い通りのrutingにならないerrorがでた
   namespace :hairdressers do
@@ -34,10 +48,17 @@ Rails.application.routes.draw do
   end
 
   #hairdressersコントローラ
-  resources :hairdressers
+  resources :hairdressers, only: [:show, :edit, :index, :create, :update]
+  post "hairdresser/resend" => "hairdressers#resend", as: "hairdresser_resend"
+  patch "hairdresser/password" => "hairdressers#password_update", as: "hairdresser_password_update"
   post "hairdresser/login" => "hairdressers#login", as: "hairdresser_login"
   post "hairdresser/logout" => "hairdressers#logout", as: "hairdresser_logout"
   get "hairdresser/wait/:id" => "hairdressers#wait", as: "hairdresser_wait"
+  get "hairdresser/activation" => "hairdressers#activation", as: "hairdresser_activation"
+  post "hairdresser/guide" => "hairdressers#guide", as: "hairdresser_guide"
+  post "hairdresser/password_reset" => "hairdressers#password_reset", as: "hairdresser_password_reset"
+  get "hairdresser/password_update_as_forget" => "hairdressers#password_update_as_forget", as: "hairdresser_password_update_as_forget"
+  patch "hairdresser/password_update_when_not_login" => "hairdressers#password_update_when_not_login", as: "hairdresser_password_update_when_not_login"
 
   #adminsコントローラー
   get "admins/user_index" => "admins#user_index", as: "admins_user_index"
@@ -67,7 +88,8 @@ Rails.application.routes.draw do
   post "destroy/preparation" => "style_images#destroy_preparation", as: "destroy_preparation"
 
   #user_cardsコントラーラ
-  resources :user_cards
+  resources :user_cards, only: [:create, :destroy]
+
   resources :hairdresser_comments, only: [:edit, :show, :update, :destroy]
 
   #chatコントローラ
@@ -76,5 +98,7 @@ Rails.application.routes.draw do
   post "message_create" => "chats#message_create", as: "message_create"
   #post "hairdresser_message_create" => "chats#hairdresser_message_create", as: "hairdresser_message_create"
   post "room" => "chats#room", as: "room"
+  post "notification" => "chats#notification"
+  post "chat_room_search" => "chats#chat_room_search", as: "chat_room_search"
 
 end

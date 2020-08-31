@@ -1,0 +1,20 @@
+$(".back_dark").eq(7).remove();
+html =     `   
+                <div id="email" class="back_dark"><!--メールを送信しましたのhtml-->
+                    <div class="send_email">
+                        <span class="glyphicon glyphicon-remove cursor" style="float: right;"></span>
+                        <h2>確認メールを再送信しました</h2>
+                        <p>確認メールを<%=@hairdresser.email%>に送信しました。</p>
+                        <p>送信された確認メール内に記載されたURLにアクセルすると登録が完了します。</p>
+                        <p>※URLの有効期限は10分間です。</p>
+                        <p class="send_complete" style="color: #75A9FF; margin-top: 10px;">送信完了</p>
+                        <%= link_to "メールを再送信", hairdresser_resend_path, method: :post, remote: true, class: "btn btn-success resend", style: "width: 200px; margin-top: 70px;" %>
+                        <div id="resend" class="cursor2"></div>
+                    </div>
+                </div>
+            `
+$("body").append(html);
+$(".back_dark").eq(7).show();
+setTimeout(function(){
+    $('.send_complete').fadeOut(); 
+},2000);  

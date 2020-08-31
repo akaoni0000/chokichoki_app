@@ -14,7 +14,7 @@
                 <% reservations.each do |reservation| %>
                     <% @time_min = reservation.start_time %>
                     <% @time_max = reservation.start_time  + reservation.menu.time*60 - 1 %>
-                    <% @reservations_after = @menu.hairdresser.reservations.where(start_time: @time_min..@time_max, status: 1) %>
+                    <% @reservations_after = @menu.hairdresser.reservations.where(start_time: @time_min..@time_max, status: true) %>
                     <% if @reservations_after.blank? %>
                         <div>
                             <span><%= reservation.start_time.hour %>時<%= reservation.start_time.min %>分</span>

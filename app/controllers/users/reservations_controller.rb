@@ -149,7 +149,7 @@ class Users::ReservationsController < ApplicationController
         @time_min = @reservation.start_time
         @time_max = @reservation.start_time + @reservation.menu.time*60 -1
         @reservations = @reservation.menu.hairdresser.reservations.where(start_time: @time_min..@time_max)
-        @reservations.update_all(:status => 0 )
+        @reservations.update_all(:status => false )
 
         #支払った金額をポイントで返す
         @current_user.point += 500
@@ -188,7 +188,7 @@ class Users::ReservationsController < ApplicationController
         @time_min = @reservation.start_time
         @time_max = @reservation.start_time + @reservation.menu.time*60 -1
         @reservations = @reservation.menu.hairdresser.reservations.where(start_time: @time_min..@time_max)
-        @reservations.update_all(:status => 1 )
+        @reservations.update_all(:status => true )
 
         #後で客に評価させるためにコメントのレコードをつくる
         @hairdresser_id = @reservation.menu.hairdresser_id

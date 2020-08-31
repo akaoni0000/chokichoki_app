@@ -7,7 +7,7 @@
     <% @date_number.times do %>
         <div class="date_data">
             <div class="date">
-                <%= @date_arry[i].year %>年<%= @date_arry[i].month %>月<%= @date_arry[i].day %>日
+                <p><%= @date_arry[i].year %>年<%= @date_arry[i].month %>月<%= @date_arry[i].day %>日</p>
             </div>
             <table class="table reservation_table">
                 <thead>
@@ -15,7 +15,6 @@
                     <th class="center">時間</th>
                     <th class="center">メニュー名</th>
                     <th class="center">予約した人</th>
-                    <th class="center">電話番号</th>
                     <th class="center">お客様のご希望</th>
                     <th class="center">評価</th>
                     <th class="center">コメント</th>
@@ -39,9 +38,6 @@
                                 </td>
                                 <td>
                                     <%= reservation.user.name %>さん
-                                </td>
-                                <td>
-                                    <%= reservation.user.phone_number %>
                                 </td>
                                 <td>
                                     <% if reservation.user_request == nil || reservation.user_request == ""%>

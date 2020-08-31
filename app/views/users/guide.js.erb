@@ -1,0 +1,18 @@
+if ($("header").children("div").hasClass("user_options")) {
+    $(".user_options").remove();
+}
+else {
+    var html = `
+                    <div class="user_options">
+                        <p>現在のポイント</p>
+                        <p style="margin-bottom: 10px;"><%=@point%>pt</p>
+                        <%= link_to edit_user_path(@current_user.id) do %>
+                            <p class="user_options_account">アカウント設定</p>
+                        <% end %>
+                        <%= link_to edit_user_path(@current_user.id) do %>
+                            <p class="user_options_account" style="margin-top: 10px;">お気に入り</p>
+                        <% end %>
+                    </div>
+                `
+    $("header").append(html);
+}

@@ -1,8 +1,8 @@
-<% if @hairdresser.reject_status == nil %>
+<% if @hairdresser.reject_status == nil %><!--審査が終わっていない-->
     <div class="center">
         <p style="font-size: 30px; padding-top: 150px;">審査中です。しばらくお待ちください。</p>
     </div>
-<% else %>
+<% else %><!--審査が終わって拒否された-->
     <div class="container center">
         <h1 class="admin_title">以下の<%=@i%>点が原因で承認されませんでした</h1>
         <% if @hairdresser.reject_status[0,1] == "1" %>

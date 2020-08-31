@@ -1,0 +1,27 @@
+<div style="margin-bottom: 30px;">
+    <% if @current_user.sex == "男性" %>
+        <img src="<%= asset_path "male2.png" %>">
+    <% elsif @current_user.sex == "女性" %>
+        <img src="<%= asset_path "female2.png" %>">
+    <% end %>
+</div>
+<%= form_with(model: @current_user) do |f| %>
+    <p>ユーザー名</p>
+    <p class="user_register_form_name_error error"></p>
+    <%= f.text_field :name, class: "user_show_form name user_register_form_element" %>
+    <% if @current_user.email.include?("twitter") %>
+        <p style="color: blue; margin-bottom: 30px;">twitterアカウントでログインしています</p>
+    <% else %>
+        <p>メールアドレス</p>
+        <p class="user_show_form user_show_email"><%=@current_user.email%></p>
+    <% end %>
+    <div>
+        <span>男性</span>
+        <%= f.radio_button :sex, :男性, id: "sex_man"%>
+        <span>女性</span>
+        <%= f.radio_button :sex, :女性, id: "sex_woman"%>
+    </div>
+    <div>
+        <%= f.submit "更新", class: "btn btn-success", style: "width: 150px; margin-top: 60px" %>
+    </div>
+<% end %>

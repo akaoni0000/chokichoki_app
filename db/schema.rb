@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_22_072333) do
+ActiveRecord::Schema.define(version: 2020_08_31_092453) do
 
   create_table "admins", force: :cascade do |t|
     t.string "email"
@@ -77,7 +77,6 @@ ActiveRecord::Schema.define(version: 2020_08_22_072333) do
     t.string "address"
     t.string "shop_name"
     t.string "confirm_image_id"
-    t.integer "status", default: 0
     t.string "hairdresser_image_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -88,6 +87,12 @@ ActiveRecord::Schema.define(version: 2020_08_22_072333) do
     t.string "reject_status"
     t.float "shop_latitude"
     t.float "shop_longitude"
+    t.string "activation_digest"
+    t.datetime "activation_deadline_at"
+    t.string "password_reset_digest"
+    t.datetime "password_reset_deadline_at"
+    t.boolean "activation_status", default: false
+    t.boolean "judge_status", default: false
   end
 
   create_table "menus", force: :cascade do |t|
@@ -116,9 +121,9 @@ ActiveRecord::Schema.define(version: 2020_08_22_072333) do
     t.text "user_request"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "status", default: 0
     t.integer "cancel_status", default: 0
     t.integer "notification_status", default: 0
+    t.boolean "status", default: false
   end
 
   create_table "rooms", force: :cascade do |t|
@@ -145,13 +150,16 @@ ActiveRecord::Schema.define(version: 2020_08_22_072333) do
   create_table "users", force: :cascade do |t|
     t.string "name"
     t.string "email"
-    t.string "phone_number"
     t.string "sex"
     t.string "password_digest"
-    t.integer "model_status", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "point", default: 500
+    t.string "activation_digest"
+    t.datetime "activation_deadline_at"
+    t.string "password_reset_digest"
+    t.datetime "password_reset_deadline_at"
+    t.boolean "activation_status", default: false
   end
 
 end

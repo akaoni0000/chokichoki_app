@@ -56,7 +56,7 @@ $(function() {
             $(this).html("<p class='glyphicon glyphicon-remove simbol_remove remove_exist_reservation' aria-hidden='true'></p>");
             var reservation_time = $(this).attr('href');
             var reservation_time_num = $(this).attr('id');
-            $("#hairdresser_reservation_form").append(`<input type="hidden" name="start_time_remove[]" value="${reservation_time}" class="${reservation_time_num}"></input>`);
+            $("#hairdresser_reservation_form").append(`<input type="hidden" name="start_time_remove[]" value="${reservation_time}" class="${reservation_time_num}" readonly>`);
         }
         //すでに予約を作成してあるバツ(時刻)をクリックした時
         else if ($(this).children().hasClass("remove_exist_reservation")) {
@@ -71,7 +71,7 @@ $(function() {
             $(this).html("<p style='color: red;' class='simbol_round remove_not_reservation'>◎</p>");
             var reservation_time = $(this).attr('href');
             var reservation_time_num = $(this).attr('id');
-            $("#hairdresser_reservation_form").append(`<input type="hidden" name="start_time[]" value="${reservation_time}" class="${reservation_time_num}"></input>`);
+            $("#hairdresser_reservation_form").append(`<input type="hidden" name="start_time[]" value="${reservation_time}" class="${reservation_time_num}" readonly>`);
         }
         //予約を作成してないマル(時刻)をクリックした時
         else if ($(this).children().hasClass("remove_not_reservation")) {
@@ -105,12 +105,6 @@ $(function() {
         $(this).attr('href', `${href}&win_height=${win_height}`);
     });
 
-    //カレンダーに戻る
-    // $(".back_calendar").click(function(){
-    //     var href = $(this).attr("href")
-    //     $(this).attr('href', `${href}&win_scroll=true`);
-    // });
-
     //変更を保存するをクリック
     $(".change_form").on("click", function(e) {
         var win_height = $(window).scrollTop();
@@ -128,7 +122,7 @@ $(function() {
 
 //会員ログインしないで予約をすることを防ぐ
 $(function() {
-    if (!gon.user_id) {
+    if (!gon.user) {
         $(".user_reservation").on("click", function(e) {
             e.preventDefault();
             var reservation_id = $(this).attr("id"); 
