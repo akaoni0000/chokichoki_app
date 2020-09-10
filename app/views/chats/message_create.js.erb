@@ -6,9 +6,9 @@
                             <% @date = @chat_message.created_at.to_date %>
                             <P class="chat_date"><%= @date.month %>/<%= @date.day %>(<%= %w(日 月 火 水 木 金 土)[(@date).wday] %>)</p>
                         <% end %>
-                        <div class="myself create1 not_read">
+                        <div class="myself not_read">
                             <div class="chat_time"><p><%= @chat_message.created_at.to_time.hour %>:<%= @chat_message.created_at.to_time.strftime("%Y-%m-%d %H:%M:%S").strip[14, 2]%></p></div>
-                            <div class="myself_chat create2">
+                            <div class="myself_chat">
                                 <% @chat_message.style_images.each do |image| %>
                                     <%= image_tag @hair_arry[image].to_s, style: "width: 200px; height: 200px; margin-bottom: 10px;" %>
                                 <% end %>
@@ -24,11 +24,11 @@
                             <% @date = @chat_message.created_at.to_date %>
                             <P class="chat_date"><%= @date.month %>/<%= @date.day %>(<%= %w(日 月 火 水 木 金 土)[(@date).wday] %>)</p>
                         <% end %>
-                        <div class="myself create1 not_read">
-                            <div class="chat_time time_create"><p><%= @chat_message.created_at.to_time.hour %>:<%= @chat_message.created_at.to_time.strftime("%Y-%m-%d %H:%M:%S").strip[14, 2]%></p></div>
-                            <div class="myself_chat create2">
+                        <div class="myself not_read">
+                            <div class="chat_time"><p><%= @chat_message.created_at.to_time.hour %>:<%= @chat_message.created_at.to_time.strftime("%Y-%m-%d %H:%M:%S").strip[14, 2]%></p></div>
+                            <div class="myself_chat">
                                 <%= attachment_image_tag @chat_message, :image, size: "200x200", fallback: "no_image.png", style: "margin-bottom: 10px;" %>
-                                <%= simple_format(@chat_message.message) %> //スペースも表す
+                                <%= simple_format(@chat_message.message) %> 
                             </div>
                         </div>
                     `
@@ -39,9 +39,9 @@
                             <% @date = @chat_message.created_at.to_date %>
                                 <P class="chat_date"><%= @date.month %>/<%= @date.day %>(<%= %w(日 月 火 水 木 金 土)[(@date).wday] %>)</p>
                         <% end %>
-                        <div class="myself create1 not_read">
-                            <div class="chat_time time_create"><p><%= @chat_message.created_at.to_time.hour %>:<%= @chat_message.created_at.to_time.strftime("%Y-%m-%d %H:%M:%S").strip[14, 2]%></p></div>
-                            <div class="myself_chat create2">
+                        <div class="myself not_read">
+                            <div class="chat_time"><p><%= @chat_message.created_at.to_time.hour %>:<%= @chat_message.created_at.to_time.strftime("%Y-%m-%d %H:%M:%S").strip[14, 2]%></p></div>
+                            <div class="myself_chat">
                                 <% @chat_message.style_images.each do |image| %>
                                     <%= image_tag @hair_arry[image].to_s, style: "width: 200px; height: 200px; margin-bottom: 10px;" %>
                                 <% end %>
@@ -56,35 +56,21 @@
                             <% @date = @chat_message.created_at.to_date %>
                             <P class="chat_date"><%= @date.month %>/<%= @date.day %>(<%= %w(日 月 火 水 木 金 土)[(@date).wday] %>)</p>
                         <% end %>
-                        <div class="myself create1 not_read">
-                            <div class="chat_time time_create"><p><%= @chat_message.created_at.to_time.hour %>:<%= @chat_message.created_at.to_time.strftime("%Y-%m-%d %H:%M:%S").strip[14, 2]%></p></div>
-                            <div class="myself_chat create2">
+                        <div class="myself not_read">
+                            <div class="chat_time"><p><%= @chat_message.created_at.to_time.hour %>:<%= @chat_message.created_at.to_time.strftime("%Y-%m-%d %H:%M:%S").strip[14, 2]%></p></div>
+                            <div class="myself_chat">
                                 <%= simple_format(@chat_message.message) %>
                             </div>
                         </div>
                     `
     <% end %>
-
-    <% if @current_user.present? %>
-        var user_or_hairdresser = "user"
-        <% if @chat.user.sex == "男性" %>
-            var img_html = `<div class="opponent_img"><img src="<%= asset_path "man.png" %>" style="width: 40px; height: 40px;"></div>`
-        <% else @chat.user.sex == "女性" %>
-            var img_html = `<div class="opponent_img"><img src="<%= asset_path "woman.png" %>" style="width: 40px; height: 40px;"></div>`
-        <% end %>
-    <% elsif @current_hairdresser.present? %>
-        var user_or_hairdresser = "hairdresser"
-        var img_html = `<div class="opponent_img"><%= attachment_image_tag @chat.hairdresser, :hairdresser_image, size: "40x40", fallback: "no_image.png", class: "img-circle" %></div>`
-    <% end %>
-    var room_token = "<%= @room.room_token %>"
-    var message = "<%= @chat_message.message %>"
-    App.room.speak(html, user_or_hairdresser, room_token, message, img_html); //アクションケーブルで送る
+    //htmlを挿入
+    $(`#room-<%= @room.room_token %>`).append(html);
 
     //フォームを初期化
     $('.chat_style_img').each(function(){
         $(this).remove();
     });
-
     $('.circle2').each(function(){
         $(this).css({
             "background-color": "white"
@@ -97,4 +83,23 @@
     $('#chat_prev_img').addClass("display_none");
     $(".delete_chat_img").addClass("display_none");
     $("#chat_message_message").val("");
+
+    //チャットの一番下にスクロール
+    $(`#room-<%= @room.room_token %>`).scrollTop($(`#room-<%= @room.room_token %>`)[0].scrollHeight);
+
+    //ルームを最後のメッセージを変更
+    <% if 1 <= @chat_message.message.length && @chat_message.message.length <= 32 %>
+        <% @last_message = @chat_message.message %>
+    <% elsif 33 <= @chat_message.message.length %>
+        <% @last_message = @chat_message.message[0..32] + "..." %>
+    <% else %>
+        <% @last_message = "画像を送信しました" %>
+    <% end %>
+    $(`#chat_room_<%=@room.room_token%>`).find(".chat_last_message").text(`<%=@last_message%>`);
+
+    //ルームの時間を変更
+    $(`#chat_room_<%=@room.room_token%>`).find(".chat_room_time").text(`<%=@time%>`);
+
+    //ルームの並び順を変更
+    $("#search_form").after($(`#chat_<%=@room.room_token%>`));  
 <% end %>

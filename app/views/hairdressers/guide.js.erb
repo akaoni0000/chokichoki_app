@@ -6,8 +6,20 @@ else {
                     <div class="hairdresser_options">
                         <p>現在の予約件数</p>
                         <p style="margin-bottom: 10px;"><%=@reservation_number%>件</p>
+                        <%= link_to edit_style_image_path(@current_hairdresser.id) do %>
+                            <p class="hairdresser_options_account">ヘアスタイル</p>
+                        <% end %>
+                        <%= link_to hairdresser_comments_path do %>
+                            <p class="hairdresser_options_account" style="margin-top: 10px;">口コミ</p>
+                        <% end %>
+                        <%= link_to hairdressers_calendar_index_path do %>
+                            <p class="hairdresser_options_account" style="margin-top: 10px;">予定表</p>
+                        <% end %>
+                        <%= link_to hairdresser_path(@current_hairdresser.id) do %>
+                            <p class="hairdresser_options_account" style="margin-top: 10px;">マイページ</p>
+                        <% end %>
                         <%= link_to edit_hairdresser_path(@current_hairdresser.id) do %>
-                            <p class="hairdresser_options_account">アカウント設定</p>
+                            <p class="hairdresser_options_account" style="margin-top: 10px;">アカウント設定</p>
                         <% end %>
                     </div>
                 `

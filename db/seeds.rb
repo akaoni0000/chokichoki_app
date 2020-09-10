@@ -20,7 +20,12 @@
 #     )
 # end
   
-Admin.create!(:email => 'aaa@gmail.com', :password_digest => "chokichoki")
+# Admin.create!(:email => 'aaa@gmail.com', :password_digest => "chokichoki")
 
-User.create!(:name => "えみたん", :email => "abc@gmail.com", :password => "chokichoki", :sex => "女性")
-User.create!(:name => "えみりん", :email => "bbb@gmail.com", :password => "chokichoki", :sex => "女性")
+# User.create!(:name => "えみたん", :email => "abc@gmail.com", :password => "chokichoki", :sex => "女性")
+# User.create!(:name => "えみりん", :email => "bbb@gmail.com", :password => "chokichoki", :sex => "女性")
+
+# image_path = File.join(Rails.root, "app/assets/images/gaaa.png")
+# image = File.open(image_path, 'rb').read
+#Rails.root.join(image_path("gaaa.png")).open
+#Hairdresser.create!(:name => "あああ", :email => "aaa@gmail.com", :password => "chokichoki", :sex => "男性", :confirm_image => open("#{Rails.root}/app/assets/gaaa.png"), :hairdresser_image => "", :shop_name => "リップス", :post_number => 1000000, :address => "東京都千代田区", :reject_status => nil, :shop_latitude => 1.0, :shop_longitude => 1.0, :activation_status => true, :judge_status => true)

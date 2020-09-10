@@ -1,7 +1,5 @@
 class UsersController < ApplicationController
 
-    before_action :force_comment, only: [:show]
-
     include AjaxHelper 
 
     def create #activation_statusはfalse メール認証は済んでいない
@@ -52,16 +50,46 @@ class UsersController < ApplicationController
     def login
         if @user = User.find_by(email: params[:email])  #メールアドレス　パスワードの順で調べていく
             if @user.authenticate(params[:password]) && @user.activation_status == true && @user.email.include?("twitter") == false #authenticateは、引数に渡された文字列 (パスワード) をハッシュ化した値と、データベース内にあるpassword_digestカラムの値を比較します。
-                session[:user_id] = @user.id
-                flash[:notice] = "ログインしました"
-                if params[:reservation_id] == nil
-                    respond_to do |format|
-                        format.js { render ajax_redirect_to(root_path)}
+
+                #終わった施術がある場合、口コミを書かせる 終わった施術がないときはログイン
+                @hairdresser_comment = HairdresserComment.order(start_time: "ASC").find_by(user_id: @user.id, rate: nil)
+                if @hairdresser_comment.present? 
+                    @start_time = @hairdresser_comment.start_time
+                    @menu_time = @hairdresser_comment.menu.time*60
+                    @finish_time = @start_time + @menu_time 
+                    if @finish_time < Time.now
+                        session[:comment_id] = @hairdresser_comment.id
+                        respond_to do |format|
+                            format.js { render ajax_redirect_to(edit_hairdresser_comment_path(id: @hairdresser_comment.id, hairdresser_id: @hairdresser_comment.hairdresser_id))}
+                        end
+                    else
+                        if Reservation.find_by(id: params[:reservation_id]).present? #ログインしていない時に予約しようとした時
+                            session[:user_id] = @user.id
+                            flash[:notice] = "ログインしました"
+                            respond_to do |format|
+                                format.js { render ajax_redirect_to(edit_users_reservation_path(params[:reservation_id])) }
+                            end
+                        else
+                            session[:user_id] = @user.id
+                            flash[:notice] = "ログインしました"
+                            respond_to do |format|
+                                format.js { render ajax_redirect_to(root_path)}
+                            end
+                        end
                     end
                 else
-                    @reservation_id = params[:reservation_id].to_i
-                    respond_to do |format|
-                        format.js { render ajax_redirect_to(edit_users_reservation_path(@reservation_id)) }
+                    if Reservation.find_by(id: params[:reservation_id]).present? #ログインしていない時に予約しようとした時
+                        session[:user_id] = @user.id
+                        flash[:notice] = "ログインしました"
+                        respond_to do |format|
+                            format.js { render ajax_redirect_to(edit_users_reservation_path(params[:reservation_id])) }
+                        end
+                    else
+                        session[:user_id] = @user.id
+                        flash[:notice] = "ログインしました"
+                        respond_to do |format|
+                            format.js { render ajax_redirect_to(root_path)}
+                        end
                     end
                 end
             else
@@ -148,9 +176,20 @@ class UsersController < ApplicationController
         @email = @twitter_data["uid"] + "@twitter.com" #twitterのユーザーIDに@twitter.comをつけてメールアドレスとして認識させる
         @user = User.find_by(email: @email, activation_status: true) #emailは実質twitterのユーザーIDなのでそれだけで判定できる twitter側でidは変更できない
         if @user.present? #既にそのtwitterアカウントで登録していたらログインさせる
-            flash[:notice] = "ログインしました"
-            session[:user_id] = @user.id
-            redirect_to root_path
+            @hairdresser_comment = HairdresserComment.order(start_time: "ASC").find_by(user_id: @user.id, rate: nil)
+            if @hairdresser_comment.present? 
+                @start_time = @hairdresser_comment.start_time
+                @menu_time = @hairdresser_comment.menu.time*60
+                @finish_time = @start_time + @menu_time 
+                if @finish_time < Time.now
+                    session[:comment_id] = @hairdresser_comment.id
+                    redirect_to edit_hairdresser_comment_path(id: @hairdresser_comment.id, hairdresser_id: @hairdresser_comment.hairdresser_id)
+                end
+            else
+                flash[:notice] = "ログインしました"
+                session[:user_id] = @user.id
+                redirect_to root_path
+            end
         else #twitterアカウントで登録していなかったら性別を選択させるviewに飛ばす
             session[:twitter_name] = @name
             session[:twitter_email] = @email

@@ -19,50 +19,102 @@
         <p style="font-size: 50px; color: black;">予約の仕方</p>
     </div>
     <div class="step_explain">
-        <div class="step">
-            <p>step1</p>
-            <img src="<%= asset_path "br.jpg" %>" class="step_img">
-            
-                <p>新規登録またはログインより必要な情報を入力し、ログインします。</p>
-           
+        <div class="flow_step2" style="width: 175px;">
+            <div class="point">STEP<strong style="font-size: 20px; margin-left: 3px;">1</strong></div>
+            <img src="<%= asset_path "huma.png" %>" class="visit_img">
+            <p style="margin-top: 10px; color: white;">新規登録またはログインより必要な情報を入力してログイン</p>
         </div>
-        <div class="step">
-            <p>step2</p>
-            <img src="<%= asset_path "br.jpg" %>" class="step_img">
-            
-                <p>美容師一覧より美容師の写真をクリックし、詳細画面より指名します。</p>
-            
+        <img src="<%= asset_path "next2.png" %>" class="next_img2">
+        <div class="flow_step2" style="width: 175px;">
+            <div class="point">STEP<strong style="font-size: 20px; margin-left: 3px;">2</strong></div>
+            <img src="<%= asset_path "hairdresser_and_menu.png" %>" class="visit_img">
+            <p style="margin-top: 10px; color: white">美容師一覧より美容師を選択してメニューを決める</p>
         </div>
-        <div class="step">
-            <p>step3</p>
-            <img src="<%= asset_path "br.jpg" %>" class="step_img">
-            
-                <p>メニューを選択します。</p>
-            
+        <img src="<%= asset_path "next2.png" %>" class="next_img2">
+        <div class="flow_step2" style="width: 175px;">
+            <div class="point">STEP<strong style="font-size: 20px; margin-left: 3px;">3</strong></div>
+            <img src="<%= asset_path "calendar.png" %>" class="visit_img">
+            <p style="margin-top: 10px; color: white">来店日時を選択し料金を払って予約完了</p>
         </div>
-        <div class="step">
-            <p>step4</p>
-            <img src="<%= asset_path "br.jpg" %>" class="step_img">
-            
-                <p>施術日時を選択します。</p>
-           
+        <img src="<%= asset_path "next2.png" %>" class="next_img2">
+        <div class="flow_step2" style="width: 175px;">
+            <div class="point">STEP<strong style="font-size: 20px; margin-left: 3px;">４</strong></div>
+            <img src="<%= asset_path "message.png" %>" class="visit_img">
+            <p style="margin-top: 10px; color: white">チャット機能でカウンセリング なりたい髪型について担当美容師と相談しましょう</p>
         </div>
-        <div class="step">
-            <p>step5</p>
-            <img src="<%= asset_path "br.jpg" %>" class="step_img">
-            
-                <p>支払い方法をクレジットカード払い、ポイント払いより選択します。</p>
-            
-        </div>
-        <div class="step">
-            <p>step6</p>
-            <img src="<%= asset_path "br.jpg" %>" class="step_img">
-          
-                <p>お疲れ様です。予約完了です。(予約日時が24時間以内の場合はキャンセルできません)。</p>
-            
+        <img src="<%= asset_path "next2.png" %>" class="next_img2">
+        <div class="flow_step2" style="width: 175px;">
+            <div class="point">STEP<strong style="font-size: 20px; margin-left: 3px;">５</strong></div>
+            <img src="<%= asset_path "hasami.png" %>" class="visit_img">
+            <p style="margin-top: 10px; color: white;">お客様が来店し、施術開始</p>
         </div>
     </div>
 </div>
-<div class="container">
+
+<!-- FAQ -->
+<div id="FAQ" class="faq " style="margin-bottom: 300px; margin-top: 150px;">
+    <h1 style="margin-bottom: 30px;">FAQ</h1>
+    <h3 class="question"><span style="border-bottom: solid 5px #e6ecf0;">本当に500円でカットしてもらえるのですか？</span></h3>
+    <div class="left_static">
+        <p class="answers">
+            はい、すべてのメニューが500円となっています。ただし、施術をするのはスタイリストではなくアシスタントです。
+        </p>
+    </div>
+        
+    <h3 class="question"><span style="border-bottom: solid 5px #e6ecf0;">支払い方法は何がありますか？</span></h3>
+    <div class="left_static">
+        <p class="answers">
+            クレジットカード支払い、ポイント支払いがございます。また、クレジットカードをこのサイトに登録することができ、毎回番号を入力する手間を省ぶことができます。
+        </p>
+    </div>
+
+    <h3 class="question"><span style="border-bottom: solid 5px #e6ecf0;">ポイントとはなんですか？</span></h3>
+    <div class="left_static">
+        <p class="answers">
+            ポイントは1ポイント1円と換算され、現金(クレジットカード)の代わりに支払うことができます。現金(クレジットカード)との併用はできません。口コミを書くことで200ポイントもらえます。
+        </p>
+    </div>
+
+    <h3 class="question"><span style="border-bottom: solid 5px #e6ecf0;">支払いは先払いですか?</span></h3>
+    <div class="left_static">
+        <p class="answers">
+            はい、先払いとなっております。キャンセル時にはお金をポイントとして全額返金いたします。
+        </p>
+    </div>
+
+    <h3 class="question"><span style="border-bottom: solid 5px #e6ecf0;">サイトを作成する上で苦労した点は?</span></h3>
+    <div class="left_static">
+        <p class="answers">
+            予約機能とチャット機能のviewページです。
+            予約機能では例えば18時に施術時間40分のメニューの予約が入ったら、18時30分には予約を入れられないなど、その前後で予約できなくするメニューを設定するのに苦労しました。
+            チャット機能では既読をつける仕組みや、どちらかがメッセージを送った後のそれぞれのviewの動きをだすのにとても苦労しました。
+        </p>
+    </div>
+
+    <h3 class="question"><span style="border-bottom: solid 5px #e6ecf0;">このサイトを作成した理由は?</span></h3>
+    <div class="left_static">
+        <p class="answers"> 
+            このサイトを作る前に、私はスクールのカリキュラムで簡単な本のSNSアプリとチーム開発でECサイトを作成しました。その2つのアプリではメール認証機能やクレジットカード決済などの機能は実装できず、アプリケーションとしての<br>
+            完成度が低いことにモヤモヤしていました。なので、ポートフォリオでは今まで実装してこなかったいろいろな機能を実装して完成度の高いアプリケーションを作成しようと思いました。まず初めに、今までやってこなかった機能で実装してみたいと思った機能は
+            ホットペッパービューティー（美容室予約アプリ）のカレンダーを使った予約機能でした。そこで美容師に焦点を当てたアプリを作成しようと決めました。次にどのような問題を解決できるアプリにするか考え、美容師の知り合いやネットの情報を
+            調べていき、美容師のアシスタントさんが1年目で離職する割合は約50%となっていることを知りました。その理由の一つにいつになったらお客様の髪が切れるようになるのか分からないまま、技術を磨く日々が夜遅くまで毎日続いてしまうということがあります。
+            またカットモデルになりたい一般の人も安く髪を切ってもらえるなどの理由でぜひやってみたいが、どこで募集しているかわからない人が多いことがわかりました。実際私も知りませんでした。私はそのどちらの問題も解決したいと思い、スタイリストさんに実際にお客さまの髪を切らせる機会をあたえ、技術を磨き、モチベーションをアップさせる場を与えることができ、
+            誰もが安価で美容院に行ける、そんなアプリを作成したいと思い作成しました。
+        </p>
+    </div>
 </div>
+
+    
+<div style="padding-bottom: 100px;">
+    <h1 class="center" style="margin-bottom: 30px;">chokichokiをはじめよう！</h1>
+    <div class="center">
+        <span class="hairdresser_register cursor2 btn btn-primary" id="new_user2">
+            新規登録
+        </span>
+        <span class="hairdresser_register cursor2 btn btn-success" id="login_user2">
+            ログイン
+        </span>
+    </div>
+</div>
+
 

@@ -1,45 +1,42 @@
-<div class="container center">
+<div class="container center" style="padding-top: 50px;">
     <div class="time">
         <div class="error">
             <%= @error %>
         </div>
-    <%= form_with(url: hairdressers_reservations_path, method: :post, local: true) do |f| %>
+        <%= form_with(url: hairdressers_reservations_path, method: :post, local: true) do |f| %>
             <%= f.label :start_time %>                             
             <%= f.datetime_select :start_time, :start_year => @year.to_i, :start_hour => 06, :minute_step => 30, :use_month_numbers => true, :default => Date.new(@year.to_i, @month.to_i, @day.to_i)+@hour.to_i.hours+@min.to_i.minutes %>
             <%= f.hidden_field :menu_id, :value => @menu.id %>
-            <%= f.hidden_field :start_date, :value => @start_date %>
             <%= f.submit '作成',class: "btn btn-primary make_btn"%>
-    <%end%>
-    <%= link_to "カレンダーに戻る", hairdressers_set_month_calendar_reservation_path(menu_id: @menu.id, start_date: @start_date), class: "back_calendar color" %>
+        <%end%>
+        <%= link_to "カレンダーに戻る", hairdressers_set_month_calendar_reservation_path(menu_id: @menu.id), class: "to_month_calendar color" %>
     </div>
     <div>
-        <% if @reservations_arry.present? %>
-            <table class="table">
-                <thead>
-                    <th class="center">時間</th><th class="center">メニュー名</th><th class="center">予約した人</th><th class="center"></th>
-                </thead>
-                <% @reservations_arry.each do |reservation| %>
-                    <% if reservation.user_id != nil %>
-                        <% @user = @user_model.find(reservation.user_id) %> <!--モデルを関連づけてreservation.user.nameとしたかったが、モデルを関連づけるとreservationのデータをsaveするときにuser_idも必ずsaveしなくてはならず、nilで保存したかったので関連付けは行っていない-->
-                    <% end %>
-                    <tbody>
-                        <tr>
-                            <td><%= reservation.start_time.hour %>時<%= reservation.start_time.min %>分</td>
-                            <td><%= @menu.name %></td>
-                            <% if reservation.user_id != nil %>
-                                <td><%= @user.name %></td>
-                            <% else %>
-                                <td>予約なし</td>
-                            <% end %>
-                            <% if reservation.user_id == nil %>
-                                <td>
-                                    <%= link_to "削除", hairdressers_reservation_path(reservation.id), method: :delete, class: "btn btn-danger", data: { confirm: '本当に削除しますか?' }  %>
-                                </td>
-                            <% end %>
-                        </tr>
-                    </tbody>
+        <table class="table">
+            <thead>
+                <th class="center">時間</th><th class="center">メニュー名</th><th class="center">予約した人</th><th class="center"></th>
+            </thead>
+            <% @reservations.each do |reservation| %>
+                <% if reservation.user_id != nil %>
+                    <% @user = User.find(reservation.user_id) %> <!--モデルを関連づけてreservation.user.nameとしたかったが、モデルを関連づけるとreservationのデータをsaveするときにuser_idも必ずsaveしなくてはならず、nilで保存したかったので関連付けは行っていない-->
                 <% end %>
-            </table>
-        <% end %>
+                <tbody>
+                    <tr>
+                        <td><%= reservation.start_time.hour %>時<%= reservation.start_time.min %>分</td>
+                        <td><%= @menu.name %></td>
+                        <% if reservation.user_id != nil %>
+                            <td><%= @user.name %></td>
+                        <% else %>
+                            <td>予約なし</td>
+                        <% end %>
+                        <% if reservation.user_id == nil %>
+                            <td>
+                                <%= link_to "削除", hairdressers_reservation_path(reservation.id), method: :delete, class: "btn btn-danger", data: { confirm: '本当に削除しますか?' }  %>
+                            </td>
+                        <% end %>
+                    </tr>
+                </tbody>
+            <% end %>
+        </table>
     </div>
 </div>

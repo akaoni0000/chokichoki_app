@@ -1,13 +1,28 @@
 class HomeController < ApplicationController
     def user_top
-        @points = Hairdresser.where(judge_status: true).pluck(:reputation_point).max(5)
-        @hairdresser_model = Hairdresser
-        @i = 1
-        @n = 0
-        @user_page = "user"
-        gon.body = "white"
-        gon.fix = "header"
-        #binding.pry
+        #口コミが10件以上あり、評価平均が4.5以上の美容師のデータを取得
+        @hairdressers = Hairdresser.select {|hairdresser| hairdresser.hairdresser_comments.length >= 10 && hairdresser.reputation_point/hairdresser.hairdresser_comments.length >= 4.5}
+
+        #評判の美容師
+        @hairdressers_for_reputation = Hairdresser.select {|hairdresser| hairdresser.hairdresser_comments.length >= 10 && hairdresser.reputation_point/hairdresser.hairdresser_comments.length >= 4}.sample(10)
+        @menus = @hairdressers_for_reputation.map {|hairdresser| hairdresser.menus}
+        @menus.flatten!
+
+        @cut_menus = @menus.select {|menu| menu.category[0,1] == "1"}
+        @color_menus = @menus.select {|menu| menu.category[1,1] == "1"}
+        @curly_menus = @menus.select {|menu| menu.category[2,1] == "1"}
+        @parma_menus = @menus.select {|menu| menu.category[3,1] == "1"}
+
+        @hairdresser_cut_id_arry = @cut_menus.map {|menu| menu.hairdresser_id}.uniq!
+        @hairdresser_color_id_arry = @color_menus.map {|menu| menu.hairdresser_id}.uniq!
+        @hairdresser_curly_id_arry = @curly_menus.map {|menu| menu.hairdresser_id}.uniq!
+        @hairdresser_parma_id_arry = @parma_menus.map {|menu| menu.hairdresser_id}.uniq!
+
+        #gon
+        gon.body = "white" #jsで背景を変える
+        gon.fix = "header" #jsでheaderを固定する
+        
+        #alertを出現させる
         if session[:double] == true
             gon.double = true
             session[:double] = nil
@@ -15,13 +30,17 @@ class HomeController < ApplicationController
     end
 
     def hairdresser_top
-        @hairdresser_page = "hairdresser"
+        #gon
         gon.body ="white"
         gon.fix = "header"
         gon.display_none = "none"
     end
 
     def about #aboutページ
+        #FAQまでスクロールさせる
+        if params[:faq]
+            gon.faq = true
+        end
     end
 
     def deadline #URLの有効期限が切れています のページ

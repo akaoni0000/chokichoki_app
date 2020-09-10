@@ -1,50 +1,65 @@
-    <%= link_to "売り上げデータ", admins_sell_chart_path, class: "link" %>
-    <%= link_to "美容師データ", admins_hairdresser_chart_path, class: "link" %>
-    <h1>週間会員数推移</h1>
-    <div class="chart">
-        <canvas id="recent_week_chart"></canvas> <!--canvas要素は、グラフィックなどが描写可能なビットマップキャンバスを提供します。-->
-    </div>
-    <%= link_to "前の週", admins_user_chart_path(pre_week_index: @week_index_standard), remote: true %>
-    <% if @week_index_standard != Date.today.end_of_week %>
-    <%= link_to "次の週", admins_user_chart_path(next_week_index: @week_index_standard), remote: true %>
+<div class="container" style="font-size: 0; padding-top: 10px;">
+    <%= link_to admins_user_chart_path do %>
+        <div class="admin_data border">
+            <p style="font-size: 20px; color: black;">会員データ</p>
+        </div>
     <% end %>
-
-    <h1>月間会員数推移</h1>
-    <div class="chart">
-        <canvas id="recent_month_chart"></canvas> <!--canvas要素は、グラフィックなどが描写可能なビットマップキャンバスを提供します。-->
-    </div>
-    <%= link_to "前の月", admins_user_chart_path(pre_month_index: @month_index_standard), remote: true %>
-    <% if @month_index_standard != Date.today.end_of_month %>
-    <%= link_to "次の月", admins_user_chart_path(next_month_index: @month_index_standard), remote: true %>
+    <%= link_to admins_hairdresser_chart_path do %>
+        <div class="admin_data border_none">
+            <p style="font-size: 20px; color: black;">美容師データ</p>
+        </div>
     <% end %>
-
-
-    <h1>新規会員登録者数推移(日別)</h1>
-    <div class="chart">
-        <canvas id="day_chart"></canvas> <!--canvas要素は、グラフィックなどが描写可能なビットマップキャンバスを提供します。-->
-    </div>
-    <%= link_to "前の週", admins_user_chart_path(pre_day: @day_standard), remote: true %>
-    <% if @day_standard != Date.today %>
-    <%= link_to "次の週", admins_user_chart_path(next_day: @day_standard), remote: true %>
+    <%= link_to admins_sell_chart_path do %>
+        <div class="admin_data border_none">
+            <p style="font-size: 20px; color: black;">売り上げデータ</p>
+        </div>
     <% end %>
+</div>
+<h1>週間会員数推移</h1>
+<div class="chart">
+    <canvas id="recent_week_chart"></canvas> <!--canvas要素は、グラフィックなどが描写可能なビットマップキャンバスを提供します。-->
+</div>
+<%= link_to "前の週", admins_user_chart_path(pre_week_index: @week_index_standard), remote: true, class: "color" %>
+<% if @week_index_standard != Date.today.end_of_week %>
+    <%= link_to "次の週", admins_user_chart_path(next_week_index: @week_index_standard), remote: true, class: "color" %>
+<% end %>
 
-    <h1>週間新規会員登録者数推移</h1>
-    <div class="chart">
-        <canvas id="week_chart"></canvas> <!--canvas要素は、グラフィックなどが描写可能なビットマップキャンバスを提供します。-->
-    </div>
-    <%= link_to "前の週", admins_user_chart_path(pre_week: @week_standard), remote: true %>
-    <% if @week_standard != Date.today.beginning_of_week %>
-        <%= link_to "次の週", admins_user_chart_path(next_week: @week_standard), remote: true %>
-    <% end %>
+<h1>月間会員数推移</h1>
+<div class="chart">
+    <canvas id="recent_month_chart"></canvas> <!--canvas要素は、グラフィックなどが描写可能なビットマップキャンバスを提供します。-->
+</div>
+<%= link_to "前の月", admins_user_chart_path(pre_month_index: @month_index_standard), remote: true, class: "color" %>
+<% if @month_index_standard != Date.today.end_of_month %>
+    <%= link_to "次の月", admins_user_chart_path(next_month_index: @month_index_standard), remote: true, class: "color" %>
+<% end %>
 
-    <h1>月間新規会員登録者数推移</h1>
-    <div class="chart">
-        <canvas id="month_chart"></canvas> <!--canvas要素は、グラフィックなどが描写可能なビットマップキャンバスを提供します。-->
-    </div>
-        <%= link_to "前の月", admins_user_chart_path(pre_month: @month_standard), remote: true %>
-    <% if @month_standard != Date.today %>
-        <%= link_to "次の月", admins_user_chart_path(next_month: @month_standard), remote: true %>
-    <% end %>
+
+<h1>新規会員登録者数推移(日別)</h1>
+<div class="chart">
+    <canvas id="day_chart"></canvas> <!--canvas要素は、グラフィックなどが描写可能なビットマップキャンバスを提供します。-->
+</div>
+<%= link_to "前の週", admins_user_chart_path(pre_day: @day_standard), remote: true, class: "color" %>
+<% if @day_standard != Date.today %>
+    <%= link_to "次の週", admins_user_chart_path(next_day: @day_standard), remote: true, class: "color" %>
+<% end %>
+
+<h1>週間新規会員登録者数推移</h1>
+<div class="chart">
+    <canvas id="week_chart"></canvas> <!--canvas要素は、グラフィックなどが描写可能なビットマップキャンバスを提供します。-->
+</div>
+<%= link_to "前の週", admins_user_chart_path(pre_week: @week_standard), remote: true, class: "color" %>
+<% if @week_standard != Date.today.beginning_of_week %>
+    <%= link_to "次の週", admins_user_chart_path(next_week: @week_standard), remote: true, class: "color" %>
+<% end %>
+
+<h1>月間新規会員登録者数推移</h1>
+<div class="chart">
+    <canvas id="month_chart"></canvas> <!--canvas要素は、グラフィックなどが描写可能なビットマップキャンバスを提供します。-->
+</div>
+<%= link_to "前の月", admins_user_chart_path(pre_month: @month_standard), remote: true, class: "color" %>
+<% if @month_standard != Date.today %>
+    <%= link_to "次の月", admins_user_chart_path(next_month: @month_standard), remote: true, class: "color" %>
+<% end %>
 
 <!--jsファイルに書きたかったが、length of nulというエラーがでて嫌だったのでここに書く-->
 <script>
@@ -74,7 +89,7 @@
                     ticks: {
                         //suggestedMax: 80,    //データがこの値を超えたらその値がmaxに自動でなる
                         suggestedMin: 0,
-                        stepSize: 1,
+                        stepSize: <%=@step_number%>,
                         callback: function(value, index, values){
                             return  value +  '人'
                         }
@@ -110,7 +125,7 @@
                     ticks: {
                         //suggestedMax: 80,    //データがこの値を超えたらその値がmaxに自動でなる
                         suggestedMin: 0,
-                        stepSize: 1,
+                        stepSize: <%=@step_number%>,
                         callback: function(value, index, values){
                             return  value +  '人'
                         }
@@ -146,7 +161,7 @@
                     ticks: {
                         //suggestedMax: 80,    //データがこの値を超えたらその値がmaxに自動でなる
                         suggestedMin: 0,
-                        stepSize: 1,
+                        stepSize: <%=@step_number%>,
                         callback: function(value, index, values){
                             return  value +  '人'
                         }
@@ -184,7 +199,7 @@
                     ticks: {
                         //suggestedMax: 80,    //データがこの値を超えたらその値がmaxに自動でなる
                         suggestedMin: 0,
-                        stepSize: 1,
+                        stepSize: <%=@step_number%>,
                         callback: function(value, index, values){
                             return  value +  '人'
                         }
@@ -220,7 +235,7 @@
                     ticks: {
                         //suggestedMax: 80,    //データがこの値を超えたらその値がmaxに自動でなる
                         suggestedMin: 0,
-                        stepSize: 1,
+                        stepSize: <%=@step_number%>,
                         callback: function(value, index, values){
                             return  value +  '人'
                         }

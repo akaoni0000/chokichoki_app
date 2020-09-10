@@ -1,0 +1,82 @@
+<div class="container">
+
+    <h3 class="center">予定表(このページからは編集できません)</h3>
+
+    <!--記号の説明-->
+    <div class="explain_simbol">
+        <span style="color: red;" class="simbol">◎</span>予約可能
+        <span style="color: blue;" class="simbol">◎</span>予約あり
+        <span class="glyphicon glyphicon-remove simbol" aria-hidden="true"></span>予約不可
+    </div>
+
+    <!--ここから週間カレンダー-->
+    <table class="week_reservation_table">
+        <thead class="table_header" id="table_head">
+            <%= render "home/thead", reservation: false %>
+        </thead>
+        <tbody id="table_body">
+            <tr>
+                <!--左の時刻表-->
+                <th class="border_right table_time">
+                    <table>
+                        <tbody class="times">
+                            <% @clock_arry.each do |clock| %>
+                                <tr>
+                                    <th class="width4"><%= clock %></th>
+                                </tr>
+                            <% end %>
+                        </tbody>
+                    </table>
+                </th>
+                
+                <!--バツマル-->
+                <% for i in 0..(@date_arry.length - 1) do %>
+                    <th class="border_right">
+                        <!--このテーブルは縦一列-->
+                        <table>
+                            <tbody class="simbols">
+                                <% @time_arry.each do |time| %>
+                                    <% if @date_arry[i] == time.to_date %>
+                                        <tr>
+                                            <td href="<%=time%>" id="<%=time.year%><%=time.month%><%=time.day%><%=time.hour%><%=time.min%>" , class="border_bottom function width3 td_color">
+                                                <% if Reservation.where(start_time: time).select {|reservation| reservation.menu.hairdresser == @current_hairdresser && reservation.menu.status == true && reservation.user_id != nil}.present? %>
+                                                    <%= link_to hairdressers_calendar_show_path(time: time), method: :post, remote: true do %>
+                                                        <p style='color: blue;' class="simbol_exist_reservation">◎</p>
+                                                    <% end %>
+                                                <% elsif Reservation.where(start_time: time).select {|reservation| reservation.menu.hairdresser == @current_hairdresser && reservation.menu.status == true && reservation.user_id == nil}.present? %>
+                                                    <%= link_to hairdressers_calendar_show_path(time: time), method: :post, remote: true do %>
+                                                        <p style='color: red;' class="simbol_round">◎</p>
+                                                    <% end %>
+                                                <% else %>
+                                                   <p class="glyphicon glyphicon-remove simbol_remove" aria-hidden="true"></p>
+                                                <% end %>
+                                            </td>
+                                        </tr>
+                                    <% end %>
+                                <% end %>
+                            </tbody>
+                        </table>
+                    </th>
+                <% end %>
+                    
+                <!--右の時刻表-->
+                <th class="table_time">
+                    <table>
+                        <tbody class="times">
+                            <% @clock_arry.each do |clock| %>
+                                <tr>
+                                    <th class="width4"><%= clock %></th>
+                                </tr>
+                            <% end %>
+                        </tbody>
+                    </table>
+                </th>
+
+            </tr>
+        </tbody>
+    </table>
+
+</div>
+
+<div class="back_dark">
+</div>

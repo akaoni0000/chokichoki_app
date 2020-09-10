@@ -40,6 +40,7 @@ class User < ApplicationRecord
     has_many :hairdresser_comments
     has_many :cancel_reservations
     has_many :chats
+    has_many :favorites
 
 end
 

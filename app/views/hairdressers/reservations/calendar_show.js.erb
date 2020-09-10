@@ -1,0 +1,37 @@
+html = `    
+            <div class="calendar_menu_index">
+                <span class="glyphicon glyphicon-remove cursor" style="float: right;"></span>
+                <p style="font-size: 20px;"><%=@time.to_time.month%>月<%=@time.to_time.day%>日(<%= %w(日 月 火 水 木 金 土)[(@time.to_time).wday] %>)<%=@time.to_time.hour%>時<%=@time.to_time.min%>分のメニュー</p>
+                <% @menus.reverse_each do |menu| %>
+                    <div class="menu_card_small">
+                        <div class="menu_top" >
+                            <p class="menu_title"><%= menu.name %></p>
+                            <p class="menu_time_small font"><%= menu.time %>分</p>
+                            <p class="card_categories_small">
+                                <% if menu.category[0,1] == "1" %>
+                                    <span class="cut_category category font" style="font-size: 13px;">カット</span>
+                                <% end %>
+                                <% if menu.category[1,1] == "1" %>
+                                    <span class="color_category category font" style="font-size: 13px;">カラー</span>
+                                <% end %>
+                                <% if menu.category[2,1] == "1" %>
+                                    <span class="curly_category category font" style="font-size: 13px;">縮毛矯正</span>
+                                <% end %>
+                                <% if menu.category[3,1] == "1" %>
+                                    <span class="perm_category category font" style="font-size: 13px;">パーマ</span>
+                                <% end %>
+                            </p>
+                        </div>
+                        <div class="menu_bottom">
+                            <%= attachment_image_tag menu, :menu_image, fallback: "no_image.png", id: "prev_menu_img", style: "width: 110px; height: 110px;"%>
+                            <p class="menu_explain"><%= menu.explanation %></p>
+                        </div>
+                    </div>
+                    <% if menu.reservations.select {|reservation| reservation.start_time == @time && reservation.user_id != nil}.present? %>
+                        <p class="exist_calendar_reservation">予約有り</p>
+                    <% end %>
+                <% end %>
+            </div>
+       `
+$(".back_dark").html(html);
+$(".back_dark").fadeIn();

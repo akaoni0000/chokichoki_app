@@ -10,6 +10,7 @@ $(".options_select").each(function(){
 <% elsif @photo %>
     $(".options_photo").addClass("border");
     $('.hairdresser_info').html("<%= j(render "users/hairdressers/templete/photo") %>");
+    $(".options_photo").addClass("border");
 <% elsif @review %>
     $(".options_review").addClass("border");
     $('.hairdresser_info').html("<%= j(render "users/hairdressers/templete/review") %>");

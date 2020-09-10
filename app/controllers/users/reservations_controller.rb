@@ -1,7 +1,6 @@
 class Users::ReservationsController < ApplicationController
 
     include AjaxHelper #非同期からredirect_toするための記述
-    before_action :force_comment, only: [:reservation_index, :edit]
 
     def index #userの予約一覧
         @reservations = Reservation.where(user_id: @current_user.id).order(start_time: :asc)
@@ -49,10 +48,15 @@ class Users::ReservationsController < ApplicationController
         @time_arry.flatten! #この時点では要素はTimeクラス
         @date_arry = @time_arry.map {|a| a.to_date} #これで要素はDateクラス
         @date_arry.uniq!
-    
-        @menu = Menu.find(params[:menu_id])
-
-        @thead_for_user = true
+        
+        if Menu.find_by(id: params[:menu_id], status: true).present? #フロントで引数を変更されたり、美容師の方でメニューを削除したばかりでuser側で更新をしてない時のため
+            @menu = Menu.find(params[:menu_id])
+        else
+            flash[:notice_red] = "エラーが発生しました。最初からやりなおしてください。"
+            redirect_to root_path
+        end
+        
+        @thead_for_user = true #部分テンプレートの_theadでlinkを無効にするのに使う
     end
 
     def set_month_calendar_reservation #月間カレンダーで予約
@@ -71,72 +75,93 @@ class Users::ReservationsController < ApplicationController
     end
 
     def edit #予約を確定するかどうか最終確認画面
-        @reservation = Reservation.find(params[:id])
-        @menu = Menu.find(@reservation.menu_id)
+        if Reservation.find_by(id: params[:id]).present? && Reservation.find_by(id: params[:id]).menu.status == true #フロントで引数を変更されたり、美容師の方でメニューを削除したばかりでuser側で更新をしてない時のため
+            @reservation = Reservation.find(params[:id])
+            @menu = Menu.find(@reservation.menu_id)
+            @time = @reservation.start_time
+            @hairdresser = @reservation.menu.hairdresser
+        else
+            flash[:notice_red] = "エラーが発生しました。最初からやりなおしてください。"
+            redirect_to root_path
+        end
     end
 
     def various_update
-        if params[:card] == "1" #登録していないクレジットカードで支払う
-            @card = "pay_success"   #jsでクレジットカード番号入力モーダルを出す
-        elsif params[:point] == "1" #ポイントで支払う
-            #現在のポイントが500ポイントより多いとき
-            if  @current_user.point >= 500
-                @current_user.point -= 500
-                @current_user.save
-                
-                various_change #インスタンスメソッド
- 
-                respond_to do |format|
-                    format.js { render ajax_redirect_to(users_complete_path) }
-                end
-            else
-                @error = "point_error" #jsでエラー文を表示させる
+        if Reservation.find_by(id: params[:reservation_id]).blank? || Reservation.find_by(id: params[:reservation_id]).menu.status == false || Reservation.find_by(id: params[:reservation_id]).user_id != nil   #フロントで引数を変更されたり、美容師の方でメニューを削除したばかりでuser側で更新をしてない時のため
+            flash[:notice_red] = "エラーが発生しました。最初からやりなおしてください。"
+            respond_to do |format|
+                format.js { render ajax_redirect_to(root_path) }
             end
-        elsif params[:registered_card] == "1" #登録済みのクレジットカードで支払う
-            card = UserCard.find_by(user_id: @current_user.id)
-            if card
-                Payjp.api_key = ENV['SECRET_KEY']
-                Payjp::Charge.create(
-                    :amount => 500,
-                    :customer => card.customer_id, #顧客ID
-                    :currency => 'jpy' #日本円
-                )
-
-                #お金を記録
-                @money = Money.new(user_id: @current_user.id)
-                @money.save
-
-                various_change #インスタンスメソッド
-
-                respond_to do |format|
-                    format.js { render ajax_redirect_to(users_complete_path) } #予約が完了しました画面にいく
+        else
+            if params[:card] == "1" #登録していないクレジットカードで支払う
+                @card = "pay_success"   #jsでクレジットカード番号入力モーダルを出す
+            elsif params[:point] == "1" #ポイントで支払う
+                #現在のポイントが500ポイントより多いとき
+                if  @current_user.point >= 500
+                    @current_user.point -= 500
+                    @current_user.save
+                    
+                    various_change #インスタンスメソッド
+    
+                    respond_to do |format|
+                        format.js { render ajax_redirect_to(users_complete_path) }
+                    end
+                else
+                    @error = "point_error" #jsでエラー文を表示させる
                 end
-            else
-                @error = "registered_card_error" #jsでエラー文を表示させる
+            elsif params[:registered_card] == "1" #登録済みのクレジットカードで支払う
+                card = UserCard.find_by(user_id: @current_user.id)
+                if card
+                    Payjp.api_key = ENV['SECRET_KEY']
+                    Payjp::Charge.create(
+                        :amount => 500,
+                        :customer => card.customer_id, #顧客ID
+                        :currency => 'jpy' #日本円
+                    )
+
+                    #お金を記録
+                    @money = Money.new(user_id: @current_user.id)
+                    @money.save
+
+                    various_change #インスタンスメソッド
+
+                    respond_to do |format|
+                        format.js { render ajax_redirect_to(users_complete_path) } #予約が完了しました画面にいく
+                    end
+                else
+                    @error = "registered_card_error" #jsでエラー文を表示させる
+                end
+            else 
+                @error = "check_error" #jsでエラー文を表示させる
             end
-        else 
-            @error = "check_error" #jsでエラー文を表示させる
         end
     end
 
     def pay #登録していないクレジットカードで支払う
-        Payjp.api_key = ENV['SECRET_KEY']
-        #Charge.createなので顧客情報は保存されない Payjp::Customer.createのとき顧客情報が保存される
-        Payjp::Charge.create(
-            :amount => 500, #支払金額を入力
-            :card => params['payjp-token'],
-            :currency => 'jpy', #日本円
-        )
-        
-        #お金を記録 adminで売り上げ金額を見るため
-        @money = Money.new(user_id: @current_user.id)
-        @money.save
+        if Reservation.find_by(id: params[:reservation_id]).blank? #フロントで引数を変更されたり、美容師の方でメニューを削除したばかりでuser側で更新をしてない時のため
+            flash[:notice_red] = "エラーが発生しました。最初からやりなおしてください。"
+            redirect_to root_path
+        else
+            Payjp.api_key = ENV['SECRET_KEY']
+            #Charge.createなので顧客情報は保存されない Payjp::Customer.createのとき顧客情報が保存される
+            Payjp::Charge.create(
+                :amount => 500, #支払金額を入力
+                :card => params['payjp-token'],
+                :currency => 'jpy', #日本円
+            )
+            
+            #お金を記録 adminで売り上げ金額を見るため
+            @money = Money.new(user_id: @current_user.id)
+            @money.save
 
-        various_change #インスタンスメソッド
+            various_change #インスタンスメソッド
 
-        redirect_to users_complete_path
+            redirect_to users_complete_path
+        end
     end
 
+    def complete  #予約が完了しました のviewを返す
+    end
 
     def cancel
         #予約した時間のreservationsテーブルのレコードのuser_id(カラム)とuser_request(カラム)をupdateする。
@@ -164,6 +189,7 @@ class Users::ReservationsController < ApplicationController
         
         #予約をキャンセルした情報を保存
         @cancel_reservation = CancelReservation.new(menu_id: params[:menu_id], user_id: @current_user.id, hairdresser_id: @hairdresser_id, start_time: params[:start_time])
+        @cancel_reservation.reservation_token = @reservation.reservation_token
         @cancel_reservation.save
 
         #チャットルームとそのメッセージを削除
@@ -172,39 +198,59 @@ class Users::ReservationsController < ApplicationController
         @chat_messages = ChatMessage.where(room_id: @chat.room_id)
         @chat_messages.destroy_all
 
+        #美容師にキャンセルが入ったことを知らせる
+        @digest = @reservation.menu.hairdresser.activation_digest
+        @reservation_token = @reservation.reservation_token
+        data = {reservation_token: @reservation_token, digest: @digest}
+        RoomChannel.notice_cancel(data)
+    
+        flash[:notice] = "予約をキャンセルしました"
         redirect_to users_reservations_path
     end
 
-    def complete  #予約が完了しました のviewを返す
-    end
-
-    def various_change #このコントローラ内で使うメソッド
+    def various_change #このコントローラ内で使うメソッド インスタンスメソッド
         #予約した時間のreservationsテーブルのレコードのuser_idとuser_requestをupdate
         @reservation = Reservation.find(params[:reservation_id])
         @reservation.user_id = @current_user.id
-        @reservation.update(reservation_params)
+        if @reservation.update(reservation_params)
 
-        #予約した時間から施術が終わる時間までに存在するreservationsテーブルのレコードのstatusをupdate その時間内は予約を入れられないようにする
-        @time_min = @reservation.start_time
-        @time_max = @reservation.start_time + @reservation.menu.time*60 -1
-        @reservations = @reservation.menu.hairdresser.reservations.where(start_time: @time_min..@time_max)
-        @reservations.update_all(:status => true )
+            #予約した時間から施術が終わる時間までに存在するreservationsテーブルのレコードのstatusをupdate その時間内は予約を入れられないようにする
+            @time_min = @reservation.start_time
+            @time_max = @reservation.start_time + @reservation.menu.time*60 -1
+            @reservations = @reservation.menu.hairdresser.reservations.where(start_time: @time_min..@time_max)
+            @reservations.update_all(:status => true )
 
-        #後で客に評価させるためにコメントのレコードをつくる
-        @hairdresser_id = @reservation.menu.hairdresser_id
-        @menu_id = @reservation.menu.id
-        @start_time = @reservation.start_time
-        @hairdresser_comment = HairdresserComment.new(user_id: @current_user.id, hairdresser_id: @hairdresser_id, menu_id: @menu_id, start_time: @start_time)
-        @hairdresser_comment.save
+            #後で客に評価させるためにコメントのレコードをつくる
+            @hairdresser_id = @reservation.menu.hairdresser_id
+            @menu_id = @reservation.menu.id
+            @start_time = @reservation.start_time
+            @hairdresser_comment = HairdresserComment.new(user_id: @current_user.id, hairdresser_id: @hairdresser_id, menu_id: @menu_id, start_time: @start_time)
+            @hairdresser_comment.save
 
-        #チャットルーム作成
-        @room = Room.new
-        @room.save
-        @chat = Chat.new(user_id: @current_user.id, hairdresser_id: @hairdresser_id, room_id: @room.id, reservation_id: @reservation.id)
-        @chat.save
-        if @reservation.user_request != ""
+            #チャットルーム作成
+            @room = Room.new
+            @room.save
+            @chat = Chat.new(user_id: @current_user.id, hairdresser_id: @hairdresser_id, room_id: @room.id, reservation_id: @reservation.id)
+            @chat.save
+
+            #最初のメッセージを作成 美容師への要望が最初のメッセージになる 空白の場合rollbackされる
             @chat_message = ChatMessage.new(user_id: @current_user.id, room_id: @room.id, message: @reservation.user_request)
-            @chat_message.save
+            @chat_message.save 
+            
+            #予約完了のメールを送る
+            @user = User.find(@reservation.user_id)
+            if @user.email.include?("@twitter.com") == false
+                NotificationMailer.reservation_complete_mail(@reservation).deliver_now 
+            end
+            
+            #美容師に予約が入ったことを知らせる
+            @digest = @reservation.menu.hairdresser.activation_digest
+            @token = @reservation.reservation_token
+            data = {reservation_token: @token, digest: @digest}
+            RoomChannel.notice_reservation(data)
+        else
+            flash[:notice_red] = "エラーが発生しました。"
+            redirect_to root_path
         end
     end
 

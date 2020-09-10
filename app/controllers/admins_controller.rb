@@ -15,14 +15,21 @@ class AdminsController < ApplicationController
     end
 
     def login
-        @admin = Admin.find_by(email: params[:email], password_digest: params[:password])
-        if @admin.present?
+        @admin = Admin.find_by(email: params[:email])
+        if @admin.present? && @admin.authenticate(params[:password]) 
             session[:admin_id] = @admin.id
+            flash[:notice] = "ログインしました"
             redirect_to admins_user_index_path
         else
             @error = "メールアドレスまたはパスワードが違います"
             render "admins/login_form"
         end
+    end
+
+    def logout
+        session[:admin_id] = nil
+        flash[:notice] = "ログアウトしました"
+        redirect_to root_path
     end
 
     def hairdresser_judge_index
@@ -33,6 +40,7 @@ class AdminsController < ApplicationController
         @hairdresser = Hairdresser.find(params[:id])
         @hairdresser.judge_status = true
         @hairdresser.save!
+        flash[:notice] = "承認しました"
         redirect_to admins_hairdresser_judge_index_path
     end
 
@@ -160,6 +168,16 @@ class AdminsController < ApplicationController
         end
         @time_month_arry_update = @time_month_arry.to_json.html_safe
         @user_month_arry_update = @user_month_arry.to_json.html_safe
+
+        #幅を決める
+        @number = User.all.length
+        if 0 <= @number && @number <= 100
+            @step_number = 10 
+        elsif 101 <= @number && @number <= 500
+            @step_number = 50
+        elsif 501 <= @number && @number <= 1000
+            @step_number = 100 
+        end
     end
 
     def sell_chart #hairdresserのデータをチャートで見やすくした
@@ -390,12 +408,16 @@ class AdminsController < ApplicationController
         end
         @time_month_arry_update = @time_month_arry.to_json.html_safe
         @hairdresser_month_arry_update = @hairdresser_month_arry.to_json.html_safe
-    end
-
-    def logout
-        session[:admin_id] = nil
-        flash[:notice] = "ログアウトしました"
-        redirect_to root_path
+        
+        #幅を決める
+        @number = Hairdresser.all.length
+        if 0 <= @number && @number <= 100
+            @step_number = 10 
+        elsif 101 <= @number && @number <= 500
+            @step_number = 50
+        elsif 501 <= @number && @number <= 1000
+            @step_number = 100 
+        end
     end
 
 end

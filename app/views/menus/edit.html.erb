@@ -1,0 +1,76 @@
+<div class="container" style="padding-top: 50px;">
+
+    <div class="col-xs-5">
+        <%= form_with(model: @menu) do |f| %>
+            <h1>メニュー名</h1>
+            <div class="name_error error"></div>
+            <%= f.text_field :name, maxlength: "12", class: "form-control menu_name", style: "width: 250px;" %>  
+            <h1 class="menu_tag">説明</h1>
+            <div class="explain_error error"></div>
+            <%= f.text_area :explanation, maxlength: "160", class: "form-control menu_explanation", style: "width: 300px; height: 100px;" %>
+            <h1 class="menu_tag">施術時間</h1>
+            <div class="time_error error"></div>
+            <%= f.select 'time', options_for_select({ "--": nil,"1(実験用)": 1,"15": 15, "20": 20, "25": 25, "30": 30, "35": 35, "40": 40, "45": 45, "50": 50, "55": 55, "60": 60, "65": 65, "70": 70, "75": 75, "80": 80, "85": 85, "90": 90, "95": 95, "100": 100, "105": 105, "110": 110, "115": 115, "120": 120, "125": 125, "130": 130, "135": 135, "140": 140, "145": 145, "150": 150, "155": 155, "160": 160, "165": 165, "170": 170, "175": 175, "180": 180}, nil)%>分  
+            <h1 class="menu_tag">カテゴリー</h1>
+            <div class="category_error error"></div>
+            <div class="category1 cursor2" style="display: inline-block">
+                <span class="category_name">カット</span>
+                <%= f.check_box :category1, {class: ""}, 1, 0 %>
+            </div>
+            <div class="category2 cursor2" style="display: inline-block">
+                <span class="category_name">カラー</span>
+                <%= f.check_box :category2, {class: ""}, 1, 0 %>
+            </div>
+            <div class="category3 cursor2" style="display: inline-block">
+                <span class="category_name">縮毛矯正</span>
+                <%= f.check_box :category3, {class: ""}, 1, 0 %>
+            </div>
+            <div class="category4 cursor2" style="display: inline-block">
+                <span class="category_name">パーマ</span>
+                <%= f.check_box :category4, {class: ""}, 1, 0 %>
+            </div>
+            <label class= "btn btn-primary btn-block label_menu_img" style="width: 100px; margin-top: 30px;">
+                    <%= f.attachment_field :menu_image, id: "menu_img", class: "hidden"%>
+                    画像選択
+            </label>
+            <div class="menu_img_save" style="display: none;"></div>
+            <%= f.submit "カードを保存", class: "save_card btn btn-success" %>
+        <% end %>
+    </div>
+
+    <div class="col-xs-7">
+        <div class="menu_card">
+            <div class="menu_top" >
+                <div class="title font"><%=@menu.name%></div>
+                <div class="menu_time font"><%=@menu.time%>分</div>
+                <div class="card_categories">
+                    <span class="cut_category category font">
+                        <% if @menu.category[0,1] == "1" %>
+                            <span class="cut_category category font" style="font-size: 13px;">カット</span>
+                        <% end %>
+                    </span>
+                    <span class="color_category category font">
+                        <% if @menu.category[1,1] == "1" %>
+                            <span class="color_category category font" style="font-size: 13px;">カラー</span>
+                        <% end %>
+                    </span>
+                    <span class="curly_category category font">
+                        <% if @menu.category[2,1] == "1" %>
+                            <span class="curly_category category font" style="font-size: 13px;">縮毛矯正</span>
+                        <% end %>
+                    </span>
+                    <span class="perm_category category font">
+                        <% if @menu.category[3,1] == "1" %>
+                            <span class="perm_category category font" style="font-size: 13px;">パーマ</span>
+                        <% end %>
+                    </span>
+                </div>
+            </div>
+            <div class="menu_bottom">
+                <%= attachment_image_tag @menu, :menu_image, fallback: "no_image.png", id: "prev_menu_img" %>
+                <div class="explain font"><%=@menu.explanation%></div>
+            </div>
+        </div>
+    </div>
+
+</div>

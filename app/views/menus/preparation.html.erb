@@ -1,0 +1,49 @@
+<div class="container" style="font-size: 0; padding-top: 80px;">
+    <%= link_to menus_path do %>
+        <div class="menu_index border_none">
+            <p style="font-size: 20px; color: black;">掲載中</p>
+        </div>
+    <% end %>
+    <%= link_to preparation_path do %>
+        <div class="menu_preparation border">
+            <p style="font-size: 20px; color: black;">掲載準備中</p>
+        </div>
+    <% end %>
+</div>
+<% if @menus.blank? %> 
+    <p class="center" style="padding-top: 80px;">メニューがありません。メニュー作成でメニューを作成してください。</p>
+<% else %>
+    <% @menus.reverse_each do |menu| %>
+        <div class="container" style="width: 900px;">
+            <div class="menu_card">
+                <div class="menu_top" >
+                    <div class="title font"><%= menu.name %></div>
+                    <div class="menu_time font"><%= menu.time %>分</div>
+                    <div class="card_categories">
+                        <% if menu.category[0,1] == "1" %>
+                            <span class="cut_category category font">カット</span>
+                        <% end %>
+                        <% if menu.category[1,1] == "1" %>
+                            <span class="color_category category font">カラー</span>
+                        <% end %>
+                        <% if menu.category[2,1] == "1" %>
+                            <span class="curly_category category font">縮毛矯正</span>
+                        <% end %>
+                        <% if menu.category[3,1] == "1" %>
+                            <span class="perm_category category font">パーマ</span>
+                        <% end %>
+                    </div>
+                </div>
+                <div class="menu_bottom">
+                    <%= attachment_image_tag menu, :menu_image, fallback: "no_image.png", id: "prev_menu_img" %>
+                    <div class="explain font"><%= menu.explanation %></div>
+                </div>
+            </div>
+            <%= link_to "掲載する", status_update_path(menu_id: menu.id), class: "btn btn-success", style: "float: right;", method: :post %>
+            <%= link_to "予定表を編集", hairdressers_set_week_calendar_reservation_path(menu_id: menu.id), class: "btn btn-info", style: "float: right;" %>
+            <%= link_to "メニューを編集", edit_menu_path(menu.id), class: "btn btn-primary", style: "float: right" %>
+        </div>
+    <% end %>
+<% end %>
+
+

@@ -1,0 +1,46 @@
+<div class="container">
+    <div class="container center" style="">
+        <% if @hairdresser_comments.present? %>
+            <% @hairdresser_comments.each do |hairdresser_comment| %>
+                <div class="review_box2">
+                    <div class="review_box_top">
+                        <% if hairdresser_comment.user.sex == "男性" %>
+                            <img src="<%= asset_path "male.png" %>" class="human_logo2"><%= hairdresser_comment.user.name %>さん/男性
+                        <% elsif hairdresser_comment.user.sex == "女性" %>
+                            <img src="<%= asset_path "female.png" %>" class="human_logo2"><%= hairdresser_comment.user.name %>さん/女性
+                        <% end %>
+                        <div id="star-rate-<%= hairdresser_comment.id %>"></div>
+                        <script>
+                            $('#star-rate-<%= hairdresser_comment.id %>').raty({
+                                size: 36,
+                                starOff:  '<%= asset_path('star-off.png') %>',
+                                starOn : '<%= asset_path('star-on.png') %>',
+                                starHalf: '<%= asset_path('star-half.png') %>',
+                                half: true,
+                                readOnly: true,
+                                score: "<%=hairdresser_comment.rate%>"
+                            });
+                        </script>
+                    </div>
+                    <div class="review_box_bottom">
+                        <% if hairdresser_comment.comment.present? && hairdresser_comment.comment != "" %>
+                            <p><%=hairdresser_comment.comment%></p>
+                        <% else %>
+                            <p>コメントはありません</p>
+                        <% end %>
+                        <div class="review_box_bottom_info">
+                            <% if hairdresser_comment.menu.status == false %>
+                                <p>メニュー名：<%=hairdresser_comment.menu.name%> (現在掲載しておりません)</p>
+                            <% else %>
+                                <p>メニュー名：<%=hairdresser_comment.menu.name%></p>
+                            <% end %>
+                            <p>来店日：<%=hairdresser_comment.start_time.month%>月<%=hairdresser_comment.start_time.day%>日(<%= %w(日 月 火 水 木 金 土)[(hairdresser_comment.start_time).wday] %>)<%=hairdresser_comment.start_time.hour%>時<%=hairdresser_comment.start_time.min%>分</p>
+                        </div>
+                    </div>
+                </div>
+            <% end %>
+        <% else %>
+            <p class="center" style="padding-top: 80px;">口コミはありません</p>
+        <% end %>
+    </div>
+</div>

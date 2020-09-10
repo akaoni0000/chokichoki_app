@@ -61,5 +61,6 @@ class Hairdresser < ApplicationRecord
     has_many :reservations, through: :menus
     has_many :hairdresser_comments
     has_many :chats
+    has_many :favorites
 
 end

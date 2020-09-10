@@ -42,7 +42,7 @@
                                     <% if @date_arry[i] == time.to_date %>
                                         <tr>
                                             <td class="border_bottom width3 td_color">
-                                                <% if Reservation.find_by(start_time: time, menu_id: @menu.id).present? %>
+                                                <% if Reservation.find_by(start_time: time, menu_id: @menu.id).present? && Time.now <= Reservation.find_by(start_time: time, menu_id: @menu.id).start_time %>
                                                     <% @reservation = Reservation.find_by(start_time: time, menu_id: @menu.id) %>
                                                     <% @time_min = @reservation.start_time %>
                                                     <% @time_max = @reservation.start_time  + @reservation.menu.time*60 - 1 %>

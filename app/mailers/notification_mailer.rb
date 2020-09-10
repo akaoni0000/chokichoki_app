@@ -23,4 +23,14 @@ class NotificationMailer < ApplicationMailer
         end
     end
 
+    def reservation_complete_mail(reservation)
+        @reservation = reservation
+        @user = User.find(@reservation.user_id)
+        @hairdresser = @reservation.menu.hairdresser
+        @menu = @reservation.menu
+        @time = @reservation.start_time
+        @url = "https://maps.google.com/maps?q=#{@hairdresser.shop_latitude},#{@hairdresser.shop_longitude}"
+        mail(subject: "chokichokiのご利用ありがとうございます" ,to: @user.email)
+    end
+
 end

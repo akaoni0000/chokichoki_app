@@ -1,0 +1,39 @@
+$(".noti").fadeOut();
+var html = `
+            <% if @user.present? %>
+                <div class="noti">
+                    <P style="color: #696969;">
+                        <%=@user.name%> さんからメッセージ
+                        <span class="cursor2 remove_message" style="float: right;">✖︎</span>
+                    </p>
+                    <% if @message.length >= 41 %>
+                        <P style="padding-left: 45px;"><%=@message.strip[0..39]%>...</p>
+                    <% elsif @message.present? %>
+                        <P style="padding-left: 45px;"><%=@message%></p>
+                    <% else %>
+                        <P style="padding-left: 45px;">写真を送信しました</p>
+                    <% end %>
+                </div>
+            <% elsif @hairdresser.present? %>
+                <div class="noti">
+                    <P style="color: #696969;">
+                        <%=@hairdresser.name%> さんからメッセージ
+                        <span class="cursor2 remove_message" style="float: right;">✖︎</span>
+                    </p>
+                    <% if @message.length >= 41 %>
+                        <P style="padding-left: 45px;"><%=@message.strip[0..39]%>...</p>
+                    <% elsif @message.present? %>
+                        <P style="padding-left: 45px;"><%=@message%></p>
+                    <% else %>
+                        <P style="padding-left: 45px;">写真を送信しました</p>
+                    <% end %>
+                </div>
+            <% end %>
+           `
+$(".header_top").prepend(html);
+$(".noti").animate({'marginLeft':'140px'},500);
+$(".remove_message").click(function(){
+    $(".noti").fadeOut();
+});
+$(".me").text("<%=@unread_number%>");
+$(".me").removeClass("display_none");

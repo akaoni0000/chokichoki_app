@@ -22,10 +22,8 @@
                         <% if @date_arry[i] == cancel_reservation.start_time.to_date %>
                                  <tr>
                                     <td>
-                                        <% if flash[:notice_cancel_reservations].present? %>
-                                            <% if flash[:notice_cancel_reservations].pluck(:id).include?(cancel_reservation.id) %>
-                                                <p class="flash_new">new</p>
-                                            <% end %>
+                                        <% if flash[:notice_cancel_reservations].present? && flash[:notice_cancel_reservations].pluck(:id).include?(cancel_reservation.id)%>
+                                            <p class="flash_new">new</p>
                                         <% end %>
                                     </td>
                                     <td>

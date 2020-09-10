@@ -16,10 +16,14 @@
         <p class="user_show_form user_show_email"><%=@current_user.email%></p>
     <% end %>
     <div>
-        <span>男性</span>
-        <%= f.radio_button :sex, :男性, id: "sex_man"%>
-        <span>女性</span>
-        <%= f.radio_button :sex, :女性, id: "sex_woman"%>
+        <span class="man cursor2" id="man">
+            <span>男性</span>
+            <%= f.radio_button :sex, :男性, id: "sex_man"%>
+        </span>
+        <span class="woman cursor2" id="woman">
+            <span>女性</span>
+            <%= f.radio_button :sex, :女性, id: "sex_woman"%>
+        <span>
     </div>
     <div>
         <%= f.submit "更新", class: "btn btn-success", style: "width: 150px; margin-top: 60px" %>

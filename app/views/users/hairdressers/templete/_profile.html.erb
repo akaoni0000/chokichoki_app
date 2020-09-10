@@ -30,8 +30,9 @@
             <tr>
                 <td>最短予約可能日時</td>
                 <td>
-                    <% if @reservations.first.present? %>
-                        <%=@reservations.first.start_time.month%>月<%=@reservations.first.start_time.day%>日<%=@reservations.first.start_time.hour%>時<%=@reservations.first.start_time.min%>分
+                    <% if @first_number.present? %>
+                        <% @first_reservation = @reservations[@first_number] %>
+                        <%=@first_reservation.start_time.month%>月<%=@first_reservation.start_time.day%>日<%=@first_reservation.start_time.hour%>時<%=@first_reservation.start_time.min%>分
                     <% else %>
                         <p>予約可能な日時はありません</p>
                     <% end %>
@@ -40,6 +41,10 @@
             <tr>
                 <td>所属店舗</td>
                 <td><%=@hairdresser.shop_name%></td>
+            </tr>
+            <tr>
+                <td>性別</td>
+                <td><%=@hairdresser.sex%></td>
             </tr>
         </tbody>
     </table>
@@ -59,5 +64,9 @@
             handler.getMap().setZoom(16);
         });
     </script>
+    <% if @current_admin.present? %>
+        <p style="margin-top: 30px; font-size: 20px;">美容師免許証</p>
+        <%= attachment_image_tag @hairdresser, :confirm_image, size: "400x400"%>
+    <% end %>
 </div>
 

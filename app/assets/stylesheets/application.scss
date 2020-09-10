@@ -28,11 +28,11 @@ body {
 //footer
 footer {
     text-align: center;
-    padding-top: 70px;
     width: 100%;
     height: 200px;
-    background-color:#DEB887;
+    background-color:#D2B48C;
     z-index: 70;
+    padding-top: 20px;
 }
 
 .color {
@@ -103,6 +103,123 @@ a:hover, li:hover {
     transform : translate(0, 0);
     transition : all 2s ease; //allはopacityとtransformを指定 hoverやjsでタイミングを定義しないと発動しない
 }
+
+
+
+//user_topの下
+.top {
+    vertical-align: top;
+    text-align: center;
+}
+
+.menu_card_small2 {
+    width: 530px;
+    min-height: 350px;
+    margin: 0 auto;
+    border-radius: 5px;
+    //box-shadow: 0 0 15px 0 rgba(191,203,222,1);
+    background-color:#FFEFD5;
+    text-align: left;
+    display: inline-block;
+    vertical-align: top;
+    padding: 10px;
+    margin-right: 3px;
+}
+
+.menu_title2 {
+    font-size: 15px;
+    width: 146px;
+    display: inline-block;
+    vertical-align: top;
+    margin-left: 10px;
+    margin-bottom: 10px;
+}
+
+.menu_title22 {
+    position: relative;
+    top: -27px;
+    left: 10px;
+    text-align: center;
+    font-size: 17px;
+}
+
+.card_categories_small2 {
+    display: inline-block;
+    vertical-align: top;
+    width: 160px;
+    margin-top: 5px;
+}
+
+.shop_address {
+    position: relative;
+    left: 93px;
+    top: -37px;
+}
+
+.star {
+    position: relative;
+    top: -20px;
+}
+
+.menu_explain2 {
+    //display: inline-block;
+}
+
+
+.parent {
+    text-align: center;
+}
+
+//スライダーカスタム
+.bx-wrapper {
+    display: inline-block;
+}
+
+.bx-pager-link {
+    display: none;
+}
+
+.feed-prev-btn {
+    background-image: url("left.png");
+}
+
+.feed-next-btn{
+    background-image: url("right.png");
+}
+  
+.feed-prev-btn:hover {
+    background-image: url("left.png");
+}
+  
+.feed-next-btn:hover{
+    background-image: url("right.png");
+}
+
+.feed-prev-btn .bx-prev {
+    opacity: 0;
+    display: block;
+}
+ 
+.feed-next-btn .bx-next {
+    opacity: 0;
+    display: block;
+}
+
+.navi-btn {
+    margin: 79px 8px 0 9px;
+    width: 23px;
+    height: 23px;
+    //-webkit-background-size: 23px;
+    background-size: 23px;
+    //background-repeat: no-repeat;
+    //background-position: center center;
+    //float: left;
+    display: inline-block;
+    position: relative;
+    top: -160px;
+}
+
+
 
 
 
@@ -221,10 +338,13 @@ header {
 
 .salon {
     position: relative;
-    position: relative;
     left: 310px;
-    color: black;
     top: 60px;
+    color: #000077;
+}
+
+.salon:hover {
+    color: #000077;
 }
    
 .search_form {
@@ -316,10 +436,12 @@ header {
 }
 
 .how_to_chokichoki {
-    background-color:  #DEB887;
+    background-color:#F5DEB3;
     width: 100%;
-    height: 700px;
-    margin-top: 100px;
+    height: 490px;
+    margin-top: 190px;
+    margin-bottom: 100px;
+    text-align: center;
 }
 
 .title_chokichoki_2 {
@@ -775,7 +897,7 @@ header {
     background-color: white;
     border: 5px solid;
     border-radius: 10px;
-    width: 550px;
+    width: 650px;
     text-align: center;
     margin: 0 auto;
     padding: 10px;
@@ -803,7 +925,7 @@ header {
 .stand_out {
     position: absolute;
     top: 237px;
-    right: 8%;
+    right: 15%;
 }
 
 
@@ -817,7 +939,7 @@ header {
     width: 480px;
     height: 320px;
     background: #fff;
-    box-shadow: 0 0 15px 0 rgba(191,203,222,0.4);
+    box-shadow: 0 0 15px 0 rgba(191,203,222,1.4);
     border-radius: 10px;
     // margin-left: 53%;
     margin-top: 10px;
@@ -889,7 +1011,31 @@ header {
 .botttom_search {
     background-color: #F5DEB3;
     width: 100%;
-    height: 200px;
+    height: 100px;
+    font-size: 0;
+}
+
+.today {
+    width: 50%;
+    height: 100px;
+    text-align: center;
+    display: inline-block;
+    vertical-align: top;
+    padding: 10px;
+    transition : all 1s ease;
+    cursor: pointer;
+}
+
+
+.tomorrow {
+    width: 50%;
+    height: 100px;
+    text-align: center;
+    display: inline-block;
+    padding: 10px;
+    transition : all 1s ease;
+    cursor: pointer;
+    background-color: #D2B48C;
 }
 
 .search_icon_btn2 {
@@ -967,8 +1113,13 @@ header {
 
 .link_top {
     position: absolute;
-    top: 20px;
-    left: 30px;
+    top: 45px;
+    left: 320px;
+    color: #000077;
+}
+
+.link_top:hover {
+    color: #000077;
 }
 
 .header_top_left2 {
@@ -986,7 +1137,7 @@ header {
 .propaganda {
     color: white;
     font-size: 25px;
-    margin-top: 50px;
+    margin-top: 80px;
 }
 
 .propaganda2 {
@@ -1157,6 +1308,7 @@ header {
     margin-top: -75px;
     padding-top: 20px;
     border: 1px solid;
+    box-shadow: 0 0 15px 0 rgba(191,203,222,1.4);
 }
 
 .search_tag {
@@ -1268,7 +1420,7 @@ select:focus {
 .search_btn {
     background: linear-gradient(103deg, #52c5eb, #0d92c3);
     margin-left: 310px;
-    margin-top: 130px;
+    margin-top: 60px;
     width: 320px;
     border-radius: 30px;
     height: 50px;
@@ -1366,6 +1518,7 @@ select:focus {
     background-color: white;
     overflow:auto;
     padding: 10px;
+    padding-bottom: 30px;
 }
 
 .hairdresser_show_box3 {
@@ -1459,6 +1612,45 @@ select:focus {
     height: 150px;
 }
 
+//review 
+.review_box {
+    width: 450px;
+    min-height: 200px;
+    margin: 0 auto;
+    margin-top: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px 0 rgba(191,203,222,1);
+    padding: 20px;
+    text-align: left;
+}
+
+.review_box_top {
+    height: 70px;
+}
+
+.review_box_bottom_info {
+    color: #AAAAAA;
+    margin-top: 30px;
+}
+
+.human_logo2 {
+    width: 30px;
+    height: 30px;
+}
+
+//review_index
+.review_box2 {
+    width: 450px;
+    min-height: 200px;
+    margin-top: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px 0 rgba(191,203,222,1);
+    padding: 20px;
+    text-align: left;
+    display: inline-block;
+    margin-right: 30px;
+}
+
 
 
 
@@ -1471,6 +1663,7 @@ select:focus {
     text-align: center;
     padding: 30px;
     border-radius: 30px;
+    box-shadow: 0 0 15px 0 rgba(191,203,222,0.8);
 }
 .hairdresser_show_name {
     font-size: 18px;
@@ -1509,6 +1702,7 @@ hr {
 // 美容師メニュー作成ページ
 .category_name {
     margin-left: 10px;
+    color: black;
 }
 
 .menu_tag {
@@ -1527,7 +1721,9 @@ hr {
     height: 192px;
     border-radius: 30px;
     margin-top: 70px;
-    border: 1px solid;
+    box-shadow: 0 0 15px 0 rgba(191,203,222,1);
+    margin: 0 auto;
+    margin-top: 70px;
 }
 
 .title {
@@ -1572,6 +1768,10 @@ hr {
     word-wrap: break-word;
 }
 
+.reserve_btn {
+    float: right;
+}
+
 #prev_menu_img {
     width: 150px;
     height: 148px;
@@ -1582,9 +1782,9 @@ hr {
 
 
 .save_card {
-    position: absolute;
-    left: 1000px;
-    top: 300px;
+    position: relative;
+    left: 215%;
+    top: -240px;
 }
 
 
@@ -1597,6 +1797,24 @@ hr {
     left: 900px;
     font-size: 20px;
 }
+
+.menu_index, .menu_preparation {
+    text-align: center;
+    width: 50%;
+    display: inline-block;
+    vertical-align: top;
+    cursor: pointer;
+    transition: 500ms;
+    height: 70px;
+    padding-top: 20px;
+}
+
+.menu_index:hover, .menu_preparation:hover {
+    background-color:#FFE4B5;
+    transition: 500ms;
+}
+
+
 
 
 
@@ -1652,12 +1870,12 @@ hr {
 }
 
 .card_form {
-    position: absolute;
-    top: 20%;
-    left: 37%;
-    background-color:#CCFFFF;
+    background-color:white;
     border-radius: 10px;
-    width: 450px;
+    width: 520px;
+    margin: 0 auto;
+    padding: 30px;
+    margin-top: 120px;
     text-align: center;
 }
 
@@ -1778,6 +1996,7 @@ hr {
 
 .reservation_btn {
     margin-top: 50px;
+    margin-bottom: 100px;
 }
 
 .checkbox {
@@ -1794,7 +2013,8 @@ hr {
     left: 35%;
     width: 500px;
     min-height: 300px;
-    background-color: #CCFFFF;
+    background-color: white;
+    border: 3px solid;
     border-radius: 30px;
     padding: 30px;
 }
@@ -1894,13 +2114,34 @@ hr {
 //チャート
 .chart {
     width: 800px;
-    //text-align: center;
     margin: 0 auto;
 }
 
 .link {
     float: right;
     margin-right: 30px;
+    margin-top: 30px;
+}
+
+.chart_index {
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+
+.admin_data {
+    text-align: center;
+    width: 33%;
+    display: inline-block;
+    vertical-align: top;
+    cursor: pointer;
+    transition: 500ms;
+    height: 70px;
+    padding-top: 20px;
+}
+
+.admin_data:hover {
+    background-color:#FFE4B5;
+    transition: 500ms;
 }
 
 
@@ -1912,7 +2153,9 @@ hr {
     width: 700px;
     height: 292px;
     border-radius: 30px;
-    border: 1px solid;
+    box-shadow: 0 0 15px 0 rgba(191,203,222,1);
+    margin: 0 auto;
+    margin-bottom: 100px;
 }
 
 .menu_bottom2 {
@@ -1926,12 +2169,12 @@ hr {
 
 .title2 {
     font-size: 30px;
-    width: 380px;
+    width: 370px;
     height: 42px;
     display: inline-block;
     vertical-align: top;
-    margin-left: 20px;
     margin-top: 13px;
+    margin-right: 10px;
 }
 
 .face_img {
@@ -2107,6 +2350,7 @@ th {
 .date {
     margin-bottom: -75px;
     font-size: 20px;
+    padding-top: 20px;
 }
 
 .index_user_reservations {
@@ -2136,6 +2380,7 @@ th {
     display: inline-block;
     vertical-align: top;
     overflow: auto;
+    box-shadow: 0 0 15px 0 rgba(191,203,222,1);
 }
 
 #chat {
@@ -2146,6 +2391,7 @@ th {
     border-top: 1px solid;
     border-right: 1px solid;
     border-bottom: 1px solid;
+    box-shadow: 0 0 15px 0 rgba(191,203,222,1);
 }
 
 .instruction {
@@ -2207,6 +2453,13 @@ textarea.form-control {
    position: relative;
    top: -20px;
    left: 30px;
+}
+
+.image_form_chat {
+    display: inline-block;
+    position: relative;
+    top: 3px;
+    left: 10px;
 }
 
 
@@ -2365,7 +2618,7 @@ textarea.form-control {
 }
 
 .chat_search_form {
-    width: 348px;
+    width: 333px;
     height: 50px;
     display: inline-block;
     vertical-align: top;
@@ -2377,7 +2630,43 @@ textarea.form-control {
     width: 50px;
 }
 
+.chat_room_time {
+    font-size: 15px;
+    float: right;
+    position: relative;
+    top: -40px;
+}
 
+
+
+
+//口コミ
+.review_page {
+    padding-top: 90px;
+    margin-top: 0;
+    margin-bottom: 50px;
+}
+
+
+
+
+//カレンダーindex 
+.calendar_menu_index {
+    background-color: white;
+    width: 600px;
+    min-height: 270px;
+    padding: 10px;
+    margin: 0 auto;
+    margin-top: 125px;
+    border-radius: 10px;
+    border: 3px solid;
+}
+
+.exist_calendar_reservation {
+    text-align: right;
+    color: blue;
+    padding-right: 20px;
+}
 
 
 
@@ -2395,9 +2684,44 @@ textarea.form-control {
 }
 
 
+//通知
 .noti {
-    background-color: red;
+    background-color: rgba(194,238,255,0.8);
     width: 350px;
+    min-height: 50px;
     position: absolute;
     margin-left: -350px;
+    padding: 6px;
+    border-radius: 5px;
+    z-index: 100;
+}
+
+.unread_number_header {
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    min-width: 23px;
+    text-align: center;
+    display: inline-block;
+    position: relative;
+    top: -15px;
+    right: 15px;
+}
+
+
+//simple calendar
+.simple-calendar .today {
+    background: #FFFFC0;
+    width: 100%;
+    text-align: left;
+    height: auto;
+    min-height: 79px;
+}
+
+.color3 {
+    color: #FAF0E6;
+}
+
+.color3:hover {
+    color: #FAF0E6;
 }

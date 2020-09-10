@@ -1,4 +1,3 @@
-
 <div id="user_main">
         <div class="stand_out">
             <p class="publicity">自分にあった美容師が必ずみつかる!!</p>
@@ -45,118 +44,116 @@
         </div>
 </div>
 <div class="botttom_search">
+    <%= link_to today_hairdresser_and_menu_path, method: :post do %>
+        <div class="today">
+            <h2>今日予約する</h2>
+        </div>
+    <% end %>
+    <%= link_to tomorrow_hairdresser_and_menu_path, method: :post do %>
+        <div class="tomorrow">
+            <h2>明日予約する</h2>
+        </div>
+    <% end %>
 </div>
 
 <div>
     <!-- 人気美容師スライダー bootstrapだけ jsなし -->
-    <div id="top_hairdresser_slider" class="container center" style="margin-top: 200px;">
-        <div class="carousel slide" data-ride="carousel" data-interval="6000">
-            <h1 class="" style="margin-bottom: 40px; font-family: serif;">人気美容師</h1>
-            <div class="carousel-inner " style="height: 500px;">
-                <% @points.each do |point| %>
-                    <!-- find_byで見つけると一番最初のデータしかもってこれない。pointが同じ数字だったとき困るので工夫した。 -->
-                    <% @top_hairdressers = @hairdresser_model.where(reputation_point: point) %>
-                    <% @top_hairdresser = @top_hairdressers[@n] %>
-                    <% if  @top_hairdresser == nil %>
-                        <% @n = 0 %> 
-                        <% @top_hairdresser = @top_hairdressers[@n] %>
+    <% if @hairdressers.present? %>
+        <div id="top_hairdresser_slider" class="container center" style="margin-top: 80px;">
+            <div class="carousel slide" data-ride="carousel" data-interval="6000">
+                <h2 class="" style="margin-top: 100px; font-family: serif;">人気美容師</h2>
+                <div class="carousel-inner " style="height: 500px;">
+                    <% i = 1 %>
+                    <% @hairdressers.each do |hairdresser| %>
+                        <% if i == 1 %>
+                            <div class="item active">
+                                <div style="text-align: center;">
+                                    <%= link_to users_hairdresser_path(hairdresser.id), remote: true do %>
+                                        <%= attachment_image_tag hairdresser, :hairdresser_image, size: "250x250", fallback: "no_image.png", class: "img-circle" %>
+                                    <% end %>
+                                </div>
+                                <h3><%= hairdresser.name %></h3>
+                                <div style="margin-top: 20px;">
+                                    <%= hairdresser.introduction %>
+                                </div>
+                            </div>
+                        <% else %>
+                            <div class="item">
+                                <div style="text-align: center;">
+                                    <%= link_to users_hairdresser_path(hairdresser.id), remote: true do %>
+                                        <%= attachment_image_tag hairdresser, :hairdresser_image, size: "250x250", fallback: "no_image.png", class: "img-circle" %>
+                                    <% end %>
+                                </div>
+                                <h3><%= hairdresser.name %></h3>
+                                <div style="margin-top: 20px;">
+                                    <%= hairdresser.introduction %>
+                                </div>
+                            </div>
+                        <% end %>
+                        <% i += 1 %>
                     <% end %>
-                    <% if @i == 1 %>
-                        <div class="item active">
-                            <div style="text-align: center;">
-                                <%= attachment_image_tag @top_hairdresser, :hairdresser_image, size: "250x250", fallback: "no_image.png", class: "img-circle" %>
-                            </div>
-                            <h3><%= @top_hairdresser.name %></h3>
-                            <div style="margin-top: 20px;">
-                                <%= @top_hairdresser.introduction %>
-                            </div>
-                        </div>
-                    <% else %>
-                        <div class="item">
-                            <div style="text-align: center;">
-                                <%= attachment_image_tag @top_hairdresser, :hairdresser_image, size: "250x250", fallback: "no_image.png", class: "img-circle" %>
-                            </div>
-                            <h3><%= @top_hairdresser.name %></h3>
-                            <div style="margin-top: 10px;">
-                                <%= @top_hairdresser.introduction %>
-                            </div>
-                        </div>
-                    <% end %>
-                    <% @i += 1 %>
-                    <% @n += 1 %>
-                <% end %>
+                </div>
+                <a class="left carousel-control" href=".carousel" data-slide="prev" style="height: 0px; width: 0px;">
+                    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                </a>
+                <a class="right carousel-control" href=".carousel" data-slide="next" style="height: 0px; width: 0px;">
+                    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                </a>
             </div>
-            <a class="left carousel-control" href=".carousel" data-slide="prev" style="height: 0px; width: 0px;">
-                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-            </a>
-            <a class="right carousel-control" href=".carousel" data-slide="next" style="height: 0px; width: 0px;">
-                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-            </a>
         </div>
-    </div>
-
-    <!-- FAQ -->
-    <div id="FAQ" class="faq " style="margin-bottom: 300px; margin-top: 150px;">
-        <h1 style="margin-bottom: 30px;">FAQ</h1>
-
-        <h3 class="question"><span style="border-bottom: solid 5px #e6ecf0;">chokichokiとは？</span></h3>
-        <div class="left_static">
-            <p class="answers">
-                安価で美容院に行きたい人と、マネキンではなく実際にお客様の髪で施術をしたい美容師アシスタント、双方の希望を叶えるwebアプリケーションです。
-            </p>
-        </div>
-
-        <h3 class="question"><span style="border-bottom: solid 5px #e6ecf0;">本当に500円でカットしてもらえるのですか？</span></h3>
-        <div class="left_static">
-            <p class="answers">
-                はい、すべてのメニューが500円となっています。ただし、施術をするのはスタイリストではなくアシスタントです。
-            </p>
-        </div>
-        
-        <h3 class="question"><span style="border-bottom: solid 5px #e6ecf0;">支払い方法は何がありますか？</span></h3>
-        <div class="left_static">
-            <p class="answers">
-                クレジットカード支払い、ポイント支払いがございます。また、クレジットカードをこのサイトに登録することができ、毎回番号を入力する手間を省ぶことができます。
-            </p>
-        </div>
-
-        <h3 class="question"><span style="border-bottom: solid 5px #e6ecf0;">ポイントとはなんですか？</span></h3>
-        <div class="left_static">
-            <p class="answers">
-                ポイントは1ポイント1円と換算され、現金(クレジットカード)の代わりに支払うことができます。現金(クレジットカード)との併用はできません。口コミを書くことで200ポイントもらえます。
-            </p>
-        </div>
-
-        <h3 class="question"><span style="border-bottom: solid 5px #e6ecf0;">支払いは先払いですか?</span></h3>
-        <div class="left_static">
-            <p class="answers">
-                はい、先払いとなっております。キャンセル時にはお金をポイントとして全額返金いたします。
-            </p>
-        </div>
-
-        <h3 class="question"><span style="border-bottom: solid 5px #e6ecf0;">サイトを作成する上で苦労した点は?</span></h3>
-        <div class="left_static">
-        　　<p class="answers">
-                予約機能と美容師のマイページにあるヘアスタイルの画像を投稿する複数画像投稿画面のviewページです。
-                例えば18時に施術時間40分のメニューの予約が入ったら、18時30分には予約を入れられないなど、その前後で予約できなくするメニューを設定するのに苦労しました。
-                複数画像投稿はメルカリの出品画像登録のviewを参考にしたのですが、typeがfileのinputタグのvalue属性を操作できなかったのでとても苦労しました。
-            </p>
-        </div>
-
-        <h3 class="question"><span style="border-bottom: solid 5px #e6ecf0;">このサイトを作成した理由は?</span></h3>
-        <div class="left_static">
-            <p class="answers"> 
-                誰もが安価で美容院に行くことができ、かつ美容師の離職率を減少させたかったからです。
-                美容師のアシスタントさんが1年目で離職する割合は約50%となっています。
-                アンケートの結果、その理由の一つにいつになったらお客様の髪が切れるようになるのか分からないまま、技術を磨く日々が夜遅くまで毎日続いてしまうことだとわかりました。
-                なので、スタイリストさんに実際にお客さまの髪を切らせる機会をあたえ、技術を磨き、モチベーションをアップさせる場を与えることができ、
-                また有名な美容院に行きたいけどスタイリストさんだと料金が高いという人にも安価で行けるようにしたいと思い、このサイトを作成しました。
-                スクールのカリキュラムで実装したことのない機能(予約機能、クレジットカード支払い、deviseを使わないログイン機能)を実装したかったのもきっかけの一つです。
-            </p>
-        </div>
-    </div>
-
+    <% else %>
+        <h2 class="center" style="margin-top: 100px;">人気美容師</h2>
+        <p class="center">ただいま準備中です。</p>
+    <% end %>
 </div>
+
+<div class="container">
+    <h2 class="center" style="margin-top: 80px;">カットが評判の美容師</h1>
+    <div class="top">
+        <% if @hairdresser_cut_id_arry != nil %>
+            <%= render "home/reputation", hairdresser_id_arry: @hairdresser_cut_id_arry, menus: @cut_menus %>
+        <% else %>
+            <p>ただいま準備中です。</p>
+        <% end %>
+    </div>
+</div>
+
+<div class="container">
+    <h2 class="center" style="margin-top: 80px;">カラーが評判の美容師</h2>
+    <div class="top">
+        <% if @hairdresser_color_id_arry != nil %>
+            <%= render "home/reputation", hairdresser_id_arry: @hairdresser_color_id_arry, menus: @color_menus %>
+        <% else %>
+            <p>ただいま準備中です。</p>
+        <% end %>
+    </div>
+</div>
+
+<div class="container">
+    <h2 class="center" style="margin-top: 80px;">縮毛矯正が評判の美容師</h1>
+    <div class="top">
+        <% if @hairdresser_curly_id_arry != nil %>
+            <%= render "home/reputation", hairdresser_id_arry: @hairdresser_curly_id_arry, menus: @curly_menus %>
+        <% else %>
+            <p>ただいま準備中です。</p>
+        <% end %>
+    </div>
+</div>
+
+<div class="container" style="margin-bottom: 100px;">
+    <h2 class="center" style="margin-top: 80px;">パーマが評判の美容師</h1>
+    <div class="top">
+        <% if @hairdresser_parma_id_arry != nil %>
+            <%= render "home/reputation", hairdresser_id_arry: @hairdresser_parma_id_arry, menus: @parma_menus %>
+        <% else %>
+            <p>ただいま準備中です。</p>
+        <% end %>
+    </div>
+</div>
+
+<!-- 美容師のshowモーダルを表示するための記述 -->
+<div id="hairdresser_show" class=""></div>
+
 
 
 

@@ -1,0 +1,86 @@
+<% if menus == @cut_menus %>
+    <div class="navi-btn feed-prev-btn" id="feed-prev-btn-cut"></div>
+    <div class="bxslider_cut" style="text-align: center">
+<% elsif menus == @color_menus %>
+    <div class="navi-btn feed-prev-btn" id="feed-prev-btn-color"></div>
+    <div class="bxslider_color" style="text-align: center">
+<% elsif menus == @curly_menus %>
+    <div class="navi-btn feed-prev-btn" id="feed-prev-btn-curly"></div>
+    <div class="bxslider_curly" style="text-align: center">
+<% elsif menus == @parma_menus %>
+    <div class="navi-btn feed-prev-btn" id="feed-prev-btn-parma"></div>
+    <div class="bxslider_parma" style="text-align: center">
+<% end %>
+    <% hairdresser_id_arry.each do |id| %>
+        <% @menu = menus.select {|menu| menu.hairdresser_id == id}.sample %>
+        <div class="menu_card_small2">
+            <div class="menu_top" >
+                <%= attachment_image_tag @menu.hairdresser, :hairdresser_image, size: "50x50", fallback: "no_image.png", class: "img-circle face_img link_show" %>
+                <p class="menu_title2"><%= @menu.hairdresser.name %></p>
+                <p class="menu_title22"><%= @menu.name %></p>
+                <div class="star-rate-<%= @menu.hairdresser.id %> star"></div>
+                    <!-- 星をつけるための記述 -->
+                    <% @comments = @menu.hairdresser.hairdresser_comments.where.not(rate: nil).count %>
+                    <script>
+                        $('.star-rate-<%= @menu.hairdresser.id %>').raty({
+                            size: 36,
+                            starOff:  '<%= asset_path('star-off.png') %>',
+                            starOn : '<%= asset_path('star-on.png') %>',
+                            starHalf: '<%= asset_path('star-half.png') %>',
+                            half: true,
+                            readOnly: true,
+                            //reputation_pointは評価ポイント(星)の合計　@commentsはコメントの数(評価ポイントをくれた人の人数) この二つで平均を出す　
+                            score: <%= @menu.hairdresser.reputation_point %>/<%= @comments %>,
+                        });
+                        //sizeを変えてもsize変わらなかったのでここで記述する
+                        $('.star-rate-<%= @menu.hairdresser.id %>').children("img").css({
+                            "width": "13px"
+                        })
+                        $('.star-rate-<%= @menu.hairdresser.id %>').children("img").eq(0).css({
+                            "margin-left": "5px"
+                        })
+                    </script>
+                    <!-- 星をつけるための記述 ここまで -->
+                <p class="shop_address"><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span><%= @menu.hairdresser.address %></p>
+                <div style="margin-top: -40px;">
+                    <p class="menu_time_small font"><%= @menu.time %>分</p>
+                    <p class="card_categories_small2">
+                        <% if @menu.category[0,1] == "1" %>
+                            <span class="cut_category category font" style="font-size: 13px;">カット</span>
+                        <% end %>
+                        <% if @menu.category[1,1] == "1" %>
+                            <span class="color_category category font" style="font-size: 13px;">カラー</span>
+                        <% end %>
+                        <% if @menu.category[2,1] == "1" %>
+                            <span class="curly_category category font" style="font-size: 13px;">縮毛矯正</span>
+                        <% end %>
+                        <% if @menu.category[3,1] == "1" %>
+                            <span class="perm_category category font" style="font-size: 13px;">パーマ</span>
+                        <% end %>
+                    </p>
+                </div>
+            </div>
+            <div class="menu_bottom center">
+                <%= attachment_image_tag @menu, :menu_image, fallback: "no_image.png", id: "prev_menu_img", style: "width: 140px; height: 140px; margin-bottom: 10px; margin-top: 10px;"%>
+                <div class="menu_explain2"><%= @menu.explanation %></div>
+            </div>
+            <div class="center" style="margin-top: 20px;">
+                <%= link_to "美容師の詳細", users_hairdresser_path(id), class: "btn btn-primary link_hairdresser_show_modal", remote: true %>
+                <%= link_to "予約する", users_set_week_calendar_reservation_path(menu_id: @menu.id), class: "btn btn-success link_re", style: "" %>
+            </div>
+        </div> 
+    <% end %>           
+</div>
+<% if menus == @cut_menus %>
+    <div class="navi-btn feed-next-btn" id="feed-next-btn-cut"></div>
+    <div class="bxslider_cut" style="text-align: center">
+<% elsif menus == @color_menus %>
+    <div class="navi-btn feed-next-btn" id="feed-next-btn-color"></div>
+    <div class="bxslider_color" style="text-align: center">
+<% elsif menus == @curly_menus %>
+    <div class="navi-btn feed-next-btn" id="feed-next-btn-curly"></div>
+    <div class="bxslider_curly" style="text-align: center">
+<% elsif menus == @parma_menus %>
+    <div class="navi-btn feed-next-btn" id="feed-next-btn-parma"></div>
+    <div class="bxslider_parma" style="text-align: center">
+<% end %>

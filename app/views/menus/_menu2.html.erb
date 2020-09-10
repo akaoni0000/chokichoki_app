@@ -6,22 +6,22 @@
             <% end %>
 
             <!-- 美容師のshowモーダルを表示するための記述 -->
-            <div id="hairdresser_show" class="back_dark"></div>
+            <div id="hairdresser_show" class=""></div>
             <!-- 美容師のshowモーダルを表示するための記述 ここまで-->
 
             <span class="title2 font"><%= @menu.name %></span>
             <span class="menu_time2 font"><%= @menu.time %>分</span>
             <% if @menu.category[0,1] == "1" %>
-                <span class="cut_category category font">カット</span>
+                <span class="cut_category category font" style="font-size: 13px;">カット</span>
             <% end %>
             <% if @menu.category[1,1] == "1" %>
-                <span class="color_category category font">カラー</span>
+                <span class="color_category category font" style="font-size: 13px;">カラー</span>
             <% end %>
             <% if @menu.category[2,1] == "1" %>
-                <span class="curly_category category font">縮毛矯正</span>
+                <span class="curly_category category font" style="font-size: 13px;">縮毛矯正</span>
             <% end %>
             <% if @menu.category[3,1] == "1" %>
-                <span class="perm_category category font">パーマ</span>
+                <span class="perm_category category font" style="font-size: 13px;">パーマ</span>
             <% end %>
             <div style="margin-left: 15px;"><%= @menu.hairdresser.name %></div>
             <div class="star-rate-<%= @menu.hairdresser.id %>"></div>

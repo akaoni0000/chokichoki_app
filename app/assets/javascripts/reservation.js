@@ -121,7 +121,7 @@ $(function() {
 });
 
 //会員ログインしないで予約をすることを防ぐ
-$(function() {
+$(function() { //このfunctionのifはページをロードした瞬間に働くのでフロントでgon.userを足しても大丈夫
     if (!gon.user) {
         $(".user_reservation").on("click", function(e) {
             e.preventDefault();

@@ -1,6 +1,11 @@
 <div class="container"> 
-    <h2 class="center" style="margin-bottom: 50px;">まだ予約は完了しておりません。[予約を確定する]ボタンを押してください。</h2>
+    <h2 class="center" style="margin-bottom: 50px; padding-top: 70px;">まだ予約は完了しておりません。[予約を確定する]ボタンを押してください。</h2>
+    <p class="center">ご来店日時：<%=@time.month%>月<%=@time.day%>日(<%= %w(日 月 火 水 木 金 土)[(@time).wday] %>)<%=@time.hour%>時<%=@time.min%>分
     <%= render "menus/menu2" %>
+    <p class="center" style="margin-top: 50px;">店舗住所：<%=@hairdresser.address%></p> 
+    <div class="center">   	
+    <iframe src="https://maps.google.co.jp/maps?output=embed&q=<%=@hairdresser.shop_latitude%>,<%=@hairdresser.shop_longitude%>" style="width: 700px; height: 300px;"></iframe>
+    </div>
     <%= form_with(url: users_various_update_path(reservation_id: @reservation.id), method: :patch, class: "display_block reservation_form center") do |f| %>
         <h3 style="margin-top: 65px;">美容師への要望</h3>
         <%= f.text_area :user_request, class: "request form-control", style: "width: 400px; height: 200px;"%>
@@ -19,7 +24,7 @@
         </span>
         <div>
             <h3 class="error"></h3>
-            <%= f.submit "予約を確定する", class: "reservation_btn btn btn-success" %>
+            <%= f.submit "予約を確定する", class: "reservation_btn btn btn-success"%>
         </div>
     <%end%>
 </div>
@@ -30,6 +35,14 @@
         <div>
             <span class="glyphicon glyphicon-remove cursor form_close_modal card_form_close_modal" aria-hidden="true"></span>
         </div>
+        <h2>クレジットカード情報入力</h2>
+        <p>ご利用可能なカードは以下の通りです</p>
+        <img src="<%= asset_path "visa.gif" %>" class="card_logo">
+        <img src="<%= asset_path "master.gif" %>" class="card_logo">
+        <img src="<%= asset_path "jcb.gif" %>" class="card_logo">
+        <img src="<%= asset_path "amex.gif" %>" class="card_logo">
+        <img src="<%= asset_path "diner.gif" %>" class="card_logo">
+        <img src="<%= asset_path "discover.gif" %>" class="card_logo">
         <%= form_with(url: users_card_resevation_pay_path(reservation_id: @reservation.id ), method: :post, local: true, id: 'charge-form', class: "card_form_pay") do |f| %>
            <%= f.label "カード番号" %>
            <%= f.text_field "card_number", class: "number form-control ca_form", value: 4242424242424242  ,maxlength: "16", type: "text", id: "card_number"%>

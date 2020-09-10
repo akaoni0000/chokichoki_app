@@ -1,0 +1,21 @@
+$(".noti").fadeOut();
+var html = `
+                <div class="noti">
+                    <P style="color: #696969;">
+                        予約が入りました
+                        <span class="cursor2 remove_message" style="float: right;">✖︎</span>
+                    </p>
+                    <div style="padding-left: 45px;">
+                        <p>メニュー：<%=@reservation.menu.name%></p>
+                        <p>施術日：<%=@time.month%>月<%=@time.day%>日(<%= %w(日 月 火 水 木 金 土)[(@time).wday] %>)<%=@time.hour%>時<%=@time.min%>分</p>
+                        <p>予約した人：<%=@user.name%>
+                    </div>
+                </div>
+           `
+$(".header_top").prepend(html);
+$(".noti").animate({'marginLeft':'140px'},500);
+$(".remove_message").click(function(){
+    $(".noti").fadeOut();
+});
+$(".re").text("<%=@notice_reservations_number%>");
+$(".re").removeClass("display_none");

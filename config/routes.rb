@@ -16,7 +16,6 @@ Rails.application.routes.draw do
     post "pay" => "reservations#pay", as: "card_resevation_pay"
     post "cancel" => "reservations#cancel", as: "reservation_cancel"
     get "complete" => "reservations#complete", as: "complete"
-    
     resources :hairdressers, only: [:show, :index]
   end
   
@@ -43,6 +42,8 @@ Rails.application.routes.draw do
     get "set_week_calendar_reservation" => "reservations#set_week_calendar_reservation", as: "set_week_calendar_reservation"
     post "create_destroy_reservation" => "reservations#create_destroy_reservation", as: "create_destroy_reservation"
     get "set_month_calendar_reservation" => "reservations#set_month_calendar_reservation", as: "set_month_calendar_reservation"
+    get "calendar_index" => "reservations#calendar_index", as: "calendar_index"
+    post "calendar_show" => "reservations#calendar_show", as: "calendar_show"
     resources :reservations, only: [:new, :index, :create, :destroy]
     get "cancel_index" => "reservations#cancel_index", as: "cancel_index"
   end
@@ -75,13 +76,21 @@ Rails.application.routes.draw do
   post "admins/logout" => "admins#logout", as: "admins_logout"
   
   #menusコントローラ
-  resources :menus, only: [:new, :index, :create, :destroy]
+  resources :menus, only: [:new, :index, :create, :edit, :update]
+  post "menus/status_down" => "menus#status_down", as: "status_down"
+  get "menus/preparation" => "menus#preparation", as: "preparation"
+  post "menus/status_update" => "menus#status_update", as: "status_update"
   get "menus/choice" => "menus#choice", as: "menu_choice"
   
   #searchコントローラ
   get "search/search_index" => "search#search_index", as: "search_index"
+  post "search/top_hairdresser" => "search#top_hairdresser", as: "top_hairdresser"
   post "search_data" => "search#search_data", as: "search_data"
+  get "search_data" => "search#search_data"
   post "strong_search" => "search#strong_search", as: "strong_search"
+  get "strong_search" => "search#strong_search"
+  post "today_hairdresser_and_menu" => "search#today_hairdresser_and_menu", as: "today_hairdresser_and_menu"
+  post "tomorrow_hairdresser_and_menu" => "search#tomorrow_hairdresser_and_menu", as: "tomorrow_hairdresser_and_menu"
 
   #style_imagesコントローラ
   resources :style_images, only: [:edit, :update]
@@ -89,16 +98,24 @@ Rails.application.routes.draw do
 
   #user_cardsコントラーラ
   resources :user_cards, only: [:create, :destroy]
-
-  resources :hairdresser_comments, only: [:edit, :show, :update, :destroy]
+  
+  #hairdresser_commentsコントローラ
+  resources :hairdresser_comments, only: [:edit, :update, :index]
 
   #chatコントローラ
   get "user_chat" => "chats#user_chat", as: "user_chat"
   get "hairdresser_chat" => "chats#hairdresser_chat", as: "hairdresser_chat"
   post "message_create" => "chats#message_create", as: "message_create"
-  #post "hairdresser_message_create" => "chats#hairdresser_message_create", as: "hairdresser_message_create"
+  post "receive_message" => "chats#receive_message", as: "receive_message"
   post "room" => "chats#room", as: "room"
   post "notification" => "chats#notification"
   post "chat_room_search" => "chats#chat_room_search", as: "chat_room_search"
 
+  #favoritesコントローラ
+  resources :favorites, only: [:index, :create, :destroy]
+
+  #通知コントローラ
+  post "notice/message" => "notices#notice_message_modal", as: "notice_message_modal" 
+  post "notice/reservation" => "notices#notice_reservation_modal", as: "notice_reservation_modal" 
+  post "notice/cancel" => "notices#notice_cancel_modal", as: "notice_cancel_modal" 
 end

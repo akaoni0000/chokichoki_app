@@ -15,6 +15,7 @@
                     <th class="center">時間</th>
                     <th class="center">メニュー名</th>
                     <th class="center">予約した人</th>
+                    <th class="center">性別</th>
                     <th class="center">お客様のご希望</th>
                     <th class="center">評価</th>
                     <th class="center">コメント</th>
@@ -24,10 +25,8 @@
                         <% if @date_arry[i] == reservation.start_time.to_date %>
                             <tr>
                                 <td>
-                                    <% if flash[:notice_reservations].present? %>
-                                        <% if flash[:notice_reservations].pluck(:id).include?(reservation.id) %>
-                                            <p class="flash_new">new</p>
-                                        <% end %>
+                                    <% if flash[:notice_reservations].present? && flash[:notice_reservations].pluck(:id).include?(reservation.id) %>
+                                        <p class="flash_new">new</p>
                                     <% end %>
                                 </td>
                                 <td>
@@ -40,11 +39,14 @@
                                     <%= reservation.user.name %>さん
                                 </td>
                                 <td>
+                                    <%= reservation.user.sex %>
+                                </td>
+                                <td>
                                     <% if reservation.user_request == nil || reservation.user_request == ""%>
                                         <p>ご希望なし</p>
                                     <% else %>
                                         <p class="cursor user_hope">ご希望あり</p>
-                                        <div id="user_request" class="sign_up_in">
+                                        <div id="user_request" class="back_dark">
                                             <div class="user_request_modal center">
                                                 <span class="glyphicon glyphicon-remove cursor" style="margin-left: 410px;"></span>
                                                 <p style="font-size: 20px;"><%= reservation.user_request %></p>
@@ -53,7 +55,7 @@
                                     <% end %>
                                 </td>
                                 <td>
-                                    <% @hairdresser_comment =  reservation.user.hairdresser_comments.find_by(start_time: reservation.start_time) %>
+                                    <% @hairdresser_comment = reservation.user.hairdresser_comments.find_by(start_time: reservation.start_time) %>
                                     <div id="star-rate-<%= @hairdresser_comment.id %>" class="raty"></div>
                                         <script>
                                             $('#star-rate-<%= @hairdresser_comment.id %>').raty({
@@ -72,10 +74,10 @@
                                         <p>コメントなし</p>
                                     <% else %>
                                         <p class="cursor user_hope">コメントあり</p>
-                                        <div id="user_request" class="sign_up_in">
+                                        <div id="user_request" class="back_dark">
                                             <div class="user_request_modal center">
                                                 <span class="glyphicon glyphicon-remove cursor" style="margin-left: 410px;"></span>
-                                                <p style="font-size: 20px;"><%= @hairdresser_comment.comment %></p>
+                                                <p style="font-size: 20px; text-align: left;"><%= @hairdresser_comment.comment %></p>
                                             </div>
                                         </div>
                                     <% end %>

@@ -4,7 +4,7 @@ class ChatMessage < ApplicationRecord
 
     # カスタムバリデーションメソッド
     def prevent_all_blank
-        if message == "" && image.blank? && style_images.blank? # バリデーションの条件
+        if (message == nil || message == "") && image.blank? && style_images.blank? # バリデーションの条件
             errors.add(:all_blank, "全部空はダメ") #これは必ずいる :all_blankは自由 エラーメッセージを追加しないとダメ
         end
     end

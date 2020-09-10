@@ -1,0 +1,150 @@
+<div class="container" style="padding-top: 80px;">
+
+    <div class="col-xs-5">
+        <div class="hairdresser_box">
+            <%= attachment_image_tag @current_hairdresser, :hairdresser_image, size: "100x100", fallback: "no_image.png", class: "img-circle"%>
+            <div>
+                <p class="hairdresser_show_name"><%= @current_hairdresser.name %></p>
+            </div>
+            <div style="margin-top: 50px; text-align: left;">
+                <%= @current_hairdresser.introduction %>
+            </div>
+            <table class="table" style="margin-top: 70px;">
+                <tbody>
+                    <tr>
+                        <td>施術内容</td>
+                        <td>
+                            <% if @cut.include?("1") %>
+                                <span class="cut_category category font">カット</span>
+                            <% end %>
+                            <% if @color.include?("1") %>
+                                <span class="color_category category font">カラー</span>
+                            <% end %>
+                            <% if @perm.include?("1") %>
+                                <span class="perm_category category font">パーマ</span>
+                            <% end %>
+                            <% if @curly.include?("1") %>
+                                <span class="curly_category category font">縮毛矯正</span>
+                            <% end %>
+                            <% if @menus.blank? %>
+                                <p>メニューがありません</P>
+                            <% end %>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>メニュー数</td>
+                        <td><%=@menus.length%></td>
+                    </tr>
+                    <tr>
+                        <td>最短予約可能日時</td>
+                        <td>
+                            <% if @first_number.present? %>
+                                <% @first_reservation = @reservations[@first_number] %>
+                                <%=@first_reservation.start_time.month%>月<%=@first_reservation.start_time.day%>日<%=@first_reservation.start_time.hour%>時<%=@first_reservation.start_time.min%>分
+                            <% else %>
+                                <p>予約可能な日時はありません</p>
+                            <% end %>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>所属店舗</td>
+                        <td><%=@current_hairdresser.shop_name%></td>
+                    </tr>
+                    <tr>
+                        <td>所属店舗住所</td>
+                        <td><%=@current_hairdresser.address%></td>
+                    </tr>
+                    <tr>
+                        <td>性別</td>
+                        <td><%=@current_hairdresser.sex%></td>
+                    </tr>
+                </tbody>
+            </table>
+            <%= link_to edit_hairdresser_path(@current_hairdresser.id) do %>
+                <p style="margin-top: 30px;" class="btn btn-primary">アカウント設定</p>
+            <% end %>
+            <hr color="black" style="margin-top: 60px;">
+            <p>評価</p>
+            <div id="star-rate-index-average-<%= @current_hairdresser.id %>"></div>
+            <% @comments = @current_hairdresser.hairdresser_comments.where.not(rate: nil).count %>
+                <script>
+                    $('#star-rate-index-average-<%= @current_hairdresser.id %>').raty({
+                        size: 36,
+                        starOff:  '<%= asset_path('star-off.png') %>',
+                        starOn : '<%= asset_path('star-on.png') %>',
+                        starHalf: '<%= asset_path('star-half.png') %>',
+                        half: true,
+                        readOnly: true,
+                        //reputation_pointは評価ポイント(星)の合計　@commentsはコメントの数(評価ポイントをくれた人の人数) この二つで平均を出す　
+                        score: "<%= @current_hairdresser.reputation_point %> / <%= @comments %>"
+                    });
+                </script>
+        </div>
+    </div>
+
+    <div class="col-xs-7">
+        <h2>今日の予約</h2>
+        <% if @reservations_today.present? %>
+            <table class="table">
+                <thead>
+                    <th class="center">時間</th>
+                    <th class="center">メニュー名</th>
+                    <th class="center">予約した人</th>
+                    <th class="center">性別</th>
+                </thead>
+                <tbody>
+                    <% @reservations_today.each do |reservation| %>
+                        <tr>
+                            <td class="center">
+                                <%= reservation.start_time.hour %>時<%= reservation.start_time.min %>分
+                            </td>
+                            <td class="center">
+                                <%= reservation.menu.name %>
+                            </td>
+                            <td class="center">
+                                <%= reservation.user.name %>さん
+                            </td>
+                            <td class="center">
+                                <%= reservation.user.sex %>
+                            </td>
+                        </tr>        
+                    <% end %>
+                </tbodY>
+            </table>
+        <% else %>
+            <p class="center">予約はありません</p>
+        <% end %>
+        <h2>明日の予約</h2>
+        <% if @reservations_tomorrow.present? %>
+            <table class="table">
+                <thead>
+                    <th class="center">時間</th>
+                    <th class="center">メニュー名</th>
+                    <th class="center">予約した人</th>
+                    <th class="center">性別</th>
+                </thead>
+                <tbody>
+                    <% @reservations_tomorrow.each do |reservation| %>
+                        <tr>
+                            <td class="center">
+                                <%= reservation.start_time.hour %>時<%= reservation.start_time.min %>分
+                            </td>
+                            <td class="center">
+                                <%= reservation.menu.name %>
+                            </td>
+                            <td class="center">
+                                <%= reservation.user.name %>さん
+                            </td>
+                            <td class="center">
+                                <%= reservation.user.sex %>
+                            </td>
+                        </tr>    
+                    <% end %>
+                </tbodY>
+            </table>
+        <% else %>
+            <p class="center">予約はありません</p>
+        <% end %>
+    </div>
+
+</div>

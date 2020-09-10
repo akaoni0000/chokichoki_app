@@ -1,0 +1,21 @@
+<p><%=@user.name%>さん、chokichokiをご利用いただきまして誠にありがとうございます。</p>
+<p>予約が完了しました。</p>
+<p>下記予約内容をご確認いただき、そのままご予約の日時にご来店ください。</p>
+<p>❇︎本メールは配信専用のため、ご返信いただきましてもサロンへは届きません。</p>
+
+<h4 style="margin-top: 20px;">■美容師</h4>
+<p><%=@hairdresser.name%></p>
+<h4 style="margin-top: 20px;">■メニュー名</h4>
+<p><%=@menu.name%></p>
+<h4 style="margin-top: 20px;">■ご来店日時</h4>
+<p><%=@time.month%>月<%=@time.day%>日(<%= %w(日 月 火 水 木 金 土)[(@time).wday] %>)<%=@time.hour%>時<%=@time.min%>分</p>
+<h4 style="margin-top: 20px;">■サロン名</h4>
+<p><%=@hairdresser.shop_name%></p>
+<h4 style="margin-top: 20px;">■サロン住所</h4>
+<p><%=@hairdresser.address%></p>
+<h4 style="margin-top: 20px;">■地図</h4>
+<div class="center">
+    URL:<%=@url%>
+</div>
+
+

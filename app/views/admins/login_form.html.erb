@@ -1,8 +1,9 @@
 <div class="admin_login_page">
+    <h2 style="margin-top: -70px; padding-top: 70px;">管理者ログイン</h2>
     <%= form_with(url: admins_login_path, method: :post, id: "admin_login_form", local: true) do |f| %>
         <p class="error"><%= @error %></p>
         <p>メールアドレス</p>
-        <%= f.text_field :email, class: "form-control admin_login_form" %>
+        <%= f.text_field :email, class: "form-control admin_login_form", value: "aaa@gmail.com" %>
         <p>パスワード</p>
         <%= f.password_field :password, class: "form-control admin_login_form" %>
         <%= f.submit "ログイン", class: "btn btn-success" %>

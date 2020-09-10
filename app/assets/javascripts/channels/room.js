@@ -9,147 +9,125 @@ App.room = App.cable.subscriptions.create("RoomChannel", {
     },
 
     received: function(data) {//バックエンドから送れられてきたデータをここで受け取る //ハッシュで送られてくる //アプリを開いている全てのユーザーがここを通る
-        data_number = Object.keys(data).length
-        if (data_number == 5) { //チャットでメッセージが送られてきた時
+        // data_number = Object.keys(data).length
+        //メッセージが送信された時
+        if (data["type"] == "メッセージ送信") {
+            //まず送られてきたデータを整理
             var room_token = data["room_token"];
-            var html = data["html"]
-            var user_or_hairdresser = data["user_or_hairdresser"]
-            var img_html = data["img_html"]
-            var message = data["message"];
-            $.ajax({ //送ったメッセージを既読にする
-                type:'POST', 
-                url: '/notification', 
-                data: {data: data}, // コントローラへフォームの値を送信します
-                dataType: 'jsonp' // データの型はjsonpでjsになる jsonでjson
-            });
-            $(`#room-${room_token}`).append(html);
+            var user_or_hairdresser = data["user_or_hairdresser"] //誰に送信したか
+            var digest = data["digest"]
+            var message = data["message"]
+            var time = data["time"]
 
-            if ($(`#chat_room_${room_token}`).children("div").hasClass(`unread_number_${room_token}`)) {
-                pre_num = $(`.unread_number_${room_token}`).children("p").text();
-                num = Number(pre_num);
-                var new_num = num + 1;
-                var num_html =  `
-                                    <div class="inline_block unread_number unread_number_${room_token}">
-                                        <p>${new_num}</p>
-                                    </div>
-                                `
-            } 
-            else {
-                var num_html =  `
-                                    <div class="inline_block unread_number unread_number_${room_token}">
-                                        <p>1</p>
-                                    </div>
-                                `
+            //送信先の人がチャットルームにいるとき
+            if ($(`#room-${room_token}`).hasClass(`${digest}`) && $(`#room-${room_token}`).hasClass(`${user_or_hairdresser}`)) {
+                $.ajax({ 
+                    type:'POST', 
+                    url: '/receive_message', 
+                    data: {data: data}, // コントローラへフォームの値を送信します
+                    dataType: 'jsonp' // データの型はjsonpでjsになる jsonでjson
+                });
             }
-            $(`.unread_number_${room_token}`).remove(); //viewにある要素を削除
-            $(`#chat_room_${room_token}`).append(num_html) //新しい要素を入れる
+            //送信先の人がチャットルームにいないとき でもチャットのページにはいる
+            else if ($(`#chat_room_${room_token}`).hasClass(`${digest}`) && $(`#chat_room_${room_token}`).hasClass(`${user_or_hairdresser}`)) {
+                //未読の番号を更新する
+                if ($(`#chat_room_${room_token}`).children("div").hasClass(`unread_number_${room_token}`)) {
+                    pre_num = $(`.unread_number_${room_token}`).children("p").text();
+                    num = Number(pre_num);
+                    var new_num = num + 1;
+                    var num_html =  `
+                                        <div class="inline_block unread_number unread_number_${room_token}">
+                                            <p>${new_num}</p>
+                                        </div>
+                                    `
+                } 
+                else {
+                    var num_html =  `
+                                        <div class="inline_block unread_number unread_number_${room_token}">
+                                            <p>1</p>
+                                        </div>
+                                    `
+                }
+                $(`.unread_number_${room_token}`).remove(); //viewにある要素を削除
+                $(`#chat_room_${room_token}`).append(num_html) //新しい要素を入れる
+                
+                //最後のメッセージ更新する
+                if (1 <= message.length && message.length <= 32) {
+                    var last_message = message
+                }
+                else if (33 <= message.length) {
+                    var last_message = message.substr(0, 32); + "..."
+                }
+                else {
+                    var last_message = "画像を送信しました"
+                }
+                $(`#chat_room_${room_token}`).find(".chat_last_message").text(`${last_message}`);
 
-            if (user_or_hairdresser == "user") { //送信した人がuser
-                if ($(`#room-${room_token}`).hasClass("hairdresser")) { //userが送信した相手(美容師)がチャットルームにいた時
-                    $(".create1").removeClass("myself"); 
-                    $(".create1").addClass("opponent");
-                    $(".create2").removeClass("myself_chat"); 
-                    $(".create2").addClass("opponent_chat"); 
-                    $(".create1").prepend(`${img_html}`);
-                    $('.time_create').before($('.create2'));
-                    $.ajax({ //送ったメッセージを既読にする
-                        type:'POST', 
-                        url: '/notification', 
-                        data: {room_token: room_token}, // コントローラへフォームの値を送信します
-                        dataType: 'jsonp' // データの型はjsonpでjsになる jsonでjson
-                    });
-                    $(`.unread_number_${room_token}`).remove();
+                //時間を更新する
+                $(`#chat_room_${room_token}`).find(".chat_room_time").text(`${time}`);
 
-                    var scroll_from_top = $(`#room-${room_token}`).scrollTop();     //上からスクロールした距離
-                    var windowHeight = $(`#room-${room_token}`)[0].scrollHeight   //画面の高さ
-                    var scroll_from_bottom = windowHeight - scroll_from_top
-                    if (650<=scroll_from_bottom && scroll_from_bottom<= 750) {
-                        $(`#room-${room_token}`).scrollTop($(`#room-${room_token}`)[0].scrollHeight);
-                    }
-                    else {
-                        $(`#room-${room_token}`).prepend(`<p class="chat_insert">新しいメッセージ：${message}</p>`)
-                        setTimeout(function(){ 
-                            $(".chat_insert").remove();
-                        },6500);  
-                    }
-                    
-                }
-                if ($(`#room-${room_token}`).hasClass("user")) { //送信したときにチャットルームにいるかどうか   送信するにはチャットルームにいなくてはいけないので必ず起こる
-                    $(`#room-${room_token}`).scrollTop($(`#room-${room_token}`)[0].scrollHeight);
-                    $(`.unread_number_${room_token}`).remove();
-                }
+                //ルームの並び順を変える
+                $("#search_form").after($(`#chat_${room_token}`));
             }
-            else if (user_or_hairdresser == "hairdresser") { //送信した人がhairdresser
-                if ($(`#room-${room_token}`).hasClass("user")) {  //美容師が送信した相手(客)がチャットルームにいた時
-                    $(".create1").removeClass("myself"); 
-                    $(".create1").addClass("opponent");
-                    $(".create2").removeClass("myself_chat"); 
-                    $(".create2").addClass("opponent_chat");
-                    $(".create1").prepend(`${img_html}`);
-                    $('.time_create').before($('.create2')); 
-                    $.ajax({
-                        type:'POST', 
-                        url: '/notification', 
-                        data: {room_token: room_token}, // コントローラへフォームの値を送信します
-                        dataType: 'jsonp' // データの型はjsonpでjsになる jsonでjson
-                    });  
-                    $(`.unread_number_${room_token}`).remove();
-                    var scroll_from_top = $(`#room-${room_token}`).scrollTop();     //上からスクロールした距離
-                    var windowHeight = $(`#room-${room_token}`)[0].scrollHeight   //画面の高さ
-                    var scroll_from_bottom = windowHeight - scroll_from_top
-                    if (650<=scroll_from_bottom && scroll_from_bottom<= 750) {
-                        $(`#room-${room_token}`).scrollTop($(`#room-${room_token}`)[0].scrollHeight);
-                    }
-                    else {
-                        $(`#room-${room_token}`).prepend(`<p class="chat_insert">新しいメッセージ：${message}</p>`)
-                        setTimeout(function(){ 
-                            $(".chat_insert").remove();
-                        },6500);  
-                    }
-                    
-                }
-                if ($(`#room-${room_token}`).hasClass("hairdresser")) {
-                    $(`#room-${room_token}`).scrollTop($(`#room-${room_token}`)[0].scrollHeight);
-                    $(`.unread_number_${room_token}`).remove();
-                }
-            }
-            $(".create1").removeClass("create1"); 
-            $(".create2").removeClass("create2"); 
-            $('.time_create').removeClass("time_create");
-
-            if ( 1 <= message.length && message.length <= 32 ) {
-                $(`.chat_last_message_room_${room_token}`).text(message);
-            }
-            else if ( 33 <= message.length ) {
-                $(`.chat_last_message_room_${room_token}`).text(message.substr(0, 32)+"...");
-            }
-            else {
-                $(`.chat_last_message_room_${room_token}`).text("写真を送信しました");
+            //チャットページを開いていなくてログインしている状態
+            else if ($(".instead_session").hasClass(`${digest}`) && $(".instead_session").hasClass(`${room_token}`)) {
+                $.ajax({ 
+                    type:'POST', 
+                    url: '/notice/message', 
+                    data: {data: data}, // コントローラへフォームの値を送信します
+                    dataType: 'jsonp' // データの型はjsonpでjsになる jsonでjson
+                });
             }
         }
-        else {
-            var user_or_hairdresser = data["user_or_hairdresser"];
+        //既読をつけるために相手がルームに入ったとき ルームにいるときメッセージを受診したとき
+        else if (data["type"] == "既読をつける") {
+            //受け取ったデータを整理
             var room_token = data["room_token"];
-            if (user_or_hairdresser == "user") { //最後にメッセージを送信した人がuser(客)
-                if ($(`#room-${room_token}`).hasClass("user")) {
-                    $('.not_read').each(function(){ 
-                        $(this).prepend(`<div class="notice"><p>既読</p></div>`)           //fadeinクラスすべて順番に
-                    });
-                    $(".not_read").removeClass("not_read");
-                } 
+            var user_or_hairdresser = data["user_or_hairdresser"] //誰に送信したか
+            var digest = data["digest"]
+
+            //送信してきた人のメッセージの横に既読の文字をつける
+            if ($(`#room-${room_token}`).hasClass(`${digest}`) && $(`#room-${room_token}`).hasClass(`${user_or_hairdresser}`)) {
+                $('.not_read').each(function(){ 
+                    $(this).prepend(`<div class="notice"><p>既読</p></div>`)           //fadeinクラスすべて順番に
+                });
+                $(".not_read").removeClass("not_read");
             }
-            else if (user_or_hairdresser == "hairdresser") { //最後にメッセージを送信した人がhairdrsser(美容師)
-                if ($(`#room-${room_token}`).hasClass("hairdresser")) {
-                    $('.not_read').each(function(){ 
-                        $(this).prepend(`<div class="notice"><p>既読</p></div>`)           //fadeinクラスすべて順番に
-                    });
-                    $(".not_read").removeClass("not_read");
-                } 
+        }
+        //予約が入ったことを美容師に知らせる
+        else if (data["type"] == "予約が入ったことを知らせる") {
+            //受け取ったデータを整理
+            var digest = data["digest"]
+            var reservation_token = data["reservation_token"]
+
+            if ($(".instead_session").hasClass(`${digest}`) && $(".instead_session_reservation").hasClass(`${reservation_token}`)) {
+                $.ajax({ 
+                    type:'POST', 
+                    url: '/notice/reservation', 
+                    data: {data: data}, // コントローラへフォームの値を送信します
+                    dataType: 'jsonp' // データの型はjsonpでjsになる jsonでjson
+                });
+            }
+        }
+        //キャンセルが入ったことを美容師に知らせる
+        else if (data["type"] == "キャンセルが入ったことを知らせる") {
+            //受け取ったデータを整理
+            var digest = data["digest"]
+            var reservation_token = data["reservation_token"]
+
+            if ($(".instead_session").hasClass(`${digest}`) && $(".instead_session_reservation").hasClass(`${reservation_token}`)) {
+                $.ajax({ 
+                    type:'POST', 
+                    url: '/notice/cancel', 
+                    data: {data: data}, // コントローラへフォームの値を送信します
+                    dataType: 'jsonp' // データの型はjsonpでjsになる jsonでjson
+                });
             }
         }
     },
 
-    speak: function(data1, data2, data3, data4, data5) { //フロントエンドからバックエンドにデータを送信できる
-        return this.perform("speak", {html: data1, user_or_hairdresser: data2, room_token: data3, message: data4, img_html: data5}); //room_channel.rbのspeakアクションにいく
+    speak: function(data1, data2, data3, data4) { //フロントエンドからバックエンドにデータを送信できる
+        return this.perform("speak", {html: data1, room_token: data2, user_or_hairdresser: data3, digest: data4}); //room_channel.rbのspeakアクションにいく
     }
+    //使い方 App.room.speak(html, "aaa")
 });

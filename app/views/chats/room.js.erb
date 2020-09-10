@@ -70,7 +70,7 @@ var html =
                                         <% if @user.sex == "男性" %>
                                             <img src="<%= asset_path "man.png" %>" style="width: 40px; height: 40px;">
                                         <% else %>
-                                            <img src="<%= asset_path "woman.png" %>" style="width: 40px; height: 40px;">
+                                            <img src="<%= asset_path "female100.png" %>" style="width: 40px; height: 40px;">
                                         <% end %>
                                     </div>
                                     <div class="opponent_chat">
@@ -116,14 +116,16 @@ var html =
                 <!--メッセージ送信フォーム-->
                 <div id="message_form">
                     <%= form_with(model: @chat_message, url: message_create_path, method: :post, id: "message_form_area") do |f| %>
-                        <img src="<%= asset_path "style_images.png" %>" id="chat_style_images" >
-                        <label class="chat_img_label cursor2">
-                            <%= f.attachment_field :image, id: "chat_img", class: "hidden" %>
-                            <img src="<%= asset_path "film.png" %>" id="" >
-                        </label>  
-                        <img id="chat_prev_img" style="width: 32px; height: 32px;" class="display_none">
-                        <div class="chat_img_save display_none"></div>
-                        <span class="delete_chat_img display_none" style="font-size: 15px;">削除</span>
+                        <div class="image_form_chat">
+                            <img src="<%= asset_path "style_images.png" %>" id="chat_style_images">
+                            <label class="chat_img_label cursor2">
+                                <%= f.attachment_field :image, id: "chat_img", class: "hidden" %>
+                                <img src="<%= asset_path "film.png" %>" id="" >
+                            </label>  
+                            <img id="chat_prev_img" style="width: 32px; height: 32px; margin-left: 10px;" class="display_none">
+                            <div class="chat_img_save display_none"></div>
+                            <span class="delete_chat_img display_none cursor2" style="font-size: 15px;">削除</span>
+                        </div>
                         <%= f.submit "送信", class: "btn btn-success message_btn" %>
                         <%= f.text_area :message, placeholder: "メッセージを入力してください", class: "form-control chat_form" %>
                     <% end %>
@@ -140,15 +142,18 @@ $("#chat_room_<%=@room.room_token%>").css({ //今いるチャットルームに�
 })
 
 //hairdresserのスタイルの画像を用意
-html2 = `
-            <% i = 0 %>
-            <% @style_image.hair_images.each do |hair_image| %>
-                <div class="chat_hair_box box_number<%= i %> arry<%= i%>" href="<%= i%>">
-                    <div class="circle2"></div>
-                    <%= image_tag hair_image.to_s, class: "output" %>
-                </div>
-                <% i+=1 %>
-            <% end %>
+html2 = `   
+            <h2 class="center" style="color: white;"><%=@hairdresser.name%>のヘアカタログ</h2>
+            <div class="container">
+                <% i = 0 %>
+                <% @style_image.hair_images.each do |hair_image| %>
+                    <div class="chat_hair_box box_number<%= i %> arry<%= i%>" href="<%= i%>">
+                        <div class="circle2 cursor2"></div>
+                        <%= image_tag hair_image.to_s, class: "output" %>
+                    </div>
+                    <% i+=1 %>
+                <% end %>
+            </div>
         `
 $(".dark_chat").append(html2);
 
@@ -168,17 +173,11 @@ $(".myself").each(function(){
 });
 
 <% if @current_user.present? %> //チャットルームにいるという証拠を残す 既読機能のとき使う
+    $("#room-<%=@room.room_token%>").addClass("<%=@current_user.activation_digest%>");
     $("#room-<%=@room.room_token%>").addClass("user");
-    <% if @last_message.present? && @last_message.hairdresser_id.present? %>
-        <% data = {"user_or_hairdresser" => "hairdresser", "room_token" => @room.room_token} %>
-        <% RoomChannel.notice(data) %>
-    <% end %>
 <% end %>
 <% if @current_hairdresser.present? %>
+    $("#room-<%=@room.room_token%>").addClass("<%=@current_hairdresser.activation_digest%>");
     $("#room-<%=@room.room_token%>").addClass("hairdresser");
-    <% if @last_message.present? && @last_message.user_id.present? %>
-        <% data = {"user_or_hairdresser" => "user", "room_token" => @room.room_token} %>
-        <% RoomChannel.notice(data) %>
-    <% end %>
 <% end %>
 

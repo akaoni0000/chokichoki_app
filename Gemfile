@@ -126,3 +126,15 @@ gem 'activerecord-import'
 #twitter認証
 gem 'omniauth-twitter'
 gem "omniauth-rails_csrf_protection"
+
+#初期データ作成
+gem 'seed-fu'
+
+#ページネーション
+gem 'kaminari'
+
+#ページネーションのviewをカッコよく
+gem 'kaminari-bootstrap'
+
+#バッチ処理
+gem 'whenever', require: false

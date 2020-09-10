@@ -1,33 +1,46 @@
 <h2 style="text-align: left"><%=@hairdresser.name%>の口コミ</h2>
+<p style="text-align: left; color: #AAAAAA; padding-left: 40px;"><%=@hairdresser_comments.length%>件</p>
 <% if @hairdresser_comments.present? %>
-    <div class="container" style="padding-top: 300px;">
-        <%= @hairdresser.name %>
-        <% @hairdresser_comments.each do |hairdresser_comment| %>
-            <div id="star-rate-<%= hairdresser_comment.id %>"></div>
-                <script>
-                    $('#star-rate-<%= hairdresser_comment.id %>').raty({
-                    size: 36,
-                    starOff:  '<%= asset_path('star-off.png') %>',
-                    starOn : '<%= asset_path('star-on.png') %>',
-                    starHalf: '<%= asset_path('star-half.png') %>',
-                    half: true,
-                    readOnly: true,
-                    score: "<%= hairdresser_comment.rate %>",
-                    });
-                </script>
-            <div>
-                <% @menu = Menu.find(hairdresser_comment.menu_id) %>
-                <%= @menu.name %>
+    <% @hairdresser_comments.each do |hairdresser_comment| %>
+        <div class="container" style="width: 520px;">
+            <div class="review_box">
+                <div class="review_box_top">
+                    <% if hairdresser_comment.user.sex == "男性" %>
+                        <img src="<%= asset_path "male.png" %>" class="human_logo2"><%= hairdresser_comment.user.name %>さん/男性
+                    <% elsif hairdresser_comment.user.sex == "女性" %>
+                        <img src="<%= asset_path "female.png" %>" class="human_logo2"><%= hairdresser_comment.user.name %>さん/女性
+                    <% end %>
+                    <div id="star-rate-<%= hairdresser_comment.id %>"></div>
+                    <script>
+                        $('#star-rate-<%= hairdresser_comment.id %>').raty({
+                            size: 36,
+                            starOff:  '<%= asset_path('star-off.png') %>',
+                            starOn : '<%= asset_path('star-on.png') %>',
+                            starHalf: '<%= asset_path('star-half.png') %>',
+                            half: true,
+                            readOnly: true,
+                            score: "<%=hairdresser_comment.rate%>"
+                        });
+                    </script>
+                </div>
+                <div class="review_box_bottom">
+                    <% if hairdresser_comment.comment.present? && hairdresser_comment.comment != "" %>
+                        <p><%=hairdresser_comment.comment%></p>
+                    <% else %>
+                        <p>コメントはありません</p>
+                    <% end %>
+                    <div class="review_box_bottom_info">
+                        <% if hairdresser_comment.menu.status == false %>
+                            <p>メニュー名：<%=hairdresser_comment.menu.name%> (現在掲載しておりません)</p>
+                        <% else %>
+                            <p>メニュー名：<%=hairdresser_comment.menu.name%></p>
+                        <% end %>
+                        <p>来店日：<%=hairdresser_comment.start_time.month%>月<%=hairdresser_comment.start_time.day%>日(<%= %w(日 月 火 水 木 金 土)[(hairdresser_comment.start_time).wday] %>)<%=hairdresser_comment.start_time.hour%>時<%=hairdresser_comment.start_time.min%>分</p>
+                    </div>
+                </div>
             </div>
-            <div>
-                <% @user = User.find(hairdresser_comment.user_id) %>
-                <%= @user.name %>
-            </div>
-            <div>
-                <%= hairdresser_comment.start_time.year %>年<%= hairdresser_comment.start_time.month %>月<%= hairdresser_comment.start_time.day %>日
-            </div>
-        <% end %>
-    </div>
+        </div>
+    <% end %>
 <% else %>
-    <p style="margin-top: 30px;">口コミはありません</p>
+    <p style="margin-top: 50px;">口コミはありません</p>
 <% end %>

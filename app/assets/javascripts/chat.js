@@ -1,12 +1,3 @@
-// $(function() {
-//     $(".message_btn").on("click", function(e) {
-//         e.preventDefault();
-//         var room_id = $(".room").attr('href');
-//         $("#message_form").children("form").append(`<input type="hidden" name="chat_message[room_id]" value=${room_id} class="hidden_room">`);
-//         Rails.fire($("#message_form_area")[0], 'submit');
-//     });
-// });
-
 $(function(){
     $(document).on("change", "#chat_img", function () { 
         var input = $(this)
@@ -64,5 +55,8 @@ $(function() { //chat画面があるときはfooterをなくす スクロール�
         $("#yield").css({
             "min-height": "87vh"
         })
+    }
+    if (gon.room_token) {
+        $("#search_form").after($(`#chat_${gon.room_token}`));
     }
 })

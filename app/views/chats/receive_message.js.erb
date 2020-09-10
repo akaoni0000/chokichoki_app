@@ -1,0 +1,139 @@
+<% if @chat_message.image_id.present? && @chat_message.style_images.present? %> //自分パソコンの画像と美容師のヘアカタログの写真を一度に選択して送信したとき
+    var html = 
+                `
+                    <% if @chat_messages.length == 1 || @date.present? %> //一番最初にメッセージを送信した時と 送信した時に前のメッセージと日付が異なっていたら 日付を表示
+                        <% @date = @chat_message.created_at.to_date %>
+                        <P class="chat_date"><%= @date.month %>/<%= @date.day %>(<%= %w(日 月 火 水 木 金 土)[(@date).wday] %>)</p>
+                    <% end %>
+                    <div class="opponent">
+                        <div class="opponent_img">
+                            <% if @hairdresser.present? %>
+                                <%= attachment_image_tag @hairdresser, :hairdresser_image, size: "40x40", fallback: "no_image.png", class: "img-circle" %>
+                            <% elsif @user.present? && @user.sex == "男性" %>
+                                <img src="<%= asset_path "man.png" %>" style="width: 40px; height: 40px;">
+                            <% elsif @user.present? && @user.sex == "女性" %>
+                                <img src="<%= asset_path "female100.png" %>" style="width: 40px; height: 40px;">
+                            <% end %>
+                        </div>
+                        <div class="opponent_chat">
+                            <% @chat_message.style_images.each do |image| %>
+                                <%= image_tag @hair_arry[image].to_s, style: "width: 200px; height: 200px; margin-bottom: 10px;" %>
+                            <% end %>
+                            <%= attachment_image_tag @chat_message, :image, size: "200x200", fallback: "no_image.png", style: "margin-bottom: 10px;"%>
+                            <%= simple_format(@chat_message.message) %>
+                        </div>
+                        <div class="chat_time"><p><%= @chat_message.created_at.to_time.hour %>:<%= @chat_message.created_at.to_time.strftime("%Y-%m-%d %H:%M:%S").strip[14, 2]%></p></div>
+                    </div>
+                    <% @message = "画像が送信されました" %>
+                `
+<% elsif @chat_message.image_id.present? %> //自分のパソコンの画像を選択して送信したとき
+    var html = 
+                `
+                    <% if @chat_messages.length == 1 || @date.present? %> //一番最初にメッセージを送信した時と 送信した時に前のメッセージと日付が異なっていたら 日付を表示
+                        <% @date = @chat_message.created_at.to_date %>
+                        <P class="chat_date"><%= @date.month %>/<%= @date.day %>(<%= %w(日 月 火 水 木 金 土)[(@date).wday] %>)</p>
+                    <% end %>
+                    <div class="opponent">
+                        <div class="opponent_img">
+                            <% if @hairdresser.present? %>
+                                <%= attachment_image_tag @hairdresser, :hairdresser_image, size: "40x40", fallback: "no_image.png", class: "img-circle" %>
+                            <% elsif @user.present? && @user.sex == "男性" %>
+                                <img src="<%= asset_path "man.png" %>" style="width: 40px; height: 40px;">
+                            <% elsif @user.present? && @user.sex == "女性" %>
+                                <img src="<%= asset_path "female100.png" %>" style="width: 40px; height: 40px;">
+                            <% end %>
+                        </div>
+                        <div class="opponent_chat">
+                            <%= attachment_image_tag @chat_message, :image, size: "200x200", fallback: "no_image.png", style: "margin-bottom: 10px;" %>
+                            <%= simple_format(@chat_message.message) %>
+                        </div>
+                        <div class="chat_time"><p><%= @chat_message.created_at.to_time.hour %>:<%= @chat_message.created_at.to_time.strftime("%Y-%m-%d %H:%M:%S").strip[14, 2]%></p></div>
+                    </div>
+                    <% @message = "画像が送信されました" %>
+                `
+<% elsif @chat_message.style_images.present? %> //美容師のヘアカタログの写真を選択したとき
+    var html = 
+                `
+                    <% if @chat_messages.length == 1 || @date.present? %> //一番最初にメッセージを送信した時と 送信した時に前のメッセージと日付が異なっていたら 日付を表示
+                        <% @date = @chat_message.created_at.to_date %>
+                            <P class="chat_date"><%= @date.month %>/<%= @date.day %>(<%= %w(日 月 火 水 木 金 土)[(@date).wday] %>)</p>
+                    <% end %>
+                    <div class="opponent">
+                        <div class="opponent_img">
+                            <% if @hairdresser.present? %>
+                                <%= attachment_image_tag @hairdresser, :hairdresser_image, size: "40x40", fallback: "no_image.png", class: "img-circle" %>
+                            <% elsif @user.present? && @user.sex == "男性" %>
+                                <img src="<%= asset_path "man.png" %>" style="width: 40px; height: 40px;">
+                            <% elsif @user.present? && @user.sex == "女性" %>
+                                <img src="<%= asset_path "female100.png" %>" style="width: 40px; height: 40px;">
+                            <% end %>
+                        </div>
+                        <div class="opponent_chat">
+                            <% @chat_message.style_images.each do |image| %>
+                                <%= image_tag @hair_arry[image].to_s, style: "width: 200px; height: 200px; margin-bottom: 10px;" %>
+                            <% end %>
+                            <%= simple_format(@chat_message.message) %>
+                        </div>
+                        <div class="chat_time"><p><%= @chat_message.created_at.to_time.hour %>:<%= @chat_message.created_at.to_time.strftime("%Y-%m-%d %H:%M:%S").strip[14, 2]%></p></div>
+                    </div>
+                    <% @message = "画像が送信されました" %>
+                `
+<% elsif @chat_message.message != "" %> //メッセージだけを送信したとき
+    var html = 
+                `
+                    <% if @chat_messages.length == 1 || @date.present? %> //一番最初にメッセージを送信した時と 送信した時に前のメッセージと日付が異なっていたら 日付を表示
+                        <% @date = @chat_message.created_at.to_date %>
+                        <P class="chat_date"><%= @date.month %>/<%= @date.day %>(<%= %w(日 月 火 水 木 金 土)[(@date).wday] %>)</p>
+                    <% end %>
+                    <div class="opponent">
+                        <div class="opponent_img">
+                            <% if @hairdresser.present? %>
+                                <%= attachment_image_tag @hairdresser, :hairdresser_image, size: "40x40", fallback: "no_image.png", class: "img-circle" %>
+                            <% elsif @user.present? && @user.sex == "男性" %>
+                                <img src="<%= asset_path "man.png" %>" style="width: 40px; height: 40px;">
+                            <% elsif @user.present? && @user.sex == "女性" %>
+                                <img src="<%= asset_path "female100.png" %>" style="width: 40px; height: 40px;">
+                            <% end %>
+                        </div>
+                        <div class="opponent_chat">
+                            <%= simple_format(@chat_message.message) %>
+                        </div>
+                        <div class="chat_time"><p><%= @chat_message.created_at.to_time.hour %>:<%= @chat_message.created_at.to_time.strftime("%Y-%m-%d %H:%M:%S").strip[14, 2]%></p></div>
+                    </div>
+                    <% @message = @chat_message.message %>
+                `
+<% end %>
+
+//htmlを挿入
+$(`#room-<%= @room.room_token %>`).append(html);
+
+//メッセージが送られてきたらスクロールする
+var scroll_from_top = $(`#room-<%= @room.room_token %>`).scrollTop();     //上からスクロールした距離
+var windowHeight = $(`#room-<%= @room.room_token %>`)[0].scrollHeight   //画面の高さ
+var scroll_from_bottom = windowHeight - scroll_from_top
+console.log(scroll_from_bottom)
+if (560 <= scroll_from_bottom && scroll_from_bottom <= 900) {
+    $(`#room-<%= @room.room_token %>`).scrollTop($(`#room-<%= @room.room_token %>`)[0].scrollHeight);
+}
+else {
+    $(`#room-<%= @room.room_token %>`).prepend(`<p class="chat_insert">新しいメッセージ：<%=@message%></p>`)
+    setTimeout(function(){ 
+        $(".chat_insert").remove();
+    },6500);  
+}
+
+//ルームを最後のメッセージを変更
+<% if 1 <= @chat_message.message.length && @chat_message.message.length <= 32 %>
+    <% @last_message = @chat_message.message %>
+<% elsif 33 <= @chat_message.message.length %>
+    <% @last_message = @chat_message.message[0..32] + "..." %>
+<% else %>
+    <% @last_message = "画像を送信しました" %>
+<% end %>
+$(`#chat_room_<%=@room.room_token%>`).find(".chat_last_message").text(`<%=@last_message%>`);
+
+//ルームの時間を変更
+$(`#chat_room_<%=@room.room_token%>`).find(".chat_room_time").text(`<%=@time%>`);
+
+//ルームの並び順を変更
+$("#search_form").after($(`#chat_<%=@room.room_token%>`));  

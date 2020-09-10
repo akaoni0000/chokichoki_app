@@ -43,7 +43,7 @@
         </div>
     <% end %> 
     
-    <div style="margin-top: 50px; margin-bottom: 100px;">
+    <div class="" style="margin-top: 50px; margin-bottom: 100px;">
         <% if @menus.present? %>
             <% @menus.reverse_each do |menu| %>
                 <div class="menu_card2">
@@ -55,16 +55,16 @@
                             <span class="title2 font"><%= menu.name %></span>
                             <span class="menu_time2 font"><%= menu.time %>分</span>
                             <% if menu.category[0,1] == "1" %>
-                                <span class="cut_category category font">カット</span>
+                                <span class="cut_category category font" style="font-size: 13px;">カット</span>
                             <% end %>
                             <% if menu.category[1,1] == "1" %>
-                                <span class="color_category category font">カラー</span>
+                                <span class="color_category category font" style="font-size: 13px;">カラー</span>
                             <% end %>
                             <% if menu.category[2,1] == "1" %>
-                                <span class="curly_category category font">縮毛矯正</span>
+                                <span class="curly_category category font" style="font-size: 13px;">縮毛矯正</span>
                             <% end %>
                             <% if menu.category[3,1] == "1" %>
-                                <span class="perm_category category font">パーマ</span>
+                                <span class="perm_category category font" style="font-size: 13px;">パーマ</span>
                             <% end %>
                             <div style="margin-left: 15px;"><%= menu.hairdresser.name %></div>
                             <div class="star-rate-<%= menu.hairdresser.id %>"></div>
@@ -97,9 +97,18 @@
                         <%= attachment_image_tag menu, :menu_image, fallback: "no_image.png", id: "prev_menu_img" %>
                         <div class="explain font"><%= menu.explanation %></div>
                     </div>
+                    <%= link_to "予約する", users_set_week_calendar_reservation_path(menu_id: menu.id), class: "btn btn-success reserve_btn" %>
                 </div>
-                <%= link_to "予約する", users_set_week_calendar_reservation_path(menu_id: menu.id), class: "reservation_make2 btn btn-success" %>
             <% end %>
+        <% end %>
+    </div>
+    <div class="center">
+        <% if @hairdressers.present? && @hairdressers.length >= 36 && @menus.present? && @menus.length >= 11 %>
+            <%= paginate @hairdressers %> <!--ページネーションのviewは一つだけ-->
+        <% elsif @hairdressers.present? && @hairdressers.length >= 36 %>
+            <%= paginate @hairdressers %>
+        <% elsif @menus.present? %>
+            <%= paginate @menus %>
         <% end %>
     </div>
 </div>

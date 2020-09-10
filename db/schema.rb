@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_31_092453) do
+ActiveRecord::Schema.define(version: 2020_09_08_102916) do
 
   create_table "admins", force: :cascade do |t|
     t.string "email"
@@ -24,9 +24,10 @@ ActiveRecord::Schema.define(version: 2020_08_31_092453) do
     t.integer "user_id"
     t.datetime "start_time"
     t.integer "hairdresser_id"
-    t.integer "notification_status", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "notification_status", default: false
+    t.string "reservation_token"
   end
 
   create_table "chat_messages", force: :cascade do |t|
@@ -59,15 +60,22 @@ ActiveRecord::Schema.define(version: 2020_08_31_092453) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "favorites", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "hairdresser_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "hairdresser_comments", force: :cascade do |t|
     t.integer "hairdresser_id"
     t.integer "user_id"
     t.text "comment"
-    t.float "rate"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "menu_id"
     t.datetime "start_time"
+    t.float "rate", default: 0.0
   end
 
   create_table "hairdressers", force: :cascade do |t|
@@ -100,12 +108,12 @@ ActiveRecord::Schema.define(version: 2020_08_31_092453) do
     t.string "name"
     t.integer "time"
     t.integer "sex_status", default: 0
-    t.integer "status", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.text "explanation"
     t.string "menu_image_id"
     t.string "category"
+    t.boolean "status", default: false
   end
 
   create_table "money", force: :cascade do |t|
@@ -121,9 +129,9 @@ ActiveRecord::Schema.define(version: 2020_08_31_092453) do
     t.text "user_request"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "cancel_status", default: 0
-    t.integer "notification_status", default: 0
     t.boolean "status", default: false
+    t.boolean "notification_status", default: false
+    t.string "reservation_token"
   end
 
   create_table "rooms", force: :cascade do |t|

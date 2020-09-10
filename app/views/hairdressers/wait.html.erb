@@ -1,6 +1,7 @@
 <% if @hairdresser.reject_status == nil %><!--審査が終わっていない-->
     <div class="center">
         <p style="font-size: 30px; padding-top: 150px;">審査中です。しばらくお待ちください。</p>
+        <%= link_to "adminへ",  admins_login_form_path %>
     </div>
 <% else %><!--審査が終わって拒否された-->
     <div class="container center">

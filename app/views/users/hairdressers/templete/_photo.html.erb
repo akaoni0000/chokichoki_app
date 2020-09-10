@@ -1,6 +1,10 @@
 <h2 style="text-align: left;"><%=@hairdresser.name%>のヘアカタログ</h2>
-<% @style_image.hair_images.each do |image| %>
-    <div class="hair">
-        <%= image_tag image.to_s, class: "hair_img" %>
-    </div>
+<% if @style_image.hair_images.present? %>
+    <% @style_image.hair_images.each do |image| %>
+        <div class="hair">
+            <%= image_tag image.to_s, class: "hair_img" %>
+        </div>
+    <% end %>
+<% else %>
+    <p style="margin-top: 50px;">写真はありません</p>
 <% end %>

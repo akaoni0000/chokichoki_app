@@ -22,10 +22,8 @@
 //= require_tree .
 
 //turbolinksがあるとjsが発動しないことがあるので消した
-//topページ
 
-
-//フラッシュ
+//フラッシュ 5秒たつと消える
 $(function() {
     if ($("body").find("div").attr("id")=="flash") { //緑のフラッシュ
         setTimeout(function(){
@@ -37,9 +35,15 @@ $(function() {
             $('#flash_red').fadeOut(); 
         },5000);  
     }
+    //位置を調整
+    if ($("p").hasClass("propaganda")) {
+        $('#flash').css({
+            "margin-top": "-54px"
+        });
+    }
 });
 
-//二重ログイン防止
+//二重ログイン防止 userとhairdresserの同時ログインはできない
 $(function(){
     if (gon.double == true) {
         alert("二重ログインは禁止されています。ログイン情報をリセットしました。")
@@ -55,18 +59,32 @@ $(function(){
     });
 });
 
+//bxslider内でのリンク
+$(function(){
+    $(document).on("click", ".link_re", function() { 
+        $(this)[0].click(); 
+    });
+    $(document).on("click", ".link_hairdresser_show_modal", function() { 
+        $(this)[0].click(); 
+    });
+});
 
-
+//kaminari のviewを調整 ページが2のとき1の色が見えづらくなっているのが嫌だった
+$(function(){
+    if (gon.kaminari) {
+        $("a").attr('style', '');
+    }
+});
 
 //モーダル系
 $(function() {
     //userの新規会員登録を押した時モーダル出現
-    $('#new_user').click(function() {
+    $('#new_user, #new_user2').click(function() {
         $('#user_sign_up_modal').fadeIn();     
     });
 
     //userログインを押した時モーダル出現
-    $('#login_user').click(function() {
+    $('#login_user, #login_user2').click(function() {
         $('#user_sign_in').fadeIn();      
     });
     
@@ -108,14 +126,13 @@ $(function() {
         });
     });
     
-
     //美容師の新規登録を押すとモーダル出現
-    $('#new_hairdresser').click(function() {
+    $('#new_hairdresser, #new_hairdresser2').click(function() {
         $('#hairdresser_sign_up').fadeIn();     
     });
 
     //美容師ログインを押すとモーダル出現
-    $('#login_hairdresser').click(function() {
+    $('#login_hairdresser, #login_hairdresser2').click(function() {
         $('#hairdresser_sign_in').fadeIn();      
     });
 
@@ -150,7 +167,6 @@ $(function() {
         });
     });
 
-   
     //ご希望ありをクリックする
     $(document).on("click", ".user_hope", function () { 
         $(this).next("div").fadeIn(); 
@@ -185,16 +201,14 @@ $(function() {
         }
     });
 
-  　//ナビゲーション
-    $('.scroll-btn').click(function(){
-        var id = $(this).attr('href');      //id属性には#が入っている     
-        var position = $(id).offset().top;  //topからの距離を取得
-        $('html').animate({
-        'scrollTop': position - 300
-        }, 1500);
-    });
-    
-
+  　//ナビゲーション スクロール
+    // $('.scroll-btn').click(function(){
+    //     var id = $(this).attr('href');      //id属性には#が入っている     
+    //     var position = $(id).offset().top;  //topからの距離を取得
+    //     $('html').animate({
+    //     'scrollTop': position - 300
+    //     }, 1500);
+    // });
 });
 
 
@@ -214,18 +228,47 @@ $(function(){
 });
 
 
+
 //gonを使った時
 $(function(){
-  if (gon.fix == "header") {
-    $("header").addClass("fixed");
-    $(".logo").css({
-      "top": "-45px"
-    })
-  }
-  if (gon.display_none) {
-    $("header").addClass("display_none")
-  }
+    //user_topの時だけヘッダーを固定
+    if (gon.fix == "header") {
+        $("header").addClass("fixed");
+        $(".logo").css({
+            "top": "-45px"
+        })
+    }
+
+    //hairdresser_topの時だけヘッダーをなくす
+    if (gon.display_none) {
+        $("header").addClass("display_none")
+    }
+
+    //背景色を変更
+    if (gon.body == "white"){
+        $("body").css({
+            "background-color":"white"
+        });
+        $("#yield").css({
+            "background-color":"white"
+        });
+    }
+
+    //出現させる
+    if (gon.display_none == "remove_display_none") {
+        $(".display_th").removeClass();
+	}
+    
+    //FAQまでスクロールさせる ナビゲーション
+    if (gon.faq) {
+		var id = $(".faq_scroll").attr('href');      //id属性には#が入っている     
+        var position = $(id).offset().top;  //topからの距離を取得
+        $('html').animate({
+            'scrollTop': position - 300
+        }, 1500);
+	}
 })
+
 
 
 //郵便番号入力で住所自動入力
@@ -239,7 +282,6 @@ $(function() {
         });
     });
 });
-  
 
 //画像プレビュー表示
 $(function () {
@@ -287,7 +329,6 @@ $(function () {
     });
 });
 
-
 //userの予約確定するかどうかページ
 $(function() {
     $(".point_check").click(function(){
@@ -328,13 +369,6 @@ $(function() {
         }
     });
 });
-
-
-
-
-
-
-
 
 //menu投稿画面
 $(function(){
@@ -415,7 +449,6 @@ $(function(){
         $(".perm_category").html("パーマ");
         }
     });
-
 });
 
 
@@ -432,7 +465,6 @@ $(function() {
         $('.card_modal').fadeOut();     
     });
 });
-
 
 $(function() {
     $("a").click(function () { 
@@ -487,28 +519,66 @@ $(function() {
                 $("#charge-form").append(`<input type="hidden" name="payjp-token" value=${token}></input>`)
                 $("#charge-form").submit();
             } 
+            else if (status === 429) {
+                alert("pay.jp側で処理ができませんでした。通信を軽くしてください。")
+            }
             else {
                 alert("正しい有効期限またはセキリュティコードを入力してください。");
             }
         });
+        
     });
 });
 
-
+//勝手にstyleがついていた
 $(function(){
-    $('#anime').click(function(){
-        var html = `
-                        <p class="noti">通知だよ</p>
-                   `
-        $(".header_top").prepend(html);
-        $(".noti").animate({'marginLeft':'140px'},500);
-        
+    $(".link_menus_index").attr('style', '');
+});
+
+//bxslider
+$(function(){
+    $('.bxslider_cut').bxSlider({
+        slideWidth: 300,
+        minSlides: 3,
+        maxSlides: 3,
+        moveSlides: 1,
+        nextSelector: "#feed-next-btn-cut",
+        prevSelector: "#feed-prev-btn-cut",
+        nextText: ">",
+        prevText: "<",
+        infiniteLoop: true,
     });
-    // $(document).on("click", "#anime", function () {  
-    //     var html = `
-    //                     <p class="noti">通知だよ</p>
-    //                `
-    //     $(".header_top").prepend(html);
-    //     $(".noti").animate({'marginLeft':'140px'},500);
-    // });
+    $('.bxslider_color').bxSlider({
+        slideWidth: 300,
+        minSlides: 3,
+        maxSlides: 3,
+        moveSlides: 1,
+        nextSelector: "#feed-next-btn-color",
+        prevSelector: "#feed-prev-btn-color",
+        nextText: ">",
+        prevText: "<",
+        infiniteLoop: true,
+    });
+    $('.bxslider_parma').bxSlider({
+        slideWidth: 300,
+        minSlides: 3,
+        maxSlides: 3,
+        moveSlides: 1,
+        nextSelector: "#feed-next-btn-parma",
+        prevSelector: "#feed-prev-btn-parma",
+        nextText: ">",
+        prevText: "<",
+        infiniteLoop: true,
+    });
+    $('.bxslider_curly').bxSlider({
+        slideWidth: 300,
+        minSlides: 3,
+        maxSlides: 3,
+        moveSlides: 1,
+        nextSelector: "#feed-next-btn-curly",
+        prevSelector: "#feed-prev-btn-curly",
+        nextText: ">",
+        prevText: "<",
+        infiniteLoop: true,
+    });
 });

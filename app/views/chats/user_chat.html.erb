@@ -1,52 +1,74 @@
 <div id="chat_page">
 
     <div id="chat_members">
-        <div id="search_form">
+        <div id="search_form"> <!--検索フォーム-->
             <%= form_with(url: chat_room_search_path, method: :post, local: true) do |f| %>
-                <%= f.text_field :search_room, placeholder: "名前を入力してください", class: "chat_search_form form-control" %>
+                <% if @chats.length >= 7 %>
+                    <%= f.text_field :search_room, placeholder: "名前を入力してください", class: "chat_search_form form-control" %>
+                <% else %>
+                    <%= f.text_field :search_room, placeholder: "名前を入力してください", class: "chat_search_form form-control", style: "width: 348px;" %>
+                <% end %>
                 <button type="submit" class="btn btn-primary chat_search_btn"> 
                      <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
                 </button> 
             <% end %>
         </div> 
-        <% @chats.each do |chat| %>
-            <%= link_to room_path(room_id: chat.room_id), remote:true, method: :post do %>
-                <% @room = Room.find(chat.room_id) %>
-                <div class="chat_rooms" id="chat_room_<%=@room.room_token%>">
-                    <div class="inline_block">
-                        <%= attachment_image_tag chat.hairdresser, :hairdresser_image, size: "70x70", fallback: "no_image.png", class: "img-circle chat_img" %>
-                    </div>
-                    <div class="inline_block" style="margin-left: 20px; width: 250px;">
-                        <p style="color: black; font-size: 22px;"><%= chat.hairdresser.name %></p>
-                        <% @last_message = ChatMessage.where(room_id: chat.room_id).last %>
-                        <% if @last_message.present? %>
-                            <% if 1 <= @last_message.message.length && @last_message.message.length <= 32 %>
-                                <p class="chat_last_message chat_last_message_room_<%=@room.room_token%>"><%= @last_message.message %></p>
-                            <% elsif 33 <= @last_message.message.length %>
-                                <p class="chat_last_message chat_last_message_room_<%=@room.room_token%>"><%= @last_message.message[0..32] %>...</p>
+        <% @chats.each do |chat| %> <!--チャットできるメンバー-->
+            <% @room = Room.find(chat.room_id) %>
+            <div id="chat_<%=@room.room_token%>">
+                <%= link_to room_path(room_id: chat.room_id), remote:true, method: :post do %>
+                    <div class="chat_rooms <%=@current_user.activation_digest%> user" id="chat_room_<%=@room.room_token%>">
+                        <div class="inline_block">
+                            <%= attachment_image_tag chat.hairdresser, :hairdresser_image, size: "70x70", fallback: "no_image.png", class: "img-circle chat_img" %>
+                        </div>
+                        <div class="inline_block" style="margin-left: 20px; width: 250px;">
+                            <p style="color: black; font-size: 22px;"><%= chat.hairdresser.name %></p>
+                            <% @last_message = ChatMessage.where(room_id: chat.room_id).last %>
+                            <% if @last_message.present? %>
+                                <% if @last_message.created_at.to_date == Date.today %>
+                                    <p class="chat_room_time"><%= @last_message.created_at.to_time.hour %>:<%= @last_message.created_at.to_time.strftime("%Y-%m-%d %H:%M:%S").strip[14, 2]%></p>
+                                <% elsif @last_message.created_at.to_date == Date.today - 1 %>
+                                    <p class="chat_room_time">昨日</p>
+                                <% elsif @last_message.created_at.to_date <= Date.today - 2 %>
+                                    <p class="chat_room_time"><%= %w(日 月 火 水 木 金 土)[(@last_message.created_at).wday] %>曜日</p>
+                                <% elsif @last_message.created_at.to_date <= Date.today - 7 %>
+                                    <p class="chat_room_time"><%=@last_message.created_at.month%>/<%=@last_message.created_at.day%>
+                                <% end %>
+                                <% if 1 <= @last_message.message.length && @last_message.message.length <= 32 %>
+                                    <p class="chat_last_message chat_last_message_room_<%=@room.room_token%>"><%= @last_message.message %></p>
+                                <% elsif 33 <= @last_message.message.length %>
+                                    <p class="chat_last_message chat_last_message_room_<%=@room.room_token%>"><%= @last_message.message[0..32] %>...</p>
+                                <% else %>
+                                    <p class="chat_last_message chat_last_message_room_<%=@room.room_token%>">写真を送信しました</p>
+                                <% end %>
                             <% else %>
-                                <p class="chat_last_message chat_last_message_room_<%=@room.room_token%>">写真を送信しました</p>
-                            <% end %>
+                                <p class="chat_last_message chat_last_message_room_<%=@room.room_token%>"></p>
+                                <p class="chat_room_time"></p>
+                            <% end%>
+                        </div>
+                        <% @unread_number = ChatMessage.where(notification: false, room_id: chat.room_id, hairdresser_id: chat.hairdresser.id).length %>
+                        <% if 1 <= @unread_number && @unread_number <= 99 %>
+                            <div class="inline_block unread_number unread_number_<%=@room.room_token%>">
+                                <p><%= @unread_number %></p>
+                            </div>
+                        <% elsif 100 <= @unread_number %>
+                            <div class="inline_block unread_number unread_number_<%=@room.room_token%>">
+                                <p>99+</p>
+                            </div>
                         <% end %>
                     </div>
-                    <% @unread_number = ChatMessage.where(notification: false, room_id: chat.room_id, hairdresser_id: chat.hairdresser.id).length %>
-                    <% if 1 <= @unread_number && @unread_number <= 99 %>
-                        <div class="inline_block unread_number unread_number_<%=@room.room_token%>">
-                            <p><%= @unread_number %></p>
-                        </div>
-                    <% elsif 100 <= @unread_number %>
-                        <div class="inline_block unread_number unread_number_<%=@room.room_token%>">
-                            <p>99+</p>
-                        </div>
-                    <% end %>
-                </div>
-            <% end %>
+                 <% end %>
+            </div>
         <% end %>   
     </div>
 
-    <div id="chat">
-        <p class="instruction">チャットしたい相手を選択してください</p>
-        <div class="chat_message display_none" id="messages">
+    <div id="chat"> <!--メッセージする場所-->
+        <div class="chat_message" id="messages">
+            <% if @chats.present? %>
+                <p class="instruction">チャットしたい相手を選択してください</p>
+            <% else %>
+                <p class="instruction">チャットできる相手がいません</p>
+            <% end %>
         </div>
     </div>
     

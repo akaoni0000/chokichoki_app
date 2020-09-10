@@ -48,10 +48,14 @@
     <div>
         <p>性別</p>
         <p class="hairdresser_sex_error error"></p>
-        <span>男性</span>
-        <%= f.radio_button :sex, :男性, id: "hairdresser_sex_man"%>
-        <span>女性</span>
-        <%= f.radio_button :sex, :女性, id: "hairdresser_sex_woman"%>
+        <span class="man cursor2" id="man">
+            <span>男性</span>
+            <%= f.radio_button :sex, :男性, id: "hairdresser_sex_man"%>
+        </span>
+        <span class="woman cursor2" id="woman">
+            <span>女性</span>
+            <%= f.radio_button :sex, :女性, id: "hairdresser_sex_woman"%>
+        </span>
     </div>
     <%= f.submit "更新", id: "hairdresser_btn", class: "btn btn-success"%>
 <% end %>
