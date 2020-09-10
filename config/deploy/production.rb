@@ -8,22 +8,6 @@
 # server "db.example.com", user: "deploy", roles: %w{db}
 
 server '54.64.74.19', user: 'ec2-user', roles: %w{app web db}
-
-# #awsサポート
-# config.action_mailer.delivery_method = :aws_sdk
-
-# config.action_mailer.delivery_method = :smtp
-#     config.action_mailer.perform_caching = true
-#     config.action_mailer.default_url_options = { host: Rails.application.secrets.host }
-#     ActionMailer::Base.smtp_settings = {
-#         :address =>        Rails.application.secrets.address,
-#         :port =>           587,
-#         :domain =>         Rails.application.secrets.domain,
-#         :authentication => :login,
-#         :user_name =>      Rails.application.secrets.access_key_id,
-#         :password =>       Rails.application.secrets.secret_access_key
-# }
-
   
 # ssh_options: {
 #     port: 22022,
