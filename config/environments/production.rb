@@ -95,8 +95,9 @@ Rails.application.configure do
   config.action_mailer.delivery_method = :ses
 
   #本番環境でアクションケーブル
-  config.action_cable.url = "ws://54.64.74.19/cable" 
+  config.action_cable.url = "wss://54.64.74.19/cable" 
   config.action_cable.allowed_request_origins = ["http://54.64.74.19"]
+  ActionCable.server.config.disable_request_forgery_protection = true
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
