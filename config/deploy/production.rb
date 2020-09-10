@@ -9,7 +9,12 @@
 
 server '54.64.74.19', user: 'ec2-user', roles: %w{app web db}
 
-
+# ssh_options: {
+#     port: 22022,
+#     user: "ec2-user", # overrides user setting above
+#     keys: %w(~/.ssh/id_rsa),
+#     forward_agent: true
+# }
 
 # role-based syntax
 # ==================

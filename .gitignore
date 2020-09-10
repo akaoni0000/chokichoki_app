@@ -34,6 +34,4 @@
 
 /public/uploads
 
-/config/initializers/mail_config.rb
-
 /db/fixtures/seed_pre
