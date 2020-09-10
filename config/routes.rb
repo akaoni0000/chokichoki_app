@@ -118,4 +118,6 @@ Rails.application.routes.draw do
   post "notice/message" => "notices#notice_message_modal", as: "notice_message_modal" 
   post "notice/reservation" => "notices#notice_reservation_modal", as: "notice_reservation_modal" 
   post "notice/cancel" => "notices#notice_cancel_modal", as: "notice_cancel_modal" 
+
+  mount ActionCable.server => '/cable'
 end
