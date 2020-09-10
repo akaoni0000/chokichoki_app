@@ -138,3 +138,6 @@ gem 'kaminari-bootstrap'
 
 #バッチ処理
 gem 'whenever', require: false
+
+#awsサポート
+gem 'aws-sdk-rails'
