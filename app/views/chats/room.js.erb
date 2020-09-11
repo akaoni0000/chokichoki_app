@@ -149,7 +149,7 @@ html2 = `
                 <% @style_image.hair_images.each do |hair_image| %>
                     <div class="chat_hair_box box_number<%= i %> arry<%= i%>" href="<%= i%>">
                         <div class="circle2 cursor2"></div>
-                        <%= image_tag hair_image.to_s, class: "output" %>
+                        <%= image_tag hair_image.url, class: "output" %>
                     </div>
                     <% i+=1 %>
                 <% end %>

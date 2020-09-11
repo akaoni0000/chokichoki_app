@@ -1,7 +1,7 @@
 <% i = 0 %>
 <% hair_arry.each do |style_image| %>
     <div class="hair_box box_number<%= i %> arry<%= i%>" href="<%= i%>">
-        <%= image_tag style_image.to_s, class: "output" %>
+        <%= image_tag style_image.url, class: "output" %>
         <h4><%= link_to "削除", destroy_preparation_path(arry_number: i, arry: hair_arry), method: :post, class: "destroy", remote: true %></h4>
     </div>
     <% i += 1 %>
