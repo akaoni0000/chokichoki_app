@@ -31,7 +31,4 @@
 /config/master.key
 
 /.env
-
-
-
 /db/fixtures/seed_pre
