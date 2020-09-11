@@ -99,6 +99,9 @@ Rails.application.configure do
   config.action_cable.allowed_request_origins = ["http://54.64.74.19"]
   ActionCable.server.config.disable_request_forgery_protection = true
 
+  #本番環境carriewave
+  config.serve_static_assets = true
+
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
