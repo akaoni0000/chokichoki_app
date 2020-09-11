@@ -52,7 +52,7 @@ class UsersController < ApplicationController
             if @user.authenticate(params[:password]) && @user.activation_status == true && @user.email.include?("twitter") == false #authenticateは、引数に渡された文字列 (パスワード) をハッシュ化した値と、データベース内にあるpassword_digestカラムの値を比較します。
 
                 #終わった施術がある場合、口コミを書かせる 終わった施術がないときはログイン
-                @hairdresser_comment = HairdresserComment.order(start_time: "ASC").find_by(user_id: @user.id, rate: nil)
+                @hairdresser_comment = HairdresserComment.order(start_time: "ASC").find_by(user_id: @user.id, rate: 0.0)
                 if @hairdresser_comment.present? 
                     @start_time = @hairdresser_comment.start_time
                     @menu_time = @hairdresser_comment.menu.time*60

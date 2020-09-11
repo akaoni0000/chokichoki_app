@@ -100,8 +100,14 @@
             </div>
             <div class="header_bottom">
                 <img src="<%= asset_path "new_logo.png" %>" class="logo">
-                <%= link_to root_path do %>
-                    <div class="link_box"></div> <!--本来ならここにロゴをセットするがロゴ画像の背景を削除できなくてロゴ周辺がリンクになってしまうため工夫するしかなかった-->
+                <% if @current_hairdresser.blank? %>
+                    <%= link_to root_path do %>
+                        <div class="link_box"></div> <!--本来ならここにロゴをセットするがロゴ画像の背景を削除できなくてロゴ周辺がリンクになってしまうため工夫するしかなかった-->
+                    <% end %>
+                <% else %>
+                    <%= link_to hairdresser_path(@current_hairdresser.id) do %>
+                        <div class="link_box"></div> <!--本来ならここにロゴをセットするがロゴ画像の背景を削除できなくてロゴ周辺がリンクになってしまうため工夫するしかなかった-->
+                    <% end %>
                 <% end %>
                 <% if @current_user.blank? && @current_hairdresser.blank? %>
                     <%= link_to "サロンの方はこちら", hairdresser_top_path, class: "salon"%>
@@ -122,12 +128,12 @@
                             <li class="tag1 scroll-btn" href="#top_hairdresser_slider"><%= link_to "人気美容師", top_hairdresser_path, method: :post %></li>
                             <li class="tag1"><%= link_to "美容師一覧", hairdressers_path, class: "link_index" %></li>
                             <li class="tag1"><%= link_to "予約", users_reservations_path %></li>
-                            <li class="tag1">
+                            <li class="tag1" style="width: 112px;">
                                 <%= link_to "チャット", user_chat_path, class: "link_chat" %>
                                 <% if @unread_number_user >= 100 %>
-                                    <div class="unread_number_header">99+</div>
+                                    <div class="unread_number_header me">99+</div>
                                 <% elsif @unread_number_user != 0 %>
-                                    <div class="unread_number_header"><%=@unread_number_user%></div>
+                                    <div class="unread_number_header me"><%=@unread_number_user%></div>
                                 <% end %> 
                             </li>
                         </ul>

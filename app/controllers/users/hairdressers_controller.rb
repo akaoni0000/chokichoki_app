@@ -2,7 +2,7 @@ class Users::HairdressersController < ApplicationController
     def show
         @hairdresser = Hairdresser.find(params[:id])
         @status = @hairdresser.judge_status
-        @hairdresser_comments = HairdresserComment.where(hairdresser_id: params[:id]).order(start_time: "DESC") & HairdresserComment.where.not(rate: nil).order(start_time: "ASC")
+        @hairdresser_comments = HairdresserComment.where(hairdresser_id: params[:id]).order(start_time: "DESC") & HairdresserComment.where.not(rate: 0.0).order(start_time: "ASC")
 
         @menus = @hairdresser.menus.where(status: true)
         @menus_category = @menus.map {|a| a.category}

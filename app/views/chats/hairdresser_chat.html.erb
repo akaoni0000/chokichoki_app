@@ -43,10 +43,10 @@
                                 <% elsif 33 <= @last_message.message.length %>
                                     <p class="chat_last_message chat_last_message_room_<%=@room.room_token%>"><%= @last_message.message[0..32] %>...</p>
                                 <% else %>
-                                    <p class="chat_last_message chat_last_message_room_<%=@room.room_token%>">写真を送信しました</p>
+                                    <p class="chat_last_message chat_last_message_room_<%=@room.room_token%>">画像を送信しました</p>
                                 <% end %>
                             <% else %>
-                                <p class="chat_last_message chat_last_message_room_<%=@room.room_token%>"></p>
+                                <p class="chat_last_message chat_last_message_room_<%=@room.room_token%>">画像を送信しました</p>
                                 <p class="chat_room_time"></p>
                             <% end %>
                         </div>
@@ -79,5 +79,4 @@
 </div>
 
 <div class="dark_chat"> <!--ここに美容師のヘアカタログの画像を挿入する-->
-    <span class="glyphicon glyphicon-remove cursor dark_remove"></span>
 </div>

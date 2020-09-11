@@ -23,7 +23,7 @@ class HairdresserCommentsController < ApplicationController
             @user.save
             
             #他にもまだ評価をつけていないものを探す
-            @hairdresser_comment = HairdresserComment.order(start_time: "ASC").find_by(user_id: @user.id, rate: nil)
+            @hairdresser_comment = HairdresserComment.order(start_time: "ASC").find_by(user_id: @user.id, rate: 0.0)
             if @hairdresser_comment.present?
                 @start_time = @hairdresser_comment.start_time
                 @menu_time = @hairdresser_comment.menu.time*60
