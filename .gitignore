@@ -32,6 +32,6 @@
 
 /.env
 
-/public/uploads
+
 
 /db/fixtures/seed_pre
