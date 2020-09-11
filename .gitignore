@@ -32,3 +32,4 @@
 
 /.env
 /db/fixtures/seed_pre
+/public/uploads/git_keep
