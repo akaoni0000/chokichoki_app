@@ -4,9 +4,9 @@
                 <div id="email" class="back_dark"><!--メールを送信しましたのhtml-->
                     <div class="send_email">
                         <span class="glyphicon glyphicon-remove cursor" style="float: right;"></span>
-                        <h2>確認メールを送信しました</h2>
+                        <h2 class="res_font3">確認メールを送信しました</h2>
                         <p>確認メールを<%=@hairdresser.email%>に送信しました。</p>
-                        <p>送信された確認メール内に記載されたURLにアクセルすると登録が完了します。</p>
+                        <p>送信された確認メール内に記載されたURLにアクセスすると登録が完了します。</p>
                         <p>※URLの有効期限は10分間です。</p>
                         <%= link_to "メールを再送信", hairdresser_resend_path, method: :post, remote: true, class: "btn btn-success resend", style: "width: 200px; margin-top: 70px;" %>
                         <div id="resend" class="cursor2"></div>
@@ -23,7 +23,7 @@
         $(".name_short_long").remove();
         $(".name_taken").remove();
         <% if @error_name_short_long.present? %>
-            $(".hairdresser_name_error").append('<p class="name_short_long" style="width: 320px; padding-right: 15px;"><%= @error_name_short_long %></p>');
+            $(".hairdresser_name_error").append('<p class="name_short_long"><%= @error_name_short_long %></p>');
         <% end %>
         <% if @error_name_taken.present? %>
             $(".hairdresser_name_error").append('<p class="name_taken"><%= @error_name_taken %><p>');
@@ -61,7 +61,7 @@
 
     <% if @error_shop_short.present? %>
         $(".shop_short").remove();
-        $(".hairdresser_shop_name_error").append('<p class="shop_short" style="width: 320px;"><%= @error_shop_short %></p>');
+        $(".hairdresser_shop_name_error").append('<p class="shop_short"><%= @error_shop_short %></p>');
         $(".shop_name").css({
             "border-color": "red",
             "border-width": "2px"
@@ -75,7 +75,7 @@
 
     <% if @error_post_invalid.present? %>
         $(".post_invalid").remove();
-        $(".hairdresser_post_number_error").append('<p class="post_invalid" style="width: 302px;"><%= @error_post_invalid %></p>');
+        $(".hairdresser_post_number_error").append('<p class="post_invalid"><%= @error_post_invalid %></p>');
         $(".post_number").css({
             "border-color": "red",
             "border-width": "2px"

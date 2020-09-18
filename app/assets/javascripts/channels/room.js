@@ -29,7 +29,7 @@ App.room = App.cable.subscriptions.create("RoomChannel", {
                 });
             }
             //送信先の人がチャットルームにいないとき でもチャットのページにはいる
-            else if ($(`#chat_room_${room_token}`).hasClass(`${digest}`) && $(`#chat_room_${room_token}`).hasClass(`${user_or_hairdresser}`)) {
+            else if ($(`#chat_room_${room_token}`).hasClass(`${digest}`) && $(`#chat_room_${room_token}`).hasClass(`${user_or_hairdresser}`) && !$(`#chat_room_${room_token}`).hasClass("responsive")) {
                 //未読の番号を更新する
                 if ($(`#chat_room_${room_token}`).children("div").hasClass(`unread_number_${room_token}`)) {
                     pre_num = $(`.unread_number_${room_token}`).children("p").text();

@@ -34,7 +34,7 @@
 
                 <!--バツマル-->
                 <% for i in 0..(@date_arry.length - 1) do %>
-                    <th class="border_right">
+                    <th class="border_right table_maru_batu">
                         <!--このテーブルは縦一列-->
                         <table>
                             <tbody class="simbols">
@@ -67,7 +67,7 @@
                 <% end %>
                 
                 <!--右の時刻表-->
-                <th class="table_time">
+                <th class="table_time table_time_right">
                     <table>
                         <tbody class="times">
                             <% @clock_arry.each do |clock| %>

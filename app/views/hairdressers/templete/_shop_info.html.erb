@@ -1,10 +1,10 @@
 <p style="font-size: 20px;">店舗名: <%=@hairdresser.shop_name%></p>
 <p style="font-size: 20px; margin-bottom: 30px;">住所: <%=@hairdresser.address%></p>
-<div id="map" style='width: 800px; height: 400px; margin: 0 auto;'></div>
+<div id="map2"></div>
 
 <script type="text/javascript">
     handler = Gmaps.build('Google');
-    handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
+    handler.buildMap({ provider: {}, internal: {id: 'map2'}}, function(){
         markers = handler.addMarkers([
         {
             "lat": "<%=@hairdresser.shop_latitude%>", //緯度

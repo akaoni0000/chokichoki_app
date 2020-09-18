@@ -13,17 +13,21 @@
             <%= @current_hairdresser.name %>
         </div>
     </div>
-    <div style="width: 700px; margin: 0 auto;">
-        <div class="display_inline_show">
-            <p style="padding-right: 130px;">ユーザー名</p>
-            <p class="hairdresser_name_error error" style="padding-right: 55px"></p>
-            <%= f.text_field :name, class: "hairdresser_show_form name for_hairdresser"%>
+    <div class="res_center">
+        <div>
+            <div class="display_inline_show">
+                <p style="padding-right: 130px;">ユーザー名</p>
+                <p class="hairdresser_name_error error" style="padding-right: 55px"></p>
+                <%= f.text_field :name, class: "hairdresser_show_form name for_hairdresser"%>
+            </div>
+            <div class="display_inline_show">
+                <p style="padding-right: 107px;">メールアドレス</p>
+                <p class="hairdresser_show_form hairdresser_show_email"><%= @current_hairdresser.email %></p>
+            </div>
         </div>
-        <div class="display_inline_show">
-            <p style="padding-right: 107px;">メールアドレス</p>
-            <p class="hairdresser_show_form hairdresser_show_email"><%= @current_hairdresser.email %></p>
-        </div>
-        <div class="display_inline2">
+    </div>
+    <div>
+        <div class="display_inline2 res_shop_name">
             <p style="padding-right: 155px;">店舗名</p>
             <p class="hairdresser_shop_name_error error" style="padding-right: 90px"></p>
             <%= f.text_field :shop_name, class: "hairdresser_show_form shop_name for_hairdresser" %>

@@ -112,15 +112,31 @@ var scroll_from_top = $(`#room-<%= @room.room_token %>`).scrollTop();     //上�
 var windowHeight = $(`#room-<%= @room.room_token %>`)[0].scrollHeight   //画面の高さ
 var scroll_from_bottom = windowHeight - scroll_from_top
 console.log(scroll_from_bottom)
-if (560 <= scroll_from_bottom && scroll_from_bottom <= 900) {
-    $(`#room-<%= @room.room_token %>`).scrollTop($(`#room-<%= @room.room_token %>`)[0].scrollHeight);
+
+var width = $(window).width();
+if (width>425) {
+    if (560 <= scroll_from_bottom && scroll_from_bottom <= 900) {
+        $(`#room-<%= @room.room_token %>`).scrollTop($(`#room-<%= @room.room_token %>`)[0].scrollHeight);
+    }
+    else {
+        $(`#room-<%= @room.room_token %>`).prepend(`<p class="chat_insert">新しいメッセージ：<%=@message%></p>`)
+        setTimeout(function(){ 
+            $(".chat_insert").remove();
+        },6500);  
+    }
 }
 else {
-    $(`#room-<%= @room.room_token %>`).prepend(`<p class="chat_insert">新しいメッセージ：<%=@message%></p>`)
-    setTimeout(function(){ 
-        $(".chat_insert").remove();
-    },6500);  
+    if (300 <= scroll_from_bottom && scroll_from_bottom <= 900) {
+        $(`#room-<%= @room.room_token %>`).scrollTop($(`#room-<%= @room.room_token %>`)[0].scrollHeight);
+    }
+    else {
+        $(`#room-<%= @room.room_token %>`).prepend(`<p class="chat_insert">新しいメッセージ：<%=@message%></p>`)
+        setTimeout(function(){ 
+            $(".chat_insert").remove();
+        },6500);  
+    }
 }
+
 
 //ルームを最後のメッセージを変更
 <% if 1 <= @chat_message.message.length && @chat_message.message.length <= 32 %>

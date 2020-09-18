@@ -1,10 +1,10 @@
 class HomeController < ApplicationController
     def user_top
-        #口コミが10件以上あり、評価平均が4.5以上の美容師のデータを取得
-        @hairdressers = Hairdresser.select {|hairdresser| hairdresser.hairdresser_comments.length >= 10 && hairdresser.reputation_point/hairdresser.hairdresser_comments.length >= 4.5}
+        #人気美容師 口コミが10件以上あり、評価平均が4.5以上の美容師のデータを取得
+        @hairdressers = Hairdresser.select {|hairdresser| hairdresser.hairdresser_comments.length >= 10 && hairdresser.reputation_point/hairdresser.hairdresser_comments.where.not(rate: 0.0).length >= 4.5}
 
-        #評判の美容師
-        @hairdressers_for_reputation = Hairdresser.select {|hairdresser| hairdresser.hairdresser_comments.length >= 10 && hairdresser.reputation_point/hairdresser.hairdresser_comments.length >= 4}.sample(10)
+        #評判の美容師 口コミが10件以上あり、評価平均が4以上の美容師のデータをメニューのカテゴリーごとに取得
+        @hairdressers_for_reputation = Hairdresser.select {|hairdresser| hairdresser.hairdresser_comments.length >= 10 && hairdresser.reputation_point/hairdresser.hairdresser_comments.where.not(rate: 0.0).length >= 4}.sample(10)
         @menus = @hairdressers_for_reputation.map {|hairdresser| hairdresser.menus}
         @menus.flatten!
 

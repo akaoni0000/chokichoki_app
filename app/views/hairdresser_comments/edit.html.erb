@@ -1,6 +1,6 @@
-<h2 class="center review_page">口コミを投稿してください。</h2>
+<h2 class="center review_page res_font3">口コミを投稿してください。</h2>
 <div class="container center">
-    <div class="col-xs-5">
+    <div class="col-xs-5 res_col">
         <% if @hairdresser.sex == "男性" %>
             <%= attachment_image_tag @hairdresser, :hairdresser_image, size: "150x150", fallback: "male2.png", class: "img-circle", id: "prev_img", style: "margin-right: 5px;"%>
         <% elsif @hairdresser.sex == "女性" %>
@@ -11,9 +11,9 @@
         <p style="margin-top: 20px;">施術日時：<%=@hairdresser_comment.start_time.month%>月<%=@hairdresser_comment.start_time.day%>日(<%= %w(日 月 火 水 木 金 土)[(@hairdresser_comment.start_time).wday] %>)<%=@hairdresser_comment.start_time.hour%>時<%=@hairdresser_comment.start_time.min%>分
         <p style="margin-top: 20px;">メニュー：<%=@hairdresser_comment.menu.name%></p>
     </div>
-    <div class="col-xs-7">
+    <div class="col-xs-7 res_col">
         <%= form_with(model: @hairdresser_comment, local: true) do |f| %>
-            <p>評価</p>
+            <p class="res_margin6">評価</p>
             <p class="error"><%=@error%></p>
             <div id='star'></div>
             <script>
@@ -26,8 +26,8 @@
                 half: true,
             });
             </script>
-            <%= f.text_area :comment, class: "form-control", rows: "8", placeholder:'口コミを投稿すると200ポイントもらえます', style:"resize: none; margin: 0 auto; width: 400px; height: 250px; margin-top: 30px; margin-bottom: 30px;" %>
-            <%= f.submit '投稿する', class:"btn btn-success" %>
+            <%= f.text_area :comment, class: "form-control comment_area_width", rows: "8", placeholder:'口コミを投稿すると200ポイントもらえます' %>
+            <%= f.submit '投稿する', class:"btn btn-success", style: "margin-bottom: 40px" %>
         <% end %>
     </div>
 </div>

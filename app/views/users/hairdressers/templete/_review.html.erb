@@ -1,8 +1,8 @@
-<h2 style="text-align: left"><%=@hairdresser.name%>の口コミ</h2>
+<h2 class="res_font3" style="text-align: left"><%=@hairdresser.name%>の口コミ</h2>
 <p style="text-align: left; color: #AAAAAA; padding-left: 40px;"><%=@hairdresser_comments.length%>件</p>
 <% if @hairdresser_comments.present? %>
     <% @hairdresser_comments.each do |hairdresser_comment| %>
-        <div class="container" style="width: 520px;">
+        <div class="container show_hairdresser_comment">
             <div class="review_box">
                 <div class="review_box_top">
                     <% if hairdresser_comment.user.sex == "男性" %>

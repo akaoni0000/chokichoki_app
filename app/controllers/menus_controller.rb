@@ -30,6 +30,7 @@ class MenusController < ApplicationController
     def update
         @menu = Menu.find_by(id: params[:id], hairdresser_id: @current_hairdresser.id)
         @menu.category = params[:menu][:category1] + params[:menu][:category2] + params[:menu][:category3] + params[:menu][:category4]
+        @menu.pre_menu_name = @menu.name
         if @menu.update(menu_params)
             flash[:notice] = "メニューを編集しました"
             respond_to do |format|
@@ -86,8 +87,8 @@ class MenusController < ApplicationController
         if @menu.errors.messages[:name_only].present?
             @error_name_taken = "その名前のメニューは既に存在します"
         end
-        if @menu.errors.added?(:explanation, :too_short, :count=>10) || @menu.errors.added?(:explanation, :too_short, :count=>160)
-            @error_explanation_short = "説明は10文字以上160文字以下で入力してください"
+        if @menu.errors.added?(:explanation, :too_short, :count=>10) || @menu.errors.added?(:explanation, :too_long, :count=>250)
+            @error_explanation_short = "説明は10文字以上250文字以下で入力してください"
         end
         if @menu.errors.added?(:time, :blank)
             @error_time_blank = "時間を選択してください"

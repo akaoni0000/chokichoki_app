@@ -112,13 +112,16 @@ a:hover, li:hover {
     text-align: center;
 }
 
+.reptation_hairdresser {
+    margin-top: 80px;
+}
+
 .menu_card_small2 {
     width: 530px;
     min-height: 350px;
     margin: 0 auto;
     border-radius: 5px;
-    //box-shadow: 0 0 15px 0 rgba(191,203,222,1);
-    background-color:#FFEFD5;
+    background-color:#FFFAF0;
     text-align: left;
     display: inline-block;
     vertical-align: top;
@@ -412,6 +415,10 @@ header {
     height: 100px;
 }
 
+.condition {
+    padding-left: 25px;
+}
+
 
 
 
@@ -421,6 +428,22 @@ header {
     text-align: center;
     font-size: 30px;
     margin-bottom: 30px;
+}
+
+.res_font {
+    font-size: 75px;
+}
+
+.res_font2 {
+    font-size: 40px;
+}
+
+.res_font3 {
+    font-size: 25px;
+}
+
+.res_font4 {
+    font-size: 21px;
 }
 
 .chokichoki_explain {
@@ -466,6 +489,15 @@ header {
 .step_img {
     width: 150px;
     height: 150px;
+}
+
+.res_point {
+    background-color: #ffffff;
+    color: #f5618a;
+    font-size: 16px;
+    height: 40px;
+    padding-top: 6px;
+    position: relative;
 }
 
 #user_header, #hairdresser_header, #admin_header {
@@ -828,6 +860,58 @@ header {
     width: 1000px;
     text-align: center;
     border: 5px solid;
+    padding: 10px;
+}
+
+.res_register_form_hairdresser {
+    width: 700px;
+    margin: 0 auto;
+}
+
+.image_forms {
+    width: 900px;
+    margin: 0 auto;
+}
+
+.res_padding {
+    padding-right: 160px;
+}
+
+.res_padding2 {
+    padding-right: 130px;
+}
+
+.res_padding3 {
+    padding-right: 180px;
+}
+
+.res_padding4 {
+    padding-right: 55px;
+}
+
+.res_padding5 {
+    padding-right: 170px;
+}
+
+.res_padding6 {
+    padding-right: 160px;
+}
+
+.res_padding7 {
+    padding-right: 130px;
+}
+
+.name_short_long {
+    width: 320px;
+    padding-right: 15px;
+}
+
+.shop_short {
+    width: 320px;
+}
+
+.post_invalid {
+    width: 302px;
 }
 
 .for_hairdresser {
@@ -925,14 +1009,13 @@ header {
 .stand_out {
     position: absolute;
     top: 237px;
-    right: 15%;
+    right: 10%;
 }
 
 
 .publicity {
     font-size: 30px;
-    // padding-top: 270px;
-    // padding-left: 850px;
+    text-align: center;
 }
 
 .search_form_square {
@@ -1048,6 +1131,7 @@ header {
 
 #top_hairdresser_slider {
     height: 500px;
+    margin-top: 80px;
 }
 
 .carousel-control {
@@ -1062,6 +1146,8 @@ header {
     width: 1000px;
     margin: 0 auto;
     text-align: center;
+    margin-bottom: 300px;
+    margin-top: 150px;
 }
 
 .left_static {
@@ -1207,6 +1293,22 @@ header {
     font-size: 16px;
     height: 40px;
     padding-top: 6px;
+    position: relative;
+    top: 2px;
+}
+
+.res_point2 {
+    background-color:#ffffff;
+    color: #f5618a;
+    font-size: 16px;
+    height: 40px;
+    padding-top: 6px;
+    position: relative;
+}
+
+.res_area {
+    position: relative;
+    top: 2px;
 }
 
 .flow {
@@ -1239,7 +1341,7 @@ header {
 }
 
 .flow_step2 {
-    width: 190px;
+    width: 175px;
     height: 230px;
     display: inline-block;
     margin-top: 20px;
@@ -1419,7 +1521,6 @@ select:focus {
 
 .search_btn {
     background: linear-gradient(103deg, #52c5eb, #0d92c3);
-    margin-left: 310px;
     margin-top: 60px;
     width: 320px;
     border-radius: 30px;
@@ -1560,6 +1661,23 @@ select:focus {
     text-align: left;
 }
 
+#map {
+    width: 400px;
+    height: 300px;
+    margin: 0 auto;
+}
+
+#map2 {
+    width: 800px;
+    height: 400px; 
+    margin: 0 auto;
+}
+
+#map3 {
+    width: 700px;
+    height: 300px;
+}
+
 //menu
 .menu_card_small {
     width: 530px;
@@ -1594,9 +1712,9 @@ select:focus {
     margin-top: 5px;
 }
 
-.menu_explain {
+.menu_explanation {
     display: inline-block;
-    width: 400px;
+    width: 380px;
     text-align: left;
 }
 
@@ -1622,6 +1740,10 @@ select:focus {
     box-shadow: 0 0 15px 0 rgba(191,203,222,1);
     padding: 20px;
     text-align: left;
+}
+
+.show_hairdresser_comment {
+    width: 520px;
 }
 
 .review_box_top {
@@ -1718,7 +1840,7 @@ hr {
 .menu_card {
     background-color: white;
     width: 700px;
-    height: 192px;
+    min-height: 192px;
     border-radius: 30px;
     margin-top: 70px;
     box-shadow: 0 0 15px 0 rgba(191,203,222,1);
@@ -1768,6 +1890,11 @@ hr {
     word-wrap: break-word;
 }
 
+.label_menu_img {
+    width: 100px;
+    margin-top: 30px;
+}
+
 .reserve_btn {
     float: right;
 }
@@ -1779,7 +1906,6 @@ hr {
     vertical-align: top;
     margin-left: 7px;
 }
-
 
 .save_card {
     position: relative;
@@ -1984,6 +2110,8 @@ hr {
 //予約するかどうか
 .request {
     margin: 0 auto;
+    width: 400px;
+    height: 200px;
 }
 
 .plan {
@@ -2001,6 +2129,11 @@ hr {
 
 .checkbox {
     display: inline;
+}
+
+.reservation_top {
+    margin-bottom: 50px;
+    padding-top: 70px;
 }
 
 
@@ -2151,7 +2284,7 @@ hr {
 .menu_card2 {
     background-color: white;
     width: 700px;
-    height: 292px;
+    min-height: 292px;
     border-radius: 30px;
     box-shadow: 0 0 15px 0 rgba(191,203,222,1);
     margin: 0 auto;
@@ -2394,6 +2527,11 @@ th {
     box-shadow: 0 0 15px 0 rgba(191,203,222,1);
 }
 
+.room {
+    height: 590px;
+    overflow: auto;
+}
+
 .instruction {
     font-size: 20px;
     text-align: center;
@@ -2420,11 +2558,6 @@ th {
 
 .chat_form {
     resize: none;
-}
-
-textarea.form-control {
-    height: 73px;
-    width: 700px;
 }
 
 .message_btn {
@@ -2625,6 +2758,15 @@ textarea.form-control {
     position: relative;
 }
 
+.chat_search_form2 {
+    width: 348px;
+    height: 50px;
+    display: inline-block;
+    vertical-align: top;
+    position: relative;
+}
+
+
 .chat_search_btn {
     height: 50px;
     width: 50px;
@@ -2724,4 +2866,1092 @@ textarea.form-control {
 
 .color3:hover {
     color: #FAF0E6;
+}
+
+select {
+    background-color: white;
+}
+
+.res_favorite {
+    display: none;
+}
+
+.opponent_name {
+    position: relative;
+    top: -40px;
+    left: 10px;
+    font-size: 20px;
+}
+
+.res_menu_name_form {
+    width: 250px;
+}
+
+.res_menu_explain_form {
+    width: 300px;
+    height: 100px;
+}
+
+.res_top_option {
+    padding-top: 70px;
+}
+
+.not_regist {
+    font-size: 30px;
+    padding-top: 150px;
+    margin-bottom: 30px;
+}
+
+.menu_explain {
+    display: inline-block;
+    width: 400px;
+}
+
+.position {
+    position: relative;
+    z-index: 30;
+}
+
+.comment_area_width {
+    resize: none;
+    margin: 0 auto;
+    width: 400px;
+    height: 250px; 
+    margin-top: 30px; 
+    margin-bottom: 30px;
+}
+
+.hairdresser_confirm_img_big {
+    width: 400px;
+    height: 400px;
+    margin-bottom: 20px;
+}
+
+.admin_data_option {
+    font-size: 20px;
+    color: black;
+}
+
+.please_wait {
+    font-size: 30px;
+    padding-top: 150px;
+}
+
+.res_block {
+    display: inline-block;
+}
+
+//レスポンシブ jsでも処理した
+@media screen and (max-width:425px) {
+
+    .res_logo {
+        width: 100%;
+        position: absolute;
+        left: -13px;
+        top: -116px;
+        z-index: 1;
+    }
+
+    #res_menu_btn {
+        width: 50px;
+        height: 50px;
+        background-color:#666666;
+        position: absolute;
+        z-index: 96;
+        right: 0;
+    }
+
+    .res_menu {
+        position: fixed;
+        left: 100vw;
+        //background-color:#CC9966;
+        height: 820px;
+        padding-top: 60px;
+        width: 100%;
+        z-index: 90;
+        text-align: center;
+        background-color: rgba(0, 0, 0, 0.9);
+    }
+
+    .res_tag {
+        font-size: 40px;
+        margin-top: 10px;
+    }
+
+    .res_tag2 {
+        margin-top: 30px;
+        font-size: 25px;
+        text-align: left;
+        padding-left: 27%;
+    }
+
+    .res_today, .res_tomorrow {
+        font-size: 27px;        
+    }
+
+    .condition {
+        padding-left: 0;
+        text-align: center;
+    }
+
+    .header {
+        display: none;
+    }
+
+    .user_login, .user_password_reset, .user_register {
+        width: 100%;
+        margin-top: 70px;
+    }
+
+    .user_login_border {
+        display: none;
+    }
+
+    #user_main {
+        background-position: -80% 13%;
+        height: 587px;
+    }
+
+    header {
+        
+    }
+
+    .back_dark {
+        z-index: 100;
+    }
+    
+    .stand_out {
+        position: relative;
+        top: 0;
+        right: 0;
+    }
+
+    .search_form_square {
+        width: 100%;
+        margin-left: 0;
+        height: 460px;
+    }
+
+    .find {
+        height: 140px;
+        padding-top: 0;
+    }
+
+    .search_top2 {
+        width: 320px;
+    }
+
+    .publicity {
+        font-size: 22px;
+        padding-top: 38px;
+    }
+
+    .circle_top {
+        display: none;
+    }
+
+    .navi-btn {
+        display: none;
+    }
+
+    #top_hairdresser_slider {
+        margin-top: 0;
+    }
+
+    .reptation_hairdresser {
+        margin-top: 80px;
+        font-size: 25px;
+    }
+    
+    .res_container {
+        margin: 0;
+        padding: 0;
+    }
+
+    .res_font {
+        font-size: 40px;
+    }
+
+    .chokichoki_explain {
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    .explain_img {
+        display: none;
+    }
+
+    .step_explain {
+        width: 100%;
+    }
+
+    .next_img, .next_img2 {
+        display: none;
+    }
+
+    .res_font2 {
+        font-size: 30px;
+    }
+
+    .flow_step2 {
+        width: 19%;
+        height: 325px;
+    }
+
+    .flow_step3 {
+        width: 23%;
+        height: 250px;
+        margin-right: 15px;
+        margin-left: 15px;
+    }
+    
+    .title_chokichoki_1 {
+        padding-top: 0;
+    }
+
+    .how_to_chokichoki {
+        margin-top: 60px;
+    }
+
+    .faq {
+        width: 100%;
+        margin-top: 50px;
+        margin-bottom: 260px;
+    }
+
+    .answers {
+        width: 100%;
+    }
+
+    .main_index_content {
+        text-align: center;
+    }
+
+    .search_box {
+        width: 100%;
+        height: 268px;
+        padding: 20px;
+        position: relative;
+        z-index: 30;
+    }
+
+    .hairdresser_show {
+        margin-right: 0;
+    }
+
+    .search_tag {
+        display: block;
+        margin-top: 10px;
+        font-size: 20px;
+    }
+
+    .search_form_index {
+        width: 225px;
+        margin-top: 45px;
+    }
+
+    .search_btn2 {
+        left: 138px;
+    }
+
+    .name_etc {
+        margin: 0 auto;
+    }
+
+    .hairdresser_info {
+        width: 345px;
+        margin-top: 13px;
+    }
+
+    .hairdresser_show_box {
+        display: none;
+    }
+
+    .hairdresser_appoint_box {
+        display: none;
+    }
+
+    #hairdresser_show_modal {
+        padding-top: 30px;
+    }
+
+    .options {
+        width: 345px;
+    }
+
+    .options_select {
+        width: 86px;
+        font-size: 14px;
+    }
+
+    .menu_card_small {
+        width: 100%;
+        margin-top: 50px;
+    }
+
+    .category {
+        font-size: 13px;
+    }
+
+    #map {
+        width: 300px;
+    }
+
+    #map3 {
+        width: 100%;
+    }
+
+    .menu_time_small {
+        margin-top: -5px;
+    }
+
+    .card_categories_small {
+        margin-top: -5px;
+    }
+
+    .menu_explanation {
+        width: 100%;
+    }
+
+    .show_hairdresser_comment {
+        width: 100%;
+    }
+
+    .review_box {
+        width: 100%;
+    }
+
+    .menu_card2 {
+        width: 100%;
+    }
+
+    .title2 {
+        width: 250px;
+    }
+
+    .menu_time2 {
+        margin-left: 100px;
+    }
+
+    .res_time {
+        margin-left: -20px;
+    }
+
+    .please_reservation {
+        font-size: 20px;
+    }
+
+    .explain {
+        display: inline-block;
+        width: 200px;
+    }
+
+    #prev_menu_img {
+        width: 100px;
+        height: 100px;
+    }
+
+    .res_font3 {
+        font-size: 25px;
+    }
+
+    .width1 {
+        width: 50px;
+    }
+
+    .width2 {
+        width: 254px;
+    }
+
+    .width3 {
+        width: 35px;
+    }
+
+    .width4 {
+        width: 50px;
+    }
+
+    .week_reservation_table {
+        width: 345px;
+    }
+
+    .search_box_big {
+        width: 100%;
+    }
+
+    #day, #start_time {
+        margin-left: 0;
+        position: relative;
+        top: -1px;
+        z-index: 20;
+    }
+
+    #start_time {
+        top: -7px;
+    }
+
+    #finish_time {
+        position: relative;
+        top: -7px;
+        z-index: 20;
+    }
+
+    .wave {
+        position: relative;
+        top: -4px;
+    }
+
+    .select_box {
+        width: 345px;
+        position: relative;
+        left: -16px;
+    }
+
+    .point {
+        position: relative;
+        left: -50px;
+    }
+
+    .link_box {
+        z-index: 10;
+    }
+
+    .search_area {
+        width: 310px;
+    }
+
+    .res_area {
+        right: 51px;
+    }
+
+    .res_margin {
+        margin-left: 128px;
+    }
+
+    .res_margin2 {
+        margin-left: 100px;
+    }
+
+    .res_margin_bottom {
+        margin-bottom: 40px;
+    }
+
+    #prefectures {
+        margin-left: 18px;
+    }
+
+    .prefecture_form {
+        width: 141px;
+        margin-left: 128px;
+    }
+
+    .search_menu, .search_day, .search_time, .search_area, .search_none, .search_area_name, .search_area_current_place, .search_reputation, .search_keyword, .search_sex {
+        width: 310px;
+    }
+    
+    #start_rate {
+        margin-left: 0;
+    }
+
+    .font_size5 {
+        margin-left: 0;
+    }
+
+    .search_btn {
+        margin: 0 auto;
+        margin-top: 100px;
+        margin-left: 0;
+        width: 270px;
+    }
+
+    .res_salon {
+        position: relative;
+        top: 10px;
+        float: left;
+        z-index: 20;
+        color: #000077;
+    }
+
+    .circle {
+        width: 110px;
+        height: 110px;
+        display: inline-block;
+        vertical-align: top;
+        margin-right: 0;
+    }
+
+    .circle > p {
+        font-size: 20px;
+        margin-top: -5px;
+    }
+
+    .header2 {
+        height: 125px;
+    }
+
+    .logo2 {
+        width: 100%;
+        position: relative;
+        top: -75px;
+    }
+
+    .link_top {
+        position: absolute;
+        top: 8px;
+        left: 43px;
+        color: #000077;
+        width: 120px;
+    }
+
+    .feature {
+        width: 340px;
+        height: 140px;
+    }
+
+    .header_top_left2 {
+        height: 72px;
+        position: relative;
+        top: -218px;
+        display: inline-block;
+        float: none;
+        width: 120px;
+        left: 20%;
+    }
+
+    .hairdresser_login {
+        width: 100%;
+    }
+
+    .hairdresser_login {
+        width: 100%;
+    }
+
+    .propaganda2 {
+        font-size: 35px;
+    }
+     
+    #hairdresser_register {
+        width: 100%;
+        margin-top: 3px;
+        height: 730px;
+        overflow: auto;
+    }   
+
+    .chokichoki_feature {
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .display_inline {
+        display: block;
+        margin-left: 0;
+        margin: 0 auto;
+        padding-left: 10%;
+    }
+
+    .display_inline2 {
+        display: block;
+        margin: 0 auto;
+        padding-left: 10%;
+    }
+
+    .display_inline3 {
+        display: block;
+        margin: 0 auto;
+        margin-top: 15px;
+        margin-bottom: 10px;
+    }
+
+    .hairdresser_password_reset {
+        width: 100%;
+    }
+
+    .res_padding, .res_padding2, .res_padding3, .res_padding4, .res_padding5, .res_padding6, .res_padding7 {
+        padding: 0;
+    }
+
+    .res_register_form_hairdresser {
+        width: 100%;
+        margin: 0 auto;
+    }
+
+    .image_forms {
+        width: 100%;
+    }
+
+    .gold {
+        font-size: 21px;
+    }
+
+    .res_point2 {
+        left: 0;
+        top: -1px;
+    }
+
+    .reason {
+        height: 850px;
+    }
+
+    .reason_point {
+        margin-right: 0;
+        width: 170px;
+        margin-bottom: 30px;
+        height: 215px;
+    }
+
+    .flow {
+        height: 640px;
+    }
+
+    .flow_step {
+        margin-bottom: 30px;
+        width: 170px;
+    }
+
+    .hairdresser_use_explain {
+        width: 100%;
+    }
+
+    .question {
+        font-size: 21px;
+    }
+
+    .name_short_long {
+        width: 100%;
+    }
+    
+    .shop_short {
+        width: 100%;
+    }
+    
+    .post_invalid {
+        width: 100%;
+    }
+
+    .face_img {
+        position: relative;
+        z-index: 30;
+    }
+
+    .footer_menu {
+        background-color: #FDF5E6;
+        width: 100%;
+        height: 100px;
+        position: fixed;
+        bottom: 0;
+        font-size: 0;
+        z-index: 50;
+    }
+
+    .footer_menu_option {
+        display: inline-block;
+        vertical-align: top;
+        width: 25%;
+        height: 80px;
+        text-align: center;
+        font-size: 16px;
+        padding-top: 16px;
+    }
+
+    .footer_menu_option2 {
+        display: inline-block;
+        vertical-align: top;
+        width: 20%;
+        height: 80px;
+        text-align: center;
+        font-size: 12px;
+        padding-top: 16px;
+    }
+
+    .icon_size {
+        font-size: 30px;
+    }
+        
+    .unread_number_header {
+        position: absolute;
+        top: 4px;
+        right: 14px;
+    }
+
+    .color2 {
+        color: #444444;
+    }
+
+    #flash {
+        font-size: 17px;
+        height: 40px;
+        padding-top: 8px;
+    }
+
+    #flash_red {
+        font-size: 17px;
+        height: 40px;
+        padding-top: 8px;
+    }
+
+    .search_area, .search_menu, .search_day, .search_time, .search_reputation, .search_sex, .search_keyword {
+        position: relative;
+        z-index: 30;
+    }
+
+    .res_info {
+        position: relative;
+        right: 128px;
+    }
+
+    .user_show_element, .hairdresser_show_element {
+        font-size: 12px;
+        position: relative;
+        z-index: 30;
+    }
+
+    .search_area_name, .search_area_current_place {
+        position: relative;
+        z-index: 30;
+    }
+
+    .res_favorite {
+        display: block;
+    }
+
+    //chat
+    #chat_page {
+        padding-top: 0;
+        width: 100%;
+    }
+
+    #chat {
+        display: none;
+        width: 100%;
+        height: 387px;
+    }
+
+    #chat_members {
+        width: 100%;
+        position: relative;
+        z-index: 21;
+    }
+    
+    .chat_search_form {
+        width: 86.5%;
+    }
+
+    .chat_search_form2 {
+        width: 85.5%;
+    }
+
+    #message_form {
+        width: 100%;
+    }
+
+    .room {
+        height: 590px;
+        overflow: auto;
+    }
+
+    .opponent_name {
+        top: -40px;
+        left: 0;
+        font-size: 13px;
+    }
+
+    .myself_chat {
+        max-width: 240px;
+    }
+
+    .opponent_chat {
+        max-width: 240px;
+    }
+
+    .color3 {
+        color: white;
+    }
+
+    .res_col {
+        width: 100%;
+    }
+    
+    .res_center {
+        text-align: center;
+    }
+
+    .res_margin3 {
+        margin-top: -30px;
+    }
+
+    .res_margin4 {
+        margin-top: 30px;
+        margin-bottom: 30px;
+    }
+
+    .res_margin5 {
+        margin-bottom: 100px;
+        margin-top: 25px;
+    }
+
+    .res_margin6 {
+        margin-top: 30px;
+    }
+
+    .res_menu_name_form {
+        width: 100%;
+        position: relative;
+        z-index: 30;
+    }
+
+    .res_menu_explain_form {
+        width: 100%;
+    }
+
+    .label_menu_img {
+        width: 100%;
+        margin-top: 70px;
+    }
+
+    .menu_card {
+        width: 100%;
+        min-height: 200px;
+        margin-top: 30px;
+        display: inline-block;
+    }
+
+    .save_card {
+        position: relative;
+        top: 15px;
+        left: 33%;
+    }
+
+    .title {
+        width: 98%;
+        font-size: 22px;
+    }
+
+    .category_blank {
+        text-align: center;
+    }
+
+    .time_invalid {
+        text-align: center;
+    }
+
+    .menu_index, .menu_preparation {
+        position: relative;
+        z-index: 30;
+        margin-top: -40px;
+    }
+    
+    .change_form {
+        position: fixed;
+        top: 546px;
+        right: 0;
+    }
+
+    .calendar_menu_index {
+        width: 100%;
+    }
+
+    .menu_title {
+        width: 300px;
+    }
+
+    .hair_box {
+        width: 49%;
+    }
+
+    .image_label {
+        position: relative;
+        z-index: 30;
+    }
+
+    .res_width_100 {
+        width: 100%;
+    }
+
+    .res_width_49 {
+        width: 49%;
+    }
+
+    .change_save_btn {
+        position: relative;
+        top: -40px;
+    }
+
+    .res_shop_name {
+        padding-left: 0;
+    }
+
+    .res_top_option {
+        padding-top: 30px;
+    }
+
+    #map2 {
+        width: 100%;
+    }
+
+    .index_user_reservations {
+        padding-top: 25px;
+    }
+
+    .res_re {
+        right: 157px;
+    }
+
+    .res_ca {
+        right: 78px;
+    }
+
+    .point_check, .card_check, .registered_card_check {
+        display: block;
+        margin-top: 15px;
+    }
+
+    .request {
+        width: 100%;
+    }
+
+    .reservation_top {
+        margin-bottom: 50px;
+        padding-top: 20px;
+        font-size: 17px;
+    }
+
+    .user_request_modal {
+        top: 124px;
+        left: 0;
+        width: 100%;
+    }
+
+    .unread_number {
+        position: relative;
+        left: 80%;
+        top: -55px;
+    }
+
+    .chat_hair_box {
+        width: 45%;
+    }
+
+    .not_regist {
+        font-size: 23px;
+        padding-top: 110px;
+        margin-bottom: 30px;
+    }
+
+    .chat_insert {
+        font-size: 20px;
+        position: fixed;
+        margin-top: 0px;
+        background-color: rgba(153, 255, 161, 0.5);
+        bottom: 209px;
+        width: 100%;
+    }
+
+    .noti {
+        background-color: rgba(194, 238, 255, 0.8);
+        width: 291px;
+        min-height: 89px;
+        position: absolute;
+        margin-left: -350px;
+        padding: 6px;
+        border-radius: 5px;
+        padding-top: 23px;
+        z-index: 100;
+    }
+
+    .menu_explain {
+        display: inline-block;
+        width: 200px;
+    }
+
+    table.vertical th, table.vertical td{
+        width:100%;
+        display:block;
+    }
+
+    .vertical_border {
+        border-bottom: 1px solid;
+    }
+
+    .comment_area_width {
+        width: 100%;
+    }
+
+    .review_page {
+        padding-top: 45px;
+    }
+
+    .review_box2 {
+        width: 100%;
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+
+    .admin_title {
+        margin-top: -10px;
+    }
+
+    .hairdresser_confirm_img_big {
+        width: 100%;
+        height: 320px;
+    }
+
+    .chart {
+        width: 100%;
+    }
+
+    #recent_week_chart {
+        width: 100%;
+    }
+
+    .admin_data {
+        position: relative;
+        z-index: 30;
+        margin-top: -60px;
+    }
+
+    .admin_data_option {
+        font-size: 14px;
+    }
+
+    .send_email {
+        width: 100%;
+    }
+
+    .please_wait {
+        font-size: 20px;
+        padding-top: 150px;
+    }
+
+    .user_show_form, .hairdresser_show_form {
+        position: relative;
+        z-index: 30;
+    }
+
+    .res_block {
+        display: block;
+    }
+
+    .res_margin7 {
+        margin-top: 40px;
+    }
+
+    .res_margin8 {
+        margin-bottom: 50px;
+    }
+
+    .hairdresser_show_img {
+        display: inherit;
+        margin: 0 auto;
+    }
+
+    .admin_img {
+        position: relative;
+        left: 0px;
+        top: 0px;
+    }
+}
+
+//input要素の自動コンプリートの背景色を設定 defaultは青 
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0px 1000px white inset;
 }

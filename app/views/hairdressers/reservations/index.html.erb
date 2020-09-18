@@ -9,9 +9,11 @@
             <div class="date">
                 <p><%= @date_arry[i].year %>年<%= @date_arry[i].month %>月<%= @date_arry[i].day %>日</p>
             </div>
-            <table class="table reservation_table">
+            <table class="table reservation_table vertical">
                 <thead>
-                    <th></th>
+                    <% if flash[:notice_reservations].present? %>
+                        <th></th>
+                    <% end %>
                     <th class="center">時間</th>
                     <th class="center">メニュー名</th>
                     <th class="center">予約した人</th>
@@ -24,11 +26,11 @@
                     <% @reservations.each do |reservation| %>
                         <% if @date_arry[i] == reservation.start_time.to_date %>
                             <tr>
-                                <td>
-                                    <% if flash[:notice_reservations].present? && flash[:notice_reservations].pluck(:id).include?(reservation.id) %>
+                                <% if flash[:notice_reservations].present? && flash[:notice_reservations].pluck(:id).include?(reservation.id) %>
+                                    <td>
                                         <p class="flash_new">new</p>
-                                    <% end %>
-                                </td>
+                                    </td>
+                                <% end %>
                                 <td>
                                     <%= reservation.start_time.hour %>時<%= reservation.start_time.min %>分
                                 </td>
@@ -48,7 +50,7 @@
                                         <p class="cursor user_hope">ご希望あり</p>
                                         <div id="user_request" class="back_dark">
                                             <div class="user_request_modal center">
-                                                <span class="glyphicon glyphicon-remove cursor" style="margin-left: 410px;"></span>
+                                                <span class="glyphicon glyphicon-remove cursor" style="float: right;"></span>
                                                 <p style="font-size: 20px;"><%= reservation.user_request %></p>
                                             </div>
                                         </div>
@@ -69,14 +71,14 @@
                                             });
                                         </script>
                                 </td>
-                                <td>
+                                <td class="vertical_border">
                                     <% if @hairdresser_comment.comment == nil || @hairdresser_comment.comment == ""%>
                                         <p>コメントなし</p>
                                     <% else %>
                                         <p class="cursor user_hope">コメントあり</p>
                                         <div id="user_request" class="back_dark">
                                             <div class="user_request_modal center">
-                                                <span class="glyphicon glyphicon-remove cursor" style="margin-left: 410px;"></span>
+                                                <span class="glyphicon glyphicon-remove cursor" style="float: right;"></span>
                                                 <p style="font-size: 20px; text-align: left;"><%= @hairdresser_comment.comment %></p>
                                             </div>
                                         </div>

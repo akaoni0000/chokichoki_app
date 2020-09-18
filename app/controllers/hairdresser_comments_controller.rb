@@ -52,7 +52,7 @@ class HairdresserCommentsController < ApplicationController
     end
 
     def index
-        @hairdresser_comments = @current_hairdresser.hairdresser_comments.order(start_time: "DESC")
+        @hairdresser_comments = @current_hairdresser.hairdresser_comments.order(start_time: "DESC") & HairdresserComment.where.not(rate: 0.0).order(start_time: "ASC")
     end
 
     private

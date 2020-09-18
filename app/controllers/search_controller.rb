@@ -274,7 +274,7 @@ class SearchController < ApplicationController
         #評価 #人が優先 人から絞る
         @min_rate = params[:start_rate].to_i
         @max_rate = params[:finish_rate].to_i
-        @hairdressers_from_reputation = Hairdresser.select {|hairdresser| @min_rate <= hairdresser.reputation_point/hairdresser.hairdresser_comments.length && hairdresser.reputation_point/hairdresser.hairdresser_comments.length <= @max_rate}
+        @hairdressers_from_reputation = Hairdresser.select {|hairdresser| @min_rate <= hairdresser.reputation_point/hairdresser.hairdresser_comments.where.not(rate: 0.0).length && hairdresser.reputation_point/hairdresser.hairdresser_comments.where.not(rate: 0.0).length <= @max_rate}
         @menus_from_reputation = @hairdressers_from_reputation.map {|a| a.menus}
         @menus_from_reputation.flatten!
         @menus_from_reputation = @menus_from_reputation.select {|menu| menu.status == true}

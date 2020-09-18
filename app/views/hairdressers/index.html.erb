@@ -23,7 +23,7 @@
             <h3 style="color: black; text-decoration: none;"><%= hairdresser.name %></h3>
             <div id="star-rate-index-average-<%= hairdresser.id %>"></div>
                 <!-- 星をつけるための記述 -->
-                <% @comments = hairdresser.hairdresser_comments.where.not(rate: nil).count %>
+                <% @comments = hairdresser.hairdresser_comments.where.not(rate: 0.0).count %>
                 <script>
                     $('#star-rate-index-average-<%= hairdresser.id %>').raty({
                         size: 36,
@@ -53,7 +53,7 @@
                                 <%= attachment_image_tag menu.hairdresser, :hairdresser_image, size: "70x70", fallback: "no_image.png", class: "img-circle face_img" %>
                             <% end %>
                             <span class="title2 font"><%= menu.name %></span>
-                            <span class="menu_time2 font"><%= menu.time %>分</span>
+                            <span class="menu_time2 font res_time"><%= menu.time %>分</span>
                             <% if menu.category[0,1] == "1" %>
                                 <span class="cut_category category font" style="font-size: 13px;">カット</span>
                             <% end %>
@@ -66,10 +66,12 @@
                             <% if menu.category[3,1] == "1" %>
                                 <span class="perm_category category font" style="font-size: 13px;">パーマ</span>
                             <% end %>
-                            <div style="margin-left: 15px;"><%= menu.hairdresser.name %></div>
-                            <div class="star-rate-<%= menu.hairdresser.id %>"></div>
+                            <div class="res_info">
+                                <div style="margin-left: 15px;"><%= menu.hairdresser.name %></div>
+                                <div class="star-rate-<%= menu.hairdresser.id %>"></div>
+                            </div>
                                 <!-- 星をつけるための記述 -->
-                                <% @comments = menu.hairdresser.hairdresser_comments.where.not(rate: nil).count %>
+                                <% @comments = menu.hairdresser.hairdresser_comments.where.not(rate: 0.0).count %>
                                 <script>
                                     $('.star-rate-<%= menu.hairdresser.id %>').raty({
                                         size: 36,

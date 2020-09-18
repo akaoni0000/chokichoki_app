@@ -1,6 +1,6 @@
 <div class="container center" style="padding-top: 50px;">
     <h1 class="admin_title">承認待ち美容師一覧</h1>
-    <table class="table">
+    <table class="table vertical">
         <thead>
             <th class="center">名前</th><th class="center">メールアドレス</th><th class="center">店舗名</th><th class="center">店舗住所</th><th class="center">性別</th>
         </thead>
@@ -24,7 +24,7 @@
                     <td>
                         <%= hairdresser.sex %>
                     </td>
-                    <td>
+                    <td class="vertical_border">
                         <%= link_to users_hairdresser_path(hairdresser.id), remote: true do %>
                             <p class="btn btn-success">詳細</p>
                         <% end %>

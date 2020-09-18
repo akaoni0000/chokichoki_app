@@ -9,9 +9,11 @@
             <div class="date">
                 <%= @date_arry[i].year %>年<%= @date_arry[i].month %>月<%= @date_arry[i].day %>日
             </div>
-            <table class="table reservation_table">
+            <table class="table reservation_table vertical">
                 <thead>
-                    <th></th>
+                    <% if flash[:notice_cancel_reservations].present? %>
+                        <th></th>
+                    <% end %>
                     <th class="center">時間</th>
                     <th class="center">メニュー名</th>
                     <th class="center">予約した人</th>
@@ -21,11 +23,11 @@
                     <% @cancel_reservations.each do |cancel_reservation| %>
                         <% if @date_arry[i] == cancel_reservation.start_time.to_date %>
                                  <tr>
-                                    <td>
-                                        <% if flash[:notice_cancel_reservations].present? && flash[:notice_cancel_reservations].pluck(:id).include?(cancel_reservation.id)%>
+                                    <% if flash[:notice_cancel_reservations].present? && flash[:notice_cancel_reservations].pluck(:id).include?(cancel_reservation.id)%>
+                                        <td>
                                             <p class="flash_new">new</p>
-                                        <% end %>
-                                    </td>
+                                        </td>
+                                    <% end %>
                                     <td>
                                         <%= cancel_reservation.start_time.hour %>時<%= cancel_reservation.start_time.min %>分
                                     </td>
@@ -35,7 +37,7 @@
                                     <td>
                                         <%= cancel_reservation.user.name %>さん
                                     </td>
-                                    <td>
+                                    <td class="vertical_border">
                                         <%= cancel_reservation.user.sex %>
                                     </td>
                                 </tr>

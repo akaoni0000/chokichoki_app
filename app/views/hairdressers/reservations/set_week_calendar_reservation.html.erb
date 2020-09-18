@@ -1,6 +1,6 @@
 <div class="container">
 
-    <h3 class="please_reservation">予定表を編集してください<%= link_to "月間カレンダーへ", hairdressers_set_month_calendar_reservation_path(menu_id: @menu.id), class: "to_month_calendar color" %></h3>
+    <h3 class="please_reservation res_center">予定表を編集してください<%= link_to "月間カレンダーへ", hairdressers_set_month_calendar_reservation_path(menu_id: @menu.id), class: "to_month_calendar color" %></h3>
 
     <!--menuカード-->
     <%= render "menus/menu2" %>
@@ -34,7 +34,7 @@
                 
                 <!--バツマル-->
                 <% for i in 0..(@date_arry.length - 1) do %>
-                    <th class="border_right">
+                    <th class="border_right table_maru_batu">
                         <!--このテーブルは縦一列-->
                         <table>
                             <tbody class="simbols">

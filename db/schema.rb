@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_08_102916) do
+ActiveRecord::Schema.define(version: 2020_09_18_124108) do
 
   create_table "admins", force: :cascade do |t|
     t.string "email"
@@ -49,15 +49,6 @@ ActiveRecord::Schema.define(version: 2020_09_08_102916) do
     t.datetime "updated_at", null: false
     t.integer "room_id"
     t.integer "reservation_id"
-  end
-
-  create_table "comments", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "hairdresser_id"
-    t.text "comment"
-    t.float "rate"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "favorites", force: :cascade do |t|

@@ -28,7 +28,7 @@ class ApplicationController < ActionController::Base
     def admin_reject 
         if session[:reject_id]
             session[:reject_id] = nil
-            redirect_to root_path
+            redirect_to hairdresser_top_path
         end
     end
 
@@ -36,9 +36,19 @@ class ApplicationController < ActionController::Base
         gon.key = ENV['KEY'] #payjp(クレジットカード)の公開鍵
         if @current_user.present?
             gon.user = true
+
+            #現在のポイント数 レスポンシブで使う
+            gon.point = @current_user.point
         end
         if @current_hairdresser.present?
             gon.hairdresser = true
+            
+            #予約件数 レスポンシブで使う
+            @reservations = @current_hairdresser.reservations.where.not(user_id: nil) & @current_hairdresser.reservations.where(start_time: Time.now..Float::INFINITY)
+            gon.reservations_number = @reservations.length
+        end
+        if @current_admin.present?
+            gon.admin = true
         end
     end
 
@@ -79,12 +89,18 @@ class ApplicationController < ActionController::Base
             @message = @room_id_arry.map {|room_id| ChatMessage.where(room_id: room_id, hairdresser_id: nil, notification: false)}
             @message.flatten!
             @unread_number_hairdresser = @message.length
+
+            gon.notice_reservations_number = @notice_reservations_number
+            gon.cancel_number = @cancel_number
+            gon.unread_number_hairdresser = @unread_number_hairdresser
         end
         if @current_user.present? 
             @room_id_arry = @current_user.chats.map {|chat| chat.room_id}
             @message = @room_id_arry.map {|room_id| ChatMessage.where(room_id: room_id, user_id: nil, notification: false)}
             @message.flatten!
             @unread_number_user = @message.length
+
+            gon.unread_number_user = @unread_number_user 
         end
     end
     

@@ -1,14 +1,14 @@
 <div class="container"> 
-    <h2 class="center" style="margin-bottom: 50px; padding-top: 70px;">まだ予約は完了しておりません。[予約を確定する]ボタンを押してください。</h2>
+    <h2 class="center reservation_top">まだ予約は完了しておりません。<br>[予約を確定する]ボタンを押してください。</h2>
     <p class="center">ご来店日時：<%=@time.month%>月<%=@time.day%>日(<%= %w(日 月 火 水 木 金 土)[(@time).wday] %>)<%=@time.hour%>時<%=@time.min%>分
     <%= render "menus/menu2" %>
     <p class="center" style="margin-top: 50px;">店舗住所：<%=@hairdresser.address%></p> 
     <div class="center">   	
-    <iframe src="https://maps.google.co.jp/maps?output=embed&q=<%=@hairdresser.shop_latitude%>,<%=@hairdresser.shop_longitude%>" style="width: 700px; height: 300px;"></iframe>
+    <iframe src="https://maps.google.co.jp/maps?output=embed&q=<%=@hairdresser.shop_latitude%>,<%=@hairdresser.shop_longitude%>" id="map3"></iframe>
     </div>
     <%= form_with(url: users_various_update_path(reservation_id: @reservation.id), method: :patch, class: "display_block reservation_form center") do |f| %>
         <h3 style="margin-top: 65px;">美容師への要望</h3>
-        <%= f.text_area :user_request, class: "request form-control", style: "width: 400px; height: 200px;"%>
+        <%= f.text_area :user_request, class: "request form-control", style: "height: 150px;"%>
         <h3 class="plan">支払い方法</h3>
         <span class="point_check cursor2">
             <span class="category_name">ポイントで払う(現在のポイントは<%=@current_user.point%>pt)</span>
@@ -43,7 +43,7 @@
         <img src="<%= asset_path "amex.gif" %>" class="card_logo">
         <img src="<%= asset_path "diner.gif" %>" class="card_logo">
         <img src="<%= asset_path "discover.gif" %>" class="card_logo">
-        <%= form_with(url: users_card_resevation_pay_path(reservation_id: @reservation.id ), method: :post, local: true, id: 'charge-form', class: "card_form_pay") do |f| %>
+        <%= form_with(url: users_card_resevation_pay_path(reservation_id: @reservation.id), method: :post, local: true, id: 'charge-form', class: "card_form_pay") do |f| %>
            <%= f.label "カード番号" %>
            <%= f.text_field "card_number", class: "number form-control ca_form", value: 4242424242424242  ,maxlength: "16", type: "text", id: "card_number"%>
             <br>

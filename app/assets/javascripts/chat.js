@@ -50,11 +50,15 @@ $(function(){
 })
 
 $(function() { //chat画面があるときはfooterをなくす スクロールのとき邪魔
+    var width = $(window).width();
     if (gon.chat) {
         $("footer").addClass("display_none");
-        $("#yield").css({
-            "min-height": "87vh"
-        })
+        
+        if (width>425) {
+            $("#yield").css({
+                "min-height": "87vh"
+            });
+        }
     }
     if (gon.room_token) {
         $("#search_form").after($(`#chat_${gon.room_token}`));

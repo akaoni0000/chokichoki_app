@@ -1,6 +1,6 @@
 <div class="container center" style="padding-top: 50px;">
     <%= form_with(url: admins_reject_path(@hairdresser.id), local: true, method: :patch) do |f| %>
-        <h1 class="admin_title">問題のあった項目を選択してください</h1>
+        <h1 class="admin_title res_font3">問題のあった項目を選択してください</h1>
         <span class="category_name">免許証</span>
         <%= f.check_box :category1, {class: "category1 not_category"}, 1, 0 %>
         <span class="category_name">自己紹介文</span>

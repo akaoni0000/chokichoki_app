@@ -1,5 +1,5 @@
 <div>
-    <h2 class="profile"><%=@hairdresser.name%>のプロフィール</h2>
+    <h2 class="profile res_font3"><%=@hairdresser.name%>のプロフィール</h2>
     <p class="intro"><%=@hairdresser.introduction%></p>
     <table class="table" style="margin-top: 70px;">
         <tbody>
@@ -48,7 +48,7 @@
             </tr>
         </tbody>
     </table>
-    <div id="map" style='width: 400px; height: 300px; margin: 0 auto;'></div>
+    <div id="map"></div>
     <script type="text/javascript">
         handler = Gmaps.build('Google');
         handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
@@ -66,7 +66,17 @@
     </script>
     <% if @current_admin.present? %>
         <p style="margin-top: 30px; font-size: 20px;">美容師免許証</p>
-        <%= attachment_image_tag @hairdresser, :confirm_image, size: "400x400"%>
+        <%= attachment_image_tag @hairdresser, :confirm_image, class: "hairdresser_confirm_img_big"%>
+        <div class="display_inline_block">
+            <%= link_to admins_permit_path(@hairdresser.id), method: :patch, class: "btn btn-success" do %>
+                <p style="color: white;">承認する</p>
+            <% end %>
+        </div>
+        <div class="display_inline_block">
+            <%= link_to admins_reject_form_path(@hairdresser.id), class: "btn btn-danger" do %>
+                <p style="color: white;">承認しない</p>
+            <% end %>
+        </div>
     <% end %>
 </div>
 

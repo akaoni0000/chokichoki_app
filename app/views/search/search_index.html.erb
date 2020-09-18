@@ -32,24 +32,26 @@
             </div> 
             <div class="search_area">
                 <span class="font_size">エリア</span>
-                <span class="" id="name" style="cursor: pointer;">
-                    <span class="font_size2">地名から探す</span>
-                    <%= f.radio_button :area, :area_name%>
-                </span>
-                <span class="" id="current" style="cursor: pointer;">
-                    <span class="font_size2">現在地から探す</span>
-                    <%= f.radio_button :area, :area_current_place%>
+                <span class="res_area">
+                    <span class="" id="name" style="cursor: pointer;">
+                        <span class="font_size2">地名から探す</span>
+                        <%= f.radio_button :area, :area_name%>
+                    </span>
+                    <span class="" id="current" style="cursor: pointer;">
+                        <span class="font_size2">現在地から探す</span>
+                        <%= f.radio_button :area, :area_current_place%>
+                    </span>
                 </span>
             </div> 
             <div class="search_none display_none">
-                <span class="font_size3">指定しない</span>
+                <span class="font_size3 res_margin">指定しない</span>
             </div> 
             <div class="search_area_name display_none">
                 <%= f.select 'prefectures', @select_prefecture_arry%>
                 <%= f.text_field :place_name, placeholder: "地名、番地など", class: "form-control prefecture_form" %>
             </div> 
             <div class="search_area_current_place display_none">
-                <span class="font_size3">現在地から</span>
+                <span class="font_size3 res_margin2">現在地から</span>
                 <%= f.number_field :range, min:1,max:2500,step:1, value: 1, class: "number_form" %>
                 <span class="font_size4">km以内</span>
             </div> 
@@ -72,7 +74,9 @@
                 <span class="font_size">キーワード</span>
                 <%= f.text_field :search_keyword, placeholder: "美容師名、メニュー名など", class: "form-control search_form2" %>
             </div>
-            <%= f.submit "検索する", class: "search_btn" %>
+            <div class="center">
+                <%= f.submit "検索する", class: "search_btn" %>
+            </div>
         <% end %>
     </div>
 </div>

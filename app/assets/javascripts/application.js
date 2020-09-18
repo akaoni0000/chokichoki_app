@@ -41,6 +41,14 @@ $(function() {
             "margin-top": "-54px"
         });
     }
+
+    //スマホの時
+    var width = $(window).width();
+    if ($("p").hasClass("propaganda") && width<=425) {
+        $('#flash').css({
+            "margin-top": "0px"
+        });
+    }
 });
 
 //二重ログイン防止 userとhairdresserの同時ログインはできない
@@ -76,10 +84,17 @@ $(function(){
     }
 });
 
+//userのページを消す
+$(function(){
+    $("body").click(function(){
+        $(".user_options").remove();
+    });
+});
+
 //モーダル系
 $(function() {
     //userの新規会員登録を押した時モーダル出現
-    $('#new_user, #new_user2').click(function() {
+    $('#new_user, #new_user2, #new_user3').click(function() {
         $('#user_sign_up_modal').fadeIn();     
     });
 
@@ -232,7 +247,8 @@ $(function(){
 //gonを使った時
 $(function(){
     //user_topの時だけヘッダーを固定
-    if (gon.fix == "header") {
+    var width = $(window).width();
+    if (gon.fix == "header" && 426<=width) {
         $("header").addClass("fixed");
         $(".logo").css({
             "top": "-45px"
@@ -505,6 +521,7 @@ $(function() {
             cvc: $("#cvc").val()
         };
         var number = $("#card_number").val();
+        var user_request = $(".request").val();
         if(number != 4242424242424242) {
             alert("カード番号は4242424242424242と入力してください。このサイトではこのテストコードでしか決済できません。")
         }
@@ -517,6 +534,7 @@ $(function() {
                 $("#cvc").removeAttr("name");
                 var token = response.id;               //tokenにはトークン(number exp_month exp_yearのデータが入っている)
                 $("#charge-form").append(`<input type="hidden" name="payjp-token" value=${token}></input>`)
+                $("#charge-form").append(`<input type="hidden" name="user_request" value=${user_request}></input>`)
                 $("#charge-form").submit();
             } 
             else if (status === 429) {
@@ -546,6 +564,7 @@ $(function(){
         prevSelector: "#feed-prev-btn-cut",
         nextText: ">",
         prevText: "<",
+        touchEnabled: true,
         infiniteLoop: true,
     });
     $('.bxslider_color').bxSlider({
@@ -557,6 +576,7 @@ $(function(){
         prevSelector: "#feed-prev-btn-color",
         nextText: ">",
         prevText: "<",
+        touchEnabled: true,
         infiniteLoop: true,
     });
     $('.bxslider_parma').bxSlider({
@@ -568,6 +588,7 @@ $(function(){
         prevSelector: "#feed-prev-btn-parma",
         nextText: ">",
         prevText: "<",
+        touchEnabled: true,
         infiniteLoop: true,
     });
     $('.bxslider_curly').bxSlider({
@@ -579,6 +600,7 @@ $(function(){
         prevSelector: "#feed-prev-btn-curly",
         nextText: ">",
         prevText: "<",
+        touchEnabled: true,
         infiniteLoop: true,
     });
 });

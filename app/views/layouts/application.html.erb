@@ -4,6 +4,7 @@
         <title>Chokichoki</title>
         <%= csrf_meta_tags %>
         <%= csp_meta_tag %>
+        <meta name="viewport" content="width=device-width,initial-scale=1.0">
           
         <script src='https://js.pay.jp/' type='text/javascript'></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>
@@ -28,7 +29,7 @@
             </div>
         <% end %>
     
-        <header>
+        <header class="header">
             <div class="header_top">
                 <!--headerの左-->
                 <div class="header_top_left">
@@ -304,57 +305,57 @@
             <!-- 美容師登録画面モーダル -->
             <div id="hairdresser_sign_up" class="back_dark">
                 <div id="hairdresser_register">
-                    <span class="glyphicon glyphicon-remove cursor" style="margin-left: 950px; -size: 25px; margin-top: 10px;"></span>
-                    <h1 style="margin-top: -20px;">美容師登録</h1>
+                    <span class="glyphicon glyphicon-remove cursor" style="float: right;"></span>
+                    <h1 style="margin-top: 20px;">美容師登録</h1>
                     <div class="total_error error">
                     </div>
                     <%= form_with(model: @hairdresser_new, method: :post, class: "hairdresser_form", id: "hairdresser_form", style: "margin: 0 auto; width: 800px;") do |f|%>
-                        <div style="width: 700px; margin: 0 auto;">
+                        <div class="res_register_form_hairdresser">
                             <div class="display_inline">
-                                <p style="padding-right: 160px">ユーザー名<span class="must">必須</span></p>
+                                <p class="res_padding">ユーザー名<span class="must">必須</span></p>
                                 <p class="hairdresser_name_error error" style="padding-right: 55px"></p>
                                 <%= f.text_field :name, class: "form-control name for_hairdresser"%>
                             </div>
                             <div class="display_inline">
-                                <p style="padding-right: 130px">メールアドレス<span class="must">必須</span></p>
+                                <p class="res_padding2">メールアドレス<span class="must">必須</span></p>
                                 <p class="hairdresser_email_error error"></p>
                                 <p class="hairdresser_email_error2 error" style="width: 280px"></p>
                                 <%= f.email_field :email, class: "form-control email for_hairdresser" %>
                             </div>
                             <div class="display_inline2">
-                                <p style="padding-right: 180px">店舗名<span class="must">必須</span></p>
+                                <p class="res_padding3">店舗名<span class="must">必須</span></p>
                                 <p class="hairdresser_shop_name_error error" style="padding-right: 90px"></p>
                                 <%= f.text_field :shop_name, class: "form-control shop_name for_hairdresser" %>
                             </div>
                         </div>
                         <div>
                             <div class="display_inline">
-                                <p style="padding-right: 55px">店舗郵便番号(ハイフンなし)<span class="must">必須</span></p>
+                                <p class="res_padding4">店舗郵便番号(ハイフンなし)<span class="must">必須</span></p>
                                 <p class="hairdresser_post_number_error error" style="padding-right: 50px"></p>
                                 <%= f.text_field :post_number, class: "form-control post_number for_hairdresser"  %>
                             </div>
                             <div class="display_inline">
-                                <p style="padding-right: 170px;">店舗住所<span class="must">必須</span></p>
+                                <p class="res_padding5">店舗住所<span class="must">必須</span></p>
                                 <p class="hairdresser_address_error error" style="padding-right: 107px"></p>
                                 <%= f.text_field :address, class: "form-control address hairdresser_shop_address for_hairdresser" %>
                             </div>
                         </div>
                         <div>
                             <div class="display_inline">
-                                <p style="padding-right: 160px">パスワード<span class="must">必須</span></p>
+                                <p class="res_padding6">パスワード<span class="must">必須</span></p>
                                 <p class="hairdresser_password_error error" style="padding-right: 96px"></p>
                                 <%= f.password_field :password, class: "form-control password for_hairdresser" %>
                             </div>
                             <div class="display_inline">
-                                <p style="padding-right: 130px">パスワード確認<span class="must">必須</span></p>
+                                <p class="res_padding7">パスワード確認<span class="must">必須</span></p>
                                 <%= f.password_field :password_confirmation, class: "form-control password for_hairdresser" %>
                             </div>
                             <div>
                                 <p>自己紹介文</p>
-                                <%= f.text_area :introduction, class: "form-control", style: "width: 80%; height: 80px; margin: 0 auto; resize: none;"%>
+                                <%= f.text_area :introduction, class: "form-control", style: "width: 80%; height: 80px; margin: 0 auto; resize: none; margin-bottom: 15px;"%>
                             </div>
                         </div>
-                        <div style="width: 900px; margin: 0 auto;">
+                        <div class="image_forms">
                             <div class="display_inline3">
                                 <p>宣材写真</p>
                                 <p>クリックして写真を追加してください</p>
@@ -398,7 +399,7 @@
             <!-- 美容師ログインモーダル -->
             <div id="hairdresser_sign_in" class="back_dark">
                 <div class="hairdresser_login">
-                    <span class="glyphicon glyphicon-remove cursor" style="margin-left: 410px;"></span>
+                    <span class="glyphicon glyphicon-remove cursor" style="float: right;"></span>
                     <h2>美容師ログイン</h2>
                     <p class="hairdresser_login_error error"></p>
                     <div>

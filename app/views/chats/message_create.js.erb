@@ -102,4 +102,6 @@
 
     //ルームの並び順を変更
     $("#search_form").after($(`#chat_<%=@room.room_token%>`));  
+<% else %>
+    alert("メッセージを入力してください");
 <% end %>

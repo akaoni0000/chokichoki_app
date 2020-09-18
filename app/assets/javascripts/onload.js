@@ -20,10 +20,10 @@ $(document).ready(function(){
 
     //今いるページのリンクを白くする
     $('a').each(function(){
-		var href = $(this).attr('href');
+        var href = $(this).attr('href');
 		if (href == path) {
 			$(this).css({
-			"color": "#FAF0E6"
+			"color":"#FAF0E6"
 			})
 		}
 	});

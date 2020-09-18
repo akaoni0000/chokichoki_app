@@ -1,21 +1,21 @@
 <div class="container" style="font-size: 0; padding-top: 10px;">
-    <%= link_to admins_user_chart_path do %>
+    <%= link_to admins_user_chart_path, class: "position" do %>
         <div class="admin_data border_none">
-            <p style="font-size: 20px; color: black;">会員データ</p>
+            <p class="admin_data_option">会員データ</p>
         </div>
     <% end %>
     <%= link_to admins_hairdresser_chart_path do %>
         <div class="admin_data border_none">
-            <p style="font-size: 20px; color: black;">美容師データ</p>
+            <p class="admin_data_option">美容師データ</p>
         </div>
     <% end %>
     <%= link_to admins_sell_chart_path do %>
         <div class="admin_data border">
-            <p style="font-size: 20px; color: black;">売り上げデータ</p>
+            <p class="admin_data_option">売り上げデータ</p>
         </div>
     <% end %>
 </div>
-<h1>売り上げ推移(日別)</h1>
+<h1 class="res_font3 res_center">売り上げ推移(日別)</h1>
 <div class="chart">
     <canvas id="sell_day_chart"></canvas> <!--canvas要素は、グラフィックなどが描写可能なビットマップキャンバスを提供します。-->
 </div>
@@ -24,7 +24,7 @@
     <%= link_to "次の週", admins_sell_chart_path(next_day: @day_standard), remote: true, class: "color" %>
 <% end %>
 
-<h1>週間売り上げ推移</h1>
+<h1 class="res_font3 res_center">週間売り上げ推移</h1>
 <div class="chart">
     <canvas id="sell_week_chart"></canvas> <!--canvas要素は、グラフィックなどが描写可能なビットマップキャンバスを提供します。-->
 </div>
@@ -33,7 +33,7 @@
     <%= link_to "次の週", admins_sell_chart_path(next_week: @week_standard), remote: true, class: "color" %>
 <% end %>
 
-<h1>月間売り上げ推移</h1>
+<h1 class="res_font3 res_center">月間売り上げ推移</h1>
 <div class="chart">
     <canvas id="sell_month_chart"></canvas> <!--canvas要素は、グラフィックなどが描写可能なビットマップキャンバスを提供します。-->
 </div>
@@ -42,7 +42,7 @@
     <%= link_to "次の月", admins_sell_chart_path(next_week: @month_standard), remote: true, class: "color" %>
 <% end %>
 
-<h1>週間総売上推移</h1>
+<h1 class="res_font3 res_center">週間総売上推移</h1>
 <div class="chart">
     <canvas id="sell_week_index_chart"></canvas> <!--canvas要素は、グラフィックなどが描写可能なビットマップキャンバスを提供します。-->
 </div>
@@ -51,7 +51,7 @@
     <%= link_to "次の週", admins_sell_chart_path(next_week_index: @week_index_standard), remote: true, class: "color" %>
 <% end %>
 
-<h1>月間総売上推移</h1>
+<h1 class="res_font3 res_center">月間総売上推移</h1>
 <div class="chart">
     <canvas id="sell_month_index_chart"></canvas> <!--canvas要素は、グラフィックなどが描写可能なビットマップキャンバスを提供します。-->
 </div>

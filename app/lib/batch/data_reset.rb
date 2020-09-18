@@ -1,18 +1,21 @@
 class Batch::DataReset
+    #1分ごと
     def self.user_data_reset
-        @users = User.select {|user| Time.now < user.activation_deadline_at && user.activation_status == false} 
+        @users = User.select {|user| user.activation_deadline_at < Time.now && user.activation_status == false} 
         @users.map! {|user| user.id}
         User.where(id: @users).destroy_all
         p "メール認証の有効期限が切れた会員データを全て削除しました"
     end
 
+    #1分ごと
     def self.hairdresser_data_reset
-        @hairdressers = Hairdresser.select {|hairdresser| Time.now < hairdresser.activation_deadline_at && hairdresser.activation_status == false} 
+        @hairdressers = Hairdresser.select {|hairdresser| hairdresser.activation_deadline_at < Time.now && hairdresser.activation_status == false} 
         @hairdressers.map! {|hairdresser| hairdresser.id}
         Hairdresser.where(id: @hairdressers).destroy_all
         p "メール認証の有効期限が切れた美容師データを全て削除しました"
     end
 
+    #12時間ごと
     def self.reject_hairdresser_data_reset
         @hairdressers = Hairdresser.select {|hairdresser| hairdresser.created_at + 3600 * 24 * 3 < Time.now && hairdresser.reject_status != nil && hairdresser.activation_status == true}
         @hairdressers.map! {|hairdresser| hairdresser.id}
@@ -20,6 +23,7 @@ class Batch::DataReset
         p "登録審査に落ちた美容師データを全て削除しました"
     end
 
+    #1時間ごと
     def self.reservation_data_reset
         @reservations = Reservation.select {|reservation| reservation.start_time < Time.now && reservation.user_id == nil}
         @reservations.map! {|reservation| reservation.id}
@@ -27,6 +31,7 @@ class Batch::DataReset
         p "必要のない予約データを全て削除しました"
     end
 
+    #1時間ごと
     def self.chat_data_reset
         @reservations = Reservation.select {|reservation| reservation.start_time + reservation.menu.time * 60 < Time.now && reservation.user_id != nil}
         @reservations.map! {|reservation| reservation.id}

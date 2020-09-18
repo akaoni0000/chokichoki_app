@@ -1,6 +1,8 @@
 <div class="container image_fo" style="padding-top: 40px;">
-    <p>クリックして画像を追加してください（10枚まで画像を登録できます）</p>
-    <%= form_with(model: @style_image, class: "image_form width_100", local: true) do |f| %>
+    <h2 class="center" style="margin-top: -20px">ヘアスタイル画像登録</h2>
+    <p class="center">クリックして画像を追加してください</p>
+    <P class="center">(10枚まで画像を登録できます)</p> 
+    <%= form_with(model: @style_image, class: "image_form ", local: true, style: "width: 100%") do |f| %>
         <span class="image_boxes">
             <%= render "style_images/style_image_save", hair_arry: @hair_arry %>
         </span>

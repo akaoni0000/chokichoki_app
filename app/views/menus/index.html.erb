@@ -14,7 +14,7 @@
     <p class="center" style="padding-top: 80px;">掲載中のメニューがありません。掲載準備中のメニューより掲載するを選択してください。</p>
 <% else %>
     <% @menus.reverse_each do |menu| %>
-        <div class="container" style="width: 900px;">
+        <div class="container">
             <div class="menu_card">
                 <div class="menu_top" >
                     <div class="title font"><%= menu.name %></div>
@@ -40,7 +40,7 @@
                 </div>
             </div>
             <%= link_to "掲載を中止", status_down_path(menu_id: menu.id), class: "btn btn-danger", style: "float: right;", method: :post, data: { confirm: '本当に掲載を中止しますか？' } %>
-            <%= link_to "予定表を編集", hairdressers_set_week_calendar_reservation_path(menu_id: menu.id), class: "btn btn-info", style: "float: right;" %>
+            <%= link_to "予定表を編集", hairdressers_set_week_calendar_reservation_path(menu_id: menu.id), class: "btn btn-info res_margin_bottom", style: "float: right;" %>
         </div>
     <% end %>
 <% end %>

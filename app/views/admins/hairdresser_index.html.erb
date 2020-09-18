@@ -1,6 +1,6 @@
 <div class="container center" style="padding-top: 50px;">
     <h1 class="admin_title">美容師一覧</h1>
-    <table class="table">
+    <table class="table vertical">
         <thead>
             <th class="center">id</th><th class="center">名前</th><th class="center">メールアドレス</th><th class="center">店舗名</th><th class="center">店舗住所</th><th class="center">性別</th><th class="center">評価</th>
         </thead>
@@ -29,7 +29,7 @@
                     </td>
                     <td>
                         <div id="star-rate-index-average-<%= hairdresser.id %>"></div>
-                        <% @comments = hairdresser.hairdresser_comments.where.not(rate: nil).count %>
+                        <% @comments = hairdresser.hairdresser_comments.where.not(rate: 0.0).count %>
                             <script>
                                 $('#star-rate-index-average-<%= hairdresser.id %>').raty({
                                 size: 36,
@@ -43,7 +43,7 @@
                                 });
                             </script>
                     </td>
-                    <td>
+                    <td class="vertical_border">
                         <%= link_to users_hairdresser_path(hairdresser.id), remote: true do %>
                             <p class="btn btn-success">詳細</p>
                         <% end %>

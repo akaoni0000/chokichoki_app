@@ -6,14 +6,14 @@ var html =
                     <p style="font-size:15px; text-align: center;">施術日：<%=@time.month%>月<%=@time.day%>日(<%= %w(日 月 火 水 木 金 土)[(@time).wday] %>)<%=@time.hour%>時<%=@time.min%>分</p>
                     <p style="font-size:15px; text-align: center;">メニュー：<%=@reservation.menu.name%></p>
                     <% if @current_user.present? %>
-                        <p style="position: relative; top: -40px; left: 10px; font-size: 20px;"><%= @hairdresser.name %></p>
+                        <p class="opponent_name"><%= @hairdresser.name %></p>
                     <% elsif @current_hairdresser.present? %>
-                        <p style="position: relative; top: -40px; left: 10px; font-size: 20px;"><%= @user.name %></p>
+                        <p class="opponent_name"><%= @user.name %></p>
                     <% end %>
                 </div> 
                 
                 <!--チャットルーム-->
-                <div id="room-<%=@room.room_token%>" class="room" href="<%=@room.id%>" style="height: 590px; overflow: auto;">
+                <div id="room-<%=@room.room_token%>" class="room" href="<%=@room.id%>">
                     <% i = 0 %>
                     <% @chat_messages.each do |chat_message| %>
                         <% if i == 0 || @chat_messages[i-1].created_at.to_date != @chat_messages[i].created_at.to_date %> <!--メッセージの送信した日付が変わる時は日付を表示する-->
@@ -127,7 +127,7 @@ var html =
                             <span class="delete_chat_img display_none cursor2" style="font-size: 15px;">削除</span>
                         </div>
                         <%= f.submit "送信", class: "btn btn-success message_btn" %>
-                        <%= f.text_area :message, placeholder: "メッセージを入力してください", class: "form-control chat_form" %>
+                        <%= f.text_area :message, placeholder: "メッセージを入力してください", class: "form-control chat_form", rows: 3 %>
                     <% end %>
                 </div>
             `
@@ -181,4 +181,22 @@ $(".myself").each(function(){
     $("#room-<%=@room.room_token%>").addClass("<%=@current_hairdresser.activation_digest%>");
     $("#room-<%=@room.room_token%>").addClass("hairdresser");
 <% end %>
+
+
+//レスポンシブ スマホのとき
+var width = $(window).width();
+var height = $(window).height();
+var room_height = height - 390 + 4
+if (width <= 425) {
+    $("#chat").css({
+        "display":"block"
+    });
+    $("#chat_members").css({
+        "display":"none"
+    });
+    $("#chat_room_<%=@room.room_token%>").addClass("responsive");
+    $(".room").css({
+        "height":`${room_height}`
+    });
+}
 

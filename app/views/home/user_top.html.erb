@@ -2,7 +2,7 @@
         <div class="stand_out">
             <p class="publicity">自分にあった美容師が必ずみつかる!!</p>
             <div class="search_form_square">
-                <h3 style="padding-left: 25px;">条件から美容師を探す</h3>
+                <h3 class="condition">条件から美容師を探す</h3>
                 <div class="center">
                     <div class="find center">
                         <%= link_to search_index_path(turn: 1) do %>
@@ -46,12 +46,12 @@
 <div class="botttom_search">
     <%= link_to today_hairdresser_and_menu_path, method: :post do %>
         <div class="today">
-            <h2>今日予約する</h2>
+            <h2 class="res_today">今日予約する</h2>
         </div>
     <% end %>
     <%= link_to tomorrow_hairdresser_and_menu_path, method: :post do %>
         <div class="tomorrow">
-            <h2>明日予約する</h2>
+            <h2 class="res_tomorrow">明日予約する</h2>
         </div>
     <% end %>
 </div>
@@ -59,7 +59,7 @@
 <div>
     <!-- 人気美容師スライダー bootstrapだけ jsなし -->
     <% if @hairdressers.present? %>
-        <div id="top_hairdresser_slider" class="container center" style="margin-top: 80px;">
+        <div id="top_hairdresser_slider" class="container center">
             <div class="carousel slide" data-ride="carousel" data-interval="6000">
                 <h2 class="" style="margin-top: 100px; font-family: serif;">人気美容師</h2>
                 <div class="carousel-inner " style="height: 500px;">
@@ -107,8 +107,8 @@
     <% end %>
 </div>
 
-<div class="container">
-    <h2 class="center" style="margin-top: 80px;">カットが評判の美容師</h1>
+<div class="container res_container">
+    <h2 class="center reptation_hairdresser">カットが評判の美容師</h1>
     <div class="top">
         <% if @hairdresser_cut_id_arry != nil %>
             <%= render "home/reputation", hairdresser_id_arry: @hairdresser_cut_id_arry, menus: @cut_menus %>
@@ -118,8 +118,8 @@
     </div>
 </div>
 
-<div class="container">
-    <h2 class="center" style="margin-top: 80px;">カラーが評判の美容師</h2>
+<div class="container res_container">
+    <h2 class="center reptation_hairdresser">カラーが評判の美容師</h2>
     <div class="top">
         <% if @hairdresser_color_id_arry != nil %>
             <%= render "home/reputation", hairdresser_id_arry: @hairdresser_color_id_arry, menus: @color_menus %>
@@ -129,8 +129,8 @@
     </div>
 </div>
 
-<div class="container">
-    <h2 class="center" style="margin-top: 80px;">縮毛矯正が評判の美容師</h1>
+<div class="container res_container">
+    <h2 class="center reptation_hairdresser">縮毛矯正が評判の美容師</h1>
     <div class="top">
         <% if @hairdresser_curly_id_arry != nil %>
             <%= render "home/reputation", hairdresser_id_arry: @hairdresser_curly_id_arry, menus: @curly_menus %>
@@ -140,8 +140,8 @@
     </div>
 </div>
 
-<div class="container" style="margin-bottom: 100px;">
-    <h2 class="center" style="margin-top: 80px;">パーマが評判の美容師</h1>
+<div class="container res_container" style="margin-bottom: 100px;">
+    <h2 class="center reptation_hairdresser">パーマが評判の美容師</h1>
     <div class="top">
         <% if @hairdresser_parma_id_arry != nil %>
             <%= render "home/reputation", hairdresser_id_arry: @hairdresser_parma_id_arry, menus: @parma_menus %>

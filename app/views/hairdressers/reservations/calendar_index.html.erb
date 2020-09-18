@@ -1,9 +1,10 @@
 <div class="container">
 
-    <h3 class="center">予定表(このページからは編集できません)</h3>
+    <h3 class="center">予定表</h3>
+    <P class="center">(このページからは編集できません)</p>
 
     <!--記号の説明-->
-    <div class="explain_simbol">
+    <div class="explain_simbol res_margin6">
         <span style="color: red;" class="simbol">◎</span>予約可能
         <span style="color: blue;" class="simbol">◎</span>予約あり
         <span class="glyphicon glyphicon-remove simbol" aria-hidden="true"></span>予約不可
@@ -31,7 +32,7 @@
                 
                 <!--バツマル-->
                 <% for i in 0..(@date_arry.length - 1) do %>
-                    <th class="border_right">
+                    <th class="border_right table_maru_batu">
                         <!--このテーブルは縦一列-->
                         <table>
                             <tbody class="simbols">

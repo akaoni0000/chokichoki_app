@@ -30,8 +30,15 @@ var html = `
                 </div>
             <% end %>
            `
-$(".header_top").prepend(html);
-$(".noti").animate({'marginLeft':'140px'},500);
+var width = $(window).width();
+if (width>425) {
+    $(".header_top").prepend(html);
+    $(".noti").animate({'marginLeft':'140px'},500);
+}
+else {
+    $(".message_noti").prepend(html); //レスポンシブ用
+    $(".noti").animate({'marginLeft':'0px'},500);
+}
 $(".remove_message").click(function(){
     $(".noti").fadeOut();
 });

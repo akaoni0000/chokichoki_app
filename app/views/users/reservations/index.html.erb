@@ -9,7 +9,7 @@
             <div class="date">
                 <%= @date_arry[i].year %>年<%= @date_arry[i].month %>月<%= @date_arry[i].day %>日
             </div>
-            <table class="table reservation_table">
+            <table class="table reservation_table vertical">
                 <thead>
                     <th class="center">時間</th>
                     <th class="center">美容師</th>
@@ -36,7 +36,7 @@
                                 <td>
                                     <%= reservation.menu.time %>分
                                 </td>
-                                <td>
+                                <td class="vertical_border">
                                     <% if reservation.start_time - Time.now > 60*60*24 %>
                                         <%= link_to "キャンセル", users_reservation_cancel_path(menu_id: reservation.menu_id, start_time: reservation.start_time), method: :post, data: { confirm: '本当にキャンセルしますか？キャンセルした場合支払ったお金はポイントとして返金されます。' }, class: "btn btn-danger" %>
                                     <% elsif  reservation.start_time - Time.now <= 60*60*24 && reservation.start_time - Time.now >= 0%>

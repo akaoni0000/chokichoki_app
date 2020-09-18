@@ -4,9 +4,9 @@
                 <div id="email" class="back_dark"><!--メールを送信しましたのhtml-->
                     <div class="send_email">
                         <span class="glyphicon glyphicon-remove cursor" style="float: right;"></span>
-                        <h2>確認メールを送信しました</h2>
+                        <h2 class="res_font3">確認メールを送信しました</h2>
                         <p>確認メールを<%=@user.email%>に送信しました。</p>
-                        <p>送信された確認メール内に記載されたURLにアクセルすると登録が完了します。</p>
+                        <p>送信された確認メール内に記載されたURLにアクセスすると登録が完了します。</p>
                         <p>※URLの有効期限は10分間です。</p>
                         <%= form_with(url: user_resend_path) do |f| %>
                         <% end %>

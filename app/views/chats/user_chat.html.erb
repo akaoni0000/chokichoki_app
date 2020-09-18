@@ -6,7 +6,7 @@
                 <% if @chats.length >= 7 %>
                     <%= f.text_field :search_room, placeholder: "名前を入力してください", class: "chat_search_form form-control" %>
                 <% else %>
-                    <%= f.text_field :search_room, placeholder: "名前を入力してください", class: "chat_search_form form-control", style: "width: 348px;" %>
+                    <%= f.text_field :search_room, placeholder: "名前を入力してください", class: "chat_search_form2 form-control" %>
                 <% end %>
                 <button type="submit" class="btn btn-primary chat_search_btn"> 
                      <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
@@ -42,7 +42,7 @@
                                     <p class="chat_last_message chat_last_message_room_<%=@room.room_token%>">画像を送信しました</p>
                                 <% end %>
                             <% else %>
-                                <p class="chat_last_message chat_last_message_room_<%=@room.room_token%>">画像を送信しました</p>
+                                <p class="chat_last_message chat_last_message_room_<%=@room.room_token%>"></p>
                                 <p class="chat_room_time"></p>
                             <% end%>
                         </div>

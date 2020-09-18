@@ -1,6 +1,6 @@
 <div class="container center" style="padding-top: 50px;">
     <h1 class="admin_title">会員一覧</h1>
-    <table class="table">
+    <table class="table vertical">
         <thead>
             <th class="center">id</th><th class="center">名前</th><th class="center">メールアドレス</th><th class="center">性別</th><th class="center">ポイント</th>
         </thead>
@@ -9,9 +9,13 @@
                 <tr>
                     <td><%= user.id %></td>
                     <td><%= user.name %></td>
-                    <td><%= user.email %></td>
+                    <% if user.email.include?("@twitter.com") %>
+                        <td>＊＊＊@twitter.com</td>
+                    <% else %>
+                        <td><%= user.email %></td>
+                    <% end %>
                     <td><%= user.sex %></td>
-                    <td><%= user.point %></td>
+                    <td class="vertical_border"><%= user.point %></td>
                 </tr>
             <% end %>
         </tbody>

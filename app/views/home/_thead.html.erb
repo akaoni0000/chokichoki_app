@@ -64,7 +64,7 @@
     <% end %>
 </tr>
 
-<tr><!--theadの真ん中の 日付 曜日-->
+<tr class="date_top"><!--theadの真ん中の 日付 曜日-->
     <% for i in 0..13 do %>
         <% @day = @standard_day + i %>
         <% if HolidayJp.holiday?(@day).present? %> <!--休日かどうか-->

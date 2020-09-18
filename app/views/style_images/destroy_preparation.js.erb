@@ -1,4 +1,6 @@
 //連打防止のために工夫した　double_clickというクラスをもっているとき削除ボタンをおすとalertが発生する
+var image_size = $('.hair_box').length;
+var width = $(window).width();
 
 if ( $(".hair_box").hasClass('double_click') ){
     alert("二重クリックは禁止されています。")
@@ -8,35 +10,66 @@ if ( $(".hair_box").hasClass('double_click') ){
 } 
 else {
     if ($(".image_label").hasClass("width_80")) {
-      $(".image_label").removeClass("width_80");
-      $(".image_label").addClass("width_100");
-      console.log(100);
+        $(".image_label").removeClass("width_80");
+        $(".image_label").addClass("width_100");
+        if (width<=425) {
+            $(".image_label").removeClass("res_width_49");
+            $(".image_label").addClass("res_width_100");
+            if (image_size==5) {
+                $(".image_label").removeClass("res_width_100");
+               $(".image_label").addClass("res_width_49");
+            }
+        }
     } 
     else if ($(".image_label").hasClass("width_60")) {
-      $(".image_label").removeClass("width_60");
-      $(".image_label").addClass("width_80");
-      console.log(80);
+        $(".image_label").removeClass("width_60");
+        $(".image_label").addClass("width_80");
+        if (width<=425) {
+            $(".image_label").removeClass("res_width_100");
+            $(".image_label").addClass("res_width_49");
+            if (image_size==6) {
+                $(".image_label").removeClass("res_width_49");
+                $(".image_label").addClass("res_width_100");
+            }
+        }
     }
     else if ($(".image_label").hasClass("width_40")) {
-      $(".image_label").removeClass("width_40");
-      $(".image_label").addClass("width_60");
-      console.log(60);
+        $(".image_label").removeClass("width_40");
+        $(".image_label").addClass("width_60");
+        if (width<=425) {
+            $(".image_label").removeClass("res_width_49");
+            $(".image_label").addClass("res_width_100");
+            if (image_size==7) {
+                $(".image_label").removeClass("res_width_100");
+                $(".image_label").addClass("res_width_49");
+            }
+        }
     }
     else if ($(".image_label").hasClass("width_20")) {
-      $(".image_label").removeClass("width_20");
-      $(".image_label").addClass("width_40");
-      console.log(40);
+        $(".image_label").removeClass("width_20");
+        $(".image_label").addClass("width_40");
+        if (width<=425) {
+            $(".image_label").removeClass("res_width_100");
+            $(".image_label").addClass("res_width_49");
+            if (image_size==8) {
+                $(".image_label").removeClass("res_width_49");
+                $(".image_label").addClass("res_width_100");
+            }
+        }
     }
-    else if ($(".image_label").hasClass("width_0")) {
-      $(".image_label").removeClass("width_0");
-      $(".image_label").addClass("width_20");
-      console.log(20);
-    }
+    
     else if ($(".image_label").hasClass("width_100")) {
-      $(".image_label").removeClass("width_100");
-      $(".image_label").removeClass("display_none");
-      $(".image_label").addClass("width_20");
-      console.log(0);
+        $(".image_label").removeClass("width_100");
+        $(".image_label").removeClass("display_none");
+        $(".image_label").addClass("width_20");
+        if (width<=425) {
+            $(".image_label").removeClass("res_width_49");
+            $(".image_label").addClass("res_width_100");
+            if (image_size==9) {
+                $(".image_label").removeClass("res_width_100");
+                $(".image_label").addClass("res_width_49");
+            }
+        }
     }
     var id = <%= @i %>
     $(".image_form").append(`<input name="[arry][]", value=${id} class="hidden">`)
