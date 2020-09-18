@@ -1,5 +1,5 @@
 class Batch::DataReset
-    #1分ごと
+    #1分ごとに実行
     def self.user_data_reset
         @users = User.select {|user| user.activation_deadline_at < Time.now && user.activation_status == false} 
         @users.map! {|user| user.id}
