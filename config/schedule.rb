@@ -23,7 +23,7 @@ require File.expand_path(File.dirname(__FILE__) + "/environment")
 rails_env = Rails.env.to_sym
 set :environment, rails_env
 set :output, 'log/cron.log'
-every 1.minute do
+every 6.hour do
   begin
     runner "Batch::DataReset.user_data_reset"
   rescue => e
@@ -36,7 +36,7 @@ require File.expand_path(File.dirname(__FILE__) + "/environment")
 rails_env = Rails.env.to_sym
 set :environment, rails_env
 set :output, 'log/cron.log'
-every 1.minute do
+every 1.hour do
   begin
     runner "Batch::DataReset.hairdresser_data_reset"
   rescue => e
@@ -62,7 +62,7 @@ require File.expand_path(File.dirname(__FILE__) + "/environment")
 rails_env = Rails.env.to_sym
 set :environment, rails_env
 set :output, 'log/cron.log'
-every 60.minute do
+every 20.minute do
   begin
     runner "Batch::DataReset.reservation_data_reset"
   rescue => e
@@ -75,7 +75,7 @@ require File.expand_path(File.dirname(__FILE__) + "/environment")
 rails_env = Rails.env.to_sym
 set :environment, rails_env
 set :output, 'log/cron.log'
-every 60.minute do
+every 15.minute do
   begin
     runner "Batch::DataReset.chat_data_reset"
   rescue => e
