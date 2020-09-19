@@ -4,7 +4,7 @@ class StyleImagesController < ApplicationController
     def edit
         @style_image =  StyleImage.find_by(hairdresser_id: @current_hairdresser.id)
         @hair_arry = @style_image.hair_images
-        gon.image_number = @style_image.hair_images.size    
+        gon.image_number = @style_image.hair_images.size   
     end
 
     def update
@@ -14,7 +14,7 @@ class StyleImagesController < ApplicationController
         @style_image.hair_images.flatten! #配列の中の配列をなくす
         @style_image.save
         
-        @destroy_arry_number = params[:arry]
+        @destroy_arry_number = params[:style_image][:arry]
         if @destroy_arry_number.present?
             @destroy_arry_number.each do |destroy_arry_number|
                 @style_image.hair_images.delete_at(destroy_arry_number.to_i) #このようにすることでdestoryが何回も行われなくて済む
@@ -27,15 +27,16 @@ class StyleImagesController < ApplicationController
     end
 
     def destroy_preparation
-        @hair_arry = params[:arry]
+        @hair_arry = params[:hair_arry]
         @hair_arry.delete_at(params[:arry_number].to_i)
-        @i = params[:arry_number].to_i
-        @size = params[:arry].size  
+        @i = params[:arry_number].to_is     
     end
 
     private
     def style_images_params
-        params.require(:style_image).permit({hair_images:[]})
+        params.require(:style_image).permit(hair_images:[])
     end
 
 end
+
+

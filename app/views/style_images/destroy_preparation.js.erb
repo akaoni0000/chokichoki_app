@@ -5,7 +5,7 @@ var width = $(window).width();
 if ( $(".hair_box").hasClass('double_click') ){
     alert("二重クリックは禁止されています。")
     setTimeout(function(){
-      $(".hair_box").removeClass('double_click');
+        $(".hair_box").removeClass('double_click');
     },1000);  
 } 
 else {
@@ -17,7 +17,7 @@ else {
             $(".image_label").addClass("res_width_100");
             if (image_size==5) {
                 $(".image_label").removeClass("res_width_100");
-               $(".image_label").addClass("res_width_49");
+                $(".image_label").addClass("res_width_49");
             }
         }
     } 
@@ -72,10 +72,10 @@ else {
         }
     }
     var id = <%= @i %>
-    $(".image_form").append(`<input name="[arry][]", value=${id} class="hidden">`)
+    $(".image_form").append(`<input name="style_image[arry][]", value=${id} class="hidden">`)
     $(".image_boxes").html("<%= j(render "style_images/style_image_save", hair_arry: @hair_arry) %>");
     $(".hair_box").addClass('double_click');
     setTimeout(function(){
-      $(".hair_box").removeClass('double_click');
+        $(".hair_box").removeClass('double_click');
     },400); 
 }

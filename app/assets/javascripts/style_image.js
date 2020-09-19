@@ -76,20 +76,19 @@ $(function () {
                 }
             } 
             $('.image_label').before(html);
+            image_input.appendTo(".image_form_save");
+            $(".image_form_save").children("input:last-child").attr("id", `${image_size}`);
+            $(".image_label").append(`<input class="hidden image_input" type="file" name="style_image[hair_images][]" id="style_image_hair_images" accept="image/*">`);
         }
-        image_input.appendTo(".image_form_save");
-        $(".image_label").append('<input class="hidden image_input" type="file" name="style_image[hair_images][]" id="style_image_hair_images" accept="image/*">');
-
     });
 
     //生成されたhtml要素にはこの形じゃないとイベントが発生しない 削除して配列番号を調整
     $(document).on("click", ".delete", function(){
 
         id = $(this).parent().parent().attr('href'); 
-        $(".image_form").append(`<input name="[arry][]", value=${id} class="hidden">`)
-        $(this).prop('disabled',true); //連打を防ぐ
+        $(`#${id}`).remove();
         $(this).parent().parent().remove();
-        var image_size = $('.hair_box').length;
+        var image_size = $('.hair_box').length; //レスポンシブでつかう
 
         if ($(".image_label").hasClass("width_80")) {
             $(".image_label").removeClass("width_80");
