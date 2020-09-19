@@ -47,10 +47,10 @@ $(document).ready(function(){
     if (path == "/user_chat" || path == "/hairdresser_chat") {
         // document.addEventListener("mousewheel", scroll_control, { passive: false });
         // document.addEventListener("touchmove", scroll_control, { passive: false });
-        $(window).on('touchmove.noScroll', function(e) {
-            e.preventDefault();
-        });
-        document.addEventListener('touchmove', function(e) {e.preventDefault();}, {passive: false});
+        // $(window).on('touchmove.noScroll', function(e) {
+        //     e.preventDefault();
+        // });
+        //document.addEventListener('touchmove', function(e) {e.preventDefault();}, {passive: false});
     }
 
 });
