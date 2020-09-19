@@ -3247,7 +3247,7 @@ select {
     }
 
     .res_time2 {
-        margin-left: -5px;
+        margin-left: 13px;
     }
 
     .please_reservation {
@@ -3312,6 +3312,11 @@ select {
     .wave {
         position: relative;
         top: -4px;
+        margin-left: 5px;
+    }
+
+    #finish_time {
+        margin-left: 5px;
     }
 
     .select_box {

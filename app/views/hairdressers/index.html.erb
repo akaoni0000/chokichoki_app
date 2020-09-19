@@ -46,7 +46,7 @@
     <div class="" style="margin-top: 50px; margin-bottom: 100px;">
         <% if @menus.present? %>
             <% @menus.reverse_each do |menu| %>
-                <div class="menu_card2" style="margin: 0 auto; margin-top: 15px;">
+                <div class="menu_card2" style="margin: 0 auto; margin-top: 60px;">
                     <div class="menu_top" >
                         <div>
                             <%= link_to users_hairdresser_path(menu.hairdresser.id), remote: true do %>
@@ -100,7 +100,9 @@
                         <%= attachment_image_tag menu, :menu_image, fallback: "no_image.png", id: "prev_menu_img" %>
                         <div class="explain font"><%= menu.explanation %></div>
                     </div>
-                    <%= link_to "予約する", users_set_week_calendar_reservation_path(menu_id: menu.id), class: "btn btn-success reserve_btn" %>
+                    <div style="margin-bottom: 60px;">
+                        <%= link_to "予約する", users_set_week_calendar_reservation_path(menu_id: menu.id), class: "btn btn-success reserve_btn" %>
+                    </div>
                 </div>
             <% end %>
         <% end %>
