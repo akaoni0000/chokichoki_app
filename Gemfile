@@ -100,6 +100,9 @@ gem 'dotenv-rails'
 #複数画像登録
 gem 'carrierwave'
 
+#carrierwaveの本番環境での画像保存先 awsのs3
+gem 'fog-aws'
+
 #デプロイ
 group :production, :staging do
   gem 'mysql2'
@@ -139,5 +142,5 @@ gem 'kaminari-bootstrap'
 #バッチ処理
 gem 'whenever', require: false
 
-#awsサポート
+#awsサポート いらなかったかも
 gem 'aws-sdk-rails'
