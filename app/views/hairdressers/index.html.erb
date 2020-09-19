@@ -53,9 +53,6 @@
                                 <%= attachment_image_tag menu.hairdresser, :hairdresser_image, size: "70x70", fallback: "no_image.png", class: "img-circle face_img" %>
                             <% end %>
 
-                            <!-- 美容師のshowモーダルを表示するための記述 -->
-                            <div id="hairdresser_show" class=""></div>
-
                             <span class="title2 font"><%= menu.name %></span>
                             <span class="menu_time2 font res_time2"><%= menu.time %>分</span>
                             <% if menu.category[0,1] == "1" %>
@@ -117,6 +114,8 @@
             <%= paginate @menus %>
         <% end %>
     </div>
+    <!-- 美容師のshowモーダルを表示するための記述 -->
+    <div id="hairdresser_show" class=""></div>
 </div>
 
 
