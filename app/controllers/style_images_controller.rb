@@ -29,7 +29,7 @@ class StyleImagesController < ApplicationController
     def destroy_preparation
         @hair_arry = params[:hair_arry]
         @hair_arry.delete_at(params[:arry_number].to_i)
-        @i = params[:arry_number].to_is     
+        @i = params[:arry_number].to_i     
     end
 
     private
