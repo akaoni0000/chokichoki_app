@@ -43,5 +43,4 @@ $(document).ready(function(){
     if (path == "/admins/sell_chart") {
         $(".link_chart").addClass("color3");
     }
-
 });

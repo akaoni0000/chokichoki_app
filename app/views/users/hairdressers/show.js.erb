@@ -23,3 +23,13 @@ $(".show_remove").click(function(){
     $('#hairdresser_show').fadeOut();
 });
 <% end %>
+var width = $(window).width();
+if (width<=425) {
+    var height = $(window).height();
+    var info_height = height -180
+    $(".hairdresser_info").css({
+        "height":`${info_height}`
+    });
+}
+$('body').addClass("no_scroll");
+

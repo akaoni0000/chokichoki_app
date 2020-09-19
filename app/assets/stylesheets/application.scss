@@ -3159,8 +3159,9 @@ select {
     }
 
     .hairdresser_info {
-        width: 345px;
+        width: 100%;
         margin-top: 13px;
+        height: 600px;
     }
 
     .hairdresser_show_box {
@@ -3176,12 +3177,14 @@ select {
     }
 
     .options {
-        width: 345px;
+        width: 320px;
+        margin: 0 auto;
+        margin-top: 40px;
     }
 
     .options_select {
-        width: 86px;
-        font-size: 14px;
+        width: 80px;
+        font-size: 12px;
     }
 
     .menu_card_small {
@@ -3613,6 +3616,7 @@ select {
 
     .res_favorite {
         display: block;
+        margin-top: -45px;
     }
 
     //chat
@@ -3953,6 +3957,32 @@ select {
 
     .remove_icon {
         font-size: 20px;
+    }
+
+    .show_remove {
+        border-radius: 30px 30px 30px 30px;
+        background-color: white;
+        position: relative;
+        right: 180px;
+        left: 120px;
+        z-index: 40;
+        top: -13px;
+        font-size: 25px;
+    }
+
+    #hairdresser_show {
+        z-index: 97;
+    }
+
+    .box_right {
+        display: block;
+        width: 100%;
+    }
+
+    .no_scroll {
+        position: fixed;
+        width: 100%;
+        z-index: 1;
     }
 
 }

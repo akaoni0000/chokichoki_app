@@ -320,14 +320,13 @@ $(function(){
     if (width<425) {
         $(".res_header").removeClass("fixed")
         $("body").prepend(header_html);
-        var chat_members_height = height - 50 +5 +90
-        $("#chat_members").css({
-            "height":`${chat_members_height}`
-        });
+
+        //サロンの方はこちら のリンクをなくす
         if (gon.user || gon.hairdresser || gon.admin) {
             $(".res_salon").remove();
         }
-
+        
+        //スライダーの調整
         $('.bxslider_cut').bxSlider({
             slideWidth: 300,
             minSlides: 1,
@@ -415,11 +414,15 @@ $(function(){
             $('#flash_red').fadeOut(); 
         },5000); 
         
-        //chat画面のときはheaderなし
+        //chat画面のときはheaderなし　bodyをスクロールさせない
         if (path=="/user_chat" || path=="/hairdresser_chat") {
             $(".res_header").addClass("display_none");
+            $('body').addClass("no_scroll");
+            var chat_members_height = height - 50 +5 +90
+            $("#chat_members").css({
+                "height":`${chat_members_height}`
+            });
         }
-
     }
 
     // window.addEventListener( "resize", function () {
@@ -447,7 +450,8 @@ $(function(){
             $(".res_menu").animate({'left':'0px'},500);
             $("#res_menu_btn").css({
                 "position":"fixed"
-            })
+            });
+            $('body').addClass("no_scroll");
         }
         else {
             $(this).removeClass('res_active');
@@ -457,9 +461,9 @@ $(function(){
             },501); 
             $("#res_menu_btn").css({
                 "position":""
-            })
+            });
+            $('body').removeClass("no_scroll");
         }
-
     });
     
     //ログイン画面を表示

@@ -202,6 +202,7 @@ $(function() {
                 "border": "1px solid #ccc"
             })
         },1000);
+        $('body').removeClass("no_scroll");
     });
 
     //FAQ
