@@ -214,7 +214,7 @@
             <!-- 会員登録画面モーダル -->
             <div id="user_sign_up_modal" class="back_dark">
                 <div class="user_sign_up_top">
-                    <span class="glyphicon glyphicon-remove cursor" style="float: right;"></span>
+                    <span class="glyphicon glyphicon-remove cursor remove_icon" style="float: right;"></span>
                     <p class="user_sign_up_top_title">chokichokiに登録</p>
                     <%= link_to "/auth/twitter", method: :post do %>
                         <p class="user_sign_up_top_twitter cursor2"><img src="<%= asset_path "twitter_logo.png" %>" class="user_sign_up_top_twitter_logo">twitterで登録</p>
@@ -227,7 +227,7 @@
             <!-- 会員登録モーダル -->
             <div id="user_sign_up" class="back_dark">
                 <div class="user_register">
-                    <span class="glyphicon glyphicon-remove cursor" style="float: right;"></span>
+                    <span class="glyphicon glyphicon-remove cursor remove_icon" style="float: right;"></span>
                     <h1>会員登録</h1>
                     <div class="user_register_total_error error"></div>
                     <%= form_with(model: @user_new, url: users_path, method: :post) do |f|%>
@@ -263,7 +263,7 @@
             <!-- 会員ログインモーダル -->
             <div id="user_sign_in" class="back_dark">
                 <div class="user_login">
-                    <span class="glyphicon glyphicon-remove cursor" style="float: right;"></span>
+                    <span class="glyphicon glyphicon-remove cursor remove_icon" style="float: right;"></span>
                     <h2>会員ログイン</h2>
                     <%= link_to "/auth/twitter", method: :post do %>
                         <p class="user_login_twitter cursor2"><img src="<%= asset_path "twitter_logo.png" %>" class="user_sign_up_top_twitter_logo">twitterでログイン</p>
@@ -287,7 +287,7 @@
             <!-- userのパスワードリセット -->
             <div id="user_password_reset" class="back_dark">
                 <div class="user_password_reset">
-                    <span class="glyphicon glyphicon-remove cursor" style="float: right;"></span>
+                    <span class="glyphicon glyphicon-remove cursor remove_icon" style="float: right;"></span>
                     <h2>パスワード再設定</h2>
                     <p>パスワードをリセットするためのメールをお送りします</p>
                     <p style="margin-bottom: 30px;">メールアドレスを入力してください</p>
@@ -305,7 +305,7 @@
             <!-- 美容師登録画面モーダル -->
             <div id="hairdresser_sign_up" class="back_dark">
                 <div id="hairdresser_register">
-                    <span class="glyphicon glyphicon-remove cursor" style="float: right;"></span>
+                    <span class="glyphicon glyphicon-remove cursor remove_icon" style="float: right;"></span>
                     <h1 style="margin-top: 20px;">美容師登録</h1>
                     <div class="total_error error">
                     </div>
@@ -399,7 +399,7 @@
             <!-- 美容師ログインモーダル -->
             <div id="hairdresser_sign_in" class="back_dark">
                 <div class="hairdresser_login">
-                    <span class="glyphicon glyphicon-remove cursor" style="float: right;"></span>
+                    <span class="glyphicon glyphicon-remove cursor remove_icon" style="float: right;"></span>
                     <h2>美容師ログイン</h2>
                     <p class="hairdresser_login_error error"></p>
                     <div>
@@ -419,7 +419,7 @@
             <!-- hairdresserのパスワードリセット -->
             <div id="hairdresser_password_reset" class="back_dark">
                 <div class="hairdresser_password_reset">
-                    <span class="glyphicon glyphicon-remove cursor" style="float: right;"></span>
+                    <span class="glyphicon glyphicon-remove cursor remove_icon" style="float: right;"></span>
                     <h2>パスワード再設定</h2>
                     <p>パスワードをリセットするためのメールをお送りします</p>
                     <p style="margin-bottom: 30px;">メールアドレスを入力してください</p>

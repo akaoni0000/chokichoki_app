@@ -44,13 +44,10 @@ $(document).ready(function(){
         $(".link_chart").addClass("color3");
     }
 
+    if (path == "/user_chat" || path == "/hairdresser_chat") {
+        $(window).on('touchmove.noScroll', function(e) {
+            e.preventDefault();
+        });
+    }
 
-    // var path = location.pathname
-    // if (path = "/hairdresser_top") {
-    //     $('#flash').css({
-    //         "color": "red"
-    //     });
-    // }
-
-    // $("#name_hidden").hide();
-})
+});

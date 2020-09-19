@@ -59,39 +59,57 @@ class ChatsController < ApplicationController
                 end
             end
         else
-            flash[:notice_red] = "その操作は禁じられています"
-            respond_to do |format|
-                format.js { render ajax_redirect_to(root_path)}
+            flash[:notice_red] = "エラーが発生しました"
+            if @current_user.present?
+                respond_to do |format|
+                    format.js { render ajax_redirect_to(root_path) }
+                end
+            elsif @current_hairdresser.present?
+                respond_to do |format|
+                    format.js { render ajax_redirect_to(hairdresser_path(@current_hairdresser.id)) }
+                end
             end
         end
-
     end
 
     def message_create
         @chat_message = ChatMessage.new(chat_message_params)
-        @chat_message.room_id = session[:room_id] 
+        @chat_message.room_id = session[:room_id] #このセッションはルームをクリックした時に発行される
         @chat = Chat.find_by(room_id: session[:room_id])
-        if @current_user.present?
-            @chat_message.user_id = @current_user.id
-            @user_or_hairdresser = "hairdresser" #メッセージを送る相手
-            @digest = @chat.hairdresser.activation_digest
-        elsif @current_hairdresser.present?
-            @chat_message.hairdresser_id = @current_hairdresser.id
-            @user_or_hairdresser = "user" #メッセージを送る相手
-            @digest = @chat.user.activation_digest
-        end
-        @chat_message.style_images.map! {|a| a.to_i} #文字列を数値に変える style_imagesは配列のカラムである 例["1", "1"]
-        if @chat_message.save #何もparamsで送られて来なかった時は保存されない
-            @room = Room.find(@chat.room_id)
-            @style_image = StyleImage.find_by(hairdresser_id: @chat.hairdresser_id) #美容師の
-            @hair_arry = @style_image.hair_images 
-            @chat_messages = ChatMessage.where(room_id: @chat.room_id)
-            if @chat_messages.last(2).first.created_at.to_date != @chat_messages.last(2).last.created_at.to_date #chat_messagesテーブルの最後の二つのデータの作成日が違うかどうか
-                @date = @chat_messages.last.created_at.to_date
+        if @chat.present?
+            if @current_user.present?
+                @chat_message.user_id = @current_user.id
+                @user_or_hairdresser = "hairdresser" #メッセージを送る相手
+                @digest = @chat.hairdresser.activation_digest
+            elsif @current_hairdresser.present?
+                @chat_message.hairdresser_id = @current_hairdresser.id
+                @user_or_hairdresser = "user" #メッセージを送る相手
+                @digest = @chat.user.activation_digest
             end
-            @time = "#{@chat_message.created_at.to_time.hour}:#{@chat_message.created_at.to_time.strftime("%Y-%m-%d %H:%M:%S").strip[14, 2]}"
-            data = {room_token: @room.room_token, user_or_hairdresser: @user_or_hairdresser, digest: @digest, message: @chat_message.message, time: @time}
-            RoomChannel.talk(data)
+            @chat_message.style_images.map! {|a| a.to_i} #文字列を数値に変える style_imagesは配列のカラムである 例["1", "1"]
+            if @chat_message.save #何もparamsで送られて来なかった時は保存されない
+                @room = Room.find(@chat.room_id)
+                @style_image = StyleImage.find_by(hairdresser_id: @chat.hairdresser_id) #美容師の
+                @hair_arry = @style_image.hair_images 
+                @chat_messages = ChatMessage.where(room_id: @chat.room_id)
+                if @chat_messages.last(2).first.created_at.to_date != @chat_messages.last(2).last.created_at.to_date #chat_messagesテーブルの最後の二つのデータの作成日が違うかどうか
+                    @date = @chat_messages.last.created_at.to_date
+                end
+                @time = "#{@chat_message.created_at.to_time.hour}:#{@chat_message.created_at.to_time.strftime("%Y-%m-%d %H:%M:%S").strip[14, 2]}"
+                data = {room_token: @room.room_token, user_or_hairdresser: @user_or_hairdresser, digest: @digest, message: @chat_message.message, time: @time}
+                RoomChannel.talk(data)
+            end
+        else
+            flash[:notice_red] = "エラーが発生しました"
+            if @current_user.present?
+                respond_to do |format|
+                    format.js { render ajax_redirect_to(root_path) }
+                end
+            elsif @current_hairdresser.present?
+                respond_to do |format|
+                    format.js { render ajax_redirect_to(hairdresser_path(@current_hairdresser.id)) }
+                end
+            end
         end
     end
 

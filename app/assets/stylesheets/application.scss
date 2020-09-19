@@ -2953,7 +2953,7 @@ select {
     }
 
     #res_menu_btn {
-        width: 50px;
+        width: 80px;
         height: 50px;
         background-color:#666666;
         position: absolute;
@@ -3227,6 +3227,7 @@ select {
 
     .title2 {
         width: 250px;
+        font-size: 20px;
     }
 
     .menu_time2 {
@@ -3950,10 +3951,10 @@ select {
         top: 0px;
     }
 
-    .glyphicon-remove {
+    .remove_icon {
         font-size: 20px;
     }
-    
+
 }
 
 //input要素の自動コンプリートの背景色を設定 defaultは青 
