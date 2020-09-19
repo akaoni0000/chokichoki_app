@@ -275,6 +275,10 @@ class SearchController < ApplicationController
         @min_rate = params[:start_rate].to_i
         @max_rate = params[:finish_rate].to_i
         @hairdressers_from_reputation = Hairdresser.select {|hairdresser| @min_rate <= hairdresser.reputation_point/hairdresser.hairdresser_comments.where.not(rate: 0.0).length && hairdresser.reputation_point/hairdresser.hairdresser_comments.where.not(rate: 0.0).length <= @max_rate}
+        if @min_rate == 0
+            @hairdressers_from_reputation.push(Hairdresser.where(reputation_point: 0.0))
+            @hairdressers_from_reputation.flatten!
+        end
         @menus_from_reputation = @hairdressers_from_reputation.map {|a| a.menus}
         @menus_from_reputation.flatten!
         @menus_from_reputation = @menus_from_reputation.select {|menu| menu.status == true}

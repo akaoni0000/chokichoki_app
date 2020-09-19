@@ -66,7 +66,9 @@
     </script>
     <% if @current_admin.present? %>
         <p style="margin-top: 30px; font-size: 20px;">美容師免許証</p>
-        <%= attachment_image_tag @hairdresser, :confirm_image, class: "hairdresser_confirm_img_big"%>
+        <div>
+            <%= attachment_image_tag @hairdresser, :confirm_image, class: "hairdresser_confirm_img_big"%>
+        </div>
         <div class="display_inline_block">
             <%= link_to admins_permit_path(@hairdresser.id), method: :patch, class: "btn btn-success" do %>
                 <p style="color: white;">承認する</p>

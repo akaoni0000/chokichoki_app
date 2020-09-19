@@ -3,7 +3,6 @@ class ApplicationController < ActionController::Base
     require "date"   #これでDateクラスが使える
     protect_from_forgery with: :null_session #jsファイルから非同期でコントローラにデータを送るときこれがあるとCSRF保護が無効になり非同期できる 
 
-
     before_action :set_current_user
     before_action :set_current_hairdresser
     before_action :set_current_admin
@@ -33,7 +32,7 @@ class ApplicationController < ActionController::Base
     end
 
     def set_gon
-        gonzkey = ENV['KEY'] #payjp(クレジットカード)の公開鍵
+        gon.key = ENV['KEY'] #payjp(クレジットカード)の公開鍵
         if @current_user.present?
             gon.user = true
 

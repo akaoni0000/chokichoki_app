@@ -2941,6 +2941,11 @@ select {
     display: inline-block;
 }
 
+.position_ajust {
+    position: relative;
+    z-index: 30;
+}
+
 //レスポンシブ jsでも処理した
 @media screen and (max-width:425px) {
 
@@ -3229,8 +3234,8 @@ select {
     }
 
     .title2 {
-        width: 250px;
-        font-size: 20px;
+        width: 220px;
+        font-size: 18px;
     }
 
     .menu_time2 {
@@ -3239,6 +3244,10 @@ select {
 
     .res_time {
         margin-left: -20px;
+    }
+
+    .res_time2 {
+        margin-left: -5px;
     }
 
     .please_reservation {

@@ -198,5 +198,6 @@ if (width <= 425) {
     $(".room").css({
         "height":`${room_height}`
     });
+    $(`#room-<%=@room.room_token%>`).scrollTop($(`#room-<%=@room.room_token%>`)[0].scrollHeight);
 }
 
