@@ -3950,11 +3950,10 @@ select {
         top: 0px;
     }
 
-    //スマホでinput入力時にズームされるのを防ぐ
-    input {
-        font-size: 16px;
-        transform: scale(0.8);
+    .glyphicon-remove {
+        font-size: 20px;
     }
+    
 }
 
 //input要素の自動コンプリートの背景色を設定 defaultは青 
