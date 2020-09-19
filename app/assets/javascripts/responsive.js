@@ -320,7 +320,7 @@ $(function(){
     if (width<425) {
         $(".res_header").removeClass("fixed")
         $("body").prepend(header_html);
-        var chat_members_height = height - 230 +5 +90
+        var chat_members_height = height - 50 +5 +90
         $("#chat_members").css({
             "height":`${chat_members_height}`
         });
@@ -413,7 +413,12 @@ $(function(){
        
         setTimeout(function(){
             $('#flash_red').fadeOut(); 
-        },5000);    
+        },5000); 
+        
+        //chat画面のときはheaderなし
+        if (path=="/user_chat" || path=="/hairdresser_chat") {
+            $(".res_header").addClass("display_none");
+        }
 
     }
 
