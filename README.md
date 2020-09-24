@@ -13,3 +13,4 @@
 ### 設計書
 ### 機能一覧
 https://docs.google.com/spreadsheets/d/1iVJtVIEPOJfK9lpzj4hvO74wDkuwX-_JMYbeXIKvjyk/edit?usp=sharing
+## 動画でわかるchokichoki
