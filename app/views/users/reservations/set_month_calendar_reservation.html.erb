@@ -15,7 +15,7 @@
                     <% @time_min = reservation.start_time %>
                     <% @time_max = reservation.start_time  + reservation.menu.time*60 - 1 %>
                     <% @reservations_after = @menu.hairdresser.reservations.where(start_time: @time_min..@time_max, status: true) %>
-                    <% if @reservations_after.blank? %>
+                    <% if @reservations_after.blank? && Time.now < reservation.start_time %>
                         <div>
                             <span><%= reservation.start_time.hour %>時<%= reservation.start_time.min %>分</span>
                             <span style="float: right"><%= link_to "予約する", edit_users_reservation_path(reservation.id), class: "user_reservation color", id: reservation.id%>

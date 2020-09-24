@@ -3,7 +3,7 @@ User.seed do |s|
     s.name = "あいこ"
     s.email = "aaa@gmail.com"
     s.password = "chokichoki"
-    s.sex = "男性"
+    s.sex = "女性"
     s.activation_status = true
     s.activation_deadline_at = "2020-09-07 15:30:00 +0900".to_time
 end

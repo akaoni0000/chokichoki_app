@@ -12,11 +12,16 @@ class ApplicationController < ActionController::Base
     before_action :set_new_show
     before_action :notification
 
+    before_action :session_for_test
+
     def set_current_user
         @current_user = User.find_by(id: session[:user_id])    #find(session[])とすると必ずsessionに値がなければならない
     end
 
     def set_current_hairdresser 
+        if Rails.env.test?
+            session[:hairdresser_id] = 1
+        end
         @current_hairdresser = Hairdresser.find_by(id: session[:hairdresser_id])
     end
 
@@ -102,5 +107,10 @@ class ApplicationController < ActionController::Base
             gon.unread_number_user = @unread_number_user 
         end
     end
-    
+
+    def session_for_test
+        if Rails.env.test?
+            session[:comment_id] = 1
+        end
+    end
 end

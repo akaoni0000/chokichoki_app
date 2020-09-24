@@ -15,16 +15,19 @@
         <%= form_with(model: @hairdresser_comment, local: true) do |f| %>
             <p class="res_margin6">評価</p>
             <p class="error"><%=@error%></p>
-            <div id='star'></div>
+            <div id='star'>
+                
+            </div>
             <script>
                 $('#star').raty({
-                size     : 36,
-                starOff:  '<%= asset_path('star-off.png') %>',
-                starOn : '<%= asset_path('star-on.png') %>',
-                starHalf: '<%= asset_path('star-half.png') %>',
-                scoreName: 'hairdresser_comment[rate]',
-                half: true,
-            });
+                    size     : 36,
+                    starOff:  '<%= asset_path('star-off.png') %>',
+                    starOn : '<%= asset_path('star-on.png') %>',
+                    starHalf: '<%= asset_path('star-half.png') %>',
+                    scoreName: 'hairdresser_comment[rate]',
+                    half: true,
+                });
+                $("#star").children("input").attr("id", "star_form");
             </script>
             <%= f.text_area :comment, class: "form-control comment_area_width", rows: "8", placeholder:'口コミを投稿すると200ポイントもらえます' %>
             <%= f.submit '投稿する', class:"btn btn-success", style: "margin-bottom: 40px" %>

@@ -12,7 +12,7 @@ class User < ApplicationRecord
     end
 
     def create_column
-        self.activation_token  = create_new_token #accessorで作った仮想カラムに値を入れる
+        self.activation_token = create_new_token #accessorで作った仮想カラムに値を入れる
         self.activation_digest = create_activation_digest(self.activation_token)
         self.activation_deadline_at = Time.now + 600
     end

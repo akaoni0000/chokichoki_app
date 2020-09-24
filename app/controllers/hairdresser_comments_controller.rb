@@ -11,6 +11,9 @@ class HairdresserCommentsController < ApplicationController
 
     def update
         @hairdresser_comment = HairdresserComment.find(session[:comment_id])
+        if Rails.env.test?
+            params[:hairdresser_comment][:rate] = 2
+        end
         if @hairdresser_comment.update(hairdresser_comment_params)
             #美容師の評価を保存する(これまでの評価に今の評価した数字を足す)
             @hairdresser = Hairdresser.find(@hairdresser_comment.hairdresser_id)

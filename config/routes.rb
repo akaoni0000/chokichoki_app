@@ -102,7 +102,7 @@ Rails.application.routes.draw do
   #hairdresser_commentsコントローラ
   resources :hairdresser_comments, only: [:edit, :update, :index]
 
-  #chatコントローラ
+  #chatsコントローラ
   get "user_chat" => "chats#user_chat", as: "user_chat"
   get "hairdresser_chat" => "chats#hairdresser_chat", as: "hairdresser_chat"
   post "message_create" => "chats#message_create", as: "message_create"
@@ -114,7 +114,7 @@ Rails.application.routes.draw do
   #favoritesコントローラ
   resources :favorites, only: [:index, :create, :destroy]
 
-  #通知コントローラ
+  #noticesコントローラ
   post "notice/message" => "notices#notice_message_modal", as: "notice_message_modal" 
   post "notice/reservation" => "notices#notice_reservation_modal", as: "notice_reservation_modal" 
   post "notice/cancel" => "notices#notice_cancel_modal", as: "notice_cancel_modal" 

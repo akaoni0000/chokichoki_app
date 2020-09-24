@@ -77,6 +77,12 @@ $(function(){
     });
 });
 
+// //idをつける
+// $(function(){
+//     $("#star").children("input").attr("id", "star_form");
+// });
+
+
 //kaminari のviewを調整 ページが2のとき1の色が見えづらくなっているのが嫌だった
 $(function(){
     if (gon.kaminari) {
