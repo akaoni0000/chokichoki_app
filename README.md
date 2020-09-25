@@ -17,7 +17,7 @@ https://drive.google.com/file/d/1L9GzhtcA8YSMYTWPJa_tjOHIt_3FVncx/view?usp=shari
 ![result](https://github.com/Mac0917/img_for_readme/blob/master/er.png)
 ### 機能一覧
 https://docs.google.com/spreadsheets/d/1iVJtVIEPOJfK9lpzj4hvO74wDkuwX-_JMYbeXIKvjyk/edit?usp=sharing
-## 動画でわかるchokichoki(予約完了までの流れを紹介) 
+## 3分でわかるchokichoki(予約完了までの流れを紹介) 
 ### 美容師登録
 新規登録で必要な情報を入力 > メールが届く > メールのurlをクリックするとメール認証完了 
 ![result](https://github.com/Mac0917/img_for_readme/blob/master/register_hairdresser.png)

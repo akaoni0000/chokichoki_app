@@ -108,10 +108,8 @@
         <% end %>
     </div>
     <div class="center">
-        <% if @hairdressers.present? && @hairdressers.length >= 36 && @menus.present? && @menus.length >= 11 %>
+        <% if @hairdressers.present? %>
             <%= paginate @hairdressers %> <!--ページネーションのviewは一つだけ-->
-        <% elsif @hairdressers.present? && @hairdressers.length >= 36 %>
-            <%= paginate @hairdressers %>
         <% elsif @menus.present? %>
             <%= paginate @menus %>
         <% end %>
