@@ -14,6 +14,7 @@
 ### 機能一覧
 https://docs.google.com/spreadsheets/d/1iVJtVIEPOJfK9lpzj4hvO74wDkuwX-_JMYbeXIKvjyk/edit?usp=sharing
 ## 動画でわかるchokichoki(予約完了までの流れを紹介)
+![result](https://github.com/Mac0917/img_for_readme/blob/master/demo.gif)
 ### 美容師登録
 ### メニュー作成
 ### 会員登録
