@@ -16,7 +16,7 @@ https://docs.google.com/spreadsheets/d/1iVJtVIEPOJfK9lpzj4hvO74wDkuwX-_JMYbeXIKv
 ## 動画でわかるchokichoki(予約完了までの流れを紹介) 
 ### 美容師登録
 新規登録で必要な情報を入力 > メールが届く > メールのurlをクリックするとメール認証完了 
-
+![result](https://github.com/Mac0917/img_for_readme/blob/master/register_hairdresser.png)
 ### 管理者で美容師の登録を許可
 管理者でログイン(フッターにリンクがあります) > 承認待ちより先ほど登録した美容師を選択して承認する > 美容師登録完了
 
