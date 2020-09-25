@@ -5,7 +5,7 @@
         <div class="hairdresser_show_box">
             <%= attachment_image_tag @hairdresser, :hairdresser_image, size: "320x320", fallback: "no_image.png", class: "hairdresser_show_img"%>
             <div class="name_etc" style="padding: 10px;">
-                <p style="padding-right: 235px;"><%= @hairdresser.shop_name %></p>
+                <p style="text-align: left;"><%= @hairdresser.shop_name %></p>
                 <h2 style="margin: 0;"><%= @hairdresser.name %><h2>
                 <p style="font-size: 15px;"><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span><%= @hairdresser.address %></p>
                 <div class="favorite">
