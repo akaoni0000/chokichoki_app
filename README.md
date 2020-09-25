@@ -1,4 +1,5 @@
-# chokichoki
+# アプリ名
+chokichoki
 ## サイト概要
 安価で美容院に行きたい人と、マネキンではなく実際にお客様の髪で施術をしたい美容師アシスタント、双方の希望を叶えるwebアプリケーションです。 美容院に行くとなると料金が高く身構える人が多いですが、このアプリでは気軽に予約をとることができます。美容師アシスタントの方は自分でメニューを考え作成してスタイリストのように施術することができます。 一般の方は一回の施術に500円、美容師の方は完全無料で使えます。
 ### サイトテーマ
@@ -11,6 +12,7 @@
 美容師・・・人の髪を練習したいとき<br>
 一般の人・・・安価で髪を切りたいとき
 ### 設計書
+https://drive.google.com/file/d/1L9GzhtcA8YSMYTWPJa_tjOHIt_3FVncx/view?usp=sharing
 ### 機能一覧
 https://docs.google.com/spreadsheets/d/1iVJtVIEPOJfK9lpzj4hvO74wDkuwX-_JMYbeXIKvjyk/edit?usp=sharing
 ## 動画でわかるchokichoki(予約完了までの流れを紹介) 
