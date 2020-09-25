@@ -27,8 +27,8 @@ https://docs.google.com/spreadsheets/d/1iVJtVIEPOJfK9lpzj4hvO74wDkuwX-_JMYbeXIKv
 ![result](https://github.com/Mac0917/img_for_readme/blob/master/menu2.png)
 ### 会員登録
 新規登録で必要な情報を入力 > メールが届く > メールのurlをクリックするとメール認証完了
-![result](https://github.com/Mac0917/img_for_readme/blob/master/user.png)
-![result](https://github.com/Mac0917/img_for_readme/blob/master/hairdresser_mail.png)
+![result](https://github.com/Mac0917/img_for_readme/blob/master/register_user.png)
+![result](https://github.com/Mac0917/img_for_readme/blob/master/user_mail.png)
 ### 予約完了
 会員(一般人)でログイン > 美容師一覧より美容師を選択 > 美容師のメニューよりメニューを選択 > ご来店日時を選択 > お金を払って予約完了(お金は発生しません)
 ![result](https://github.com/Mac0917/img_for_readme/blob/master/reserve.png)
