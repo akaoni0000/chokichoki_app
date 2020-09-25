@@ -13,6 +13,7 @@ chokichoki
 一般の人・・・安価で髪を切りたいとき
 ### 設計書
 https://drive.google.com/file/d/1L9GzhtcA8YSMYTWPJa_tjOHIt_3FVncx/view?usp=sharing
+![result](https://github.com/Mac0917/img_for_readme/blob/master/er.png)
 ### 機能一覧
 https://docs.google.com/spreadsheets/d/1iVJtVIEPOJfK9lpzj4hvO74wDkuwX-_JMYbeXIKvjyk/edit?usp=sharing
 ## 動画でわかるchokichoki(予約完了までの流れを紹介) 
