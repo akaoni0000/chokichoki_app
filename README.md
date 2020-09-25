@@ -13,4 +13,9 @@
 ### 設計書
 ### 機能一覧
 https://docs.google.com/spreadsheets/d/1iVJtVIEPOJfK9lpzj4hvO74wDkuwX-_JMYbeXIKvjyk/edit?usp=sharing
-## 動画でわかるchokichoki
+## 動画でわかるchokichoki(予約完了までの流れを紹介)
+### 美容師登録
+### メニュー作成
+### 会員登録
+### 予約完了
+### 施術日までチャット機能でなりたい髪型について話し合おう
