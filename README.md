@@ -22,10 +22,10 @@ https://docs.google.com/spreadsheets/d/1iVJtVIEPOJfK9lpzj4hvO74wDkuwX-_JMYbeXIKv
 
 ### メニュー作成
 美容師でログイン > メニュー作成 > メニューより予定表を編集 > 掲載するを選択
-![result](https://github.com/Mac0917/img_for_readme/blob/master/menu.gif)
+
 ### 会員登録
 新規登録で必要な情報を入力 > メールが届く > メールのurlをクリックするとメール認証完了
-![result](https://github.com/Mac0917/img_for_readme/blob/master/register_user.gif)
+
 ### 予約完了
 会員(一般人)でログイン > 美容師一覧より美容師を選択 > 美容師のメニューよりメニューを選択 > ご来店日時を選択 > お金を払って予約完了
 
