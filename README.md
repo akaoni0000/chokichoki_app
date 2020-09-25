@@ -17,18 +17,22 @@ https://docs.google.com/spreadsheets/d/1iVJtVIEPOJfK9lpzj4hvO74wDkuwX-_JMYbeXIKv
 ### 美容師登録
 新規登録で必要な情報を入力 > メールが届く > メールのurlをクリックするとメール認証完了 
 ![result](https://github.com/Mac0917/img_for_readme/blob/master/register_hairdresser.png)
+![result](https://github.com/Mac0917/img_for_readme/blob/master/hairdresser_mail.png)
 ### 管理者で美容師の登録を許可
 管理者でログイン(フッターにリンクがあります) > 承認待ちより先ほど登録した美容師を選択して承認する > 美容師登録完了
-
+![result](https://github.com/Mac0917/img_for_readme/blob/master/admin.png)
 ### メニュー作成
 美容師でログイン > メニュー作成 > メニューより予定表を編集 > 掲載するを選択
-
+![result](https://github.com/Mac0917/img_for_readme/blob/master/menu.png)
+![result](https://github.com/Mac0917/img_for_readme/blob/master/menu2.png)
 ### 会員登録
 新規登録で必要な情報を入力 > メールが届く > メールのurlをクリックするとメール認証完了
-
+![result](https://github.com/Mac0917/img_for_readme/blob/master/user.png)
+![result](https://github.com/Mac0917/img_for_readme/blob/master/hairdresser_mail.png)
 ### 予約完了
 会員(一般人)でログイン > 美容師一覧より美容師を選択 > 美容師のメニューよりメニューを選択 > ご来店日時を選択 > お金を払って予約完了(お金は発生しません)
-
+![result](https://github.com/Mac0917/img_for_readme/blob/master/reserve.png)
+![result](https://github.com/Mac0917/img_for_readme/blob/master/reserve_mail.png)
 ### 施術日までチャット機能でなりたい髪型について話し合おう(スマホバージョン)
 チャット画面の入力フォームの上にある二つのアイコンは左が担当美容師が設定した画像を選択でき、右が自分の画像を選択して送信することができます
 ![result](https://github.com/Mac0917/img_for_readme/blob/master/chat.gif)
