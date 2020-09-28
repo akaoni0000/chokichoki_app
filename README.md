@@ -25,10 +25,10 @@ jsフレームワーク・・・jquery<br>
 ## URL
 http://54.64.74.19<br>
 会員テストデータ(一般人)<br>
-メールアドレス・・・1~30までの数字+@gmail.com     例 1@gmail.com<br>
+メールアドレス・・・1から30までの数字+@gmail.com     例 1@gmail.com<br>
 パスワード・・・chokichoki<br>
 美容師テストデータ<br>
-メールアドレス・・・1~50までの数字+@gmail.com     例 1@gmail.com<br>
+メールアドレス・・・1から50までの数字+@gmail.com     例 1@gmail.com<br>
 パスワード・・・chokichoki<br>
 adminテストデータ<br>
 メールアドレス・・・aaa@gmail.com<br>
