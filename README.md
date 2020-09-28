@@ -40,3 +40,7 @@ https://docs.google.com/spreadsheets/d/1iVJtVIEPOJfK9lpzj4hvO74wDkuwX-_JMYbeXIKv
 ### 施術日までチャット機能でなりたい髪型について話し合おう(スマホバージョン)
 チャット画面の入力フォームの上にある二つのアイコンは左が担当美容師が設定した画像を選択でき、右が自分の画像を選択して送信することができます
 ![result](https://github.com/Mac0917/img_for_readme/blob/master/chat.gif)
+## 追記
+・現在地から検索がただいま使用できません。 ssl化しないと使えないようです。仮想環境では使えます。<br>
+・本番環境のテストデータが外国風なのは顔画像のフリー素材に外国人を採用したためです。
+

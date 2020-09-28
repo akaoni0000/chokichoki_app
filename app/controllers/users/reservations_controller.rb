@@ -100,6 +100,7 @@ class Users::ReservationsController < ApplicationController
                 if  @current_user.point >= 500
                     @current_user.point -= 500
                     @current_user.save
+                    binding.pry
                     
                     various_change #インスタンスメソッド
     

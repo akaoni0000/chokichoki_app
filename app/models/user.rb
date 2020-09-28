@@ -20,7 +20,7 @@ class User < ApplicationRecord
     #バリデーション
     #nameカラム
     validates :name,
-        length: { in: 2..10, message: "は2文字以上20文字以内で入力してください" },
+        length: { in: 2..10, message: "は2文字以上10文字以内で入力してください" },
         uniqueness: { message: "はすでに存在します" }
 
     #emailカラム
