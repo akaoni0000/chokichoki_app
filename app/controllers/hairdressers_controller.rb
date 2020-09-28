@@ -152,7 +152,7 @@ class HairdressersController < ApplicationController
         @reservations_today = @current_hairdresser.reservations.where(start_time: Time.now.midnight .. Time.now.end_of_day).order(start_time: "ASC") & @current_hairdresser.reservations.where.not(user_id: nil).order(start_time: "ASC")
         @reservations_tomorrow = @current_hairdresser.reservations.where(start_time: (Time.now + 3600*24).midnight .. (Time.now + 3600*24).end_of_day).order(start_time: "ASC") & @current_hairdresser.reservations.where.not(user_id: nil).order(start_time: "ASC")
         
-        @menus = @current_hairdresser.menus
+        @menus = @current_hairdresser.menus.where(status: true)
         @menus_category = @menus.map {|a| a.category}
         @menus_category.uniq!
         @cut = @menus_category.map {|a| a.slice(0,1)} #カット

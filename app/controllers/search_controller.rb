@@ -123,7 +123,7 @@ class SearchController < ApplicationController
     end
 
     def today_hairdresser_and_menu
-        @reservations = Reservation.where(start_time: Time.now .. Time.now.end_of_day, user_id: nil).joins(:menu).where(menus: { status: true })
+        @reservations = Reservation.where(start_time: Time.now .. Time.now.end_of_day, user_id: nil, status: false).joins(:menu).where(menus: { status: true })
         if @reservations.present?
             @menus = @reservations.map {|reservation| reservation.menu}.uniq!
             @hairdressers = @menus.map {|menu| menu.hairdresser}
