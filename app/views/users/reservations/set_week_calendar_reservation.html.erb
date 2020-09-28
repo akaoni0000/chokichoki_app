@@ -45,7 +45,7 @@
                                                 <% if Reservation.find_by(start_time: time, menu_id: @menu.id).present? && Time.now <= Reservation.find_by(start_time: time, menu_id: @menu.id).start_time %>
                                                     <% @reservation = Reservation.find_by(start_time: time, menu_id: @menu.id) %>
                                                     <% @time_min = @reservation.start_time %>
-                                                    <% @time_max = @reservation.start_time  + @reservation.menu.time*60 - 1 %>
+                                                    <% @time_max = @reservation.start_time + @reservation.menu.time*60 - 1 %>
                                                     <% @reservation_after = @menu.hairdresser.reservations.where(start_time: @time_min..@time_max, status: true) %>
                                                     <% if @reservation_after.blank? %>
                                                         <%= link_to edit_users_reservation_path(@reservation.id), class:"user_reservation", id: @reservation.id do %>

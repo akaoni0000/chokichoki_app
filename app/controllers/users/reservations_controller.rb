@@ -88,8 +88,8 @@ class Users::ReservationsController < ApplicationController
 
     def various_update
         @reservation = Reservation.find_by(id: params[:reservation_id])
-        if @reservation.blank? || @reservation.menu.status == false || @reservation.user_id != nil || Reservation.find_by(start_time: @reservation.start_time, user_id: @current_user.id).present? #フロントで引数を変更されたり、美容師の方でメニューを削除したばかりでuser側で更新をしてない時のため
-            flash[:notice_red] = "エラーが発生しました。最初からやりなおしてください。"
+        if @reservation.blank? || @reservation.menu.status == false || @reservation.user_id != nil || Reservation.where(start_time: @reservation.start_time..@reservation.start_time + @reservation.menu.time*60 - 1, user_id: @current_user.id).present? #フロントで引数を変更されたり、美容師の方でメニューを削除したばかりでuser側で更新をしてない時のため
+            flash[:notice_red] = "エラーが発生しました。予約の時間を確認してください。他の予約と時間がかぶっている可能性があります。"
             respond_to do |format|
                 format.js { render ajax_redirect_to(root_path) }
             end
@@ -141,8 +141,8 @@ class Users::ReservationsController < ApplicationController
 
     def pay #登録していないクレジットカードで支払う
         @reservation = Reservation.find_by(id: params[:reservation_id])
-        if @reservation.blank? || Reservation.find_by(start_time: @reservation.start_time, user_id: @current_user.id).present? #フロントで引数を変更されたり、美容師の方でメニューを削除したばかりでuser側で更新をしてない時のため
-            flash[:notice_red] = "エラーが発生しました。"
+        if @reservation.blank? || Reservation.where(start_time: @reservation.start_time..@reservation.start_time + @reservation.menu.time*60 - 1, user_id: @current_user.id).present? #フロントで引数を変更されたり、美容師の方でメニューを削除したばかりでuser側で更新をしてない時のため
+            flash[:notice_red] = "エラーが発生しました。予約の時間を確認してください。他の予約と時間がかぶっている可能性があります。"
             redirect_to root_path
         else
             Payjp.api_key = ENV['SECRET_KEY']
