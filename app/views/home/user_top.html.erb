@@ -110,7 +110,7 @@
 <div class="container res_container">
     <h2 class="center reptation_hairdresser">カットが評判の美容師</h1>
     <div class="top">
-        <% if @hairdresser_cut_id_arry != nil %>
+        <% if @hairdresser_cut_id_arry.present? %>
             <%= render "home/reputation", hairdresser_id_arry: @hairdresser_cut_id_arry, menus: @cut_menus %>
         <% else %>
             <p>ただいま準備中です。</p>
@@ -121,7 +121,7 @@
 <div class="container res_container">
     <h2 class="center reptation_hairdresser">カラーが評判の美容師</h2>
     <div class="top">
-        <% if @hairdresser_color_id_arry != nil %>
+        <% if @hairdresser_color_id_arry.present? %>
             <%= render "home/reputation", hairdresser_id_arry: @hairdresser_color_id_arry, menus: @color_menus %>
         <% else %>
             <p>ただいま準備中です。</p>
@@ -132,7 +132,7 @@
 <div class="container res_container">
     <h2 class="center reptation_hairdresser">縮毛矯正が評判の美容師</h1>
     <div class="top">
-        <% if @hairdresser_curly_id_arry != nil %>
+        <% if @hairdresser_curly_id_arry.present? %>
             <%= render "home/reputation", hairdresser_id_arry: @hairdresser_curly_id_arry, menus: @curly_menus %>
         <% else %>
             <p>ただいま準備中です。</p>
@@ -143,7 +143,7 @@
 <div class="container res_container" style="margin-bottom: 100px;">
     <h2 class="center reptation_hairdresser">パーマが評判の美容師</h1>
     <div class="top">
-        <% if @hairdresser_parma_id_arry != nil %>
+        <% if @hairdresser_parma_id_arry.present? %>
             <%= render "home/reputation", hairdresser_id_arry: @hairdresser_parma_id_arry, menus: @parma_menus %>
         <% else %>
             <p>ただいま準備中です。</p>
