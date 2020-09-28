@@ -114,7 +114,7 @@ class SearchController < ApplicationController
     end
 
     def top_hairdresser
-        @hairdressers = Hairdresser.select {|hairdresser| hairdresser.hairdresser_comments.length >= 5 && hairdresser.reputation_point/hairdresser.hairdresser_comments.length >= 4.5}
+        @hairdressers = Hairdresser.select {|hairdresser| hairdresser.hairdresser_comments.where.not(rate: 0.0).length >= 5 && hairdresser.reputation_point/hairdresser.hairdresser_comments.length >= 4.5}
         @hairdressers = Kaminari.paginate_array(@hairdressers).page(params[:page]).per(10)
         if @hairdressers.blank? 
             @none = "該当する情報がありません"
