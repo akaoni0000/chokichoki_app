@@ -62,7 +62,7 @@
             </div>
             <div class="menu_bottom center">
                 <%= attachment_image_tag @menu, :menu_image, fallback: "no_image.png", id: "prev_menu_img", style: "width: 140px; height: 140px; margin-bottom: 10px; margin-top: 10px;"%>
-                <div class="menu_explain2"><%= @menu.explanation %></div>
+                <div class="menu_explain2 min_heigth_slider"><%= @menu.explanation %></div>
             </div>
             <div class="center" style="margin-top: 20px;">
                 <%= link_to "美容師の詳細", users_hairdresser_path(id), class: "btn btn-primary link_hairdresser_show_modal", remote: true %>

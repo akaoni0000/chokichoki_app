@@ -2957,6 +2957,10 @@ select {
     left: 84%;
 }
 
+.min_height_slider {
+    min-height: 80px;
+}
+
 //レスポンシブ jsでも処理した
 @media screen and (max-width:425px) {
 
