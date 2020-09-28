@@ -12,7 +12,11 @@
                     <% if user.email.include?("@twitter.com") %>
                         <td>＊＊＊@twitter.com</td>
                     <% else %>
-                        <td><%= user.email %></td>
+                        <% if Rails.env.production? %>
+                            <td>***@gmail.com</td>
+                        <% else %>
+                            <td><%= user.email %></td>
+                        <% end %>
                     <% end %>
                     <td><%= user.sex %></td>
                     <td class="vertical_border"><%= user.point %></td>
