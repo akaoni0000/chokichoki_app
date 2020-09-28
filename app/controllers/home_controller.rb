@@ -8,10 +8,10 @@ class HomeController < ApplicationController
         @menus = @hairdressers_for_reputation.map {|hairdresser| hairdresser.menus}
         @menus.flatten!
 
-        @cut_menus = @menus.select {|menu| menu.category[0,1] == "1"}
-        @color_menus = @menus.select {|menu| menu.category[1,1] == "1"}
-        @curly_menus = @menus.select {|menu| menu.category[2,1] == "1"}
-        @parma_menus = @menus.select {|menu| menu.category[3,1] == "1"}
+        @cut_menus = @menus.select {|menu| menu.category[0,1] == "1" && menu.status == true}
+        @color_menus = @menus.select {|menu| menu.category[1,1] == "1" && menu.status == true}
+        @curly_menus = @menus.select {|menu| menu.category[2,1] == "1" && menu.status == true}
+        @parma_menus = @menus.select {|menu| menu.category[3,1] == "1" && menu.status == true}
 
         @hairdresser_cut_id_arry = @cut_menus.map {|menu| menu.hairdresser_id}.uniq
         @hairdresser_color_id_arry = @color_menus.map {|menu| menu.hairdresser_id}.uniq
