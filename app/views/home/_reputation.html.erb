@@ -20,7 +20,7 @@
                 <p class="menu_title22"><%= @menu.name %></p>
                 <div class="star-rate-<%= @menu.hairdresser.id %> star"></div>
                     <!-- 星をつけるための記述 -->
-                    <% @comments = @menu.hairdresser.hairdresser_comments.where.not(rate: nil).count %>
+                    <% @comments = @menu.hairdresser.hairdresser_comments.where.not(rate: 0.0).count %>
                     <script>
                         $('.star-rate-<%= @menu.hairdresser.id %>').raty({
                             size: 36,

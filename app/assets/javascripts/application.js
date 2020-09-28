@@ -573,7 +573,6 @@ $(function(){
         prevText: "<",
         touchEnabled: true,
         infiniteLoop: true,
-        auto: true
     });
     $('.bxslider_color').bxSlider({
         slideWidth: 300,
@@ -586,7 +585,6 @@ $(function(){
         prevText: "<",
         touchEnabled: true,
         infiniteLoop: true,
-        auto: true
     });
     $('.bxslider_parma').bxSlider({
         slideWidth: 300,
@@ -599,7 +597,6 @@ $(function(){
         prevText: "<",
         touchEnabled: true,
         infiniteLoop: true,
-        auto: true
     });
     $('.bxslider_curly').bxSlider({
         slideWidth: 300,
@@ -612,6 +609,5 @@ $(function(){
         prevText: "<",
         touchEnabled: true,
         infiniteLoop: true,
-        auto: true
     });
 });

@@ -183,19 +183,19 @@ a:hover, li:hover {
 }
 
 .feed-prev-btn {
-    background-image: url("left.png");
+    background-image: image-url("left.png");
 }
 
 .feed-next-btn{
-    background-image: url("right.png");
+    background-image: image-url("right.png");
 }
   
 .feed-prev-btn:hover {
-    background-image: url("left.png");
+    background-image: image-url("left.png");
 }
   
 .feed-next-btn:hover{
-    background-image: url("right.png");
+    background-image: image-url("right.png");
 }
 
 .feed-prev-btn .bx-prev {
