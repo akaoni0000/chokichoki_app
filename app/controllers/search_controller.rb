@@ -125,7 +125,7 @@ class SearchController < ApplicationController
     def today_hairdresser_and_menu
         @reservations = Reservation.where(start_time: Time.now .. Time.now.end_of_day, user_id: nil, status: false).joins(:menu).where(menus: { status: true })
         if @reservations.present?
-            @menus = @reservations.map {|reservation| reservation.menu}.uniq!
+            @menus = @reservations.map {|reservation| reservation.menu}.uniq
             @hairdressers = @menus.map {|menu| menu.hairdresser}
             @menus = Kaminari.paginate_array(@menus).page(params[:page]).per(10)
             @hairdressers = Kaminari.paginate_array(@hairdressers).page(params[:page]).per(35)
@@ -141,7 +141,7 @@ class SearchController < ApplicationController
     def tomorrow_hairdresser_and_menu
         @reservations = Reservation.where(start_time: (Date.today + 1).to_time .. (Date.today + 1).end_of_day.to_time, user_id: nil, status: false).joins(:menu).where(menus: { status: true })
         if @reservations.present?
-            @menus = @reservations.map {|reservation| reservation.menu}.uniq!
+            @menus = @reservations.map {|reservation| reservation.menu}.uniq
             @hairdressers = @menus.map {|menu| menu.hairdresser}
             @menus = Kaminari.paginate_array(@menus).page(params[:page]).per(10)
             @hairdressers = Kaminari.paginate_array(@hairdressers).page(params[:page]).per(35)
