@@ -3,9 +3,9 @@
     <%= form_with(url: admins_login_path, method: :post, id: "admin_login_form", local: true) do |f| %>
         <p class="error"><%= @error %></p>
         <p>メールアドレス</p>
-        <%= f.text_field :email, class: "form-control admin_login_form", value: "aaa@gmail.com" %>
+        <%= f.text_field :email, class: "form-control admin_login_form admin_login_email", value: "aaa@gmail.com" %>
         <p>パスワード</p>
-        <%= f.password_field :password, class: "form-control admin_login_form" %>
-        <%= f.submit "ログイン", class: "btn btn-success" %>
+        <%= f.password_field :password, class: "form-control admin_login_form admin_login_password" %>
+        <%= f.submit "ログイン", class: "btn btn-success btn_admin" %>
     <% end %>
 </div>

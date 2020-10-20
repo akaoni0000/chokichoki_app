@@ -1,5 +1,7 @@
 class AdminsController < ApplicationController
 
+   before_action :check_login, except: [:login, :login_form, :logout]
+
     def user_index
         @users = User.where(activation_status: true)
     end
@@ -417,6 +419,12 @@ class AdminsController < ApplicationController
             @step_number = 50
         elsif 501 <= @number && @number <= 1000
             @step_number = 100 
+        end
+    end
+
+    def check_login
+        if @current_admin.blank?
+            redirect_to root_path
         end
     end
 

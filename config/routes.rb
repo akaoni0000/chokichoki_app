@@ -39,13 +39,13 @@ Rails.application.routes.draw do
 
   #hairdressers::reservationsコントローラ namespaceを使う時は使っていないものより上に書く 思い通りのrutingにならないerrorがでた
   namespace :hairdressers do
-    get "set_week_calendar_reservation" => "reservations#set_week_calendar_reservation", as: "set_week_calendar_reservation"
-    post "create_destroy_reservation" => "reservations#create_destroy_reservation", as: "create_destroy_reservation"
-    get "set_month_calendar_reservation" => "reservations#set_month_calendar_reservation", as: "set_month_calendar_reservation"
-    get "calendar_index" => "reservations#calendar_index", as: "calendar_index"
-    post "calendar_show" => "reservations#calendar_show", as: "calendar_show"
-    resources :reservations, only: [:new, :index, :create, :destroy]
-    get "cancel_index" => "reservations#cancel_index", as: "cancel_index"
+      get "set_week_calendar_reservation" => "reservations#set_week_calendar_reservation", as: "set_week_calendar_reservation"
+      post "create_destroy_reservation" => "reservations#create_destroy_reservation", as: "create_destroy_reservation"
+      get "set_month_calendar_reservation" => "reservations#set_month_calendar_reservation", as: "set_month_calendar_reservation"
+      get "calendar_index" => "reservations#calendar_index", as: "calendar_index"
+      post "calendar_show" => "reservations#calendar_show", as: "calendar_show"
+      resources :reservations, only: [:new, :index, :create, :destroy]
+      get "cancel_index" => "reservations#cancel_index", as: "cancel_index"
   end
 
   #hairdressersコントローラ

@@ -98,4 +98,10 @@ RSpec.configure do |config|
     require File.expand_path("../../config/environment", __FILE__)
     require 'rspec/rails'
     config.include Capybara::DSL
+    Capybara.javascript_driver = :selenium_chrome_headless
+    
+end
+
+Capybara.configure do |config|
+  config.ignore_hidden_elements = false
 end

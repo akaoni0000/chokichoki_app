@@ -16,7 +16,7 @@
         <% @chats.each do |chat| %> <!--チャットできるメンバー-->
             <% @room = Room.find(chat.room_id) %>
             <div id="chat_<%=@room.room_token%>">
-                <%= link_to room_path(room_id: chat.room_id), remote:true, method: :post do %>
+                <%= link_to room_path(room_id: chat.room_id), remote:true, class: "chat_room_link", method: :post do %>
                     <div class="chat_rooms <%=@current_user.activation_digest%> user" id="chat_room_<%=@room.room_token%>">
                         <div class="inline_block">
                             <%= attachment_image_tag chat.hairdresser, :hairdresser_image, size: "70x70", fallback: "no_image.png", class: "img-circle chat_img" %>

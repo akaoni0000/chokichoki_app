@@ -17,7 +17,7 @@
     </div>
     <% @hairdressers.each do |hairdresser| %>
         <div class="hairdresser_show">
-            <%= link_to users_hairdresser_path(hairdresser.id), remote: true do %>
+            <%= link_to users_hairdresser_path(hairdresser.id), class: "hairdresser_show_link", remote: true do %>
                 <%= attachment_image_tag hairdresser, :hairdresser_image, size: "150x150", fallback: "no_image.png", class: "img-circle" %>
             <% end %>
             <h3 style="color: black; text-decoration: none;"><%= hairdresser.name %></h3>

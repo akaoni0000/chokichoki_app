@@ -1,45 +1,35 @@
 require 'rails_helper'
 
 RSpec.describe "usersコントローラ", type: :request do
-    describe 'usersコントローラが正常に働く' do
-        context "userのデータが作成される" do
-            before do
-                visit root_path
-                find("#user_name", visible: false).set("アンジェラ")
-                find("#user_email", visible: false).set("aaa@gmail.com")
-                find("#user_password", visible: false).set("chokichoki")
-                find("#user_password_confirmation", visible: false).set("chokichoki")
-                find("#sex_man", visible: false).set(true)
-                find("#user_regi_btn").click
-            end
-            it 'リクエストは200 OKとなること' do
-                binding.pry
-                expect(response.status).to eq 200
-            end
+    context "user登録をテスト" do
+        before do
+            visit root_path(not_login: true)
+            find("#new_user").click
+            find("#link_user_sign_up").click
         end
-        # context "美容師のトップ画面が表示される" do 
-        #     before do
-        #         get hairdresser_top_path
-        #     end
-        #     it 'リクエストは200 OKとなること' do
-        #         expect(response.status).to eq 200
-        #     end
-        # end
-        # context "aboutページが表示される" do 
-        #     before do
-        #         get about_path
-        #     end
-        #     it 'リクエストは200 OKとなること' do
-        #         expect(response.status).to eq 200
-        #     end
-        # end
-        # context "美容師のトップ画面が表示される" do 
-        #     before do
-        #         get hairdresser_top_path
-        #     end
-        #     it 'リクエストは200 OKとなること' do
-        #         expect(response.status).to eq 200
-        #     end
-        # end
+        it "userを作成できる", js: true do
+            find("#user_name").set "テストマン"
+            find("#user_email").set "abc@gmail.com"
+            find("#user_password").set "chokichoki"
+            find("#user_password_confirmation").set "chokichoki"
+            find("#sex_man").click
+            find("#user_regi_btn").click
+            expect(page).to have_context "確認メールを送信しました"
+        end
+        it "userを作成できない", js: true do
+            find("#user_regi_btn").click
+            expect(page).to have_context "正しいメールアドレスを入力してください"
+        end
+    end
+    context "ログイン機能をテスト" do
+        let!(:user) { create(:user) }
+        it "ログインできる" do
+            post user_login_path(email: user.email, password: user.password, not_login: true), xhr: true
+            expect(session[:user_id]).to eq 1 
+        end
+        it "ログインできない" do
+            post user_login_path(email: "a@gmail.com", password: user.password, not_login: true), xhr: true
+            expect(session[:user_id]).to eq nil
+        end
     end
 end

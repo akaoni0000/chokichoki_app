@@ -81,7 +81,7 @@
         <%= form_with(url: hairdressers_create_destroy_reservation_path, method: :post, local: true, id: "hairdresser_reservation_form") do |f| %>
             <%= f.hidden_field :menu_id, value: @menu.id %>
             <%= f.hidden_field :standard_day, value: @standard_day %>
-            <%= f.submit "変更を保存", class: "btn btn-success" %>
+            <%= f.submit "変更を保存", class: "btn btn-success reservation_btn" %>
         <% end %>
     </div>
 

@@ -10,7 +10,7 @@
                 <p style="font-size: 15px;"><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span><%= @hairdresser.address %></p>
                 <div class="favorite">
                     <% if @current_user.present? && Favorite.find_by(user_id: @current_user.id, hairdresser_id: @hairdresser.id).blank? %>
-                        <%= link_to "お気に入り登録", favorites_path(hairdresser_id: @hairdresser.id), method: :post, remote: true, class: "btn btn-primary", style: "font-size: 10px;" %>
+                        <%= link_to "お気に入り登録", favorites_path(hairdresser_id: @hairdresser.id), method: :post, remote: true, class: "btn btn-primary favorite_btn", style: "font-size: 10px;" %>
                     <% elsif @current_user.present? && Favorite.find_by(user_id: @current_user.id, hairdresser_id: @hairdresser.id).present? %>
                         <%= link_to "お気に入り解除", favorite_path(@hairdresser.id), method: :delete, remote: true, class: "btn btn-success", style: "font-size: 10px;" %>
                     <% end %>

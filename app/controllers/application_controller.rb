@@ -2,6 +2,10 @@ class ApplicationController < ActionController::Base
 
     require "date"   #これでDateクラスが使える
     protect_from_forgery with: :null_session #jsファイルから非同期でコントローラにデータを送るときこれがあるとCSRF保護が無効になり非同期できる 
+    
+    if Rails.env.test?
+        before_action :session_for_test
+    end
 
     before_action :set_current_user
     before_action :set_current_hairdresser
@@ -12,16 +16,11 @@ class ApplicationController < ActionController::Base
     before_action :set_new_show
     before_action :notification
 
-    before_action :session_for_test
-
     def set_current_user
         @current_user = User.find_by(id: session[:user_id])    #find(session[])とすると必ずsessionに値がなければならない
     end
 
     def set_current_hairdresser 
-        if Rails.env.test?
-            session[:hairdresser_id] = 1
-        end
         @current_hairdresser = Hairdresser.find_by(id: session[:hairdresser_id])
     end
 
@@ -109,8 +108,13 @@ class ApplicationController < ActionController::Base
     end
 
     def session_for_test
-        if Rails.env.test?
-            session[:comment_id] = 1
+        if params[:not_login]
+        elsif params[:user_login]
+            session[:user_id] = 1
+        elsif params[:hairdresser_login]
+            session[:hairdresser_id] = 1
+        elsif params[:admin_login]
+            session[:admin_id] = 1
         end
     end
 end

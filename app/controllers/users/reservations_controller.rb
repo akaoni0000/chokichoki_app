@@ -101,7 +101,6 @@ class Users::ReservationsController < ApplicationController
                 if  @current_user.point >= 500
                     @current_user.point -= 500
                     @current_user.save
-                    binding.pry
                     
                     various_change #インスタンスメソッド
     
@@ -164,6 +163,7 @@ class Users::ReservationsController < ApplicationController
     end
 
     def complete  #予約が完了しました のviewを返す
+        binding.pry
     end
 
     def cancel

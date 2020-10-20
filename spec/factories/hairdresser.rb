@@ -12,6 +12,7 @@ FactoryBot.define do
         shop_latitude {35.6868981}
         shop_longitude {139.7388314}
         activation_status {true}
+        introduction {"よろしくお願いします"}
         judge_status {true}
     end
 end

@@ -325,7 +325,7 @@ header {
 
 .logo {
     width: 345px;
-    height: 293px;
+    height: 280px;
     position: absolute;
     top: -50px;
 }
@@ -656,6 +656,8 @@ header {
     text-align: center;
     border: 5px solid;
     padding: 10px;
+    height: 660px;
+    overflow: auto;
 }
 
 .user_register_form_element {
@@ -861,6 +863,8 @@ header {
     text-align: center;
     border: 5px solid;
     padding: 10px;
+    height: 825px;
+    overflow: auto;
 }
 
 .res_register_form_hairdresser {
@@ -3551,6 +3555,10 @@ select {
 
     .name_short_long {
         width: 100%;
+    }
+
+    .name_short_for_user {
+        color: pink;
     }
     
     .shop_short {

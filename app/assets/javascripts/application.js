@@ -356,39 +356,39 @@ $(function () {
 $(function() {
     $(".point_check").click(function(){
         if ($(this).children(".checkbox").hasClass("check")) {
-        $(this).children(".checkbox").removeClass("check");
-        $(this).children(".checkbox").prop('checked', false); 
+            $(this).children(".checkbox").removeClass("check");
+            $(this).children(".checkbox").prop('checked', false); 
         } else {
-        $('.checkbox').prop('checked', false);  
-        $('.checkbox').removeClass('check'); 
-        $(this).children(".checkbox").addClass("check");
-        $(this).children(".checkbox").prop('checked', true);
+            $('.checkbox').prop('checked', false);  
+            $('.checkbox').removeClass('check'); 
+            $(this).children(".checkbox").addClass("check");
+            $(this).children(".checkbox").prop('checked', true);
         }
     });
 
     $(".card_check").click(function(){
         console.log(2);
         if ($(this).children(".checkbox").hasClass("check")) {
-        $(this).children(".checkbox").removeClass("check");
-        $(this).children(".checkbox").prop('checked', false);
+            $(this).children(".checkbox").removeClass("check");
+            $(this).children(".checkbox").prop('checked', false);
         } else {
-        $('.checkbox').prop('checked', false);  
-        $('.checkbox').removeClass('check'); 
-        $(this).children(".checkbox").addClass("check");
-        $(this).children(".checkbox").prop('checked', true);  
+            $('.checkbox').prop('checked', false);  
+            $('.checkbox').removeClass('check'); 
+            $(this).children(".checkbox").addClass("check");
+            $(this).children(".checkbox").prop('checked', true);  
         }
     });
 
     $(".registered_card_check").click(function(){
         console.log(3);
         if ($(this).children(".checkbox").hasClass("check")) {
-        $(this).children(".checkbox").removeClass("check");
-        $(this).children(".checkbox").prop('checked', false);
+            $(this).children(".checkbox").removeClass("check");
+            $(this).children(".checkbox").prop('checked', false);
         } else {
-        $('.checkbox').prop('checked', false);  
-        $('.checkbox').removeClass('check'); 
-        $(this).children(".checkbox").addClass("check");
-        $(this).children(".checkbox").prop('checked', true);  
+            $('.checkbox').prop('checked', false);  
+            $('.checkbox').removeClass('check'); 
+            $(this).children(".checkbox").addClass("check");
+            $(this).children(".checkbox").prop('checked', true);  
         }
     });
 });
@@ -427,49 +427,49 @@ $(function(){
     //メニューカテゴリー $(this).children(".checkbox").prop('checked', true);
     $(".category1").click(function(){
         if ($(this).hasClass("check")) {
-        $(this).removeClass("check");
-        $(this).children("input").prop('checked', false);
-        $(".cut_category").html("");
+            $(this).removeClass("check");
+            $(this).children("input").prop('checked', false);
+            $(".cut_category").html("");
         } else {
-        $(this).addClass("check");
-        $(this).children("input").prop('checked', true);
-        $(".cut_category").html("カット");
+            $(this).addClass("check");
+            $(this).children("input").prop('checked', true);
+            $(".cut_category").html("カット");
         }
     });
 
     $(".category2").click(function(){
         if ($(this).hasClass("check")) {
-        $(this).removeClass("check");
-        $(this).children("input").prop('checked', false);
-        $(".color_category").html("");
+            $(this).removeClass("check");
+            $(this).children("input").prop('checked', false);
+            $(".color_category").html("");
         } else {
-        $(this).addClass("check");
-        $(this).children("input").prop('checked', true);
-        $(".color_category").html("カラー");
+            $(this).addClass("check");
+            $(this).children("input").prop('checked', true);
+            $(".color_category").html("カラー");
         }
     });
 
     $(".category3").click(function(){
         if ($(this).hasClass("check")) {
-        $(this).removeClass("check");
-        $(this).children("input").prop('checked', false);
-        $(".curly_category").html("");
+            $(this).removeClass("check");
+            $(this).children("input").prop('checked', false);
+            $(".curly_category").html("");
         } else {
-        $(this).addClass("check");
-        $(this).children("input").prop('checked', true);
-        $(".curly_category").html("縮毛矯正");
+            $(this).addClass("check");
+            $(this).children("input").prop('checked', true);
+            $(".curly_category").html("縮毛矯正");
         }
     });
 
     $(".category4").click(function(){
         if ($(this).hasClass("check")) {
-        $(this).removeClass("check");
-        $(this).children("input").prop('checked', false);
-        $(".perm_category").html("");
+            $(this).removeClass("check");
+            $(this).children("input").prop('checked', false);
+            $(".perm_category").html("");
         } else {
-        $(this).addClass("check");
-        $(this).children("input").prop('checked', true);
-        $(".perm_category").html("パーマ");
+            $(this).addClass("check");
+            $(this).children("input").prop('checked', true);
+            $(".perm_category").html("パーマ");
         }
     });
 });
