@@ -1,48 +1,49 @@
 <div id="user_main">
-        <div class="stand_out">
-            <p class="publicity">自分にあった美容師が必ずみつかる!!</p>
-            <div class="search_form_square">
-                <h3 class="condition">条件から美容師を探す</h3>
-                <div class="center">
-                    <div class="find center">
-                        <%= link_to search_index_path(turn: 1) do %>
-                            <div class="find_tag"><img src="<%= asset_path "menu_icon.png" %>" class="find_icon"><p class="find_content">メニューから探す</p></div>
-                        <% end %>
-                        <%= link_to search_index_path(turn: 3) do %>
-                            <div class="find_tag"><img src="<%= asset_path "map.png" %>" class="find_icon"><p class="find_content">エリアから探す</p></div>
-                        <% end %>
-                    </div>
-                    <div class="find center">
-                        <%= link_to search_index_path(turn: 2) do %>
-                            <div class="find_tag"><img src="<%= asset_path "clock_icon.png" %>" class="find_icon"><p class="find_content">日付から探す</p></div>
-                        <% end %>
-                        <%= link_to search_index_path(turn: 4) do %>
-                            <div class="find_tag"><img src="<%= asset_path "current.png" %>" class="find_icon"><p class="find_content">現在地から探す</p></div>
-                        <% end %>
-                    </div>
-                    <div>
-                        <%= form_with(url: search_data_path, method: :post, local: true, class: "welcome") do |f| %>
-                            <%= f.text_field :search_keyword, placeholder: "美容師名、メニュー名など", class: "form-control search_top2" %>
-                            <button type="submit" class="btn btn-primary search_icon_btn2"> 
-                                <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-                            </button> 
-                        <% end %>
-                    </div>
+    <div class="stand_out">
+        <p class="publicity">自分にあった美容師が必ずみつかる!!</p>
+        <div class="search_form_square">
+            <h3 class="condition">条件から美容師を探す</h3>
+            <div class="center">
+                <div class="find center">
+                    <%= link_to search_index_path(turn: 1) do %>
+                        <div class="find_tag"><img src="<%= asset_path "menu_icon.png" %>" class="find_icon"><p class="find_content">メニューから探す</p></div>
+                    <% end %>
+                    <%= link_to search_index_path(turn: 3) do %>
+                        <div class="find_tag"><img src="<%= asset_path "map.png" %>" class="find_icon"><p class="find_content">エリアから探す</p></div>
+                    <% end %>
+                </div>
+                <div class="find center">
+                    <%= link_to search_index_path(turn: 2) do %>
+                        <div class="find_tag"><img src="<%= asset_path "clock_icon.png" %>" class="find_icon"><p class="find_content">日付から探す</p></div>
+                    <% end %>
+                    <%= link_to search_index_path(turn: 4) do %>
+                        <div class="find_tag"><img src="<%= asset_path "current.png" %>" class="find_icon"><p class="find_content">現在地から探す</p></div>
+                    <% end %>
+                </div>
+                <div>
+                    <%= form_with(url: search_data_path, method: :post, local: true, class: "welcome") do |f| %>
+                        <%= f.text_field :search_keyword, placeholder: "美容師名、メニュー名など", class: "form-control search_top2" %>
+                        <button type="submit" class="btn btn-primary search_icon_btn2"> 
+                            <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                        </button> 
+                    <% end %>
                 </div>
             </div>
         </div>
-        <div class="circles">
-            <div class="circle_top">
-                <p class="propaganda_user">簡単予約!!</p>
-            </div>
-            <div class="circle_top">
-                <p class="propaganda_user">一回500円!!</p>
-            </div>
-            <div class="circle_top">
-                <p class="propaganda_user">コスパ高!!</p>
-            </div>
+    </div>
+    <div class="circles">
+        <div class="circle_top">
+            <p class="propaganda_user">簡単予約!!</p>
         </div>
+        <div class="circle_top">
+            <p class="propaganda_user">一回500円!!</p>
+        </div>
+        <div class="circle_top">
+            <p class="propaganda_user">コスパ高!!</p>
+        </div>
+    </div>
 </div>
+<p class="center beta_version">今現在このサイトはβ版です。このサイトでの予約は架空の予約となります。</p>
 <div class="botttom_search">
     <%= link_to today_hairdresser_and_menu_path, method: :post do %>
         <div class="today">

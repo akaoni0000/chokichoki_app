@@ -157,32 +157,32 @@ class SearchController < ApplicationController
     #二つの緯度経度を入力すれば距離(km)がでる
     module GetDistance
         def self.distance(lat1, lng1, lat2, lng2)
-          # ラジアン単位に変換
-          x1 = lat1.to_f * Math::PI / 180
-          y1 = lng1.to_f * Math::PI / 180
-          x2 = lat2.to_f * Math::PI / 180
-          y2 = lng2.to_f * Math::PI / 180
-     
-          # 地球の半径 (km)
-          radius = 6378.137
-     
-          # 差の絶対値
-          diff_y = (y1 - y2).abs
-     
-          calc1 = Math.cos(x2) * Math.sin(diff_y)
-          calc2 = Math.cos(x1) * Math.sin(x2) - Math.sin(x1) * Math.cos(x2) * Math.cos(diff_y)
-     
-          # 分子
-          numerator = Math.sqrt(calc1 ** 2 + calc2 ** 2)
-     
-          # 分母
-          denominator = Math.sin(x1) * Math.sin(x2) + Math.cos(x1) * Math.cos(x2) * Math.cos(diff_y)
-     
-          # 弧度
-          degree = Math.atan2(numerator, denominator)
-     
-          # 大円距離 (km)
-          degree * radius
+            # ラジアン単位に変換
+            x1 = lat1.to_f * Math::PI / 180
+            y1 = lng1.to_f * Math::PI / 180
+            x2 = lat2.to_f * Math::PI / 180
+            y2 = lng2.to_f * Math::PI / 180
+        
+            # 地球の半径 (km)
+            radius = 6378.137
+        
+            # 差の絶対値
+            diff_y = (y1 - y2).abs
+        
+            calc1 = Math.cos(x2) * Math.sin(diff_y)
+            calc2 = Math.cos(x1) * Math.sin(x2) - Math.sin(x1) * Math.cos(x2) * Math.cos(diff_y)
+        
+            # 分子
+            numerator = Math.sqrt(calc1 ** 2 + calc2 ** 2)
+        
+            # 分母
+            denominator = Math.sin(x1) * Math.sin(x2) + Math.cos(x1) * Math.cos(x2) * Math.cos(diff_y)
+        
+            # 弧度
+            degree = Math.atan2(numerator, denominator)
+        
+            # 大円距離 (km)
+            degree * radius
         end
     end 
 
@@ -257,6 +257,7 @@ class SearchController < ApplicationController
             @menus_from_area = @hairdresser_arry.map {|a| a.menus}
             @menus_from_area.flatten!
             @menus_from_area = @menus_from_area.select {|menu| menu.status == true}
+            binding.pry
         else #エリア #人が優先 人から絞る
             @prefecture = params[:prefectures]
             @place_name = params[:place_name]
