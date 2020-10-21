@@ -110,7 +110,7 @@
                         <div class="link_box"></div> <!--本来ならここにロゴをセットするがロゴ画像の背景を削除できなくてロゴ周辺がリンクになってしまうため工夫するしかなかった-->
                     <% end %>
                 <% end %>
-                <% if @current_user.blank? && @current_hairdresser.blank? %>
+                <% if @current_user.blank? && @current_hairdresser.blank? && @current_admin.blank? %>
                     <%= link_to "サロンの方はこちら", hairdresser_top_path, class: "salon"%>
                 <% end %>
                 <% if @current_user.present? || @current_hairdresser.blank? %>
