@@ -163,7 +163,6 @@ class Users::ReservationsController < ApplicationController
     end
 
     def complete  #予約が完了しました のviewを返す
-        binding.pry
     end
 
     def cancel
