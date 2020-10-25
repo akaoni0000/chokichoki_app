@@ -97,7 +97,7 @@ Rails.application.configure do
   #本番環境でアクションケーブル
   # config.action_cable.url = "ws://54.64.74.19/cable" 
   # config.action_cable.allowed_request_origins = ["http://54.64.74.19"]
-  config.action_cable.url = "ws://chokichoki.info/cable" 
+  config.action_cable.url = "wss://chokichoki.info/cable" 
   config.action_cable.allowed_request_origins = ["https://chokichoki.info", /https:\/\/chokichoki.info.*/]
   ActionCable.server.config.disable_request_forgery_protection = true
 
