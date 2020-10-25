@@ -3,6 +3,7 @@
 <p>下記のURLをクリックすると登録が完了します。</p>
 <% if @user.present? %>
     <%= user_activation_url(token: @token, email: @user.email) %>
+    <% binding.pry %>
 <% elsif @hairdresser.present? %>
     <%= hairdresser_activation_url(token: @token, email: @hairdresser.email)%>
 <% end %>
