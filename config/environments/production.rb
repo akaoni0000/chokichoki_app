@@ -100,6 +100,7 @@ Rails.application.configure do
   config.action_cable.url = "wss://chokichoki.info/cable" 
   config.action_cable.allowed_request_origins = ["https://chokichoki.info", /https:\/\/chokichoki.info.*/]
   ActionCable.server.config.disable_request_forgery_protection = true
+  config.reload_classes_only_on_change = true
 
   #本番環境carriewave
   config.public_file_server.enabled = true
