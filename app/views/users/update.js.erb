@@ -1,8 +1,8 @@
 <% if @error_name_short_long.present? || @error_name_taken.present? %>
-    $(".name_short_long").remove();
+    $(".name_short_long2").remove();
     $(".name_taken").remove();
     <% if @error_name_short_long.present? %>
-        $(".user_register_form_name_error").append('<p class="name_short_long"><%= @error_name_short_long %></p>');
+        $(".user_register_form_name_error").append('<p class="name_short_long2"><%= @error_name_short_long %></p>');
     <% end %>
     <% if @error_name_taken.present? %>
         $(".user_register_form_name_error").append('<p class="name_taken"><%= @error_name_taken %><p>');
