@@ -279,6 +279,10 @@
                             <%= f.submit "ログイン", class: "btn btn-success user_login_form_btn" %>
                         <% end %>
                     </div>
+                    <div>
+                        <%= link_to "簡単ログイン", user_login_path(email: "1@gmail.com", password: "chokichoki"), method: :post, class: "btn btn-primary user_login_form_btn" %>
+                    </div>
+
                     <P>登録の方は<span class="link_user_sign_up cursor2" style="color: #5D99FF;">こちら</span></p>
                     <P>パスワードを忘れた方は<span id="link_user_password_reset" class="cursor2" style="color: #5D99FF;">こちら</span></p>
                 </div>
@@ -410,6 +414,9 @@
                             <%= f.password_field :password, class: "form-control hairdresser_login_form_element hairdresser_login_password"  %>
                             <%= f.submit "ログイン", class: "btn btn-success hairdresser_form_login_btn" %>
                         <% end %>
+                    </div>
+                    <div>
+                        <%= link_to "簡単ログイン", hairdresser_login_path(email: "1@gmail.com", password: "chokichoki"), method: :post, class: "btn btn-primary hairdresser_form_login_btn", remote: true; %>
                     </div>
                     <P>登録の方は<span id="link_hairdresser_sign_up" class="link_hairdresser_sign_up cursor2" style="color: #5D99FF;">こちら</span></p>
                     <P>パスワードを忘れた方は<span class="link_hairdresser_password_reset cursor2" style="color: #5D99FF;">こちら</span></p>
