@@ -2970,6 +2970,11 @@ select {
     min-height: 80px;
 }
 
+.btn_admin {
+    width: 150px;
+    margin-bottom: 30px;
+}
+
 //レスポンシブ jsでも処理した
 @media screen and (max-width:425px) {
 

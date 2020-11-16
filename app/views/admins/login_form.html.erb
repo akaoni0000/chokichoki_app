@@ -8,4 +8,7 @@
         <%= f.password_field :password, class: "form-control admin_login_form admin_login_password" %>
         <%= f.submit "ログイン", class: "btn btn-success btn_admin" %>
     <% end %>
+    <div>
+        <%= link_to "簡単ログイン", admins_login_path(email: "aaa@gmail.com", password: "chokichoki"), method: :post, class: "btn btn-primary btn_admin" %>
+    </div>
 </div>
