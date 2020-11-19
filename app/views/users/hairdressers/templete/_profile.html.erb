@@ -49,39 +49,21 @@
         </tbody>
     </table>
     <div id="map"></div>
-    <% if Rails.env.production? %>
-        <script type="text/javascript">
-            handler = Gmaps.build('Google');
-            handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
-                markers = handler.addMarkers([
-                {
-                    "lat": "<%=@hairdresser.shop_latitude%>", //緯度
-                    "lng": "<%=@hairdresser.shop_longitude%>", //経度
-                    "infowindow": "<%=@hairdresser.shop_name%>"
-                }
-                ]);
-                handler.bounds.extendWith(markers);
-                handler.fitMapToBounds();
-                handler.getMap().setZoom(8);
-            });
-        </script>
-    <% else %>
-        <script type="text/javascript">
-            handler = Gmaps.build('Google');
-            handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
-                markers = handler.addMarkers([
-                {
-                    "lat": "<%=@hairdresser.shop_latitude%>", //緯度
-                    "lng": "<%=@hairdresser.shop_longitude%>", //経度
-                    "infowindow": "<%=@hairdresser.shop_name%>"
-                }
-                ]);
-                handler.bounds.extendWith(markers);
-                handler.fitMapToBounds();
-                handler.getMap().setZoom(16);
-            });
-        </script>
-    <% end %>
+    <script type="text/javascript">
+        handler = Gmaps.build('Google');
+        handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
+            markers = handler.addMarkers([
+            {
+                "lat": "<%=@hairdresser.shop_latitude%>", //緯度
+                "lng": "<%=@hairdresser.shop_longitude%>", //経度
+                "infowindow": "<%=@hairdresser.shop_name%>"
+            }
+            ]);
+            handler.bounds.extendWith(markers);
+            handler.fitMapToBounds();
+            handler.getMap().setZoom(16);
+        });
+    </script>
     <% if @current_admin.present? %>
         <p style="margin-top: 30px; font-size: 20px;">美容師免許証</p>
         <div>
