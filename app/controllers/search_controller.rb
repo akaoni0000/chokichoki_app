@@ -257,7 +257,6 @@ class SearchController < ApplicationController
             @menus_from_area = @hairdresser_arry.map {|a| a.menus}
             @menus_from_area.flatten!
             @menus_from_area = @menus_from_area.select {|menu| menu.status == true}
-            binding.pry
         else #エリア #人が優先 人から絞る
             @prefecture = params[:prefectures]
             @place_name = params[:place_name]
