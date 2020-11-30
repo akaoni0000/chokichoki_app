@@ -11,10 +11,15 @@
                 <%= link_to "予約設定", new_hairdressers_reservation_path(year: date.year, month: date.month, day: date.day, hour: 6, min: 0,menu_id: @menu.id), class: "color" %>
                 <% reservations.each do |reservation| %>
                     <div> 
-                        <% if reservation.user_id != nil%>
-                            <span><%= reservation.start_time.hour %>時<%= reservation.start_time.min %>分</span><span style="float: right; color: blue;">予約あり</span>
+                        <% if Rails.env.production? %>
+                            <% hour = reservation.start_time.hour - 9 %>
                         <% else %>
-                            <span><%= reservation.start_time.hour %>時<%= reservation.start_time.min %>分</span>
+                            <% hour = reservation.start_time.hour %>
+                        <% end %>
+                        <% if reservation.user_id != nil%>
+                            <span><%= hour %>時<%= reservation.start_time.min %>分</span><span style="float: right; color: blue;">予約あり</span>
+                        <% else %>
+                            <span><%= hour %>時<%= reservation.start_time.min %>分</span>
                         <% end %>
                     </div>
                 <% end %>
