@@ -12,9 +12,9 @@
                 <% reservations.each do |reservation| %>
                     <div> 
                         <% if reservation.user_id != nil%>
-                            <span><%= reservation.start_time.hour -9 %>時<%= reservation.start_time.min %>分</span><span style="float: right; color: blue;">予約あり</span>
+                            <span><%= reservation.start_time.hour %>時<%= reservation.start_time.min %>分</span><span style="float: right; color: blue;">予約あり</span>
                         <% else %>
-                            <span><%= reservation.start_time.hour -9 %>時<%= reservation.start_time.min %>分</span>
+                            <span><%= reservation.start_time.hour %>時<%= reservation.start_time.min %>分</span>
                         <% end %>
                     </div>
                 <% end %>
