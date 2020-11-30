@@ -78,4 +78,6 @@ $(function() {
         var shop_address = $(".hairdresser_shop_address").val();
         getLatLng(shop_address);
     });
+
+  
 })
