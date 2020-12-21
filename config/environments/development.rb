@@ -59,6 +59,13 @@ Rails.application.configure do
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
+  #actioncable 
+  config.action_cable.allowed_request_origins = [ "http://localhost", /https:\/\/chokichoki.info.*/ ]
+  config.action_cable.url = "ws://localhost/cable"
+  ActionCable.server.config.disable_request_forgery_protection = true
+  config.reload_classes_only_on_change = true
+
   #mailでlink_toを使うための設定 development.rbは開発環境での設定
-  config.action_mailer.default_url_options = { host: 'localhost:3000'}
+  #config.action_mailer.default_url_options = { host: 'localhost:3000'}
+  config.action_mailer.default_url_options = { host: 'localhost'}
 end

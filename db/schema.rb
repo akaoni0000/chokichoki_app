@@ -12,14 +12,14 @@
 
 ActiveRecord::Schema.define(version: 2020_09_25_123008) do
 
-  create_table "admins", force: :cascade do |t|
+  create_table "admins", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "email"
     t.string "password_digest"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "cancel_reservations", force: :cascade do |t|
+  create_table "cancel_reservations", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "menu_id"
     t.integer "user_id"
     t.datetime "start_time"
@@ -30,7 +30,7 @@ ActiveRecord::Schema.define(version: 2020_09_25_123008) do
     t.string "reservation_token"
   end
 
-  create_table "chat_messages", force: :cascade do |t|
+  create_table "chat_messages", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "user_id"
     t.integer "hairdresser_id"
     t.integer "room_id"
@@ -42,7 +42,7 @@ ActiveRecord::Schema.define(version: 2020_09_25_123008) do
     t.boolean "notification", default: false, null: false
   end
 
-  create_table "chats", force: :cascade do |t|
+  create_table "chats", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "user_id"
     t.integer "hairdresser_id"
     t.datetime "created_at", null: false
@@ -51,14 +51,14 @@ ActiveRecord::Schema.define(version: 2020_09_25_123008) do
     t.integer "reservation_id"
   end
 
-  create_table "favorites", force: :cascade do |t|
+  create_table "favorites", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "user_id"
     t.integer "hairdresser_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "hairdresser_comments", force: :cascade do |t|
+  create_table "hairdresser_comments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "hairdresser_id"
     t.integer "user_id"
     t.text "comment"
@@ -69,7 +69,7 @@ ActiveRecord::Schema.define(version: 2020_09_25_123008) do
     t.float "rate", default: 0.0
   end
 
-  create_table "hairdressers", force: :cascade do |t|
+  create_table "hairdressers", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
     t.string "email"
     t.text "introduction"
@@ -94,7 +94,7 @@ ActiveRecord::Schema.define(version: 2020_09_25_123008) do
     t.boolean "judge_status", default: false
   end
 
-  create_table "menus", force: :cascade do |t|
+  create_table "menus", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "hairdresser_id"
     t.string "name"
     t.integer "time"
@@ -106,13 +106,13 @@ ActiveRecord::Schema.define(version: 2020_09_25_123008) do
     t.boolean "status", default: false
   end
 
-  create_table "money", force: :cascade do |t|
+  create_table "money", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "reservations", force: :cascade do |t|
+  create_table "reservations", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "menu_id"
     t.integer "user_id"
     t.datetime "start_time"
@@ -124,20 +124,20 @@ ActiveRecord::Schema.define(version: 2020_09_25_123008) do
     t.string "reservation_token"
   end
 
-  create_table "rooms", force: :cascade do |t|
+  create_table "rooms", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "room_token"
   end
 
-  create_table "style_images", force: :cascade do |t|
+  create_table "style_images", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "hairdresser_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "hair_images"
   end
 
-  create_table "user_cards", force: :cascade do |t|
+  create_table "user_cards", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "user_id"
     t.string "customer_id"
     t.string "card_id"
@@ -145,7 +145,7 @@ ActiveRecord::Schema.define(version: 2020_09_25_123008) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "users", force: :cascade do |t|
+  create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
     t.string "email"
     t.string "sex"

@@ -6,7 +6,8 @@ ruby '2.5.7'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.3'
 # Use sqlite3 as the database for Active Record
-gem 'sqlite3'
+#gem 'sqlite3'
+gem 'mysql2', '>= 0.4.4', '< 0.6.0'
 # Use Puma as the app server
 gem 'puma', '~> 3.11'
 # Use SCSS for stylesheets
@@ -109,9 +110,9 @@ gem 'carrierwave'
 gem 'fog-aws'
 
 #デプロイ
-group :production, :staging do
-  gem 'mysql2'
-end
+# group :production, :staging do
+#   gem 'mysql2'
+# end
 
 #デプロイに仮想環境の変更を反映する
 gem 'capistrano'
