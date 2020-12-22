@@ -57,8 +57,10 @@ docker-composeを実行<br>
 `rails db:create`<br>
 `rails db:migrate`<br>
 
-環境変数を設定(なくても大まかな機能は試せる)
-`touch .env`
+環境変数を設定(なくても大まかな機能は試せる)<br>
+.envファイルを作成<br>
+`touch .env`<br>
+それぞれの環境変数を設定<br>
 KEY = "payjp apiの公開鍵" <br>
 SECRET_KEY = "payjp apiの秘密鍵" <br>
 
