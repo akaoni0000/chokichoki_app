@@ -33,6 +33,7 @@ https://docs.google.com/spreadsheets/d/1iVJtVIEPOJfK9lpzj4hvO74wDkuwX-_JMYbeXIKv
 ### 各種バージョン
 ruby・・・2.5.7<br>
 rails・・・5.2.3<br>
+nginx・・・1.19.3<br>
 jsフレームワーク・・・jquery<br>
 開発環境・・・docker
 
