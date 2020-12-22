@@ -48,13 +48,13 @@ dockerとdocker-composeを自分のpcにインストール
 `git clone https://github.com/Mac0917/chokichoki-for-docker-nginx-aws-ECS-EC2-.git`
 
 移動<br>
-`cd chokichoki-for-docker-nginx-aws-ECS-EC2`
+`cd chokichoki-aws`
 
 docker-composeを実行<br>
 `docker-compose up -d`
 
 データベース作成<br>
-`docker exec -it chokichoki-for-docker-nginx-aws-ECS-EC2_app_1 bash`(コンテナに入る)<br>
+`docker exec -it chokichoki-aws bash`(コンテナに入る)<br>
 `rails db:create`<br>
 `rails db:migrate`<br>
 
@@ -79,12 +79,12 @@ http://localhost/<br>
 `exit`(コンテナから出る)<br>
 `docker-compose stop`<br>
 `docker-compose rm`<br>
-`docker rmi chokichoki-for-docker-nginx-aws-ECS-EC2_app chokichoki-for-docker-nginx-aws-ECS-EC2_web`<br>
+`docker rmi chokichoki-aws_app chokichoki-aws_web`<br>
 `docker volume rm public-data tamp-data db-data`
 
 リポジトリを削除<br>
 `cd ..`<br>
-`rm -rf chokichoki-for-docker-nginx-aws-ECS-EC2`
+`rm -rf chokichoki-aws`
 
 ### 3分でchokichokiを試す
 会員トップページの右上のログインよりテストデータでログイン > 美容師一覧 > 美容師の一番左上のアンジェラの写真をクリック > メニュー > １分カットを選択 > 適当な時間で予約 > チャット機能で何かメッセージを送る
