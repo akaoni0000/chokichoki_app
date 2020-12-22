@@ -80,7 +80,7 @@ http://localhost/<br>
 `docker-compose stop`<br>
 `docker-compose rm`<br>
 `docker rmi chokichoki-aws_app chokichoki-aws_web`<br>
-`docker volume rm public-data tamp-data db-data`
+`docker volume chokichoki-aws_rm public-data chokichoki-aws_tamp-data chokichoki-aws_db-data`
 
 リポジトリを削除<br>
 `cd ..`<br>
