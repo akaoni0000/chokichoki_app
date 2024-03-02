@@ -364,7 +364,7 @@
                                 <p>宣材写真</p>
                                 <p>クリックして写真を追加してください</p>
                                 <label class= "hairdresser_label cursor2" style="width: 150px; height: 150px;">
-                                    <%= f.attachment_field :hairdresser_image, id: "hairdresser_img", class: "hidden" %>
+                                    <%= f.file_field :hairdresser_image, id: "hairdresser_img", class: "hidden" %>
                                     <img src="<%= asset_path "no_image.png" %>" id="prev_img" style= "width: 150px; height: 150px; border-radius: 20px;">
                                 </label>
                                 <p class="img_delete cursor">削除</p>
@@ -375,7 +375,7 @@
                                 <p>クリックして写真を追加してください</p>
                                 <p class="img_error error"></p> 
                                 <label class= "confirm_label cursor2" style="width: 150px; height: 150px;">
-                                    <%= f.attachment_field :confirm_image, id: "confirm_img", class: "hidden" %>
+                                    <%= f.file_field :confirm_image, id: "confirm_img", class: "hidden" %>
                                     <img src="<%= asset_path "no_image.png" %>" id="prev_img2" style= "width: 150px; height: 150px; border-radius: 20px;">
                                 </label>
                                 <p class="img_delete2 cursor">削除</p>

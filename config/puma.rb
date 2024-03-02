@@ -33,10 +33,10 @@ environment ENV.fetch("RAILS_ENV") { "development" }
 # Allow puma to be restarted by `rails restart` command.
 plugin :tmp_restart
 
-app_root = File.expand_path("../..", __FILE__)
-bind "unix://#{app_root}/tmp/sockets/puma.sock"
+# app_root = File.expand_path("../..", __FILE__)
+# bind "unix://#{app_root}/tmp/sockets/puma.sock"
 
-stdout_redirect "#{app_root}/log/puma.stdout.log", "#{app_root}/log/puma.stderr.log", true
+# stdout_redirect "#{app_root}/log/puma.stdout.log", "#{app_root}/log/puma.stderr.log", true
 #rails_root = Dir.pwd
 # 本番環境のみデーモン起動
 # if Rails.env.production?

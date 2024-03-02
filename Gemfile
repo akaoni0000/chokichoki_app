@@ -1,10 +1,10 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.5.7'
+ruby '3.0.5'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.2.3'
+gem 'rails', '~> 6.1.4', '>= 6.1.4.4'
 # Use sqlite3 as the database for Active Record
 #gem 'sqlite3'
 gem 'mysql2', '>= 0.4.4', '< 0.6.0'
@@ -80,7 +80,7 @@ gem "js_cookie_rails"
 gem 'bootstrap-sass', '~> 3.3.6'
 
 #password_digestの値を乱数化
-gem 'bcrypt',  '3.1.12'  
+gem 'bcrypt',  '3.1.12'
 
 #予約機能で使うカレンダー
 gem 'simple_calendar', '~> 2.0'
@@ -95,7 +95,7 @@ gem 'gon'
 gem 'payjp'
 
 #エラー文日本語化
-gem 'rails-i18n' 
+gem 'rails-i18n'
 
 #住所自動入力
 gem "jp_prefecture"

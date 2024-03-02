@@ -1,11 +1,11 @@
 class UsersController < ApplicationController
 
-    include AjaxHelper 
+    include AjaxHelper
 
     def create #activation_statusはfalse メール認証は済んでいない
         @user = User.new(user_params)
         if @user.save #saveに成功したらメールを送る
-            NotificationMailer.registration_complete_mail(@user, @user.activation_token, "user").deliver_now 
+            NotificationMailer.registration_complete_mail(@user, @user.activation_token, "user").deliver_now
             session[:not_activation_user_id] = @user.id
             session[:not_activation_user_token] = @user.activation_token
             session[:not_activation_user_deadline] = Time.now + 600
@@ -16,12 +16,12 @@ class UsersController < ApplicationController
 
     def resend #メールの再送信 前のメールを送ってから10分以内に [メールを再送] をクリックしなくてはいけない
         if session[:not_activation_user_deadline].present? && Time.now <= session[:not_activation_user_deadline] #メールの再送が行えるのはメールを送ってから10分間の間
-            @user = User.find(session[:not_activation_user_id]) 
+            @user = User.find(session[:not_activation_user_id])
             @token = session[:not_activation_user_token]
             @user.activation_deadline_at = Time.now + 600 #新しく制限時間を設ける(メールを送信してから10分以内)
             @user.save
             session[:not_activation_user_deadline] = Time.now + 600 #再びメールの再送が行えるのはメールを送ってから10分間の間
-            NotificationMailer.registration_complete_mail(@user, @token, "user").deliver_now 
+            NotificationMailer.registration_complete_mail(@user, @token, "user").deliver_now
         else
             flash[:notice_red] = "要求がタイムアウトになりました。最初からやり直してください。"
             respond_to do |format|
@@ -41,7 +41,7 @@ class UsersController < ApplicationController
             @user.save
             session[:user_id] = @user.id #ログイン状態にする
             flash[:notice] = "登録が完了しました"
-            redirect_to root_path    
+            redirect_to root_path
         else
             redirect_to deadline_path
         end
@@ -53,10 +53,10 @@ class UsersController < ApplicationController
 
                 #終わった施術がある場合、口コミを書かせる 終わった施術がないときはログイン
                 @hairdresser_comment = HairdresserComment.order(start_time: "ASC").find_by(user_id: @user.id, rate: 0.0)
-                if @hairdresser_comment.present? 
+                if @hairdresser_comment.present?
                     @start_time = @hairdresser_comment.start_time
                     @menu_time = @hairdresser_comment.menu.time*60
-                    @finish_time = @start_time + @menu_time 
+                    @finish_time = @start_time + @menu_time
                     if @finish_time < Time.now
                         session[:comment_id] = @hairdresser_comment.id
                         respond_to do |format|
@@ -94,17 +94,21 @@ class UsersController < ApplicationController
                     end
                 end
             else
+                redirect_to root_path
+                flash[:notice] = "ユーザー登録されていないかメールアドレス認証がされていない可能性があります"
             end
         else
+            redirect_to root_path
+            flash[:notice] = "ユーザー登録されていないかメールアドレス認証がされていない可能性があります"
         end
     end
-      
+
     def logout #ログアウト
         session[:user_id] = nil
         flash[:notice] = "ログアウトしました"
         redirect_to root_path
     end
-    
+
     def guide #非同期でjsを呼ぶ
         @point = @current_user.point
     end
@@ -127,14 +131,14 @@ class UsersController < ApplicationController
             else
                 @credit = false
             end
-        end 
+        end
         if params[:current_password].present? && @user.authenticate(params[:current_password])
             @current_password = true
         elsif params[:current_password].present? && @user.authenticate(params[:current_password]) == false || params[:current_password] == ""
             @current_password = false
         end
     end
-     
+
     def update #アカウント設定でプロフィールをupdate
         @user = User.find(@current_user.id)
         if @user.update(user_params)
@@ -145,7 +149,7 @@ class UsersController < ApplicationController
         else
             validation_message
         end
-    end  
+    end
 
     def password_update #アカウント設定でパスワードをupdate
         @user = User.find(@current_user.id)
@@ -164,7 +168,7 @@ class UsersController < ApplicationController
             end
         end
     end
-    
+
     #ここから下はtwitter認証関連
     def twitter_failure #twitter認証に失敗したあとのアクション コールバック
         flash[:notice_red] = "twitterの認証に失敗しました"
@@ -178,10 +182,10 @@ class UsersController < ApplicationController
         @user = User.find_by(email: @email, activation_status: true) #emailは実質twitterのユーザーIDなのでそれだけで判定できる twitter側でidは変更できない
         if @user.present? #既にそのtwitterアカウントで登録していたらログインさせる
             @hairdresser_comment = HairdresserComment.order(start_time: "ASC").find_by(user_id: @user.id, rate: nil)
-            if @hairdresser_comment.present? 
+            if @hairdresser_comment.present?
                 @start_time = @hairdresser_comment.start_time
                 @menu_time = @hairdresser_comment.menu.time*60
-                @finish_time = @start_time + @menu_time 
+                @finish_time = @start_time + @menu_time
                 if @finish_time < Time.now
                     session[:comment_id] = @hairdresser_comment.id
                     redirect_to edit_hairdresser_comment_path(id: @hairdresser_comment.id, hairdresser_id: @hairdresser_comment.hairdresser_id)
@@ -213,10 +217,10 @@ class UsersController < ApplicationController
             if @user.save
                 session[:user_id] = @user.id #ログイン状態にする
                 flash[:notice] = "登録が完了しました"
-                redirect_to root_path 
+                redirect_to root_path
             else #twitterでのアカウント名がデータベースにある名前と重複する メールアドレスは絶対に重複しない
                 flash[:notice_red] = "そのtwitterのアカウントは保存できません。すでに同じ名前のアカウントが存在します。"
-                redirect_to root_path 
+                redirect_to root_path
             end
         else #twitterの認証が終わってから10分たった後に性別を選択した
             flash[:notice_red] = "最初からやり直してください"
