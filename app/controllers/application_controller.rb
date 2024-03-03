@@ -1,8 +1,8 @@
 class ApplicationController < ActionController::Base
 
     require "date"   #これでDateクラスが使える
-    protect_from_forgery with: :null_session #jsファイルから非同期でコントローラにデータを送るときこれがあるとCSRF保護が無効になり非同期できる 
-    
+    protect_from_forgery with: :null_session #jsファイルから非同期でコントローラにデータを送るときこれがあるとCSRF保護が無効になり非同期できる
+
     if Rails.env.test?
         before_action :session_for_test
     end
@@ -20,7 +20,7 @@ class ApplicationController < ActionController::Base
         @current_user = User.find_by(id: session[:user_id])    #find(session[])とすると必ずsessionに値がなければならない
     end
 
-    def set_current_hairdresser 
+    def set_current_hairdresser
         @current_hairdresser = Hairdresser.find_by(id: session[:hairdresser_id])
     end
 
@@ -28,7 +28,7 @@ class ApplicationController < ActionController::Base
         @current_admin = Admin.find_by(id: session[:admin_id])
     end
 
-    def admin_reject 
+    def admin_reject
         if session[:reject_id]
             session[:reject_id] = nil
             redirect_to hairdresser_top_path
@@ -45,7 +45,7 @@ class ApplicationController < ActionController::Base
         end
         if @current_hairdresser.present?
             gon.hairdresser = true
-            
+
             #予約件数 レスポンシブで使う
             @reservations = @current_hairdresser.reservations.where.not(user_id: nil) & @current_hairdresser.reservations.where(start_time: Time.now..Float::INFINITY)
             gon.reservations_number = @reservations.length
@@ -85,7 +85,7 @@ class ApplicationController < ActionController::Base
     #通知の数
     def notification
         if @current_hairdresser.present?
-            @notice_reservations_number = @current_hairdresser.reservations.where.not(notification_status: true, user_id: nil).length
+            @notice_reservations_number = @current_hairdresser.reservations.where.not(notification_status: true).length
             @cancel_number = CancelReservation.where(hairdresser_id: @current_hairdresser.id, notification_status: false).length
 
             @room_id_arry = @current_hairdresser.chats.map {|chat| chat.room_id}
@@ -97,13 +97,13 @@ class ApplicationController < ActionController::Base
             gon.cancel_number = @cancel_number
             gon.unread_number_hairdresser = @unread_number_hairdresser
         end
-        if @current_user.present? 
+        if @current_user.present?
             @room_id_arry = @current_user.chats.map {|chat| chat.room_id}
             @message = @room_id_arry.map {|room_id| ChatMessage.where(room_id: room_id, user_id: nil, notification: false)}
             @message.flatten!
             @unread_number_user = @message.length
 
-            gon.unread_number_user = @unread_number_user 
+            gon.unread_number_user = @unread_number_user
         end
     end
 

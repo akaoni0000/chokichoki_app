@@ -9,6 +9,10 @@ class UsersController < ApplicationController
             session[:not_activation_user_id] = @user.id
             session[:not_activation_user_token] = @user.activation_token
             session[:not_activation_user_deadline] = Time.now + 600
+            flash[:notice] = "メールアドレスに認証メールを送りました"
+            respond_to do |format|
+                format.js { render ajax_redirect_to(root_path)}
+            end
         else
             validation_message #インスタンスメソッド
         end
@@ -72,8 +76,12 @@ class UsersController < ApplicationController
                         else
                             session[:user_id] = @user.id
                             flash[:notice] = "ログインしました"
-                            respond_to do |format|
-                                format.js { render ajax_redirect_to(root_path)}
+                            begin
+                                respond_to do |format|
+                                    format.js { render ajax_redirect_to(root_path)}
+                                end
+                            rescue
+                                redirect_to root_path
                             end
                         end
                     end
@@ -115,6 +123,7 @@ class UsersController < ApplicationController
 
     def edit #アカウント設定
         @user = User.find(@current_user.id)
+        gon.key = ENV["KEY"]
         if params[:profile].present?
             @profile = true
         end

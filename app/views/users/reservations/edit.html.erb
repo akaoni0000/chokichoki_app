@@ -14,10 +14,12 @@
             <span class="category_name">ポイントで払う(現在のポイントは<%=@current_user.point%>pt)</span>
             <%= f.check_box :point, {class: "checkbox cursor"}, 1, 0 %>
         </span>
+        <!--
         <span class="card_check cursor2">
             <span class="category_name">クレジットカードで払う</span>
             <%= f.check_box :card, {class: "checkbox cursor"}, 1, 0 %>
         </span>
+        -->
         <span class="registered_card_check cursor2">
             <span class="category_name">登録済みのクレジットカードで払う</span>
             <%= f.check_box :registered_card, {class: "checkbox cursor"}, 1, 0 %>

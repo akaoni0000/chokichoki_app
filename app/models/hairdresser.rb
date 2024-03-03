@@ -1,7 +1,7 @@
 class Hairdresser < ApplicationRecord
     attr_accessor :activation_token #仮想的にカラムをつくる
     before_create :create_column #新しくカラムがデータが保存される前に呼ばれる(saveの前)
-    
+
     def create_new_token #ランダムにトークンを発行
         SecureRandom.urlsafe_base64
     end
@@ -22,7 +22,7 @@ class Hairdresser < ApplicationRecord
     validates :name,
         length: { in: 2..10, message: "は2文字以上10文字以内で入力してください" },
         uniqueness: { message: "はすでに存在します" }
-    
+
     #emailカラム
     validates :email,
         uniqueness: { message: "はすでに存在します" },
@@ -31,7 +31,7 @@ class Hairdresser < ApplicationRecord
     #shop_nameカラム
     validates :shop_name,
         length: { in: 2..20, message: "は2文字以上20文字以内で入力してください" }
-    
+
     #post_numberカラム
     validates :post_number, format: { with: /\A\d{7}\z/, message: "は半角でハイフンなしの7桁の数字を入力してください"}
 
@@ -47,15 +47,15 @@ class Hairdresser < ApplicationRecord
 
     #passoword_digestカラム
     has_secure_password    #パスワードを暗号化して保存するにはこの記述が必要 presenceとpasswordとpassword_confirmationの一致のバリデーションも兼ねている
-    validates :password, length: { in: 6..20, message: "は6文字以上20文字以内で入力してください" }, on: :create #これをしないとpasswordを更新しないupdateのときも求められる 
+    validates :password, length: { in: 6..20, message: "は6文字以上20文字以内で入力してください" }, on: :create #これをしないとpasswordを更新しないupdateのときも求められる
 
     #sexカラム
     validates :sex, presence: { message: "を選択してください" }
-    
+
     #gem refile を使う時
-    attachment :confirm_image 
-    attachment :hairdresser_image 
-    
+    attachment :confirm_image
+    attachment :hairdresser_image
+
     #モデルの関連付け
     has_many :menus, dependent: :destroy
     has_many :reservations, through: :menus

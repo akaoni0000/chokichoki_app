@@ -6,6 +6,7 @@
 <img src="<%= asset_path "amex.gif" %>" class="card_logo">
 <img src="<%= asset_path "diner.gif" %>" class="card_logo">
 <img src="<%= asset_path "discover.gif" %>" class="card_logo">
+<!--
 <div class="container center card_register">
     <%= form_with(url: user_cards_path, method: :post, id: "charge-form") do |f|  %>
         <%= f.label "カード番号" %><span class="must">必須</span>
@@ -24,3 +25,36 @@
         </div>
     <%end%>
 </div>
+-->
+<div id="fda" style="margin-top:100px">
+    <div id="v2-demo" class="payjs-outer"><!-- ここにフォームが生成されます --></div>
+    <button onclick="onSubmit(event)">登録する</button>
+    <span id="token"></span>
+</div>
+<%= form_with(url: user_cards_path, method: :post, id: "charge-form", local: true) do |f|  %>
+<%end%>
+<script>
+// 公開鍵を登録し、起点となるオブジェクトを取得します
+var payjp = Payjp(gon.key)
+
+// elementsを取得します。ページ内に複数フォーム用意する場合は複数取得ください
+var elements = payjp.elements()
+
+// element(入力フォームの単位)を生成します
+var cardElement = elements.create('card')
+
+// elementをDOM上に配置します
+cardElement.mount('#v2-demo')
+
+// ボタンが押されたらtokenを生成する関数を用意します
+function onSubmit(event) {
+  payjp.createToken(cardElement).then(function(r) {
+    // document.querySelector('#token').innerText = r.error ? r.error.message : r.id
+    document.getElementById('charge-form').insertAdjacentHTML('beforeend', `<input type="hidden" name="payjp-token" value="${r.id}">`)
+    document.getElementById('charge-form').insertAdjacentHTML('beforeend', `<input type="submit" name="commit" value="" id="token_submit" class="btn btn-success display_none" data-disable-with="" type="hidden">`)
+    document.getElementById("token_submit").click()
+  })
+}
+
+
+</script>

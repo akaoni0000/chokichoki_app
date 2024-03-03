@@ -1,10 +1,10 @@
 class HomeController < ApplicationController
     def user_top
-        #人気美容師 口コミが5件以上あり、評価平均が4.5以上の美容師のデータを取得
-        @hairdressers = Hairdresser.select {|hairdresser| hairdresser.hairdresser_comments.where.not(rate: 0.0).length >= 5 && hairdresser.reputation_point/hairdresser.hairdresser_comments.where.not(rate: 0.0).length >= 4.5}
+        #人気美容師 口コミが3件以上あり、評価平均が4.5以上の美容師のデータを取得
+        @hairdressers = Hairdresser.select {|hairdresser| hairdresser.hairdresser_comments.where.not(rate: 0.0).length >= 3 && hairdresser.reputation_point/hairdresser.hairdresser_comments.where.not(rate: 0.0).length >= 4.5}
 
-        #評判の美容師 口コミが3件以上あり、評価平均が4以上の美容師のデータをメニューのカテゴリーごとに取得
-        @hairdressers_for_reputation = Hairdresser.select {|hairdresser| hairdresser.hairdresser_comments.where.not(rate: 0.0).length >= 3 && hairdresser.reputation_point/hairdresser.hairdresser_comments.where.not(rate: 0.0).length >= 4}.sample(10)
+        #評判の美容師 口コミが2件以上あり、評価平均が4以上の美容師のデータをメニューのカテゴリーごとに取得
+        @hairdressers_for_reputation = Hairdresser.select {|hairdresser| hairdresser.hairdresser_comments.where.not(rate: 0.0).length >= 2 && hairdresser.reputation_point/hairdresser.hairdresser_comments.where.not(rate: 0.0).length >= 4}.sample(10)
         @menus = @hairdressers_for_reputation.map {|hairdresser| hairdresser.menus}
         @menus.flatten!
 
@@ -20,7 +20,6 @@ class HomeController < ApplicationController
 
         @hairdresser_new = Hairdresser.new
 
-        #binding.pry
         #gon
         gon.body = "white" #jsで背景を変える
         gon.fix = "header" #jsでheaderを固定する

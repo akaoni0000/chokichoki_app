@@ -3,10 +3,10 @@
 <p>下記のURLをクリックすると登録が完了します。</p>
 <% if @user.present? %>
     <%= user_activation_url(token: @token, email: @user.email) %>
-    <% binding.pry %>
 <% elsif @hairdresser.present? %>
     <%= hairdresser_activation_url(token: @token, email: @hairdresser.email)%>
 <% end %>
 
 <p>※URLの有効期限は10分間です。有効期限を過ぎますと過ぎますとURLは無効になりますので、
 その場合、もう一度最初から手続きを行ってください。</p>
+

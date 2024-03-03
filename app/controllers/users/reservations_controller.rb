@@ -20,7 +20,7 @@ class Users::ReservationsController < ApplicationController
         elsif params[:standard_day].present?
             @standard_day = Date.new(params[:standard_day][0,4].to_i, params[:standard_day][5,2].to_i, params[:standard_day][8,2].to_i)
         else
-            @standard_day = Date.today 
+            @standard_day = Date.today
         end
 
         if params[:win_height].present?
@@ -29,16 +29,16 @@ class Users::ReservationsController < ApplicationController
 
         #テーブルの真ん中上の年月のviewを整えるのに使う
         @diff = (@standard_day.end_of_month - @standard_day).to_i
-        
+
         @clock_arry = ["06:00", "06:30", "07:00", "07:30", "08:00", "08:30", "09:00", "09:30", "10:00", "10:30", "11:00", "11:30", "12:30", "12:30", "13:00", "13:30", "14:00", "14:30", "15:00","15:30", "16:00", "16:30", "17:00", "17:30", "18:00", "18:30", "19:00", "19:30", "20:00", "20:30", "21:00", "21:30", "22:00", "22:30", "23:00", "23:30"]
-        
+
         #配列を作成
-        for i in 1..14 do 
-            if i == 1 
+        for i in 1..14 do
+            if i == 1
                 @key_time = Time.local(@standard_day.year, @standard_day.month, @standard_day.day) + 3600*6   #秒で計算している 3600は一時間
-                @time_arry = @key_time.to_i.step( (Time.local(@standard_day.year, @standard_day.month, @standard_day.day)+3600*23.5).to_i, 60*30).to_a    
+                @time_arry = @key_time.to_i.step( (Time.local(@standard_day.year, @standard_day.month, @standard_day.day)+3600*23.5).to_i, 60*30).to_a
                 @time_arry.map! {|a| Time.at(a)}
-            else 
+            else
                 @key_time = Time.local(@standard_day.year, @standard_day.month, @standard_day.day) + 3600*6 + 3600*24*(i-1)
                 @time_next_arry = @key_time.to_i.step( (Time.local(@standard_day.year, @standard_day.month, @standard_day.day)+3600*24*(i-1)+3600*23.5).to_i, 60*30).to_a
                 @time_next_arry.map! {|a| Time.at(a)}
@@ -48,14 +48,14 @@ class Users::ReservationsController < ApplicationController
         @time_arry.flatten! #この時点では要素はTimeクラス
         @date_arry = @time_arry.map {|a| a.to_date} #これで要素はDateクラス
         @date_arry.uniq!
-        
+
         if Menu.find_by(id: params[:menu_id], status: true).present? #フロントで引数を変更されたり、美容師の方でメニューを削除したばかりでuser側で更新をしてない時のため
             @menu = Menu.find(params[:menu_id])
         else
             flash[:notice_red] = "エラーが発生しました。最初からやりなおしてください。"
             redirect_to root_path
         end
-        
+
         @thead_for_user = true #部分テンプレートの_theadでlinkを無効にするのに使う
     end
 
@@ -101,9 +101,9 @@ class Users::ReservationsController < ApplicationController
                 if  @current_user.point >= 500
                     @current_user.point -= 500
                     @current_user.save
-                    
+
                     various_change #インスタンスメソッド
-    
+
                     respond_to do |format|
                         format.js { render ajax_redirect_to(users_complete_path) }
                     end
@@ -132,7 +132,7 @@ class Users::ReservationsController < ApplicationController
                 else
                     @error = "registered_card_error" #jsでエラー文を表示させる
                 end
-            else 
+            else
                 @error = "check_error" #jsでエラー文を表示させる
             end
         end
@@ -151,7 +151,7 @@ class Users::ReservationsController < ApplicationController
                 :card => params['payjp-token'],
                 :currency => 'jpy', #日本円
             )
-            
+
             #お金を記録 adminで売り上げ金額を見るため
             @money = Money.new(user_id: @current_user.id)
             @money.save
@@ -171,7 +171,7 @@ class Users::ReservationsController < ApplicationController
         @reservation.user_id = nil
         @reservation.notification_status = 0
         @reservation.save
-        
+
         #予約した時間から施術が終わる時間までの間の時間に、start_time(カラム)が存在するreservationsテーブルのレコードのstatus(カラム)をupdateする。そうすることで予約した時間から施術が終わる時間までの時間は予約を入れることができるようにする
         @time_min = @reservation.start_time
         @time_max = @reservation.start_time + @reservation.menu.time*60 -1
@@ -188,7 +188,7 @@ class Users::ReservationsController < ApplicationController
         @start_time = @reservation.start_time
         @hairdresser_comment = HairdresserComment.find_by(user_id: @current_user.id, hairdresser_id: @hairdresser_id, menu_id: @menu_id, start_time: @start_time)
         @hairdresser_comment.destroy
-        
+
         #予約をキャンセルした情報を保存
         @cancel_reservation = CancelReservation.new(menu_id: params[:menu_id], user_id: @current_user.id, hairdresser_id: @hairdresser_id, start_time: params[:start_time])
         @cancel_reservation.reservation_token = @reservation.reservation_token
@@ -205,7 +205,7 @@ class Users::ReservationsController < ApplicationController
         @reservation_token = @reservation.reservation_token
         data = {reservation_token: @reservation_token, digest: @digest}
         RoomChannel.notice_cancel(data)
-    
+
         flash[:notice] = "予約をキャンセルしました"
         redirect_to users_reservations_path
     end
@@ -237,14 +237,14 @@ class Users::ReservationsController < ApplicationController
 
             #最初のメッセージを作成 美容師への要望が最初のメッセージになる 空白の場合rollbackされる
             @chat_message = ChatMessage.new(user_id: @current_user.id, room_id: @room.id, message: @reservation.user_request)
-            @chat_message.save 
-            
+            @chat_message.save
+
             #予約完了のメールを送る
             @user = User.find(@reservation.user_id)
             if @user.email.include?("@twitter.com") == false
-                NotificationMailer.reservation_complete_mail(@reservation).deliver_now 
+                NotificationMailer.reservation_complete_mail(@reservation).deliver_now
             end
-            
+
             #美容師に予約が入ったことを知らせる
             @digest = @reservation.menu.hairdresser.activation_digest
             @token = @reservation.reservation_token
@@ -262,5 +262,3 @@ class Users::ReservationsController < ApplicationController
     end
 
 end
-
-

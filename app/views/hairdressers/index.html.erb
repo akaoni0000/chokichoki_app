@@ -20,7 +20,7 @@
             <%= link_to users_hairdresser_path(hairdresser.id), class: "hairdresser_show_link", remote: true do %>
                 <%= attachment_image_tag hairdresser, :hairdresser_image, size: "150x150", fallback: "no_image.png", class: "img-circle" %>
             <% end %>
-            <h3 style="color: black; text-decoration: none;"><%= hairdresser.name %></h3>
+            <h3 style="color: black; text-decoration: none; width:200px"><%= hairdresser.name %></h3>
             <div id="star-rate-index-average-<%= hairdresser.id %>"></div>
                 <!-- 星をつけるための記述 -->
                 <% @comments = hairdresser.hairdresser_comments.where.not(rate: 0.0).count %>

@@ -292,18 +292,27 @@ $(function(){
 	}
 })
 
-
-
 //郵便番号入力で住所自動入力
-$(function() {
-    $(window).ready(function() {
-        $("#hairdresser_post_number").jpostal({
-            postcode: ["#hairdresser_post_number"],
-            address: {
-                "#hairdresser_address": "%3%4%5"
-            }
-        });
-    });
+// $(function() {
+//     $(window).ready(function() {
+//         alert("fdada")
+//         $("#hairdresser_post_number").jpostal({
+//             postcode: ["#hairdresser_post_number"],
+//             address: {
+//                 "#hairdresser_address": "%3%4%5"
+//             }
+//         });
+//     });
+// });
+$(function () {
+	$('#hairdresser_post_number').jpostal({
+		postcode : [
+			'#hairdresser_post_number'
+		],
+		address : {
+			'#hairdresser_address' : '%3%4%5'
+		}
+	});
 });
 
 //画像プレビュー表示
@@ -515,45 +524,48 @@ $(function() {
 });
 
 //pay.jp  クレジットカード登録 決済
-$(function() {
-    //gon.keyはpay.jpの公開鍵 環境変数はjsでは使えなかった
-    Payjp.setPublicKey(gon.key);
+// $(function() {
+//     //gon.keyはpay.jpの公開鍵 環境変数はjsでは使えなかった
+//     Payjp.setPublicKey(gon.key);
 
-    $(document).on("click", "#token_submit", function (e) {  
-        e.preventDefault();
-        var card = {
-            number: $("#card_number").val(),
-            exp_month: $("#exp_month").val(),
-            exp_year: $("#exp_year").val(),
-            cvc: $("#cvc").val()
-        };
-        var number = $("#card_number").val();
-        var user_request = $(".request").val();
-        if(number != 4242424242424242) {
-            alert("カード番号は4242424242424242と入力してください。このサイトではこのテストコードでしか決済できません。")
-        }
-        //createToken でトークンを申込を発行してpayjp側に送る => payjp側でトークンが作成されresponseでpayjp側で作成されたトークンが帰ってくる　作成されない可能性もある　トークンが作成されるだけで保存はされていない statusはトークンが作成されたかどうか200は成功
-        Payjp.createToken(card, function(status, response) {
-            if (status === 200) {                    
-                $("#card_number").removeAttr("name");  //card_numberの値はコントローラーに送らなくていい  Payjp.createToken(card...  のcardでpayjp側にデータが送られている
-                $("#exp_month").removeAttr("name");
-                $("#exp_year").removeAttr("name");
-                $("#cvc").removeAttr("name");
-                var token = response.id;               //tokenにはトークン(number exp_month exp_yearのデータが入っている)
-                $("#charge-form").append(`<input type="hidden" name="payjp-token" value=${token}></input>`)
-                $("#charge-form").append(`<input type="hidden" name="user_request" value=${user_request}></input>`)
-                $("#charge-form").submit();
-            } 
-            else if (status === 429) {
-                alert("pay.jp側で処理ができませんでした。通信を軽くしてください。")
-            }
-            else {
-                alert("正しい有効期限またはセキリュティコードを入力してください。");
-            }
-        });
+//     $(document).on("click", "#token_submit", function (e) {  
+//         e.preventDefault();
+//         var card = {
+//             number: $("#card_number").val(),
+//             exp_month: $("#exp_month").val(),
+//             exp_year: $("#exp_year").val(),
+//             cvc: $("#cvc").val()
+//         };
+//         var number = $("#card_number").val();
+//         var user_request = $(".request").val();
+//         if(number != 4242424242424242) {
+//             alert("カード番号は4242424242424242と入力してください。このサイトではこのテストコードでしか決済できません。")
+//         }
+//         //createToken でトークンを申込を発行してpayjp側に送る => payjp側でトークンが作成されresponseでpayjp側で作成されたトークンが帰ってくる　作成されない可能性もある　トークンが作成されるだけで保存はされていない statusはトークンが作成されたかどうか200は成功
+//         Payjp.createToken(card, function(status, response) {
+//             if (status === 200) {                    
+//                 $("#card_number").removeAttr("name");  //card_numberの値はコントローラーに送らなくていい  Payjp.createToken(card...  のcardでpayjp側にデータが送られている
+//                 $("#exp_month").removeAttr("name");
+//                 $("#exp_year").removeAttr("name");
+//                 $("#cvc").removeAttr("name");
+//                 var token = response.id;               //tokenにはトークン(number exp_month exp_yearのデータが入っている)
+//                 $("#charge-form").append(`<input type="hidden" name="payjp-token" value=${token}></input>`)
+//                 $("#charge-form").append(`<input type="hidden" name="user_request" value=${user_request}></input>`)
+//                 $("#charge-form").submit();
+//             } 
+//             else if (status === 429) {
+//                 alert("pay.jp側で処理ができませんでした。通信を軽くしてください。")
+//             }
+//             else {
+//                 alert("正しい有効期限またはセキリュティコードを入力してください。");
+//             }
+//         });
         
-    });
-});
+//     });
+// });
+
+
+
 
 //勝手にstyleがついていた
 $(function(){

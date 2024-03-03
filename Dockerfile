@@ -25,4 +25,4 @@ ADD . /myapp
 
 # puma.sockを配置するディレクトリを作成
 RUN mkdir -p tmp/sockets
-RUN rm -rf tmp/pids
+RUN mkdir -p tmp/pids

@@ -1,6 +1,6 @@
 class NotificationMailer < ApplicationMailer
     default from: 'no-replay@gmail.com'
-     
+
     def registration_complete_mail(user_or_hairdresser_data, token, user_or_hairdresser) #ここのアクション名が大事    mailのviewはnotification_mailerフォルダに アクション名.text.erbと記述する
         @token = token
         if user_or_hairdresser == "user"

@@ -1,5 +1,5 @@
 class ChatsController < ApplicationController
-    include AjaxHelper 
+    include AjaxHelper
     def user_chat
         @chats = Chat.where(user_id: @current_user.id)
         @chat_message = ChatMessage.new
@@ -13,7 +13,7 @@ class ChatsController < ApplicationController
         find_last_message
         gon.chat = "chat" #jsでfooterをdisplay_noneにする footerがあるとスクロールが入って邪魔
     end
-   
+
     def room #チャットのviewの左のルームのどれかをクリックしたらここにくる
         if @current_user.present?
             @chats = Chat.where(room_id: params[:room_id], user_id: @current_user.id)
@@ -45,7 +45,7 @@ class ChatsController < ApplicationController
                     @unread_message.update_all(:notification => true )
                 end
             end
-            
+
             @chat_message = ChatMessage.new #メッセージ送信フォームで使う
             @chat_messages = ChatMessage.where(room_id: @room.id) #そのルームのメッセージを取得
             if @chat_messages.present? #メッセージが存在したら
@@ -90,7 +90,7 @@ class ChatsController < ApplicationController
             if @chat_message.save #何もparamsで送られて来なかった時は保存されない
                 @room = Room.find(@chat.room_id)
                 @style_image = StyleImage.find_by(hairdresser_id: @chat.hairdresser_id) #美容師の
-                @hair_arry = @style_image.hair_images 
+                @hair_arry = @style_image.hair_images
                 @chat_messages = ChatMessage.where(room_id: @chat.room_id)
                 if @chat_messages.last(2).first.created_at.to_date != @chat_messages.last(2).last.created_at.to_date #chat_messagesテーブルの最後の二つのデータの作成日が違うかどうか
                     @date = @chat_messages.last.created_at.to_date
@@ -113,7 +113,7 @@ class ChatsController < ApplicationController
         end
     end
 
-    def receive_message 
+    def receive_message
         @room = Room.find_by(room_token: params[:data][:room_token])
         @chat = Chat.find_by(room_id: @room.id)
         if params[:data][:user_or_hairdresser] == "user" #メッセージを送信した人がuserに送ったので相手はhairdresser
@@ -125,7 +125,7 @@ class ChatsController < ApplicationController
             data = {room_token: @room.room_token, user_or_hairdresser: "user", digest: @user.activation_digest}
         end
         @style_image = StyleImage.find_by(hairdresser_id: @chat.hairdresser_id) #美容師の
-        @hair_arry = @style_image.hair_images 
+        @hair_arry = @style_image.hair_images
         @chat_messages = ChatMessage.where(room_id: @room.id)
         if @chat_messages.last(2).first.created_at.to_date != @chat_messages.last(2).last.created_at.to_date #chat_messagesテーブルの最後の二つのデータの作成日が違うかどうか
             @date = @chat_messages.last.created_at.to_date
@@ -135,7 +135,7 @@ class ChatsController < ApplicationController
         @chat_message.save
 
         @time = "#{@chat_message.created_at.to_time.hour}:#{@chat_message.created_at.to_time.strftime("%Y-%m-%d %H:%M:%S").strip[14, 2]}"
-        
+
         RoomChannel.notice(data)
     end
 
@@ -143,7 +143,7 @@ class ChatsController < ApplicationController
         @keyword = params[:search_room]
         @keyword = @keyword.tr('　+',' +') #全角スペースを半角スペースにする
         @keyword.strip! #スペースを削除
-        if @current_user.present? 
+        if @current_user.present?
             @hairdressers = Hairdresser.where(['name LIKE ?', "%#{@keyword}%"])
             @chats = @hairdressers.map {|a| Chat.where(user_id: @current_user.id, hairdresser_id: a.id)}
         elsif @current_hairdresser.present?
@@ -166,7 +166,7 @@ class ChatsController < ApplicationController
                 if @last_message.blank?
                     i = 0
                 end
-            else 
+            else
                 @new_last_message = ChatMessage.order(created_at: "DESC").find_by(room_id: room_id)
                 if @new_last_message.present? && @last_message.created_at < @new_last_message.created_at
                     @last_message = @new_last_message

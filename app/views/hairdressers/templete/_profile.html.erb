@@ -1,7 +1,7 @@
 <%= form_with(model: @current_hairdresser, id: "hairdresser_form") do |f| %>
     <div style="margin-bottom: 30px;">
         <label class= "hairdresser_label cursor2" style="width: 150px; height: 150px;">
-            <%= f.attachment_field :hairdresser_image, id: "hairdresser_img", class: "hidden" %>
+            <%= f.file_field :hairdresser_image, id: "hairdresser_img", class: "hidden" %>
             <% if @current_hairdresser.sex == "男性" %>
                 <%= attachment_image_tag @current_hairdresser, :hairdresser_image, size: "150x150", fallback: "male2.png", class: "img-circle", id: "prev_img", style: "margin-right: 5px;"%>
             <% elsif @current_hairdresser.sex == "女性" %>

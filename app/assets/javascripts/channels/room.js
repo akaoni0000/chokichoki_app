@@ -82,6 +82,7 @@ App.room = App.cable.subscriptions.create("RoomChannel", {
         //既読をつけるために相手がルームに入ったとき ルームにいるときメッセージを受診したとき
         else if (data["type"] == "既読をつける") {
             //受け取ったデータを整理
+            console.log("fasjifjasiofjai")
             var room_token = data["room_token"];
             var user_or_hairdresser = data["user_or_hairdresser"] //誰に送信したか
             var digest = data["digest"]

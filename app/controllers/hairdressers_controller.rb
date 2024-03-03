@@ -1,10 +1,10 @@
 class HairdressersController < ApplicationController
 
-    include AjaxHelper 
+    include AjaxHelper
 
     def create #まだactivation_statusはfalse メールアドレス認証は済んでいない メールを送る
         @hairdresser = Hairdresser.new(hairdresser_params)
-        if @hairdresser.save   
+        if @hairdresser.save
             #美容師のヘアスタイルの写真のレコードを作成 hairdressersテーブルとstyle_imagesテーブルは1対1の関係であり、同じテーブルにした方がいいと思ったが、style_imagesコントローラを作りたかったので独立させた。
             @style = StyleImage.new(hairdresser_id: @hairdresser.id)
             @style.save
@@ -12,19 +12,19 @@ class HairdressersController < ApplicationController
             session[:not_activation_hairdresser_token] = @hairdresser.activation_token
             session[:not_activation_hairdresser_deadline] = Time.now + 600
             NotificationMailer.registration_complete_mail(@hairdresser, @hairdresser.activation_token, "hairdresser").deliver_now
-        else 
+        else
             validation_message #インスタンスメソッド
         end
     end
 
     def resend #メールの再送信 前のメールを送ってから10分以内に [メールを再送する] をクリックしないと再送されない
         if session[:not_activation_hairdresser_deadline].present? && Time.now <= session[:not_activation_hairdresser_deadline] #メールの再送が行えるのはメールを送ってから10分間の間
-            @hairdresser = Hairdresser.find(session[:not_activation_hairdresser_id]) 
+            @hairdresser = Hairdresser.find(session[:not_activation_hairdresser_id])
             @token = session[:not_activation_hairdresser_token]
             @hairdresser.activation_deadline_at = Time.now + 600 #新しく制限時間を設ける(メールを送信してから10分以内)
             @hairdresser.save
             session[:not_activation_hairdresser_deadline] = Time.now + 600 #再びメールの再送が行えるのはメールを送ってから10分間の間
-            NotificationMailer.registration_complete_mail(@hairdresser, @token, "hairdresser").deliver_now 
+            NotificationMailer.registration_complete_mail(@hairdresser, @token, "hairdresser").deliver_now
         else
             flash[:notice_red] = "要求がタイムアウトになりました。最初からやり直してください。"
             respond_to do |format|
@@ -42,7 +42,7 @@ class HairdressersController < ApplicationController
         if Time.now <= @deadline_at && @true_or_false #メールが送られてから10分以内 かつ トークンをハッシュ化したものはdigest
             @hairdresser.activation_status = true #メール認証成功
             @hairdresser.save
-            flash[:notice] = "メールアドレスの認証が完了しました"   
+            flash[:notice] = "メールアドレスの認証が完了しました"
             redirect_to hairdresser_wait_path(@hairdresser.id)
         else
             redirect_to deadline_path
@@ -151,7 +151,7 @@ class HairdressersController < ApplicationController
         #今日の予約と明日の予約
         @reservations_today = @current_hairdresser.reservations.where(start_time: Time.now.midnight .. Time.now.end_of_day).order(start_time: "ASC") & @current_hairdresser.reservations.where.not(user_id: nil).order(start_time: "ASC")
         @reservations_tomorrow = @current_hairdresser.reservations.where(start_time: (Time.now + 3600*24).midnight .. (Time.now + 3600*24).end_of_day).order(start_time: "ASC") & @current_hairdresser.reservations.where.not(user_id: nil).order(start_time: "ASC")
-        
+
         @menus = @current_hairdresser.menus.where(status: true)
         @menus_category = @menus.map {|a| a.category}
         @menus_category.uniq!
@@ -160,7 +160,7 @@ class HairdressersController < ApplicationController
         @perm = @menus_category.map {|a| a.slice(2,1)} #パーマ
         @curly = @menus_category.map {|a| a.slice(3,1)} #縮毛
     end
-    
+
     #ここから下3つはログインしていない時、パスワードを忘れた時の処理
     def password_reset #パスワードを忘れた時、パスワード再設定から送られてくる
         @email = params[:email]
@@ -244,10 +244,10 @@ class HairdressersController < ApplicationController
         if @hairdresser.errors.added?(:post_number, :invalid, :value=>@post_number)
             @error_post_invalid = "ハイフンなし半角7桁の数字を入力してください"
         end
-        if @hairdresser.errors.added?(:shop_latitude, :blank) || @hairdresser.errors.added?(:shop_longitude, :blank) || params[:hairdresser][:shop_latitude].blank?
-            @error_address = "正しい住所を入力してください"
-            @total_error -= 2
-        end
+        # if @hairdresser.errors.added?(:shop_latitude, :blank) || @hairdresser.errors.added?(:shop_longitude, :blank) || params[:hairdresser][:shop_latitude].blank?
+        #     @error_address = "正しい住所を入力してください"
+        #     @total_error -= 2
+        # end
         if @hairdresser.errors.added?(:password, :too_short, :count=>6) || @hairdresser.errors.added?(:password, :too_long, :count=>20)
             @error_password_short = "パスワードは6文字以上20文字以下で入力してください"
         end
@@ -261,7 +261,7 @@ class HairdressersController < ApplicationController
             @error_sex_blank = "性別を選択してください"
         end
     end
-    
+
 
     private
 	def hairdresser_params
