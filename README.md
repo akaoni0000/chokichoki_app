@@ -31,9 +31,9 @@ https://drive.google.com/file/d/1L9GzhtcA8YSMYTWPJa_tjOHIt_3FVncx/view?usp=shari
 https://docs.google.com/spreadsheets/d/1iVJtVIEPOJfK9lpzj4hvO74wDkuwX-_JMYbeXIKvjyk/edit?usp=sharing
 
 ### 各種バージョン
-ruby・・・2.5.7<br>
-rails・・・5.2.3<br>
-nginx・・・1.19.3<br>
+ruby・・・3.0.5<br>
+rails・・・6.1.4<br>
+nginx・・・1.25.4<br>
 jsフレームワーク・・・jquery<br>
 開発環境・・・docker
 
