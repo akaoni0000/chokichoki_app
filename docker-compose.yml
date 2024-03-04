@@ -29,10 +29,10 @@ services:
     volumes:
       - public-data:/myapp/public
       - tmp-data:/myapp/tmp
-      - /etc/letsencrypt/live/chokichoki.online/fullchain.pem:/ssl/server.crt
-      - /etc/letsencrypt/live/chokichoki.online/privkey.pem:/ssl/server.key
+      # - /etc/letsencrypt/live/chokichoki.online/fullchain.pem:/ssl/server.crt
+      # - /etc/letsencrypt/live/chokichoki.online/privkey.pem:/ssl/server.key
     ports:
-      - 443:443
+      - 80:80
     depends_on:
       - app
 volumes:

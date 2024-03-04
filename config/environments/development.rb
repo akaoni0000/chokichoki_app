@@ -69,8 +69,7 @@ Rails.application.configure do
   #config.action_mailer.default_url_options = { host: 'localhost:3000'}
   #config.action_mailer.default_url_options = { host: 'localhost'}
   ###actionmailerのurl
-  config.action_mailer.default_url_options = { host: 'chokichoki.online'}
+  config.action_mailer.default_url_options = { host: 'localhost'}
 
-  config.hosts << "chokichoki.online"
-
+  config.hosts << "puma"
 end
