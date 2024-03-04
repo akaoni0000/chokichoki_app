@@ -4,9 +4,9 @@ class SearchController < ApplicationController
         if params[:turn] == "2"
             gon.turn = 2            #jsで要素の順番を変える
         elsif params[:turn] == "3"
-            gon.turn = 3            #jsで要素の順番を変える         
-        elsif params[:turn] == "4" 
-            gon.turn = 4            #jsで要素の順番を変える             
+            gon.turn = 3            #jsで要素の順番を変える
+        elsif params[:turn] == "4"
+            gon.turn = 4            #jsで要素の順番を変える
         elsif params[:turn] == "5"
             gon.turn = 5            #jsで要素の順番を変える
         elsif params[:turn] == "6"
@@ -20,12 +20,12 @@ class SearchController < ApplicationController
             @select_day_arry.push("#{@day.month}月#{@day.day}日 (#{%w(日 月 火 水 木 金 土)[@day.wday]})")
         end
         @select_day_arry.unshift("指定しない")
-        
+
         #単純に都道府県のように打ち込むのは面倒なので工夫した
         @select_time_arry_start = []
-        for i in 0..34 do 
-            @time = Time.local(2000,1,1) + 3600*6    
-            @time += 60 * 30 * i  
+        for i in 0..34 do
+            @time = Time.local(2000,1,1) + 3600*6
+            @time += 60 * 30 * i
             if @time.hour.to_s.length == 1
                 @time_hour = 0.to_s + @time.hour.to_s
             else
@@ -40,9 +40,9 @@ class SearchController < ApplicationController
         end
 
         @select_time_arry_finish = []
-        for i in 1..35 do 
-            @time = Time.local(2000,1,1) + 3600*6    
-            @time += 60 * 30 * i  
+        for i in 1..35 do
+            @time = Time.local(2000,1,1) + 3600*6
+            @time += 60 * 30 * i
             if @time.hour.to_s.length == 1
                 @time_hour = 0.to_s + @time.hour.to_s
             else
@@ -114,9 +114,9 @@ class SearchController < ApplicationController
     end
 
     def top_hairdresser
-        @hairdressers = Hairdresser.select {|hairdresser| hairdresser.hairdresser_comments.where.not(rate: 0.0).length >= 5 && hairdresser.reputation_point/hairdresser.hairdresser_comments.length >= 4.5}
+        @hairdressers = Hairdresser.select {|hairdresser| hairdresser.hairdresser_comments.where.not(rate: 0.0).length >= 3 && hairdresser.reputation_point/hairdresser.hairdresser_comments.length >= 4}
         @hairdressers = Kaminari.paginate_array(@hairdressers).page(params[:page]).per(10)
-        if @hairdressers.blank? 
+        if @hairdressers.blank?
             @none = "該当する情報がありません"
         end
         render "hairdressers/index"
@@ -153,7 +153,7 @@ class SearchController < ApplicationController
             render "hairdressers/index"
         end
     end
-    
+
     #二つの緯度経度を入力すれば距離(km)がでる
     module GetDistance
         def self.distance(lat1, lng1, lat2, lng2)
@@ -162,29 +162,29 @@ class SearchController < ApplicationController
             y1 = lng1.to_f * Math::PI / 180
             x2 = lat2.to_f * Math::PI / 180
             y2 = lng2.to_f * Math::PI / 180
-        
+
             # 地球の半径 (km)
             radius = 6378.137
-        
+
             # 差の絶対値
             diff_y = (y1 - y2).abs
-        
+
             calc1 = Math.cos(x2) * Math.sin(diff_y)
             calc2 = Math.cos(x1) * Math.sin(x2) - Math.sin(x1) * Math.cos(x2) * Math.cos(diff_y)
-        
+
             # 分子
             numerator = Math.sqrt(calc1 ** 2 + calc2 ** 2)
-        
+
             # 分母
             denominator = Math.sin(x1) * Math.sin(x2) + Math.cos(x1) * Math.cos(x2) * Math.cos(diff_y)
-        
+
             # 弧度
             degree = Math.atan2(numerator, denominator)
-        
+
             # 大円距離 (km)
             degree * radius
         end
-    end 
+    end
 
     def strong_search #それぞれの条件にあうデータを配列で取得して最後に共通な要素で配列を作る
         #メニューカテゴリー #メニューが優先 メニューから絞る
@@ -194,24 +194,24 @@ class SearchController < ApplicationController
             @hairdressers_from_category = Hairdresser.all
         else
             @menus_from_category = []
-            if params[:category1] == "1" 
+            if params[:category1] == "1"
                 @menus_from_category1 = Menu.all.select {|menu| menu.category.slice(0,1) == "1" && menu.status == true}
             else
                 @menus_from_category1 = []
             end
-            if params[:category2] == "1" 
+            if params[:category2] == "1"
                 @menus_from_category2 = Menu.all.select {|menu| menu.category.slice(1,1) == "1" && menu.status == true}
-            else 
+            else
                 @menus_from_category2 = []
             end
-            if params[:category3] == "1" 
+            if params[:category3] == "1"
                 @menus_from_category3 = Menu.all.select {|menu| menu.category.slice(2,1) == "1" && menu.status == true}
-            else 
+            else
                 @menus_from_category3 = []
             end
-            if params[:category4] == "1" 
+            if params[:category4] == "1"
                 @menus_from_category4 = Menu.all.select {|menu| menu.category.slice(3,1) == "1" && menu.status == true}
-            else 
+            else
                 @menus_from_category4 = []
             end
             @menus_from_category = @menus_from_category.push(@menus_from_category1).push(@menus_from_category2).push(@menus_from_category3).push(@menus_from_category4)
@@ -245,13 +245,13 @@ class SearchController < ApplicationController
             @menus_from_time = Menu.where(status: true)
             @hairdressers_from_time = Hairdresser.all
         end
-    
+
         #現在地 #人が優先 人から絞る
-        if params[:current_lat].present? && params[:current_lng].present? 
+        if params[:current_lat].present? && params[:current_lng].present?
             @current_lat = params[:current_lat].to_f
             @current_lng = params[:current_lng].to_f
             @range = params[:range].to_i
-            
+
             @hairdresser_arry = Hairdresser.all.select {|hairdresser| GetDistance.distance(@current_lat, @current_lng, hairdresser.shop_latitude, hairdresser.shop_longitude).round(2) <= @range}
             @hairdressers_from_area = @hairdresser_arry
             @menus_from_area = @hairdresser_arry.map {|a| a.menus}
@@ -293,7 +293,7 @@ class SearchController < ApplicationController
             @hairdressers_from_sex = Hairdresser.all
             @menus_from_sex = Menu.where(status: true)
         end
-   
+
         #キーワード
         @keyword = params[:search_keyword]
         if @keyword == ""
@@ -324,7 +324,7 @@ class SearchController < ApplicationController
 
         @hairdressers = @hairdressers_from_category & @hairdressers_from_time & @hairdressers_from_area & @hairdressers_from_reputation & @hairdressers_from_sex & @hairdressers_from_keyword
         @menus = @menus_from_category & @menus_from_time & @menus_from_area & @menus_from_reputation & @menus_from_sex & @menus_from_keyword
-        
+
         @hairdressers.delete(nil)
         @menus.delete(nil)
         @hairdressers = Kaminari.paginate_array(@hairdressers).page(params[:page]).per(35)

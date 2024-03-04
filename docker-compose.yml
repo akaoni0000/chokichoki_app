@@ -17,7 +17,6 @@ services:
     tty: true
     stdin_open: true
   db:
-    platform: linux/x86_64
     image: mysql:5.7
     environment: 
       MYSQL_ROOT_PASSWORD: password
@@ -29,10 +28,10 @@ services:
     volumes:
       - public-data:/myapp/public
       - tmp-data:/myapp/tmp
-      #- /etc/letsencrypt/live/protan.site/fullchain.pem:/ssl/server.crt
-      #- /etc/letsencrypt/live/protan.site/privkey.pem:/ssl/server.key
+      - /etc/letsencrypt/live/chokichoki.online/fullchain.pem:/ssl/server.crt
+      - /etc/letsencrypt/live/chokichoki.online/privkey.pem:/ssl/server.key
     ports:
-      - 80:80
+      - 443:443
     depends_on:
       - app
 volumes:

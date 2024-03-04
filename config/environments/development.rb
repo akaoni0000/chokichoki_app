@@ -66,7 +66,11 @@ Rails.application.configure do
   config.reload_classes_only_on_change = true
 
   #mailでlink_toを使うための設定 development.rbは開発環境での設定
-  config.action_mailer.default_url_options = { host: 'localhost:3000'}
+  #config.action_mailer.default_url_options = { host: 'localhost:3000'}
   #config.action_mailer.default_url_options = { host: 'localhost'}
+  ###actionmailerのurl
+  config.action_mailer.default_url_options = { host: 'chokichoki.online'}
+
+  config.hosts << "chokichoki.online"
 
 end

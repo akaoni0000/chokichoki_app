@@ -244,10 +244,10 @@ class HairdressersController < ApplicationController
         if @hairdresser.errors.added?(:post_number, :invalid, :value=>@post_number)
             @error_post_invalid = "ハイフンなし半角7桁の数字を入力してください"
         end
-        # if @hairdresser.errors.added?(:shop_latitude, :blank) || @hairdresser.errors.added?(:shop_longitude, :blank) || params[:hairdresser][:shop_latitude].blank?
-        #     @error_address = "正しい住所を入力してください"
-        #     @total_error -= 2
-        # end
+        if @hairdresser.errors.added?(:shop_latitude, :blank) || @hairdresser.errors.added?(:shop_longitude, :blank) || params[:hairdresser][:shop_latitude].blank?
+            @error_address = "正しい住所を入力してください"
+            @total_error -= 2
+        end
         if @hairdresser.errors.added?(:password, :too_short, :count=>6) || @hairdresser.errors.added?(:password, :too_long, :count=>20)
             @error_password_short = "パスワードは6文字以上20文字以下で入力してください"
         end

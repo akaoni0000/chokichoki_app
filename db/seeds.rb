@@ -68,7 +68,8 @@ User.create!(:name => "テスト2", :email => "2@gmail.com", :password => "choki
     name: "テスト",
     time: 60,
     explanation: "テストテストテストテストテストテストテストテストテストテスト",
-    category: "1111"
+    category: "1111",
+    status: true
   )
 
   HairdresserComment.create!(
@@ -77,8 +78,7 @@ User.create!(:name => "テスト2", :email => "2@gmail.com", :password => "choki
     comment: "テストテストテストテストテストテストテストテストテスト",
     menu_id: Hairdresser.find_by(email:"#{n}@gmail.com").menus[0].id,
     rate: reputation_point,
-    start_time: DateTime.new(2024, 1, 1, 12, 0, 0),
-    status: true
+    start_time: DateTime.new(2024, 1, 1, 12, 0, 0)
   )
 end
 

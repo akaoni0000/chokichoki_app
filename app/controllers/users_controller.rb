@@ -102,11 +102,23 @@ class UsersController < ApplicationController
                     end
                 end
             else
-                redirect_to root_path
+                begin
+                    respond_to do |format|
+                        format.js { render ajax_redirect_to(root_path)}
+                    end
+                rescue
+                    redirect_to root_path
+                end
                 flash[:notice] = "ユーザー登録されていないかメールアドレス認証がされていない可能性があります"
             end
         else
-            redirect_to root_path
+            begin
+                respond_to do |format|
+                    format.js { render ajax_redirect_to(root_path)}
+                end
+            rescue
+                redirect_to root_path
+            end
             flash[:notice] = "ユーザー登録されていないかメールアドレス認証がされていない可能性があります"
         end
     end
